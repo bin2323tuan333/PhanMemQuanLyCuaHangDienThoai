@@ -1,0 +1,56 @@
+/* style.css - Trang trí giao diện */
+
+/* .root là container bao ngoài cùng (cái VBox trong code Java) */
+.root {
+    -fx-background-color: #f0f2f5; /* Màu nền xám nhẹ hiện đại */
+    -fx-padding: 30px;
+    -fx-font-family: 'Segoe UI', sans-serif; /* Font chữ dễ nhìn */
+}
+
+/* Trang trí tiêu đề */
+.tieu-de-login {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 20 0; /* Cách bên dưới 20px */
+}
+
+/* Trang trí các ô nhập liệu (TextField, PasswordField) */
+.text-field, .password-field {
+    -fx-background-radius: 5px; /* Bo góc nhẹ */
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+    -fx-pref-width: 250px; /* Chiều rộng cố định */
+}
+/* Khi bấm vào ô nhập thì viền đổi màu xanh */
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #3498db;
+    -fx-background-color: #fff;
+}
+
+/* Trang trí nút bấm (Button) */
+.button-dang-nhap {
+    -fx-background-color: #3498db; /* Xanh dương */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px; /* Bo tròn kiểu viên thuốc */
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand; /* Di chuột vào hiện bàn tay */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2); /* Đổ bóng nhẹ */
+}
+
+/* Hiệu ứng khi di chuột vào nút (Hover) */
+.button-dang-nhap:hover {
+    -fx-background-color: #2980b9; /* Đổi màu xanh đậm hơn */
+    -fx-scale-x: 1.05; /* Phóng to nhẹ 5% */
+    -fx-scale-y: 1.05;
+}
+
+/* Khi nút bị nhấn */
+.button-dang-nhap:pressed {
+    -fx-background-color: #1c5a85;
+    -fx-effect: none; /* Tắt bóng khi nhấn */
+}
