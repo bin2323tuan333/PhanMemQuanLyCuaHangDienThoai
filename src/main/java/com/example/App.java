@@ -14,12 +14,13 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-        stage.setTitle("Demo JavaFX Login");
+        stage.setTitle("Digital Shop");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void run() {
         launch();
     }
 }

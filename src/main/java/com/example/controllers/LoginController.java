@@ -1,33 +1,41 @@
 package com.example.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-    // Khai báo các biến tương ứng với fx:id bên file FXML
     @FXML
-    private TextField usernameField;
+    private Label label_title;
+    @FXML
+    private TextField textField_username;
+    @FXML
+    private PasswordField textField_password;
+    @FXML
+    private Button button_login;
+    @FXML
+    private Label label_message;
+
 
     @FXML
-    private PasswordField passwordField;
+    protected void button_login_click() {
+        String user = textField_username.getText();
+        String pass = textField_password.getText();
 
-    @FXML
-    private Label messageLabel;
-
-    // Hàm xử lý sự kiện khi bấm nút (tương ứng với onAction)
-    @FXML
-    protected void onLoginButtonClick() {
-        String user = usernameField.getText();
-        String pass = passwordField.getText();
+        if (user.isEmpty() || pass.isEmpty()) {
+            label_message.setText("Không được để trống!");
+            label_message.setStyle("-fx-text-fill: red;");
+            return;
+        }
 
         if (user.equals("admin") && pass.equals("123")) {
-            messageLabel.setStyle("-fx-text-fill: green;");
-            messageLabel.setText("✅ Đăng nhập thành công!");
+            label_message.setText("Đăng nhập thành công!");
+            label_message.setStyle("-fx-text-fill: green;");
         } else {
-            messageLabel.setStyle("-fx-text-fill: red;");
-            messageLabel.setText("❌ Sai tài khoản hoặc mật khẩu!");
+            label_message.setText("Sai tài khoản hoặc mật khẩu!");
+            label_message.setStyle("-fx-text-fill: red;");
         }
     }
 }
