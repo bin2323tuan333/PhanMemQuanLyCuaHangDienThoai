@@ -13,7 +13,7 @@
 
 .login-btn {
     -fx-background-color: linear-gradient(to right, #009fff, #ec2f4b);
-    -fx-text-fill: white;           /* font color */
+    -fx-text-fill: white;                               /* font color */
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-background-radius: 14;

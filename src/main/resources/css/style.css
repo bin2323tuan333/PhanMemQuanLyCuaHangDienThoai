@@ -1,7 +1,6 @@
 
 .root {
     -fx-background-color: #f0f2f5;
-    -fx-padding: 30px;
     -fx-font-family: 'Segoe UI', sans-serif;
 }
 
@@ -9,4 +8,12 @@
 
 .br-10 {
     -fx-background-radius: 10px;
+}
+
+.nav-btn {
+    -fx-background-color: white;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, #000, 10, 0, 0, 4);
 }
