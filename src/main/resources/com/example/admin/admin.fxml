@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../../../css/style.css" />
+    </stylesheets>
+    <children>
+        <HBox prefHeight="50.0" prefWidth="1280.0">
+            <children>
+                <Pane prefHeight="50.0" prefWidth="90.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0">
+                            <styleClass>
+                                <String fx:value="nav-btn" />
+                            </styleClass>
+                        </Button>
+                    </children>
+                </Pane>
+                <Pane prefHeight="48.0" prefWidth="960.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="nav-btn" text="Tổng quan">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="120.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="nav-btn" text="Sản phẩm">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="240.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="nav-btn" text="Hóa đơn">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="360.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="nav-btn" text="Nhập hàng">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="480.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="nav-btn" text="Nhà cung cấp">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="600.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="nav-btn" text="Khách hàng">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="720.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="nav-btn" text="Nhân viên">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="840.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="nav-btn" text="Thống kê">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </Pane>
+                <Pane prefHeight="50.0" prefWidth="228.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="67.0" styleClass="nav-btn" text="Button" />
+                        <Label layoutX="67.0" layoutY="7.0" prefHeight="27.0" prefWidth="144.0" text="Label" />
+                    </children>
+                </Pane>
+            </children>
+        </HBox>
+        <Pane prefHeight="700.0" prefWidth="1280.0" />
+    </children>
+</VBox>

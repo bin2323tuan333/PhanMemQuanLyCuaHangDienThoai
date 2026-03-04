@@ -4,10 +4,10 @@ public class Account {
     public int accountId;
     public String username;
     public String password;
-    public int role;
+    public Role role;
 
     public Account() {}
-    public Account(int accountId, String username, String password, int role) {
+    public Account(int accountId, String username, String password, Role role) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
@@ -23,11 +23,11 @@ public class Account {
     public String getPassword() { return this.password; }
     public void setPassword(String password) { this.password = password; }
 
-    public int getRole() { return this.role; }
-    public void setRole(int role) { this.role = role; }
+    public Role getRole() { return this.role; }
+    public void setRole(Role role) { this.role = role; }
 
     @Override
     public String toString() {
-        return "Account(id = " + this.accountId + ", username = " + this.username + ", password = " + this.password + ", role = " + this.role + ")";
+        return "Account(id = " + this.accountId + ", username = " + this.username + ", password = " + this.password + ", role = " + this.role.toString() + ")";
     }
 }

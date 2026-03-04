@@ -11,15 +11,16 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // Load file FXML từ thư mục resources/com/example/
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("admin/admin.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-        stage.setTitle("Demo JavaFX Login");
+        stage.setTitle("Digital Shop");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void run() {
         launch();
     }
 }
