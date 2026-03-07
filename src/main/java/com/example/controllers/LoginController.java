@@ -1,10 +1,19 @@
 package com.example.controllers;
 
+import com.example.services.ILoginService;
+import com.example.services.LoginService;
+import com.example.services.TempLoginService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginController {
     @FXML
@@ -20,7 +29,7 @@ public class LoginController {
 
 
     @FXML
-    protected void button_login_click() {
+    public void button_login_click() {
         String user = textField_username.getText();
         String pass = textField_password.getText();
 
@@ -30,9 +39,22 @@ public class LoginController {
             return;
         }
 
-        if (user.equals("admin") && pass.equals("123")) {
+        ILoginService loginService = new TempLoginService();
+        if (loginService.login(user, pass)) {
             label_message.setText("Đăng nhập thành công!");
             label_message.setStyle("-fx-text-fill: green;");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/admin/AdminDashboard.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) label_message.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.centerOnScreen();
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Lỗi load file FXML rồi bro!");
+            }
         } else {
             label_message.setText("Sai tài khoản hoặc mật khẩu!");
             label_message.setStyle("-fx-text-fill: red;");
