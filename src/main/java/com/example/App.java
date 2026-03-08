@@ -10,13 +10,12 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // Load file FXML từ thư mục resources/com/example/
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Login.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("Digital Shop");
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 
