@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Employee {
     private int employeeId;
-    private String employeeName;
+    private String fullName;
     private String gender;
     private Date birthday;
     private String address;
@@ -16,10 +16,10 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(int employeeId, String employeeName, String gender, Date birthday,
+    public Employee(int employeeId, String fullName, String gender, Date birthday,
                     String address, String phoneNumber, double salary, String status, int accountId) {
         this.employeeId = employeeId;
-        this.employeeName = employeeName;
+        this.fullName = fullName;
         this.gender = gender;
         this.birthday = birthday;
         this.address = address;
@@ -32,8 +32,8 @@ public class Employee {
     public int getEmployeeId() { return employeeId; }
     public void setEmployeeId(int employeeId) { this.employeeId = employeeId; }
 
-    public String getEmployeeName() { return employeeName; }
-    public void setEmployeeName(String employeeName) { this.employeeName = employeeName; }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
@@ -58,6 +58,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return employeeName + " (" + phoneNumber + ")";
+        return fullName + " (" + phoneNumber + ")";
     }
 }

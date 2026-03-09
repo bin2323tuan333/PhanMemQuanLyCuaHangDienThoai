@@ -1,7 +1,81 @@
+CREATE TABLE Employee (
+    employeeId INT AUTO_INCREMENT PRIMARY KEY,
+    fullName VARCHAR(255) NOT NULL,
+    gender TINYINT NOT NULL COMMENT '0: Female, 1: Male, 2: Other',
+    birthday DATE NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    phoneNumber VARCHAR(20) NOT NULL,
+    salary INT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'Active'
+);
+
+
 CREATE TABLE Account (
-    customerId INT AUTO_INCREMENT PRIMARY KEY,
-	username VARCHAR(35) NOT NULL,
+    accountId INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(35) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role VARCHAR(20) NOT NULL,
-    employeeId INT
+    employeeId INT,
+    CONSTRAINT FK_EmployeeAccount
+    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
 );
+
+
+CREATE TABLE Bill {
+    billId INT AUTO_INCREMENT PRIMARY KEY,
+    invoiceDate DATE NOT NULL,
+    totalAmount DOUBLE NOT NULL
+}
+
+CREATE TABLE BillDetail {
+    quantity INT NOT NULL,
+    unitPrice DOUBLE NOT NULL
+}
+
+
+CREATE TABLE Brand {
+    brandId INT AUTO_INCREMENT PRIMARY KEY,
+    brandName VARCHAR(255) NOT NULL
+}
+
+CREATE TABLE Category {
+    categoryId INT AUTO_INCREMENT PRIMARY KEY,
+    categoryName VARCHAR(255) NOT NULL
+}
+
+CREATE TABLE Customer {
+    customerId INT AUTO_INCREMENT PRIMARY KEY,
+    fullName VARCHAR(255) NOT NULL,
+    birthday DATE NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    phoneNumber VARCHAR(10) NOT NULL
+}
+
+
+CREATE TABLE ImportBill {
+    importId INT AUTO_INCREMENT PRIMARY KEY,
+    importDate DATE NOT NULL,
+    totalAmount DOUBLE NOT NULL
+}
+
+CREATE TABLE ImportBillDetail {
+    quantity INT NOT NULL,
+    unitPrice DOUBLE NOT NULL,
+}
+
+CREATE TABLE Product {
+    productId INT AUTO_INCREMENT NOT NULL,
+    productName VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    price DOUBLE NOT NULL,
+    stock INT NOT NULL,
+}
+
+CREATE TABLE Supplier {
+    supplierId INT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    phone VARCHAR(10) NOT NULL,
+    email VARCHAR(255)
+}

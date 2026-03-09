@@ -1,10 +1,10 @@
 package com.example.models;
 
 public class Account {
-    public int accountId;
-    public String username;
-    public String password;
-    public Role role;
+    private int accountId;
+    private String username;
+    private String password;
+    private Role role;
 
     public Account() {}
     public Account(int accountId, String username, String password, Role role) {

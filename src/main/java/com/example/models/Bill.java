@@ -3,9 +3,9 @@ package com.example.models;
 import java.util.Date;
 
 public class Bill {
-    public int billId;
-    public Date invoiceDate;
-    public double totalAmount;
+    private int billId;
+    private Date invoiceDate;
+    private double totalAmount;
 
     public Bill() {}
     public Bill(int billId, Date invoiceDate, double totalAmount) {

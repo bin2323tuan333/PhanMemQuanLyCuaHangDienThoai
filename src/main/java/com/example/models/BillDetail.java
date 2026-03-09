@@ -1,23 +1,33 @@
 package com.example.models;
 
 public class BillDetail {
-    public int billDetailId;
-    public int quantity;
-    public double unitPrice;
+    private int billId;
+    private int productId;
+    private int quantity;
+    private double unitPrice;
 
     public BillDetail() {};
-    public BillDetail(int billDetailId, int quantity, double unitPrice) {
-        this.billDetailId = billDetailId;
+    public BillDetail(int billId, int productId, int quantity, double unitPrice) {
+        this.billId = billId;
+        this.productId = productId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
     }
 
-    public int getBillDetailId() {
-        return billDetailId;
+    public int getBillId() {
+        return billId;
     }
 
-    public void setBillDetailId(int billDetailId) {
-        this.billDetailId = billDetailId;
+    public void setBillId(int billId) {
+        this.billId = billId;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {
@@ -38,6 +48,6 @@ public class BillDetail {
 
     @Override
     public String toString() {
-        return "BillDetail(id = " + this.billDetailId + ", quantity = " + this.quantity + ", unitPrice = " + this.unitPrice + ")";
+        return "BillDetail(billId = " + this.billId + "productId = " + this.productId + ", quantity = " + this.quantity + ", unitPrice = " + this.unitPrice + ")";
     }
 }

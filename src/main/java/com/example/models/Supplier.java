@@ -1,11 +1,11 @@
 package com.example.models;
 
 public class Supplier {
-    public int supplierId;
-    public String name;
-    public String address;
-    public String phone;
-    public String email;
+    private int supplierId;
+    private String name;
+    private String address;
+    private String phone;
+    private String email;
 
     public Supplier() {}
     public Supplier(int supplierId, String name, String address, String phone, String email) {

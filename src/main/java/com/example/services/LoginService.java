@@ -16,7 +16,7 @@ public class LoginService implements ILoginService {
             System.out.println("khong tim thay user nay");
             return false;
         } else {
-            return password.equals(acc.password);
+            return password.equals(acc.getPassword());
         }
     }
 }
