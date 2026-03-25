@@ -1,3 +1,209 @@
-.root {
 
+.chart {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI", system-ui, sans-serif;
+    -fx-padding: 20px;
+}
+
+.chart-title {
+    -fx-text-fill: #1f2937;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10px 0;
+}
+
+.chart-content {
+    -fx-padding: 10px 0 0 0;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: transparent;
+}
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+}
+.chart-alternative-column-fill {
+    -fx-fill: transparent;
+}
+
+.axis {
+    -fx-tick-label-fill: #4b5563;
+    -fx-font-size: 14px;
+}
+
+.axis-axis-line {
+    -fx-stroke: transparent;
+}
+
+.axis-tick-mark {
+    -fx-stroke: transparent;
+}
+
+.category-axis {
+    -fx-border-color: transparent;
+}
+.chart-axis-tick-label {
+    -fx-text-fill: #4b5563;
+    -fx-font-size: 14px;
+    -fx-padding: 15px 0 0 0;
+}
+
+
+.number-axis .axis-tick-mark,
+.number-axis .axis-axis-line,
+.number-axis .chart-axis-tick-label {
+    -fx-opacity: 0;
+}
+
+
+.chart-bar {
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-background-insets: 0 5 0 5;
+
+    -fx-background-color:
+        linear-gradient(to top,
+            rgba(6, 95, 145, 0.1),
+            rgba(6, 95, 145, 0.8)
+        );
+}
+
+
+
+.default-color0.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #dbeafe, #a5b4fc);
+}
+
+.default-color1.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #dbeafe, #a5b4fc);
+}
+
+.default-color2.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #dbeafe, #93c5fd);
+}
+
+.default-color3.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #bfdbfe, #60a5fa);
+}
+
+.default-color4.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #bfdbfe, #60a5fa);
+}
+
+.default-color5.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #93c5fd, #2563eb);
+}
+
+.default-color6.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #93c5fd, #2563eb);
+}
+
+.default-color7.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #60a5fa, #1e40af);
+}
+
+.default-color8.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #60a5fa, #1d4ed8);
+}
+
+.default-color9.chart-bar {
+    -fx-background-color:
+        linear-gradient(to top, #2563eb, #1e3a8a);
+}
+
+.chart-bar:hover {
+    -fx-effect: dropshadow( three-pass-box , rgba(37, 99, 235, 0.4) , 10, 0, 0, 0 );
+}
+
+.modern-button {
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.modern-button:hover {
+    -fx-background-color: #f3f4f6;
+}
+
+.modern-button-selected {
+    -fx-background-color: #065f91;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #f3f4f6; /* Màu xám rất nhạt */
+    -fx-border-width: 1;
+}
+
+/* Header (Tiêu đề cột): Đổi màu nền trắng, chữ xám đậm, font đậm */
+.table-view .column-header-background {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f3f4f6;
+    -fx-border-width: 0 0 1 0; /* Chỉ kẻ đường dưới */
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 45px; /* Tăng độ cao header cho thoáng */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #4b5563; /* Màu xám Slate đậm */
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Các dòng dữ liệu (Rows) */
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-cell-size: 50px; /* Dòng cao nhìn sẽ sang hơn */
+    -fx-border-color: #f9fafb;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Hiệu ứng khi di chuột qua dòng (Hover) */
+.table-row-cell:hover {
+    -fx-background-color: #f9fafb; /* Xám cực nhẹ khi hover */
+}
+
+/* Khi chọn dòng (Selected) */
+.table-row-cell:selected {
+    -fx-background-color: #eff6ff; /* Màu xanh nhạt */
+    -fx-text-fill: #3b82f6;
+}
+
+/* Xóa bỏ các đường kẻ dọc giữa các cột (Làm bảng trông hiện đại hơn) */
+.table-view .table-column {
+    -fx-border-width: 0;
+}
+
+/* Xóa bỏ cái ô trống thừa ở góc trên bên phải khi có thanh cuộn */
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
+/* Chỉnh chữ trong các ô */
+.table-cell {
+    -fx-text-fill: #1f2937; /* Màu chữ đen xám */
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 10 0 10;
 }

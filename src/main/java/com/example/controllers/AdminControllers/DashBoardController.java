@@ -1,28 +1,94 @@
 package com.example.controllers.AdminControllers;
 
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
+
+import com.example.DTO.ProductSale;
+import com.example.DTO.RecentBill;
+import com.example.services.*;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.Date;
+import java.util.List;
 
 public class DashBoardController {
+    @FXML private BarChart<String, Number> revenueBarChart;
+    @FXML private TableView<ProductSale> topProductsTable;
+    @FXML private TableColumn<ProductSale, Integer> col_id;
+    @FXML private TableColumn<ProductSale, String> col_name;
+    @FXML private TableColumn<ProductSale, String> col_category;
+    @FXML private TableColumn<ProductSale, Integer> col_sold;
+    @FXML private TableView<RecentBill> invoiceTable;
+    @FXML private TableColumn<RecentBill, Integer> col_inv_id;
+    @FXML private TableColumn<RecentBill, String> col_inv_customer;
+    @FXML private TableColumn<RecentBill, Date> col_inv_date;
+    @FXML private TableColumn<RecentBill, Double> col_inv_total;
+    @FXML private TableColumn<RecentBill, String> col_inv_status;
+
+    private IRenevueService revenueService;
+    private IStatisticsService statisticsService;
+    private IBillService billService;
+
     @FXML
-    private VBox sideBar;
+    public void initialize() {
+        revenueService = new TempRenevueService();
+        statisticsService = new TempStatisticsService();
+        billService = new TempBillService();
 
-    private boolean isSidebarVisible = true;
+        XYChart.Series<String, Number> data = revenueService.getMonthRevenueData();
+        revenueBarChart.getData().add(data);
 
-    @FXML
-    void on_menu_click(ActionEvent event) {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.5), sideBar);
-
-        if (sideBar.isVisible()) {
-            sideBar.setVisible(false);
-            sideBar.setManaged(false);
-        } else {
-            sideBar.setVisible(true);
-            sideBar.setManaged(true);
-        }
-        transition.play();
+        setupTable();
+        loadTableData();
     }
+
+    private void setupTable() {
+        col_id.setCellValueFactory(cellData ->
+                                           new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getId()).asObject());
+
+        col_name.setCellValueFactory(cellData ->
+                                             new javafx.beans.property.SimpleStringProperty(cellData.getValue().getName()));
+
+        col_category.setCellValueFactory(cellData ->
+                                                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getCategory()));
+
+        col_sold.setCellValueFactory(cellData ->
+                                             new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getSold()).asObject());
+        col_inv_id.setCellValueFactory(new PropertyValueFactory<>("billId"));
+        col_inv_customer.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        col_inv_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        col_inv_total.setCellValueFactory(new PropertyValueFactory<>("total"));
+        col_inv_status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+    }
+
+    private void loadTableData() {
+        List<ProductSale> list = statisticsService.getTopSellingLast30Days();
+        System.out.println("Check data: " + list.size());
+        topProductsTable.setItems(FXCollections.observableList(list));
+
+
+        List<RecentBill> data = billService.getRecentBills(10);
+        if (data != null) {
+            invoiceTable.setItems(FXCollections.observableArrayList(data));
+        }
+    }
+
+    public void handle_month_revenue() {
+        XYChart.Series<String, Number> data = revenueService.getMonthRevenueData();
+        revenueBarChart.getData().setAll(data);
+    }
+    public void handle_week_revenue() {
+        XYChart.Series<String, Number> data = revenueService.getWeekRevenueData();
+        revenueBarChart.getData().setAll(data);
+    }
+    public void handle_year_revenue() {
+        XYChart.Series<String, Number> data = revenueService.getYearRevenueData();
+        revenueBarChart.getData().setAll(data);
+    }
+
 }

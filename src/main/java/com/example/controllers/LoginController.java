@@ -44,7 +44,7 @@ public class LoginController {
             label_message.setText("Đăng nhập thành công!");
             label_message.setStyle("-fx-text-fill: green;");
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/admin/AdminDashboard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/MainContainer.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) label_message.getScene().getWindow();
                 stage.setScene(new Scene(root));

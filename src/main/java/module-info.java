@@ -3,6 +3,8 @@ module com.example {
     requires javafx.fxml;
     requires java.sql;
 
+    opens com.example.models to javafx.base;
+    opens com.example.DTO to javafx.base;
     opens com.example to javafx.fxml;
     exports com.example;
     exports com.example.controllers;
