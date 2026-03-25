@@ -1,0 +1,52 @@
+.context-menu {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #E0E0E0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+.menu-item:focused {
+    -fx-background-color: #F0F8FF;
+}
+
+.menu-item .label {
+    -fx-text-fill: #333333;
+    -fx-padding: 5 15 5 15;
+}
+
+/* Tổng thể cái Menu */
+.user-context-menu {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 0.5;
+    /* Đổ bóng nhẹ phía dưới */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+}
+
+/* Định dạng chung cho các dòng */
+.user-context-menu .menu-item {
+    -fx-padding: 8 15 8 15;
+}
+
+.user-context-menu .menu-item:focused {
+    -fx-background-color: #f4f4f4; /* Màu khi di chuột vào */
+}
+
+.user-context-menu .menu-item .label {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI", Arial;
+}
+
+/* Riêng dòng Đăng xuất thì cho màu Đỏ */
+.logout-item .label {
+    -fx-text-fill: red !important;
+    -fx-font-weight: bold;
+}
+
+/* Đường kẻ ngang giữa 2 dòng */
+.user-context-menu .separator .line {
+    -fx-border-color: #eeeeee;
+}

@@ -17,4 +17,16 @@ public class TempStatisticsService implements IStatisticsService {
 
         return list;
     }
+    public double getTotalRevenueToday() {
+        return 1500000.0;
+    }
+    public int getNewOrdersCount() {
+        return 25;
+    }
+    public int getRemainingProducts() {
+        return 450;
+    }
+    public int getTotalCustomers() {
+        return 1284;
+    }
 }

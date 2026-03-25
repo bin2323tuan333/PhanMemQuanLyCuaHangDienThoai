@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: transparent; -fx-border-color: #eee; -fx-border-width: 0 1 0 0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: transparent; -fx-border-color: #eee; -fx-border-width: 0 1 0 0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.AdminControllers.SideBarController">
    <children>
-      <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Trang chủ">
+      <Button fx:id="btn_dashboard" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Trang chủ">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -22,7 +22,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Nhân sự">
+      <Button fx:id="btn_employee" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Nhân sự">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -34,7 +34,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="72.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Sản phẩm">
+      <Button fx:id="btn_product" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="72.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Sản phẩm">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -46,7 +46,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="124.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Thống kê">
+      <Button fx:id="btn_analytics" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="124.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Thống kê">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -58,7 +58,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="176.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Hóa đơn">
+      <Button fx:id="btn_bill" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="176.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Hóa đơn">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -70,7 +70,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="228.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Khách hàng">
+      <Button fx:id="btn_customer" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="228.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Khách hàng">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -83,7 +83,7 @@
          </font>
       </Button>
       <Region maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-      <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="436.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Cài đặt">
+      <Button fx:id="btn_setting" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="436.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Cài đặt">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>

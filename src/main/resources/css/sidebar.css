@@ -1,0 +1,18 @@
+.sidebar-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64748b;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.sidebar-item:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+.active-menu {
+    -fx-border-width: 0 0 2 4;
+    -fx-text-fill: #1e40af;
+    -fx-font-weight: bold;
+    -fx-background-color: #eff6ff;
+    -fx-border-color: transparent transparent  #1e40af #1e40af;
+}

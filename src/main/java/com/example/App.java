@@ -13,7 +13,7 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader mainLoader = new FXMLLoader(App.class.getResource("MainContainer.fxml"));
+        FXMLLoader mainLoader = new FXMLLoader(App.class.getResource("Login.fxml"));
         Scene scene = new Scene(mainLoader.load(), 1280, 720);
 
         stage.setTitle("Digital Shop");

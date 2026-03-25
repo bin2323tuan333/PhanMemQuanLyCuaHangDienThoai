@@ -73,58 +73,6 @@
         );
 }
 
-
-
-.default-color0.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #dbeafe, #a5b4fc);
-}
-
-.default-color1.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #dbeafe, #a5b4fc);
-}
-
-.default-color2.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #dbeafe, #93c5fd);
-}
-
-.default-color3.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #bfdbfe, #60a5fa);
-}
-
-.default-color4.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #bfdbfe, #60a5fa);
-}
-
-.default-color5.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #93c5fd, #2563eb);
-}
-
-.default-color6.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #93c5fd, #2563eb);
-}
-
-.default-color7.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #60a5fa, #1e40af);
-}
-
-.default-color8.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #60a5fa, #1d4ed8);
-}
-
-.default-color9.chart-bar {
-    -fx-background-color:
-        linear-gradient(to top, #2563eb, #1e3a8a);
-}
-
 .chart-bar:hover {
     -fx-effect: dropshadow( three-pass-box , rgba(37, 99, 235, 0.4) , 10, 0, 0, 0 );
 }
@@ -139,7 +87,6 @@
 .modern-button:hover {
     -fx-background-color: #f3f4f6;
 }
-
 .modern-button-selected {
     -fx-background-color: #065f91;
     -fx-text-fill: white;
@@ -150,24 +97,23 @@
     -fx-background-color: transparent;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-border-color: #f3f4f6; /* Màu xám rất nhạt */
+    -fx-border-color: #f3f4f6;
     -fx-border-width: 1;
 }
 
-/* Header (Tiêu đề cột): Đổi màu nền trắng, chữ xám đậm, font đậm */
 .table-view .column-header-background {
     -fx-background-color: #ffffff;
     -fx-border-color: #f3f4f6;
-    -fx-border-width: 0 0 1 0; /* Chỉ kẻ đường dưới */
+    -fx-border-width: 0 0 1 0;
 }
 
 .table-view .column-header {
     -fx-background-color: transparent;
-    -fx-size: 45px; /* Tăng độ cao header cho thoáng */
+    -fx-size: 45px;
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #4b5563; /* Màu xám Slate đậm */
+    -fx-text-fill: #4b5563;
     -fx-font-weight: bold;
     -fx-alignment: CENTER_LEFT;
 }
@@ -206,4 +152,29 @@
     -fx-text-fill: #1f2937; /* Màu chữ đen xám */
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 10 0 10;
+}
+
+/* Chỉnh toàn bộ chữ trong các ô (Cells) */
+.table-view .table-cell {
+    -fx-font-size: 14px; /* Chỉnh số này to lên tùy ý */
+    -fx-alignment: center-left; /* Căn lề trái cho đẹp */
+}
+
+/* Chỉnh chữ trên tiêu đề cột (Column Headers) */
+.table-view .column-header .label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151; /* Màu xám đậm cho sang */
+}
+
+.pagination {
+    -fx-page-information-visible: false; /* Ẩn cái dòng chữ "Text 1-10 of 50" cho đỡ rối */
+}
+
+.pagination .page-navigation-area .bullet-button {
+    -fx-background-color: #e5e7eb; /* Màu nút chưa chọn */
+}
+
+.pagination .page-navigation-area .bullet-button:selected {
+    -fx-background-color: #3b82f6; /* Màu nút đang chọn (xanh dương) */
 }

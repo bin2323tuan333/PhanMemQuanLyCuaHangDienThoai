@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,6 +29,10 @@ public class DashBoardController {
     @FXML private TableColumn<RecentBill, Date> col_inv_date;
     @FXML private TableColumn<RecentBill, Double> col_inv_total;
     @FXML private TableColumn<RecentBill, String> col_inv_status;
+    @FXML private Label lb_revenue;
+    @FXML private Label lb_product;
+    @FXML private Label lb_customer;
+    @FXML private Label lb_order;
 
     private IRenevueService revenueService;
     private IStatisticsService statisticsService;
@@ -41,7 +46,10 @@ public class DashBoardController {
 
         XYChart.Series<String, Number> data = revenueService.getMonthRevenueData();
         revenueBarChart.getData().add(data);
-
+        lb_revenue.setText(String.format("%,.0f VNĐ", statisticsService.getTotalRevenueToday()));
+        lb_product.setText(statisticsService.getRemainingProducts() + "");
+        lb_customer.setText(statisticsService.getTotalCustomers() + "");
+        lb_order.setText(statisticsService.getNewOrdersCount() + "");
         setupTable();
         loadTableData();
     }
