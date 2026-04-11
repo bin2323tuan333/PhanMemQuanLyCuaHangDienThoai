@@ -1,7 +1,7 @@
 package org.example;
 
 import com.example.models.Customer;
-import com.example.utils.Database;
+import com.example.utils.DBHelper;
 
 import java.util.Date;
 
@@ -11,6 +11,5 @@ public class Main {
     public static void main(String[] args) {
         Customer test = new Customer(1, "Tuan", new Date() , "Hue", "0999999999");
         System.out.println(test.toString());
-        Database.getConnection();
     }
 }

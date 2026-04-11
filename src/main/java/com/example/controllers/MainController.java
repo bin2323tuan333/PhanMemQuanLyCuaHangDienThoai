@@ -19,8 +19,16 @@ public class MainController {
     private final double expandedWidth = 200;
     private final double collapsedWidth = 0;
 
+    private static MainController _instance;
+
+
+    public MainController Instance() {
+        return _instance;
+    }
+
     @FXML
     public void initialize() {
+        _instance = this;
         SideBarController.contentArea = mainScrollPane;
         if (sideBarController != null) {
             sideBarController.loadDefaultPage();

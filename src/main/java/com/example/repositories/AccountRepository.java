@@ -2,7 +2,7 @@ package com.example.repositories;
 
 import com.example.models.Account;
 import com.example.models.Role;
-import com.example.utils.Database;
+import com.example.utils.DBHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,49 +12,22 @@ import java.util.List;
 public class AccountRepository implements IAccountRepository {
     public Account findByUsername(String username) {
         String sql = "SELECT * FROM accounts WHERE username = ?";
-        ResultSet rs = null;
-        PreparedStatement stmt = null;
-        Connection conn = null;
-        try {
-            conn = Database.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, username);
-            rs = stmt.executeQuery();
+        ResultSet rs = DBHelper.Instance().executeQuery(sql, username);
 
-            if (rs.next()) {
-                String roleString = rs.getString("role").toUpperCase();
-                Role role = Role.valueOf(roleString);
-                return new Account(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        role
-                );
+        try {
+            if (rs != null && rs.next()) {
+                Account acc = new Account();
+                acc.setId(rs.getInt("id"));
+                //...
+
+                Connection conn = rs.getStatement().getConnection();
+                rs.close();
+                conn.close();
+
+                return acc;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            e.printStackTrace();
         }
         return null;
     }

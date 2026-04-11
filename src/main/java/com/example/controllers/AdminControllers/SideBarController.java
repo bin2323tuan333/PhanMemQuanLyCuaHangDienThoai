@@ -49,6 +49,18 @@ public class SideBarController {
             case "btn_analytics":
                 loadPage("/com/example/admin/Analytics.fxml");
                 break;
+            case "btn_employee":
+                loadPage("/com/example/admin/EmployeeManagement.fxml");
+                break;
+            case "btn_bill":
+                loadPage("/com/example/admin/BillManagement.fxml");
+                break;
+            case "btn_setting":
+                loadPage("/com/example/admin/AdminSetting.fxml");
+                break;
+            case "btn_customer":
+                loadPage("/com/example/admin/CustomerManagement.fxml");
+                break;
         }
     }
 
