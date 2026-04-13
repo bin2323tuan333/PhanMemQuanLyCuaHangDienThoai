@@ -7,14 +7,17 @@
     <top>
         <fx:include fx:id="topBar" source="TopBar.fxml" />
     </top>
-    <left>
-        <fx:include fx:id="sideBar" source="admin/AdminSideBar.fxml" />
-    </left>
+
     <center>
-        <ScrollPane fx:id="mainScrollPane"
-                    fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
+        <ScrollPane fx:id="mainScrollPane" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
             <content>
             </content>
         </ScrollPane>
     </center>
+    <left>
+        <ScrollPane fx:id="sideBar" fitToHeight="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <content>
+            </content>
+        </ScrollPane>
+    </left>
 </BorderPane>

@@ -3,7 +3,7 @@ package com.example.utils;
 import java.sql.*;
 
 public class DBHelper {
-    private static String DB_URL = "jdbc:mysql://localhost:3306/quanlycuahangbandienthoai";
+    private static String DB_URL = "jdbc:mysql://localhost:3306/sales_management";
     private static String USER = "root";
     private static String PASS = "";
 
@@ -35,6 +35,7 @@ public class DBHelper {
             }
             return pstmt.executeQuery();
         } catch (SQLException e) {
+            System.out.println(e.getErrorCode());
             return null;
         }
     }

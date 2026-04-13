@@ -1,81 +1,137 @@
-CREATE TABLE Employee (
-    employeeId INT AUTO_INCREMENT PRIMARY KEY,
-    fullName VARCHAR(255) NOT NULL,
-    gender TINYINT NOT NULL COMMENT '0: Female, 1: Male, 2: Other',
-    birthday DATE NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    phoneNumber VARCHAR(20) NOT NULL,
-    salary INT NOT NULL,
-    status VARCHAR(20) NOT NULL DEFAULT 'Active'
+-- Tạo database (thêm dòng này nếu bồ chưa có)
+CREATE DATABASE IF NOT EXISTS sales_management;
+USE sales_management;
+
+
+-- Bảng Role
+CREATE TABLE IF NOT EXISTS Role (
+    role_id INT PRIMARY KEY AUTO_INCREMENT,
+    role_name ENUM('Employee', 'Admin') NOT NULL
+);
+
+-- Bảng Employee (Phải đưa lên đây để Account còn gọi tới)
+CREATE TABLE IF NOT EXISTS Employee (
+    employee_id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_name VARCHAR(100) NOT NULL,
+    gender VARCHAR(10),
+    birthday DATE,
+    address VARCHAR(255),
+    phone_number VARCHAR(20),
+    salary DECIMAL(10, 2),
+    status VARCHAR(20) DEFAULT 'Active'
+);
+
+-- Bảng Category
+CREATE TABLE IF NOT EXISTS Category (
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Bảng Brand
+CREATE TABLE IF NOT EXISTS Brand (
+    brand_id INT PRIMARY KEY AUTO_INCREMENT,
+    brand_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Bảng Supplier
+CREATE TABLE IF NOT EXISTS Supplier (
+    supplier_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    address VARCHAR(255),
+    phone VARCHAR(20),
+    email VARCHAR(100)
+);
+
+-- Bảng Customer
+CREATE TABLE IF NOT EXISTS Customer (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    full_name VARCHAR(100) NOT NULL,
+    birthday DATE,
+    address VARCHAR(255),
+    phone_number VARCHAR(20)
 );
 
 
-CREATE TABLE Account (
-    accountId INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(35) NOT NULL UNIQUE,
+
+-- Bảng Account (Phụ thuộc Role, Employee)
+CREATE TABLE IF NOT EXISTS Account (
+    account_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(20) NOT NULL,
-    employeeId INT,
-    CONSTRAINT FK_EmployeeAccount
-    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+    role_id INT,
+    employee_id INT UNIQUE,
+    FOREIGN KEY (role_id) REFERENCES Role(role_id) ON DELETE SET NULL,
+    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE SET NULL
+);
+
+-- Bảng Product (Phụ thuộc Category, Brand, Supplier)
+CREATE TABLE IF NOT EXISTS Product (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(200) NOT NULL,
+    quantity INT DEFAULT 0,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT DEFAULT 0,
+    category_id INT,
+    brand_id INT,
+    supplier_id INT,
+    FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE SET NULL,
+    FOREIGN KEY (brand_id) REFERENCES Brand(brand_id) ON DELETE SET NULL,
+    FOREIGN KEY (supplier_id) REFERENCES Supplier(supplier_id) ON DELETE SET NULL
+);
+
+-- Bảng Bill (Phụ thuộc Employee, Customer)
+CREATE TABLE IF NOT EXISTS Bill (
+    bill_id INT PRIMARY KEY AUTO_INCREMENT,
+    invoice_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10, 2) DEFAULT 0,
+    employee_id INT,
+    customer_id INT,
+    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE SET NULL,
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE SET NULL
+);
+
+-- Bảng ImportBill (Phụ thuộc Employee, Supplier)
+CREATE TABLE IF NOT EXISTS ImportBill (
+    import_id INT PRIMARY KEY AUTO_INCREMENT,
+    import_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10, 2) DEFAULT 0,
+    employee_id INT,
+    supplier_id INT,
+    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE SET NULL,
+    FOREIGN KEY (supplier_id) REFERENCES Supplier(supplier_id) ON DELETE SET NULL
 );
 
 
-CREATE TABLE Bill {
-    billId INT AUTO_INCREMENT PRIMARY KEY,
-    invoiceDate DATE NOT NULL,
-    totalAmount DOUBLE NOT NULL
-}
 
-CREATE TABLE BillDetail {
+-- Bảng BillDetail (Phụ thuộc Bill, Product)
+CREATE TABLE IF NOT EXISTS BillDetail (
+    bill_detail_id INT PRIMARY KEY AUTO_INCREMENT,
+    bill_id INT NOT NULL,
+    product_id INT NOT NULL,
     quantity INT NOT NULL,
-    unitPrice DOUBLE NOT NULL
-}
+    unit_price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (bill_id) REFERENCES Bill(bill_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
+);
 
-
-CREATE TABLE Brand {
-    brandId INT AUTO_INCREMENT PRIMARY KEY,
-    brandName VARCHAR(255) NOT NULL
-}
-
-CREATE TABLE Category {
-    categoryId INT AUTO_INCREMENT PRIMARY KEY,
-    categoryName VARCHAR(255) NOT NULL
-}
-
-CREATE TABLE Customer {
-    customerId INT AUTO_INCREMENT PRIMARY KEY,
-    fullName VARCHAR(255) NOT NULL,
-    birthday DATE NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    phoneNumber VARCHAR(10) NOT NULL
-}
-
-
-CREATE TABLE ImportBill {
-    importId INT AUTO_INCREMENT PRIMARY KEY,
-    importDate DATE NOT NULL,
-    totalAmount DOUBLE NOT NULL
-}
-
-CREATE TABLE ImportBillDetail {
+-- Bảng ImportBillDetail (Phụ thuộc ImportBill, Product)
+CREATE TABLE IF NOT EXISTS ImportBillDetail (
+    import_id INT NOT NULL,
+    product_id INT NOT NULL,
     quantity INT NOT NULL,
-    unitPrice DOUBLE NOT NULL,
-}
+    unit_price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (import_id, product_id),
+    FOREIGN KEY (import_id) REFERENCES ImportBill(import_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
+);
 
-CREATE TABLE Product {
-    productId INT AUTO_INCREMENT NOT NULL,
-    productName VARCHAR(255) NOT NULL,
-    quantity INT NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    price DOUBLE NOT NULL,
-    stock INT NOT NULL,
-}
 
-CREATE TABLE Supplier {
-    supplierId INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    phone VARCHAR(10) NOT NULL,
-    email VARCHAR(255)
-}
+
+
+
+
+
+
+
+

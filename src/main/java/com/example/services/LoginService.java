@@ -23,6 +23,10 @@ public class LoginService implements ILoginService {
             return password.equals(acc.getPassword());
         }
     }
+    public Account getAccountByUsername(String username) {
+        IAccountRepository repo = new AccountRepository();
+        return repo.findByUsername(username);
+    }
 
     @Override
     public User getCurrentUser() {
