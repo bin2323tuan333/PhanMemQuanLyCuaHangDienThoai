@@ -1,6 +1,8 @@
 package com.example.controllers;
 
-import com.example.controllers.AdminControllers.SideBarController;
+import com.example.controllers.AdminControllers.AdminSideBarController;
+import com.example.models.Account;
+import com.example.services.AccountService;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -8,20 +10,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainController {
-  @FXML
-  private TopBarController topBarController;
   @FXML
   private ScrollPane sideBar;
   @FXML
   private ScrollPane mainScrollPane;
   @FXML
-  private SideBarController sideBarController;
+  private AdminSideBarController adminSideBarController;
+  @FXML
+  private TopBarController topBarController;
   @FXML
   private BorderPane mainBorderPane;
   
@@ -44,29 +46,41 @@ public class MainController {
   @FXML
   public void initialize() {
     _instance = this;
-//        SideBarController.contentArea = mainScrollPane;
-    try {
-      FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/admin/AdminSideBar.fxml"));
-      sideBar.setContent(loaderSideBar.load());
-      FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/admin/DashBoard.fxml"));
-      mainScrollPane.setContent(loaderMain.load());
-      
-      
-      sideBarController = loaderSideBar.getController();
-      sideBar.setVisible(false);
-      sideBar.setManaged(false);
-      if (sideBarController != null) {
-        sideBarController.loadDefaultPage();
+  }
+  
+  public void setup() {
+    AccountService accountService = new AccountService();
+    Account acc = accountService.getAccountByID(this.getAccountId());
+    System.out.println(this.accountId + " " + acc.toString());
+    if (acc.getRoleId() == 2) {
+      try {
+        FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/admin/AdminSideBar.fxml"));
+        sideBar.setContent(loaderSideBar.load());
+        FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/admin/AdminDashBoard.fxml"));
+        mainScrollPane.setContent(loaderMain.load());
+        adminSideBarController = loaderSideBar.getController();
+        sideBar.setVisible(false);
+        sideBar.setManaged(false);
+      } catch (IOException e) {
+        e.printStackTrace();
       }
-      
-      if (topBarController != null) {
-        topBarController.setMainController(this);
+    } else {
+      try {
+        FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/employee/EmployeeSideBar.fxml"));
+        sideBar.setContent(loaderSideBar.load());
+        FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/admin/AdminDashBoard.fxml"));
+        mainScrollPane.setContent(loaderMain.load());
+        adminSideBarController = loaderSideBar.getController();
+        sideBar.setVisible(false);
+        sideBar.setManaged(false);
+      } catch (IOException e) {
+        e.printStackTrace();
       }
-      
-    } catch (IOException e) {
-      System.err.println("🚨 LỖI: Không tìm thấy file SideBar.fxml !!!");
-      e.printStackTrace();
     }
+    
+    topBarController.setMainController(this);
+    adminSideBarController.setTopBarController(topBarController);
+    topBarController.setup();
   }
   
   @FXML

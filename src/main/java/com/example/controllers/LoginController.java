@@ -1,7 +1,10 @@
 package com.example.controllers;
 
-import com.example.services.ILoginService;
-import com.example.services.LoginService;
+import com.example.models.Account;
+import com.example.repositories.IAccountRepository;
+import com.example.services.AccountService;
+import com.example.services.IAuthService;
+import com.example.services.AuthService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,16 +41,18 @@ public class LoginController {
       return;
     }
     
-    ILoginService loginService = new LoginService();
-    if (loginService.login(user, pass)) {
+    IAuthService authService = new AuthService();
+    Account acc = authService.login(user, pass);
+    if (acc != null) {
       label_message.setText("Đăng nhập thành công!");
       label_message.setStyle("-fx-text-fill: green;");
       try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/MainContainer.fxml"));
         Parent root = loader.load();
+        MainController mainController = loader.getController();
+        mainController.setAccountId(acc.getAccountId());
+        mainController.setup();
         
-        
-        MainController.Instance().setAccountId(loginService.getAccountByUsername(user).getAccountId());
         Stage stage = (Stage) label_message.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.centerOnScreen();

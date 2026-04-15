@@ -1,17 +1,15 @@
 package com.example.controllers.AdminControllers;
 
 import com.example.controllers.MainController;
+import com.example.controllers.TopBarController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import org.example.Main;
 
 import java.io.IOException;
 
-public class SideBarController {
+public class AdminSideBarController {
   @FXML
   private Button btn_dashboard;
   @FXML
@@ -26,6 +24,9 @@ public class SideBarController {
   private Button btn_analytics;
   @FXML
   private Button btn_setting;
+  @FXML
+  private TopBarController topBarController;
+  
   private Button currentActiveButton;
   
   
@@ -36,7 +37,7 @@ public class SideBarController {
   }
   
   public void loadDefaultPage() {
-    loadPage("/com/example/admin/DashBoard.fxml");
+    loadPage("/com/example/admin/AdminDashBoard.fxml");
   }
   
   @FXML
@@ -51,7 +52,7 @@ public class SideBarController {
     String buttonId = clickedButton.getId();
     switch (buttonId) {
       case "btn_dashboard":
-        loadPage("/com/example/admin/DashBoard.fxml");
+        loadPage("/com/example/admin/AdminDashBoard.fxml");
         break;
       case "btn_product":
         loadPage("/com/example/admin/ProductManagement.fxml");
@@ -74,13 +75,18 @@ public class SideBarController {
     }
   }
   
+  public void setTopBarController(TopBarController topBarController) {
+    this.topBarController = topBarController;
+  }
+  
   private void loadPage(String fxmlPath) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
       MainController.Instance().getMainScrollPane().setContent(loader.load());
       MainController.Instance().getMainScrollPane().setFitToWidth(true);
       MainController.Instance().getMainScrollPane().setVvalue(0);
-      
+      if (topBarController != null)
+        topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
       System.err.println("Lỗi load trang: " + fxmlPath);
     }

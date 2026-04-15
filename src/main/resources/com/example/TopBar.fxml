@@ -10,36 +10,38 @@
 <?import javafx.scene.text.Font?>
 
 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="1188.0" spacing="15.0" style="-fx-background-color: white; -fx-border-color: #eee; -fx-border-width: 0 0 1 0;" stylesheets="@../../css/topbar.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.TopBarController">
-   <children>
-      <Button mnemonicParsing="false" onAction="#handleToggleMenu" style="-fx-background-color: #87CEFA; -fx-cursor: hand;">
-         <graphic>
-            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../image/menu.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Label style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);" text="Trang chủ">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Label>
-      <Region prefHeight="18.0" prefWidth="634.0" HBox.hgrow="ALWAYS" />
-      <HBox fx:id="userBox" alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="181.0" spacing="5.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
-         <children>
-            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../image/account_circle.png" />
-               </image></ImageView>
-            <Label fx:id="lb_name" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="54.0" text="Name" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-         </children>
-      </HBox>
-   </children>
-   <padding>
-      <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-   </padding>
+    <children>
+        <Button mnemonicParsing="false" onAction="#handleToggleMenu" style="-fx-background-color: #87CEFA; -fx-cursor: hand;">
+            <graphic>
+                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../image/menu.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Label fx:id="lb_title" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);" text="Trang chủ">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+        <Region prefHeight="18.0" prefWidth="634.0" HBox.hgrow="ALWAYS" />
+        <HBox fx:id="userBox" alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="181.0" spacing="5.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
+            <children>
+                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../image/circle-user.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="lb_name" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="54.0" text="Name" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+    </padding>
 </HBox>

@@ -1,21 +1,32 @@
 package com.example.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Account {
   private int accountId;
   private String username;
   private String password;
-  private Role role;
+  private int roleId;
   private int employeeId;
   
   public Account() {
   }
   
-  public Account(int accountId, String username, String password, Role role, int employeeId) {
+  public Account(int accountId, String username, String password, int role, int employeeId) {
     this.accountId = accountId;
     this.username = username;
     this.password = password;
-    this.role = role;
+    this.roleId = roleId;
     this.employeeId = employeeId;
+  }
+  
+  public void setFromRS(ResultSet rs) throws SQLException {
+    this.accountId = rs.getInt("account_id");
+    this.username = rs.getString("username");
+    this.password = rs.getString("password");
+    this.roleId = rs.getInt("role_id");
+    this.employeeId = rs.getInt("employee_id");
   }
   
   public int getAccountId() {
@@ -42,12 +53,12 @@ public class Account {
     this.password = password;
   }
   
-  public Role getRole() {
-    return this.role;
+  public int getRoleId() {
+    return this.roleId;
   }
   
-  public void setRole(Role role) {
-    this.role = role;
+  public void setRoleId(int roleId) {
+    this.roleId = roleId;
   }
   
   public int getEmployeeId() {
@@ -60,6 +71,6 @@ public class Account {
   
   @Override
   public String toString() {
-    return "Account(id = " + this.accountId + ", username = " + this.username + ", password = " + this.password + ", role = " + this.role.toString() + ")";
+    return "Account(id = " + this.accountId + ", username = " + this.username + ", password = " + this.password + ", role = " + this.roleId + ")";
   }
 }
