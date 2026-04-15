@@ -1,6 +1,7 @@
 package com.example.controllers;
 
 import com.example.controllers.AdminControllers.AdminSideBarController;
+import com.example.controllers.EmployeeControllers.EmployeeSidebarController;
 import com.example.models.Account;
 import com.example.services.AccountService;
 import javafx.animation.KeyFrame;
@@ -22,6 +23,8 @@ public class MainController {
   private ScrollPane mainScrollPane;
   @FXML
   private AdminSideBarController adminSideBarController;
+  @FXML
+  private EmployeeSidebarController employeeSidebarController;
   @FXML
   private TopBarController topBarController;
   @FXML
@@ -61,6 +64,7 @@ public class MainController {
         adminSideBarController = loaderSideBar.getController();
         sideBar.setVisible(false);
         sideBar.setManaged(false);
+        adminSideBarController.setTopBarController(topBarController);
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -68,18 +72,18 @@ public class MainController {
       try {
         FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/employee/EmployeeSideBar.fxml"));
         sideBar.setContent(loaderSideBar.load());
-        FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/admin/AdminDashBoard.fxml"));
+        FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/employee/EmployeeSale.fxml"));
         mainScrollPane.setContent(loaderMain.load());
-        adminSideBarController = loaderSideBar.getController();
+        employeeSidebarController = loaderSideBar.getController();
         sideBar.setVisible(false);
         sideBar.setManaged(false);
+        employeeSidebarController.setTopBarController(topBarController);
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
     
     topBarController.setMainController(this);
-    adminSideBarController.setTopBarController(topBarController);
     topBarController.setup();
   }
   

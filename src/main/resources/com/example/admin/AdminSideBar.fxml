@@ -26,7 +26,7 @@
             <graphic>
                 <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../image/receipt-text.png" />
+                        <Image url="@../../../image/id-card-lanyard.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -50,7 +50,7 @@
             <graphic>
                 <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../image/id-card-lanyard.png" />
+                        <Image url="@../../../image/chart-column.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -95,7 +95,7 @@
             </font>
         </Button>
         <Region maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-        <Button fx:id="btn_setting1" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="332.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Đăng xuất">
+        <Button fx:id="btn_logout" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="332.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../css/sidebar.css" text="Đăng xuất">
             <graphic>
                 <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                     <image>
