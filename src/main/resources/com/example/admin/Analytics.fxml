@@ -1,119 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.controllers.AdminControllers.AnalyticsController"
-            stylesheets="@../../../../../../target/classes/css/admin/analytics.css">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" style="-fx-background-color: #f1f5f9;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.AdminControllers.AnalyticsController">
 
-    <top>
-        <VBox spacing="8" styleClass="header-area">
-            <padding><Insets top="20" left="24" right="24" bottom="8"/></padding>
-            <HBox alignment="CENTER_LEFT" spacing="12">
-                <Label text="📊" styleClass="logo-icon"/>
-                <Label text="Enterprise Shell" styleClass="main-title"/>
-                <Label text="GLOBAL OPERATIONS" styleClass="global-subtitle"/>
-            </HBox>
-            <Label text="Thống kê tổng hợp" styleClass="page-heading"/>
-            <Label text="Hiệu suất doanh thu, lợi nhuận và thị phần theo thời gian thực"
-                   styleClass="page-sub"/>
+    <children>
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 15 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);" />
+
+        <!-- Tiêu đề trang -->
+        <VBox spacing="5.0">
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="Thống kê tổng hợp" />
+            <Label style="-fx-font-size: 13px; -fx-text-fill: #475569;" text="Hiệu suất doanh thu, lợi nhuận và thị phần theo thời gian thực" />
         </VBox>
-    </top>
 
-    <center>
-        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
-            <VBox spacing="24" styleClass="main-content">
-                <padding><Insets left="24" right="24" bottom="24" top="12"/></padding>
+        <!-- 4 thẻ số liệu -->
+        <HBox spacing="15.0">
+            <children>
+                <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-font-size: 28px;" text="💰" />
+                        <Label fx:id="totalRevenue" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="0 VNĐ" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748b;" text="TỔNG DOANH THU" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-font-size: 28px;" text="📦" />
+                        <Label fx:id="totalOrders" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="0" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748b;" text="TỔNG ĐƠN HÀNG" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-font-size: 28px;" text="💵" />
+                        <Label fx:id="avgOrderValue" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="0 VNĐ" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748b;" text="TRUNG BÌNH/ĐƠN" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-font-size: 28px;" text="👥" />
+                        <Label fx:id="customerGrowth" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="0" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748b;" text="KHÁCH HÀNG MỚI" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
 
-                <!-- 4 thẻ số liệu -->
-                <HBox spacing="15" alignment="CENTER">
-                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                        <Label text="💰 TỔNG DOANH THU" styleClass="stat-title"/>
-                        <Label fx:id="totalRevenue" text="1,284,500$" styleClass="stat-value"/>
-                        <Label text="▲ +12.5% so với tháng trước" styleClass="stat-trend"/>
-                    </VBox>
-                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                        <Label text="📦 TỔNG ĐƠN HÀNG" styleClass="stat-title"/>
-                        <Label fx:id="totalOrders" text="42,890" styleClass="stat-value"/>
-                        <Label text="▲ +8.2%" styleClass="stat-trend"/>
-                    </VBox>
-                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                        <Label text="💵 GIÁ TRỊ ĐƠN HÀNG TB" styleClass="stat-title"/>
-                        <Label fx:id="avgOrderValue" text="29.95$" styleClass="stat-value"/>
-                        <Label text="▼ -1.2%" styleClass="stat-trend negative"/>
-                    </VBox>
-                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                        <Label text="👥 TĂNG TRƯỞNG KH" styleClass="stat-title"/>
-                        <Label fx:id="customerGrowth" text="+1,240" styleClass="stat-value"/>
-                        <Label text="▲ +15.1%" styleClass="stat-trend"/>
-                    </VBox>
-                </HBox>
+        <!-- Biểu đồ doanh thu -->
+        <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+            <children>
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="Doanh thu và Lợi nhuận theo tháng" />
+                <BarChart fx:id="revenueProfitChart" animated="true" prefHeight="300">
+                    <xAxis><CategoryAxis label="Tháng" style="-fx-text-fill: #475569;" /></xAxis>
+                    <yAxis><NumberAxis label="Triệu VNĐ" style="-fx-text-fill: #475569;" /></yAxis>
+                </BarChart>
+            </children>
+        </VBox>
 
-                <!-- Biểu đồ doanh thu & lợi nhuận -->
-                <VBox styleClass="chart-card">
-                    <Label text="Doanh thu và Lợi nhuận theo tháng" styleClass="card-title"/>
-                    <BarChart fx:id="revenueProfitChart" animated="true" prefHeight="300">
-                        <xAxis><CategoryAxis label="Tháng"/></xAxis>
-                        <yAxis><NumberAxis label="Triệu USD"/></yAxis>
-                    </BarChart>
+        <!-- Doanh thu theo danh mục + Thị phần -->
+        <HBox spacing="20.0">
+            <children>
+                <VBox spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="Doanh thu theo danh mục" />
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label prefWidth="100" style="-fx-text-fill: #475569;" text="Điện thoại" />
+                            <ProgressBar progress="0.45" style="-fx-accent: #3b82f6; -fx-pref-height: 8;" />
+                            <Label style="-fx-text-fill: #475569;" text="45%" />
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label prefWidth="100" style="-fx-text-fill: #475569;" text="Laptop" />
+                            <ProgressBar progress="0.30" style="-fx-accent: #10b981; -fx-pref-height: 8;" />
+                            <Label style="-fx-text-fill: #475569;" text="30%" />
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label prefWidth="100" style="-fx-text-fill: #475569;" text="Phụ kiện" />
+                            <ProgressBar progress="0.15" style="-fx-accent: #f59e0b; -fx-pref-height: 8;" />
+                            <Label style="-fx-text-fill: #475569;" text="15%" />
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label prefWidth="100" style="-fx-text-fill: #475569;" text="Máy tính bảng" />
+                            <ProgressBar progress="0.10" style="-fx-accent: #ec489a; -fx-pref-height: 8;" />
+                            <Label style="-fx-text-fill: #475569;" text="10%" />
+                        </HBox>
+                    </children>
                 </VBox>
 
-                <!-- Hàng dưới: Doanh thu theo danh mục + Thị phần -->
-                <HBox spacing="20">
-                    <VBox styleClass="chart-card" HBox.hgrow="ALWAYS">
-                        <Label text="Doanh thu theo danh mục" styleClass="card-title"/>
-                        <VBox spacing="12">
-                            <HBox alignment="CENTER_LEFT" spacing="10">
-                                <Label text="Dịch vụ đám mây" prefWidth="130"/>
-                                <ProgressBar progress="0.45" styleClass="cat-progress-cloud"/>
-                                <Label text="45%"/>
-                            </HBox>
-                            <HBox alignment="CENTER_LEFT" spacing="10">
-                                <Label text="Bán phần cứng" prefWidth="130"/>
-                                <ProgressBar progress="0.30" styleClass="cat-progress-hardware"/>
-                                <Label text="30%"/>
-                            </HBox>
-                            <HBox alignment="CENTER_LEFT" spacing="10">
-                                <Label text="Tư vấn" prefWidth="130"/>
-                                <ProgressBar progress="0.15" styleClass="cat-progress-consult"/>
-                                <Label text="15%"/>
-                            </HBox>
-                            <HBox alignment="CENTER_LEFT" spacing="10">
-                                <Label text="Hợp đồng hỗ trợ" prefWidth="130"/>
-                                <ProgressBar progress="0.10" styleClass="cat-progress-support"/>
-                                <Label text="10%"/>
-                            </HBox>
-                        </VBox>
-                        <Label text="💡 Dịch vụ đám mây tăng 15% trong quý này" styleClass="insight-text"/>
-                    </VBox>
-
-                    <VBox styleClass="chart-card" HBox.hgrow="ALWAYS">
-                        <Label text="Thị phần toàn cầu" styleClass="card-title"/>
-                        <TableView fx:id="marketShareTable" prefHeight="180">
+                <VBox spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="Thị phần toàn cầu" />
+                        <TableView fx:id="marketShareTable" prefHeight="150">
                             <columns>
-                                <TableColumn text="Khu vực" prefWidth="80"/>
-                                <TableColumn text="Thị phần" prefWidth="100"/>
-                                <TableColumn text="Tăng trưởng" prefWidth="100"/>
+                                <TableColumn fx:id="col_region" prefWidth="100" text="Khu vực" />
+                                <TableColumn fx:id="col_marketShare" prefWidth="80" text="Thị phần" />
+                                <TableColumn fx:id="col_growth" prefWidth="90" text="Tăng trưởng" />
                             </columns>
                         </TableView>
-                        <Label text="🚀 Cơ hội mở rộng: Thị trường Đông Nam Á tăng 40% YoY.
-Khuyến nghị tăng ngân sách marketing tại Singapore và Việt Nam."
-                               styleClass="expansion-text" wrapText="true"/>
-                    </VBox>
-                </HBox>
-            </VBox>
-        </ScrollPane>
-    </center>
-
-    <bottom>
-        <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="footer">
-            <padding><Insets right="24" bottom="16" top="8"/></padding>
-            <Button text="Xuất báo cáo" styleClass="report-footer-btn"/>
-            <Button text="Đăng xuất" styleClass="logout-footer-btn"/>
+                    </children>
+                </VBox>
+            </children>
         </HBox>
-    </bottom>
-</BorderPane>
+    </children>
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>

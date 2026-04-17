@@ -155,4 +155,36 @@
 .logout-footer-btn:hover {
     -fx-background-color: #da190b;
 }
+/* Thêm các dòng sau vào file analytics.css */
 
+/* Đổi màu chữ tổng thể thành đen */
+.label, .button, .table-column, .table-view,
+.stat-title, .stat-value, .stat-trend,
+.card-title, .page-heading, .page-sub,
+.main-title, .global-subtitle, .insight-text,
+.expansion-text {
+    -fx-text-fill: black;
+}
+
+/* Riêng cho TableView */
+.table-view .column-header .label {
+    -fx-text-fill: black;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: black;
+}
+
+/* Riêng cho Button nếu muốn giữ nguyên */
+.button {
+    -fx-text-fill: black;
+}
+
+/* Chart axes */
+.axis-label {
+    -fx-text-fill: black;
+}
+
+.axis .tick-label {
+    -fx-text-fill: black;
+}
