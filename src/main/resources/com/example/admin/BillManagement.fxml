@@ -1,12 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.controllers.AdminControllers.BillManagementController"
+            stylesheets="@../../../css/admin/bill.css">
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <Label text="BillManagement"/>
-    </children>
-</VBox>
+    <top>
+        <VBox spacing="8" styleClass="header-area">
+            <padding><Insets top="20" left="24" right="24" bottom="8"/></padding>
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="🧾" styleClass="logo-icon"/>
+                <Label text="Enterprise Shell" styleClass="main-title"/>
+                <Label text="GLOBAL OPERATIONS" styleClass="global-subtitle"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField promptText="Tìm kiếm hóa đơn..." styleClass="search-field"/>
+            </HBox>
+            <Label text="Quản lý hóa đơn" styleClass="page-heading"/>
+            <Label text="Theo dõi, duyệt và xuất hóa đơn cho khách hàng" styleClass="page-sub"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" styleClass="main-content">
+            <padding><Insets left="24" right="24" bottom="24" top="12"/></padding>
+
+            <!-- Thanh công cụ -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Button text="➕ Thêm hóa đơn" styleClass="primary-btn"/>
+                <Button text="✏️ Sửa" styleClass="secondary-btn"/>
+                <Button text="🗑️ Xóa" styleClass="danger-btn"/>
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- ComboBox không có items trong FXML, sẽ được gán trong Controller -->
+                <ComboBox fx:id="statusCombo" prefWidth="150" promptText="Lọc theo trạng thái"/>
+
+                <DatePicker fx:id="fromDate" promptText="Từ ngày"/>
+                <DatePicker fx:id="toDate" promptText="Đến ngày"/>
+                <Button text="🔍 Lọc" styleClass="filter-btn"/>
+            </HBox>
+
+            <!-- Bảng hóa đơn -->
+            <TableView fx:id="billTable" VBox.vgrow="ALWAYS" styleClass="bill-table">
+                <columns>
+                    <TableColumn text="Mã hóa đơn" prefWidth="100"/>
+                    <TableColumn text="Khách hàng" prefWidth="180"/>
+                    <TableColumn text="Ngày tạo" prefWidth="120"/>
+                    <TableColumn text="Tổng tiền" prefWidth="120"/>
+                    <TableColumn text="Trạng thái" prefWidth="120"/>
+                    <TableColumn text="Thao tác" prefWidth="100"/>
+                </columns>
+                <placeholder>
+                    <Label text="Không có hóa đơn nào" styleClass="placeholder-text"/>
+                </placeholder>
+            </TableView>
+
+            <!-- Phân trang -->
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <Button text="‹" styleClass="page-btn"/>
+                <Label text="Trang 1 / 5" styleClass="page-info"/>
+                <Button text="›" styleClass="page-btn"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="footer">
+            <padding><Insets right="24" bottom="16" top="8"/></padding>
+            <Button text="Xuất Excel" styleClass="report-footer-btn"/>
+            <Button text="Đăng xuất" styleClass="logout-footer-btn"/>
+        </HBox>
+    </bottom>
+</BorderPane>

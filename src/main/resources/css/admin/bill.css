@@ -1,0 +1,204 @@
+/* Bill Management Styling */
+
+.header-area {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.logo-icon {
+    -fx-font-size: 24;
+}
+
+.main-title {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+}
+
+.global-subtitle {
+    -fx-font-size: 10;
+    -fx-text-fill: #666;
+    -fx-font-style: italic;
+}
+
+.page-heading {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+}
+
+.page-sub {
+    -fx-font-size: 12;
+    -fx-text-fill: #888;
+}
+
+.main-content {
+    -fx-background-color: #ffffff;
+}
+
+/* Search Field */
+.search-field {
+    -fx-padding: 8 12 8 12;
+    -fx-border-radius: 4;
+    -fx-border-color: #ddd;
+    -fx-font-size: 11;
+}
+
+.search-field:focused {
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 2;
+}
+
+/* Buttons */
+.primary-btn {
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 11;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.primary-btn:hover {
+    -fx-background-color: #45a049;
+}
+
+.secondary-btn {
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 11;
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #0b7dda;
+}
+
+.danger-btn {
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 11;
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.danger-btn:hover {
+    -fx-background-color: #da190b;
+}
+
+.filter-btn {
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 11;
+    -fx-background-color: #FF9800;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.filter-btn:hover {
+    -fx-background-color: #e68900;
+}
+
+/* Table */
+.bill-table {
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-background-color: #ffffff;
+}
+
+.bill-table .column-header {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #1a1a1a;
+    -fx-font-weight: bold;
+    -fx-border-color: #e0e0e0;
+}
+
+.bill-table .table-row-cell {
+    -fx-padding: 8;
+    -fx-border-color: #f0f0f0;
+}
+
+.bill-table .table-row-cell:selected {
+    -fx-background-color: #E8F5E9;
+}
+
+.bill-table .table-row-cell:hover {
+    -fx-background-color: #f9f9f9;
+}
+
+.placeholder-text {
+    -fx-font-size: 12;
+    -fx-text-fill: #999;
+}
+
+/* Pagination */
+.page-btn {
+    -fx-padding: 6 12 6 12;
+    -fx-font-size: 11;
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.page-btn:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.page-info {
+    -fx-font-size: 11;
+    -fx-text-fill: #666;
+    -fx-padding: 6 12 6 12;
+}
+
+/* ComboBox and DatePicker */
+.combo-box,
+.date-picker {
+    -fx-padding: 8;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 4;
+    -fx-font-size: 11;
+}
+
+.combo-box:focused,
+.date-picker:focused {
+    -fx-border-color: #4CAF50;
+}
+
+/* Footer */
+.footer {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1 0 0 0;
+}
+
+.report-footer-btn {
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 11;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.report-footer-btn:hover {
+    -fx-background-color: #45a049;
+}
+
+.logout-footer-btn {
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 11;
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+.logout-footer-btn:hover {
+    -fx-background-color: #da190b;
+}
+
