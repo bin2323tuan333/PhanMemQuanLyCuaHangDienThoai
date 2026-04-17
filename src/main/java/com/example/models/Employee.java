@@ -25,7 +25,12 @@ public class Employee {
     this.fullName = rs.getString("employee_name");
     this.address = rs.getString("address");
     this.birthday = rs.getDate("birthday");
-    this.gender = rs.getBoolean("gender");
+    String genderStr = rs.getString("gender");
+    if (genderStr != null) {
+      this.gender = "Nam".equalsIgnoreCase(genderStr) || "Male".equalsIgnoreCase(genderStr);
+    } else {
+      this.gender = true; // Giá trị mặc định nếu null
+    }
     this.salary = rs.getDouble("salary");
     this.status = rs.getString("status");
     this.phoneNumber = rs.getString("phone_number");
@@ -43,7 +48,15 @@ public class Employee {
     this.status = status;
     this.accountId = accountId;
   }
-  
+
+  // Thêm method này để chuyển đổi 2 chiều
+  public String getGenderString() {
+    return gender ? "Nam" : "Nữ";
+  }
+
+  public void setGenderFromString(String genderStr) {
+    this.gender = "Nam".equalsIgnoreCase(genderStr);
+  }
   public int getEmployeeId() {
     return employeeId;
   }

@@ -12,7 +12,12 @@ public class AuthService implements IAuthService {
     }
     IAccountRepository accountRepo = new AccountRepository();
     Account acc = accountRepo.getAccountByUsername(username);
-    return acc;
+
+    // Kiểm tra mật khẩu
+    if (acc != null && acc.getPassword().equals(password)) {
+      return acc;
+    }
+    return null;
   }
   
   public void register(String user, String pass) {
