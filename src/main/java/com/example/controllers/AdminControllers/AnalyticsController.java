@@ -26,17 +26,19 @@ public class AnalyticsController {
     @FXML
     private TableView<MarketShare> marketShareTable;
 
-    // Khai báo các cột (cần có fx:id trong FXML)
-    @FXML private TableColumn<MarketShare, String> col_region;
-    @FXML private TableColumn<MarketShare, String> col_marketShare;
-    @FXML private TableColumn<MarketShare, String> col_growth;
+    @FXML
+    private TableColumn<MarketShare, String> col_region;
+    @FXML
+    private TableColumn<MarketShare, String> col_marketShare;
+    @FXML
+    private TableColumn<MarketShare, String> col_growth;
 
     @FXML
     public void initialize() {
         // Set dữ liệu cho các Label
-        totalRevenue.setText("1,284,500$");
+        totalRevenue.setText("1,284,500,000 VNĐ");
         totalOrders.setText("42,890");
-        avgOrderValue.setText("29.95$");
+        avgOrderValue.setText("29,950,000 VNĐ");
         customerGrowth.setText("+1,240");
 
         // Set dữ liệu cho biểu đồ
@@ -48,37 +50,35 @@ public class AnalyticsController {
 
     private void setupChart() {
         XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
-        revenueSeries.setName("Doanh thu");
+        revenueSeries.setName("Doanh thu (Triệu VNĐ)");
         revenueSeries.getData().addAll(
-                new XYChart.Data<>("Tháng 1", 120),
-                new XYChart.Data<>("Tháng 2", 135),
-                new XYChart.Data<>("Tháng 3", 150),
-                new XYChart.Data<>("Tháng 4", 180),
-                new XYChart.Data<>("Tháng 5", 210),
-                new XYChart.Data<>("Tháng 6", 250)
+                new XYChart.Data<>("Tháng 1", 120000),
+                new XYChart.Data<>("Tháng 2", 135000),
+                new XYChart.Data<>("Tháng 3", 150000),
+                new XYChart.Data<>("Tháng 4", 180000),
+                new XYChart.Data<>("Tháng 5", 210000),
+                new XYChart.Data<>("Tháng 6", 250000)
         );
 
         XYChart.Series<String, Number> profitSeries = new XYChart.Series<>();
-        profitSeries.setName("Lợi nhuận");
+        profitSeries.setName("Lợi nhuận (Triệu VNĐ)");
         profitSeries.getData().addAll(
-                new XYChart.Data<>("Tháng 1", 45),
-                new XYChart.Data<>("Tháng 2", 50),
-                new XYChart.Data<>("Tháng 3", 55),
-                new XYChart.Data<>("Tháng 4", 65),
-                new XYChart.Data<>("Tháng 5", 80),
-                new XYChart.Data<>("Tháng 6", 95)
+                new XYChart.Data<>("Tháng 1", 45000),
+                new XYChart.Data<>("Tháng 2", 50000),
+                new XYChart.Data<>("Tháng 3", 55000),
+                new XYChart.Data<>("Tháng 4", 65000),
+                new XYChart.Data<>("Tháng 5", 80000),
+                new XYChart.Data<>("Tháng 6", 95000)
         );
 
         revenueProfitChart.getData().addAll(revenueSeries, profitSeries);
     }
 
     private void setupTable() {
-        // Gán cell value factory cho các cột
         col_region.setCellValueFactory(new PropertyValueFactory<>("region"));
         col_marketShare.setCellValueFactory(new PropertyValueFactory<>("marketShare"));
         col_growth.setCellValueFactory(new PropertyValueFactory<>("growth"));
 
-        // Thêm dữ liệu
         ObservableList<MarketShare> data = FXCollections.observableArrayList(
                 new MarketShare("Bắc Mỹ", "42%", "+8.5%"),
                 new MarketShare("Châu Âu", "28%", "+5.2%"),
