@@ -1,8 +1,6 @@
 package com.example.controllers;
 
 import com.example.models.Account;
-import com.example.repositories.IAccountRepository;
-import com.example.services.AccountService;
 import com.example.services.IAuthService;
 import com.example.services.AuthService;
 import javafx.fxml.FXML;

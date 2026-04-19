@@ -1,6 +1,7 @@
 package com.example.services;
 
 import com.example.models.Account;
+import javafx.stage.Stage;
 
 public interface IAuthService {
   Account login(String username, String password);

@@ -1,6 +1,7 @@
 package com.example.controllers;
 
 import com.example.models.Employee;
+import com.example.services.AccountService;
 import com.example.services.EmployeeService;
 import com.example.services.IAuthService;
 import com.example.services.AuthService;
@@ -26,8 +27,9 @@ public class TopBarController {
   
   public void setup() {
     EmployeeService eService = new EmployeeService();
-    int id = mainController.getAccountId();
-    Employee emp = eService.getEmployeeByID(id);
+    AccountService accountService = new AccountService();
+    int accountId = mainController.getAccountId();
+    Employee emp = eService.getEmployeeByID(accountService.getAccountByID(accountId).getEmployeeId());
     if (emp != null) {
       lb_name.setText(emp.getFullName());
     } else {

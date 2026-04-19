@@ -13,7 +13,7 @@ public class Account {
   public Account() {
   }
   
-  public Account(int accountId, String username, String password, int role, int employeeId) {
+  public Account(int accountId, String username, String password, int role, int employeeId, int roleId) {
     this.accountId = accountId;
     this.username = username;
     this.password = password;
