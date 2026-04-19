@@ -1,0 +1,26 @@
+.header-area {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);
+    -fx-border-color: transparent transparent #e2e8f0 transparent;
+}
+.logo-icon { -fx-font-size: 28px; }
+.main-title { -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1e293b; }
+.global-subtitle { -fx-font-size: 14px; -fx-text-fill: #64748b; }
+.search-field { -fx-pref-width: 200px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-padding: 6 12; }
+.help-btn { -fx-background-radius: 20; -fx-min-width: 32; -fx-min-height: 32; -fx-background-color: #f1f5f9; }
+.page-heading { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0f172a; }
+.page-sub { -fx-font-size: 13px; -fx-text-fill: #475569; }
+.left-menu { -fx-background-color: white; -fx-padding: 16 8; -fx-border-radius: 16; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2); }
+.menu-header { -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 0 0 8 12; -fx-text-fill: #334155; }
+.menu-button { -fx-background-color: transparent; -fx-text-fill: #1e293b; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT; -fx-padding: 10 12; -fx-background-radius: 12; -fx-cursor: hand; }
+.menu-button:selected { -fx-background-color: #eef2ff; -fx-text-fill: #3b82f6; -fx-font-weight: bold; }
+.section-card { -fx-background-color: white; -fx-background-radius: 20; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2); -fx-border-color: #eef2ff; -fx-border-radius: 20; }
+.section-title { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0f172a; }
+.section-link { -fx-text-fill: #3b82f6; -fx-underline: true; -fx-cursor: hand; }
+.secondary-btn { -fx-background-color: #f1f5f9; -fx-text-fill: #1e293b; -fx-background-radius: 8; -fx-padding: 8 16; }
+.hint-text { -fx-font-size: 12px; -fx-text-fill: #94a3b8; }
+.discard-btn { -fx-background-color: transparent; -fx-border-color: #cbd5e1; -fx-border-radius: 8; -fx-text-fill: #475569; -fx-padding: 8 20; }
+.save-btn { -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 8 20; -fx-font-weight: bold; }
+.report-footer-btn, .logout-footer-btn { -fx-background-color: transparent; -fx-text-fill: #3b82f6; -fx-border-color: #3b82f6; -fx-border-radius: 6; -fx-padding: 6 16; }
+.logout-footer-btn { -fx-text-fill: #ef4444; -fx-border-color: #ef4444; }
+.footer { -fx-background-color: transparent; }

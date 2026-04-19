@@ -32,7 +32,7 @@ public class LoginController {
   public void button_login_click() {
     String user = textField_username.getText();
     String pass = textField_password.getText();
-    
+
     if (user.isEmpty() || pass.isEmpty()) {
       label_message.setText("Không được để trống!");
       label_message.setStyle("-fx-text-fill: red;");
@@ -65,4 +65,12 @@ public class LoginController {
       label_message.setStyle("-fx-text-fill: red;");
     }
   }
+
+    public Button getButton_login() {
+        return button_login;
+    }
+
+    public void setButton_login(Button button_login) {
+        this.button_login = button_login;
+    }
 }

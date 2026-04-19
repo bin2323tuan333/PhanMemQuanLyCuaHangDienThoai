@@ -11,9 +11,11 @@ public class AuthService implements IAuthService {
     }
     AccountRepository accountRepo = new AccountRepository();
     Account acc = accountRepo.getAccountByUsername(username);
-    if (acc == null) return null;
-    if (!acc.getPassword().equals(password)) return null;
-    return acc;
+    
+    if (acc != null && acc.getPassword().equals(password)) {
+      return acc;
+    }
+    return null;
   }
   
   public void register(String user, String pass) {
@@ -21,7 +23,7 @@ public class AuthService implements IAuthService {
   }
   
   public void logout() {
-    System.out.println("Đã đăng xuất và quay về màn hình đăng nhập.");
+  
   }
   
 }

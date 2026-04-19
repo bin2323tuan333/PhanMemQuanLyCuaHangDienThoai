@@ -55,6 +55,13 @@ public class MainController {
     AccountService accountService = new AccountService();
     Account acc = accountService.getAccountByID(this.getAccountId());
     System.out.println(this.accountId + " " + acc.toString());
+    if (acc == null) {
+      System.out.println("Không tìm thấy account với id: " + this.accountId);
+      return;
+    }
+
+    System.out.println("Account role: " + acc.getRoleId());
+
     if (acc.getRoleId() == 2) {
       try {
         FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/admin/AdminSideBar.fxml"));
