@@ -1,10 +1,20 @@
 package com.example.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class ImportBillDetail {
     private int importId;  // FK -> ImportBill
     private int productId; // FK -> Product
     private int quantity;
     private double unitPrice;
+
+    public void setFromRS(ResultSet rs) throws SQLException {
+        this.importId = rs.getInt("import_id");
+        this.productId = rs.getInt("product_id");
+        this.quantity = rs.getInt("quantity");
+        this.unitPrice = rs.getDouble("unit_price");
+    }
 
     public ImportBillDetail() {}
 

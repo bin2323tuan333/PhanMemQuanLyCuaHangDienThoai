@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="20.0" style="-fx-background-color: #f1f5f9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.AdminControllers.BillManagementController">
+<VBox spacing="20.0" style="-fx-background-color: #f1f5f9;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.AdminControllers.BillManagementController">
 
     <children>
         <!-- Header -->
-        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 15 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
-            <children>
-                <Label text="📋" style="-fx-font-size: 28px;"/>
-                <Label text="Quản lý hóa đơn" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
-                <Label text="BILL MANAGEMENT" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
-            </children>
-        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 15 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);" />
 
         <!-- Bộ lọc -->
-        <HBox spacing="15.0" alignment="CENTER_LEFT">
+        <HBox alignment="CENTER_LEFT" spacing="15.0">
             <children>
-                <Label text="Trạng thái:" style="-fx-text-fill: #475569;"/>
-                <ComboBox fx:id="statusCombo" prefWidth="150" style="-fx-background-color: white;"/>
+                <Label style="-fx-text-fill: #475569;" text="Trạng thái:" />
+                <ComboBox fx:id="statusCombo" prefWidth="150" style="-fx-background-color: white;" />
 
-                <Label text="Từ ngày:" style="-fx-text-fill: #475569;"/>
-                <DatePicker fx:id="fromDate" prefWidth="150" style="-fx-background-color: white;"/>
+                <Label style="-fx-text-fill: #475569;" text="Từ ngày:" />
+                <DatePicker fx:id="fromDate" prefWidth="150" style="-fx-background-color: white;" />
 
-                <Label text="Đến ngày:" style="-fx-text-fill: #475569;"/>
-                <DatePicker fx:id="toDate" prefWidth="150" style="-fx-background-color: white;"/>
+                <Label style="-fx-text-fill: #475569;" text="Đến ngày:" />
+                <DatePicker fx:id="toDate" prefWidth="150" style="-fx-background-color: white;" />
 
-                <Button fx:id="btn_search" text="Tìm kiếm" onAction="#handleSearch"
-                        style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 16;"/>
-                <Button fx:id="btn_reset" text="Đặt lại" onAction="#handleReset"
-                        style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 16;"/>
+                <Button fx:id="btn_search" onAction="#handleSearch" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 16;" text="Tìm kiếm" />
+                <Button fx:id="btn_reset" onAction="#handleReset" style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 16;" text="Đặt lại" />
             </children>
         </HBox>
 
@@ -39,33 +31,32 @@
         <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label text="Danh sách hóa đơn" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button fx:id="btn_viewDetail" text="Xem chi tiết" onAction="#handleViewDetail"
-                            style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 16;"/>
+                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="Danh sách hóa đơn" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="btn_viewDetail" onAction="#handleViewDetail" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 16;" text="Xem chi tiết" />
                 </HBox>
 
                 <TableView fx:id="billTable" prefHeight="400">
                     <columns>
-                        <TableColumn fx:id="col_billId" text="Mã HD" prefWidth="80"/>
-                        <TableColumn fx:id="col_customerName" text="Khách hàng" prefWidth="200"/>
-                        <TableColumn fx:id="col_invoiceDate" text="Ngày tạo" prefWidth="150"/>
-                        <TableColumn fx:id="col_totalAmount" text="Tổng tiền" prefWidth="200"/>
-                        <TableColumn fx:id="col_employeeName" text="Nhân viên" prefWidth="150"/>
-                        <TableColumn fx:id="col_status" text="Trạng thái" prefWidth="120"/>
+                        <TableColumn fx:id="col_billId" prefWidth="80" text="Mã HD" />
+                        <TableColumn fx:id="col_customerName" prefWidth="200" text="Khách hàng" />
+                        <TableColumn fx:id="col_invoiceDate" prefWidth="150" text="Ngày tạo" />
+                        <TableColumn fx:id="col_totalAmount" prefWidth="200" text="Tổng tiền" />
+                        <TableColumn fx:id="col_employeeName" prefWidth="150" text="Nhân viên" />
+                        <TableColumn fx:id="col_status" prefWidth="120" text="Trạng thái" />
                     </columns>
                 </TableView>
 
                 <!-- Footer -->
                 <HBox alignment="CENTER_RIGHT" spacing="15">
-                    <Label fx:id="lb_totalBills" style="-fx-text-fill: #475569;"/>
-                    <Label fx:id="lb_totalAmount" style="-fx-text-fill: #475569; -fx-font-weight: bold;"/>
+                    <Label fx:id="lb_totalBills" style="-fx-text-fill: #475569;" />
+                    <Label fx:id="lb_totalAmount" style="-fx-text-fill: #475569; -fx-font-weight: bold;" />
                 </HBox>
             </children>
         </VBox>
     </children>
 
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 </VBox>

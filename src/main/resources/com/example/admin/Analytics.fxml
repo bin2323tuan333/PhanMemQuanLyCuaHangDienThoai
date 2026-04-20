@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -52,15 +51,7 @@
         </HBox>
 
         <!-- Biểu đồ doanh thu -->
-        <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
-            <children>
-                <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="Doanh thu và Lợi nhuận theo tháng" />
-                <BarChart fx:id="revenueProfitChart" animated="true" prefHeight="300">
-                    <xAxis><CategoryAxis label="Tháng" style="-fx-text-fill: #475569;" /></xAxis>
-                    <yAxis><NumberAxis label="Triệu VNĐ" style="-fx-text-fill: #475569;" /></yAxis>
-                </BarChart>
-            </children>
-        </VBox>
+        <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" />
 
         <!-- Doanh thu theo danh mục + Thị phần -->
         <HBox spacing="20.0">
@@ -94,13 +85,6 @@
                 <VBox spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
                     <children>
                         <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="Thị phần toàn cầu" />
-                        <TableView fx:id="marketShareTable" prefHeight="150">
-                            <columns>
-                                <TableColumn fx:id="col_region" prefWidth="100" text="Khu vực" />
-                                <TableColumn fx:id="col_marketShare" prefWidth="80" text="Thị phần" />
-                                <TableColumn fx:id="col_growth" prefWidth="90" text="Tăng trưởng" />
-                            </columns>
-                        </TableView>
                     </children>
                 </VBox>
             </children>

@@ -21,17 +21,7 @@ public class AnalyticsController {
   private Label avgOrderValue;
   @FXML
   private Label customerGrowth;
-  @FXML
-  private BarChart<String, Number> revenueProfitChart;
-  @FXML
-  private TableView<MarketShare> marketShareTable;
-  
-  @FXML
-  private TableColumn<MarketShare, String> col_region;
-  @FXML
-  private TableColumn<MarketShare, String> col_marketShare;
-  @FXML
-  private TableColumn<MarketShare, String> col_growth;
+
   
   @FXML
   public void initialize() {
@@ -43,8 +33,7 @@ public class AnalyticsController {
     // Set dữ liệu cho biểu đồ
     setupChart();
     
-    // Set dữ liệu cho bảng thị phần
-    setupTable();
+
   }
   
   private void setupChart() {
@@ -70,22 +59,7 @@ public class AnalyticsController {
             new XYChart.Data<>("Tháng 6", 95000)
     );
     
-    revenueProfitChart.getData().addAll(revenueSeries, profitSeries);
-  }
-  
-  private void setupTable() {
-    col_region.setCellValueFactory(new PropertyValueFactory<>("region"));
-    col_marketShare.setCellValueFactory(new PropertyValueFactory<>("marketShare"));
-    col_growth.setCellValueFactory(new PropertyValueFactory<>("growth"));
-    
-    ObservableList<MarketShare> data = FXCollections.observableArrayList(
-            new MarketShare("Bắc Mỹ", "42%", "+8.5%"),
-            new MarketShare("Châu Âu", "28%", "+5.2%"),
-            new MarketShare("Châu Á - Thái Bình Dương", "18%", "+15.3%"),
-            new MarketShare("Mỹ Latinh", "7%", "+12.1%"),
-            new MarketShare("Trung Đông & Châu Phi", "5%", "+9.8%")
-    );
-    
-    marketShareTable.setItems(data);
+
+    BarChart<String, Number> barChart = (BarChart<String, Number>) totalRevenue.getScene().lookup("#revenueChart");
   }
 }
