@@ -7,6 +7,7 @@ import java.util.Date;
 public class Customer {
   private int customerId;
   private String fullName;
+  private boolean gender;
   private Date birthday;
   private String address;
   private String phoneNumber;
@@ -14,9 +15,10 @@ public class Customer {
   public Customer() {
   }
   
-  public Customer(int customerId, String fullName, Date birthday, String address, String phoneNumber) {
+  public Customer(int customerId, String fullName, boolean gender, Date birthday, String address, String phoneNumber) {
     this.customerId = customerId;
     this.fullName = fullName;
+    this.gender = gender;
     this.birthday = birthday;
     this.address = address;
     this.phoneNumber = phoneNumber;
@@ -25,6 +27,7 @@ public class Customer {
   public void setFromRS(ResultSet rs) throws SQLException {
     this.setCustomerId(rs.getInt("customer_id"));
     this.setFullName(rs.getString("full_name"));
+    this.setGender(rs.getBoolean("gender"));
     this.setBirthday(rs.getDate("birthday"));
     this.setAddress(rs.getString("address"));
     this.setPhoneNumber(rs.getString("phone_number"));
@@ -44,6 +47,14 @@ public class Customer {
   
   public void setFullName(String fullName) {
     this.fullName = fullName;
+  }
+  
+  public boolean getGender() {
+    return this.gender;
+  }
+  
+  public void setGender(boolean gender) {
+    this.gender = gender;
   }
   
   public Date getBirthday() {

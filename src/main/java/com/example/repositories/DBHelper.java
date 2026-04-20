@@ -28,22 +28,6 @@ public class DBHelper {
     return DriverManager.getConnection(DB_URL, USER, PASS);
   }
   
-  public ResultSet executeQuery(String sql, Object... params) {
-    ResultSet rs = null;
-    try {
-      Connection conn = getConnection();
-      PreparedStatement pstmt = conn.prepareStatement(sql);
-      if (params != null) {
-        for (int i = 0; i < params.length; i++) {
-          pstmt.setObject(i + 1, params[i]);
-        }
-      }
-      rs = pstmt.executeQuery();
-    } catch (SQLException e) {
-      System.out.println(e.getErrorCode());
-    }
-    return rs;
-  }
   
   public void executeUpd(String sql, Object... params) {
     try (Connection conn = getConnection();

@@ -12,29 +12,19 @@ import java.util.List;
 public class AccountRepository {
   public Account getAccountByUsername(String username) {
     String sql = "SELECT * FROM Account WHERE username = ?";
-    ResultSet rs = null;
     
-    try {
-      rs = DBHelper.Instance().executeQuery(sql, username);
-      if (rs != null && rs.next()) {
-        Account acc = new Account();
-        acc.setFromRS(rs);
-        return acc;
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setString(1, username);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          Account acc = new Account();
+          acc.setFromRS(rs);
+          return acc;
+        }
       }
     } catch (SQLException e) {
       e.printStackTrace();
-    } finally {
-      try {
-        if (rs != null) {
-          Connection conn = rs.getStatement().getConnection();
-          rs.close();
-          if (conn != null && !conn.isClosed()) {
-            conn.close();
-          }
-        }
-      } catch (SQLException ex) {
-        ex.printStackTrace();
-      }
     }
     return null;
   }
@@ -45,10 +35,13 @@ public class AccountRepository {
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       pstmt.setInt(1, accId);
-      try (var rs = pstmt.executeQuery()) {
-        Account acc = new Account();
-        acc.setFromRS(rs);
-        return acc;
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          Account acc = new Account();
+          acc.setFromRS(rs);
+          return acc;
+        }
       }
     } catch (SQLException e) {
       e.printStackTrace();
