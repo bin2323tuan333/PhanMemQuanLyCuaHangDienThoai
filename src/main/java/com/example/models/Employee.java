@@ -2,7 +2,6 @@ package com.example.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.Date;
 
 public class Employee {
@@ -13,7 +12,7 @@ public class Employee {
   private String address;
   private String phoneNumber;
   private double salary;
-  private String status;
+  private boolean status;
   
   private int accountId; // FK -> Account
   
@@ -25,19 +24,15 @@ public class Employee {
     this.fullName = rs.getString("employee_name");
     this.address = rs.getString("address");
     this.birthday = rs.getDate("birthday");
-    String genderStr = rs.getString("gender");
-    if (genderStr != null) {
-      this.gender = "Nam".equalsIgnoreCase(genderStr) || "Male".equalsIgnoreCase(genderStr);
-    } else {
-      this.gender = true; // Giá trị mặc định nếu null
-    }
+    this.gender = rs.getBoolean("gender");
+
     this.salary = rs.getDouble("salary");
-    this.status = rs.getString("status");
+    this.status = rs.getBoolean("status");
     this.phoneNumber = rs.getString("phone_number");
   }
   
   public Employee(int employeeId, String fullName, boolean gender, Date birthday,
-                  String address, String phoneNumber, double salary, String status, int accountId) {
+                  String address, String phoneNumber, double salary, boolean status, int accountId) {
     this.employeeId = employeeId;
     this.fullName = fullName;
     this.gender = gender;
@@ -49,14 +44,9 @@ public class Employee {
     this.accountId = accountId;
   }
 
-  // Thêm method này để chuyển đổi 2 chiều
-  public String getGenderString() {
-    return gender ? "Nam" : "Nữ";
-  }
 
-  public void setGenderFromString(String genderStr) {
-    this.gender = "Nam".equalsIgnoreCase(genderStr);
-  }
+
+
   public int getEmployeeId() {
     return employeeId;
   }
@@ -113,11 +103,11 @@ public class Employee {
     this.salary = salary;
   }
   
-  public String getStatus() {
+  public Boolean getStatus() {
     return status;
   }
   
-  public void setStatus(String status) {
+  public void setStatus(Boolean status) {
     this.status = status;
   }
   

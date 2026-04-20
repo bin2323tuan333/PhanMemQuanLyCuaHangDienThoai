@@ -1,11 +1,21 @@
 package com.example.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Supplier {
     private int supplierId;
     private String name;
     private String address;
     private String phone;
     private String email;
+    public void setFromRS(ResultSet rs) throws SQLException {
+        this.supplierId = rs.getInt("supplier_id");
+        this.name = rs.getString("name");
+        this.address = rs.getString("address");
+        this.phone = rs.getString("phone");
+        this.email = rs.getString("email");
+    }
 
     public Supplier() {}
     public Supplier(int supplierId, String name, String address, String phone, String email) {

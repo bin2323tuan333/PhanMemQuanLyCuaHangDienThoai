@@ -13,8 +13,6 @@ public class AdminSettingController {
     @FXML
     private ToggleButton securityTab;
     @FXML
-    private ToggleButton notificationsTab;
-    @FXML
     private ToggleButton usersPermTab;
 
     @FXML
@@ -76,12 +74,8 @@ public class AdminSettingController {
             }
         });
 
-        notificationsTab.setOnAction(event -> {
-            if (notificationsTab.isSelected()) {
-                currentActiveTab = notificationsTab;
-                showNotificationsTab();
-            }
-        });
+
+
 
         usersPermTab.setOnAction(event -> {
             if (usersPermTab.isSelected()) {
@@ -142,8 +136,7 @@ public class AdminSettingController {
     }
 
     private void loadUserData() {
-        // Lấy employeeId từ session hoặc MainController
-        // Tạm thời set mặc định
+
         employeeId = 1;
 
         EmployeeService employeeService = new EmployeeService();

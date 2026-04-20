@@ -1,5 +1,8 @@
 package com.example.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Product {
     private int productId;
     private String productName;
@@ -10,6 +13,17 @@ public class Product {
 
     private int categoryId; // FK -> Category
     private int brandId;    // FK -> Brand
+
+    public void setFromRS(ResultSet rs) throws SQLException {
+        this.productId = rs.getInt("product_id");
+        this.productName = rs.getString("product_name");
+        this.quantity = rs.getInt("quantity");
+        this.description = rs.getString("description");
+        this.price = rs.getDouble("price");
+        this.stock = rs.getInt("stock");
+        this.categoryId = rs.getInt("category_id");
+        this.brandId = rs.getInt("brand_id");
+    }
 
     public Product() {}
 
@@ -53,4 +67,6 @@ public class Product {
     public String toString() {
         return productName;
     }
+
+
 }
