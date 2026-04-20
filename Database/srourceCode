@@ -1,60 +1,32 @@
--- Tạo database (thêm dòng này nếu bồ chưa có)
-CREATE DATABASE IF NOT EXISTS sales_management;
+DROP DATABASE IF EXISTS sales_management;
+
+CREATE DATABASE sales_management;
 USE sales_management;
 
+-- ============================================
+-- TẠO CÁC BẢNG (ĐÃ SỬA KIỂU DECIMAL)
+-- ============================================
 
--- Bảng Role
-CREATE TABLE IF NOT EXISTS Role (
+-- 1. Bảng Role
+CREATE TABLE Role (
     role_id INT PRIMARY KEY AUTO_INCREMENT,
-    role_name ENUM('Employee', 'Admin') NOT NULL
+    role_name VARCHAR(50) NOT NULL UNIQUE
 );
 
--- Bảng Employee (Phải đưa lên đây để Account còn gọi tới)
-CREATE TABLE IF NOT EXISTS Employee (
+-- 2. Bảng Employee
+CREATE TABLE Employee (
     employee_id INT PRIMARY KEY AUTO_INCREMENT,
     employee_name VARCHAR(100) NOT NULL,
-    gender VARCHAR(10),
+    gender Bool,
     birthday DATE,
     address VARCHAR(255),
     phone_number VARCHAR(20),
-    salary DECIMAL(10, 2),
-    status VARCHAR(20) DEFAULT 'Active'
+    salary Double(15,2),
+    status Bool default 1
 );
 
--- Bảng Category
-CREATE TABLE IF NOT EXISTS Category (
-    category_id INT PRIMARY KEY AUTO_INCREMENT,
-    category_name VARCHAR(100) NOT NULL UNIQUE
-);
-
--- Bảng Brand
-CREATE TABLE IF NOT EXISTS Brand (
-    brand_id INT PRIMARY KEY AUTO_INCREMENT,
-    brand_name VARCHAR(100) NOT NULL UNIQUE
-);
-
--- Bảng Supplier
-CREATE TABLE IF NOT EXISTS Supplier (
-    supplier_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    address VARCHAR(255),
-    phone VARCHAR(20),
-    email VARCHAR(100)
-);
-
--- Bảng Customer
-CREATE TABLE IF NOT EXISTS Customer (
-    customer_id INT PRIMARY KEY AUTO_INCREMENT,
-    full_name VARCHAR(100) NOT NULL,
-    birthday DATE,
-    address VARCHAR(255),
-    phone_number VARCHAR(20)
-);
-
-
-
--- Bảng Account (Phụ thuộc Role, Employee)
-CREATE TABLE IF NOT EXISTS Account (
+-- 3. Bảng Account
+CREATE TABLE Account (
     account_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -64,13 +36,34 @@ CREATE TABLE IF NOT EXISTS Account (
     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE SET NULL
 );
 
--- Bảng Product (Phụ thuộc Category, Brand, Supplier)
-CREATE TABLE IF NOT EXISTS Product (
+-- 4. Bảng Category
+CREATE TABLE Category (
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- 5. Bảng Brand
+CREATE TABLE Brand (
+    brand_id INT PRIMARY KEY AUTO_INCREMENT,
+    brand_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- 6. Bảng Supplier
+CREATE TABLE Supplier (
+    supplier_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    address VARCHAR(255),
+    phone VARCHAR(20),
+    email VARCHAR(100)
+);
+
+-- 7. Bảng Product
+CREATE TABLE Product (
     product_id INT PRIMARY KEY AUTO_INCREMENT,
     product_name VARCHAR(200) NOT NULL,
     quantity INT DEFAULT 0,
     description TEXT,
-    price DECIMAL(10, 2) NOT NULL,
+    price Double NOT NULL,
     stock INT DEFAULT 0,
     category_id INT,
     brand_id INT,
@@ -80,58 +73,202 @@ CREATE TABLE IF NOT EXISTS Product (
     FOREIGN KEY (supplier_id) REFERENCES Supplier(supplier_id) ON DELETE SET NULL
 );
 
--- Bảng Bill (Phụ thuộc Employee, Customer)
-CREATE TABLE IF NOT EXISTS Bill (
+-- 8. Bảng Customer
+CREATE TABLE Customer (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    full_name VARCHAR(100) NOT NULL,
+    gender Bool,
+    birthday DATE,
+    address VARCHAR(255),
+    phone_number VARCHAR(20)
+);
+
+-- 9. Bảng Bill (Đã sửa DECIMAL)
+CREATE TABLE Bill (
     bill_id INT PRIMARY KEY AUTO_INCREMENT,
     invoice_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    total_amount DECIMAL(10, 2) DEFAULT 0,
+    total_amount Double DEFAULT 0,
     employee_id INT,
     customer_id INT,
     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE SET NULL,
     FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE SET NULL
 );
 
--- Bảng ImportBill (Phụ thuộc Employee, Supplier)
-CREATE TABLE IF NOT EXISTS ImportBill (
+-- 10. Bảng BillDetail
+CREATE TABLE BillDetail (
+    bill_detail_id INT PRIMARY KEY AUTO_INCREMENT,
+    bill_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    unit_price Double NOT NULL,
+    FOREIGN KEY (bill_id) REFERENCES Bill(bill_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
+);
+
+-- 11. Bảng ImportBill
+CREATE TABLE ImportBill (
     import_id INT PRIMARY KEY AUTO_INCREMENT,
     import_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    total_amount DECIMAL(10, 2) DEFAULT 0,
+    total_amount Double DEFAULT 0,
     employee_id INT,
     supplier_id INT,
     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE SET NULL,
     FOREIGN KEY (supplier_id) REFERENCES Supplier(supplier_id) ON DELETE SET NULL
 );
 
-
-
--- Bảng BillDetail (Phụ thuộc Bill, Product)
-CREATE TABLE IF NOT EXISTS BillDetail (
-    bill_detail_id INT PRIMARY KEY AUTO_INCREMENT,
-    bill_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    unit_price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (bill_id) REFERENCES Bill(bill_id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
-);
-
--- Bảng ImportBillDetail (Phụ thuộc ImportBill, Product)
-CREATE TABLE IF NOT EXISTS ImportBillDetail (
+-- 12. Bảng ImportBillDetail
+CREATE TABLE ImportBillDetail (
     import_id INT NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
-    unit_price DECIMAL(10, 2) NOT NULL,
+    unit_price Double NOT NULL,
     PRIMARY KEY (import_id, product_id),
     FOREIGN KEY (import_id) REFERENCES ImportBill(import_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
 );
 
+-- ============================================
+-- THÊM DỮ LIỆU MẪU
+-- ============================================
 
+-- Thêm Role
+INSERT INTO Role (role_name) VALUES ('Employee'), ('Admin');
 
+-- Thêm Employee
+INSERT INTO Employee (employee_name, gender, birthday, address, phone_number, salary, status) VALUES
+('Admin User', 0, '1985-01-01', '123 Admin St', '0909000001', 15000000, 1),
+('Nguyễn Văn A', 0, '1990-05-15', '123 Lê Lợi, Q1, TP.HCM', '0909123456', 8000000, 1),
+('Trần Thị B', 1, '1995-08-20', '456 Nguyễn Huệ, Q1, TP.HCM', '0909876543', 8000000, 1);
 
+-- Thêm Account
+INSERT INTO Account (username, password, role_id, employee_id) VALUES
+('admin', 'admin123', 2, 1),
+('employee1', 'employee123', 1, 2),
+('employee2', 'employee123', 1, 3);
 
+-- Thêm Category
+INSERT INTO Category (category_name) VALUES
+('Điện thoại'),
+('Laptop'),
+('Phụ kiện'),
+('Tablet'),
+('Tai nghe'),
+('Sạc dự phòng');
 
+-- Thêm Brand
+INSERT INTO Brand (brand_name) VALUES
+('Apple'),
+('Samsung'),
+('Xiaomi'),
+('Dell'),
+('HP'),
+('Asus'),
+('Lenovo');
 
+-- Thêm Supplier
+INSERT INTO Supplier (name, address, phone, email) VALUES
+('Công ty TNHH Điện tử ABC', '123 Nguyễn Trãi, Q1, TP.HCM', '0909123456', 'abc@email.com'),
+('Công ty CP Công nghệ XYZ', '456 Lê Lợi, Q3, TP.HCM', '0909987654', 'xyz@email.com'),
+('Công ty TNHH Thương mại 123', '789 Trần Hưng Đạo, Q5, TP.HCM', '0909777888', '123@email.com');
 
+-- Thêm Product
+INSERT INTO Product (product_name, quantity, description, price, stock, category_id, brand_id, supplier_id) VALUES
+('iPhone 14 Pro 128GB', 50, 'Điện thoại iPhone 14 Pro 128GB', 25900000, 50, 1, 1, 1),
+('iPhone 14 Pro Max 256GB', 30, 'Điện thoại iPhone 14 Pro Max 256GB', 31900000, 30, 1, 1, 1),
+('Samsung Galaxy S23 Ultra', 60, 'Điện thoại Samsung Galaxy S23 Ultra 256GB', 26900000, 60, 1, 2, 1),
+('Samsung Galaxy A54', 100, 'Điện thoại Samsung Galaxy A54 128GB', 8990000, 100, 1, 2, 1),
+('Xiaomi Redmi Note 12', 80, 'Điện thoại Xiaomi Redmi Note 12 128GB', 5990000, 80, 1, 3, 2),
+('MacBook Air M2', 25, 'Laptop MacBook Air M2 13 inch 256GB', 27900000, 25, 2, 1, 2),
+('Dell XPS 15', 20, 'Laptop Dell XPS 15 i7 16GB 512GB', 34900000, 20, 2, 4, 2),
+('HP Pavilion 15', 35, 'Laptop HP Pavilion 15 i5 8GB 512GB', 16900000, 35, 2, 5, 2),
+('Tai nghe AirPods Pro 2', 150, 'Tai nghe không dây Apple AirPods Pro 2', 4990000, 150, 5, 1, 1),
+('Sạc dự phòng 20000mAh', 200, 'Sạc dự phòng dung lượng cao', 890000, 200, 6, 3, 3);
 
+-- Thêm Customer
+INSERT INTO Customer (full_name, birthday, gender, address, phone_number) VALUES
+('Nguyễn Văn Khách', '1995-10-20', 1, '123 Nguyễn Trãi, Q1, TP.HCM', '0909123456'),
+('Trần Thị Mua', '1998-03-15', 0, '456 Lê Lợi, Q3, TP.HCM', '0909876543'),
+('Lê Văn Sỉ', '2000-07-08', 1, '789 Phạm Ngũ Lão, Q1, TP.HCM', '0909555666'),
+('Phạm Thị Lẻ', '1992-12-25', 0,  '321 CMT8, Q10, TP.HCM', '0909333444');
 
+-- Thêm Bill
+INSERT INTO Bill (invoice_date, total_amount, employee_id, customer_id) VALUES
+(NOW(), 25900000, 2, 1),
+(NOW() - INTERVAL 1 DAY, 31900000, 2, 2),
+(NOW() - INTERVAL 2 DAY, 31890000, 3, 1),
+(NOW() - INTERVAL 3 DAY, 8990000, 2, 3),
+(NOW() - INTERVAL 5 DAY, 27900000, 3, 4);
+
+-- Thêm BillDetail
+INSERT INTO BillDetail (bill_id, product_id, quantity, unit_price) VALUES
+(1, 1, 1, 25900000),
+(2, 2, 1, 31900000),
+(3, 3, 1, 26900000),
+(3, 9, 1, 4990000),
+(4, 4, 1, 8990000),
+(5, 6, 1, 27900000);
+
+-- Thêm ImportBill (Đã giảm giá trị để phù hợp)
+INSERT INTO ImportBill (import_date, total_amount, employee_id, supplier_id) VALUES
+(NOW() - INTERVAL 10 DAY, 20000000, 1, 1),  -- Giảm từ 200,000,000 xuống 20,000,000
+(NOW() - INTERVAL 7 DAY, 15000000, 1, 2),   -- Giảm từ 150,000,000 xuống 15,000,000
+(NOW() - INTERVAL 3 DAY, 8000000, 1, 3);    -- Giảm từ 80,000,000 xuống 8,000,000
+
+-- Thêm ImportBillDetail (Đã giảm giá trị)
+INSERT INTO ImportBillDetail (import_id, product_id, quantity, unit_price) VALUES
+(1, 1, 10, 2000000),   -- Giảm từ 100, 20,000,000
+(1, 2, 5, 2500000),    -- Giảm từ 50, 25,000,000
+(1, 3, 8, 2200000),    -- Giảm từ 80, 22,000,000
+(2, 4, 15, 700000),    -- Giảm từ 150, 7,000,000
+(2, 5, 20, 450000),    -- Giảm từ 200, 4,500,000
+(2, 6, 4, 2400000),    -- Giảm từ 40, 24,000,000
+(3, 7, 3, 3000000),    -- Giảm từ 30, 30,000,000
+(3, 8, 5, 1400000),    -- Giảm từ 50, 14,000,000
+(3, 9, 20, 350000),    -- Giảm từ 200, 3,500,000
+(3, 10, 30, 60000);    -- Giảm từ 300, 600,000
+
+-- ============================================
+-- KIỂM TRA DỮ LIỆU
+-- ============================================
+
+-- Kiểm tra tất cả bảng
+SELECT '=== DANH SÁCH BẢNG ===' as '';
+SHOW TABLES;
+
+-- Kiểm tra Account
+SELECT '=== ACCOUNT ===' as '';
+SELECT a.account_id, a.username, a.password, r.role_name, e.employee_name
+FROM Account a
+LEFT JOIN Role r ON a.role_id = r.role_id
+LEFT JOIN Employee e ON a.employee_id = e.employee_id;
+
+-- Kiểm tra Product
+SELECT '=== PRODUCT ===' as '';
+SELECT product_id, product_name, price, stock FROM Product LIMIT 10;
+
+-- Kiểm tra ImportBill (Đã sửa)
+SELECT '=== IMPORT BILL ===' as '';
+SELECT * FROM ImportBill;
+
+-- Kiểm tra ImportBillDetail
+SELECT '=== IMPORT BILL DETAIL ===' as '';
+SELECT * FROM ImportBillDetail;
+
+-- Kiểm tra thống kê
+SELECT '=== THỐNG KÊ ===' as '';
+SELECT
+    'Số lượng sản phẩm' as 'Chỉ tiêu',
+    COUNT(*) as 'Số lượng'
+FROM Product
+UNION ALL
+SELECT 'Số lượng nhân viên', COUNT(*) FROM Employee
+UNION ALL
+SELECT 'Số lượng khách hàng', COUNT(*) FROM Customer
+UNION ALL
+SELECT 'Số lượng hóa đơn bán', COUNT(*) FROM Bill
+UNION ALL
+SELECT 'Số lượng hóa đơn nhập', COUNT(*) FROM ImportBill;
+-- ============================================
+-- KẾT THÚC
+-- ============================================
+SELECT '✅ TẠO DATABASE THÀNH CÔNG!' as 'KẾT QUẢ';

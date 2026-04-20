@@ -69,7 +69,7 @@ public class AccountRepository {
     return list;
   }
   
-  public void insert(Account acc) {
+  public void insertAccount(Account acc) {
     if (acc == null) return;
     String sql = "INSERT INTO Account (username, password, role_id, employee_id) VALUES (?, ?, ?, ?)";
     DBHelper.Instance().executeUpd(sql,
@@ -79,7 +79,7 @@ public class AccountRepository {
             acc.getEmployeeId());
   }
   
-  public void update(Account acc) {
+  public void updateAccount(Account acc) {
     if (acc == null) return;
     String sql = "UPDATE Account SET username = ?, password = ?, role_id = ? WHERE id = ?";
     DBHelper.Instance().executeUpd(sql,
@@ -89,7 +89,7 @@ public class AccountRepository {
             acc.getAccountId());
   }
   
-  public void delete(int accId) {
+  public void deleteAccount(int accId) {
     String sql = "DELETE FROM Account WHERE id = ?";
     DBHelper.Instance().executeUpd(sql, accId);
   }

@@ -71,7 +71,31 @@ public class CustomerRepository {
     return customers;
   }
   
-  public void addCustomer(Customer cus) {
+  public List<Customer> searchCustomersByPhoneNumber(String keyword) {
+    List<Customer> customers = new ArrayList<>();
+    String sql = "SELECT * " +
+                         "FROM Customer " +
+                         "WHERE phone_number " +
+                         "LIKE ? " +
+                         "ORDER BY customer_id DESC";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setString(1, "%" + keyword + "%");
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs != null && rs.next()) {
+          Customer cus = new Customer();
+          cus.setFromRS(rs);
+          customers.add(cus);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return customers;
+  }
+  
+  public void insertCustomer(Customer cus) {
     String sql = "INSERT INTO Customer (full_name, birthday, address, phone_number) VALUES (?, ?, ?, ?)";
     DBHelper.Instance().executeUpd(sql,
             cus.getFullName(),

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class BillRepository {
   
-  public List<Bill> getAllBills() throws SQLException {
+  public List<Bill> getAllBills() {
     List<Bill> bills = new ArrayList<>();
     String sql = "SELECT * FROM Bill ORDER BY invoice_date DESC";
     
@@ -27,7 +27,7 @@ public class BillRepository {
     return bills;
   }
   
-  public Bill getBillById(int id) throws SQLException {
+  public Bill getBillById(int id) {
     String sql = "SELECT * FROM Bill WHERE bill_id = ?";
     
     try (Connection conn = DBHelper.Instance().getConnection();
@@ -45,4 +45,28 @@ public class BillRepository {
     
     return null;
   }
+  
+  public void insertBill(Bill b) {
+    if (b == null) return;
+    String sql = "INSERT INTO Bill (invoice_date, total_amount, employee_id, customer_id) " +
+                         "VALUES (?, ?, ?, ?);";
+    DBHelper.Instance().executeUpd(sql,
+            b.getInvoiceDate(),
+            b.getTotalAmount(),
+            b.getEmployeeId(),
+            b.getCustomerId());
+  }
+  
+  public void updateBill(Bill b) {
+    if (b == null) return;
+    String sql = "UPDATE Bill  SET  invoice_date = ?,  total_amount = ?,  employee_id = ?,  customer_id = ? " +
+                         "WHERE bill_id = ?;";
+    DBHelper.Instance().executeUpd(sql, b.getInvoiceDate(), b.getTotalAmount(), b.getEmployeeId(), b.getCustomerId(), b.getBillId());
+  }
+  
+  public void deleteBill(int id) {
+    String sql = "DELETE FROM Bill WHERE bill_id = ?";
+    DBHelper.Instance().executeUpd(sql, id);
+  }
+  
 }
