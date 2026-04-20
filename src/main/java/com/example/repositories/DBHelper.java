@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.example.repositories;
 
 import java.sql.*;
 
@@ -29,6 +29,7 @@ public class DBHelper {
   }
   
   public ResultSet executeQuery(String sql, Object... params) {
+    ResultSet rs = null;
     try {
       Connection conn = getConnection();
       PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -37,11 +38,11 @@ public class DBHelper {
           pstmt.setObject(i + 1, params[i]);
         }
       }
-      return pstmt.executeQuery();
+      rs = pstmt.executeQuery();
     } catch (SQLException e) {
       System.out.println(e.getErrorCode());
-      return null;
     }
+    return rs;
   }
   
   public void executeUpd(String sql, Object... params) {

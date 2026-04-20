@@ -1,9 +1,9 @@
 package com.example.repositories;
 
 import com.example.models.Account;
-import com.example.utils.DBHelper;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,60 +41,37 @@ public class AccountRepository {
   
   public Account getAccountByID(int accId) {
     String sql = "SELECT * FROM Account WHERE account_id = ?";
-    ResultSet rs = null;
     
-    try {
-      rs = DBHelper.Instance().executeQuery(sql, accId);
-      System.out.println("Biến rs lúc này: " + rs);
-      if (rs != null && rs.next()) {
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, accId);
+      try (var rs = pstmt.executeQuery()) {
         Account acc = new Account();
         acc.setFromRS(rs);
         return acc;
       }
     } catch (SQLException e) {
       e.printStackTrace();
-    } finally {
-      try {
-        if (rs != null) {
-          Connection conn = rs.getStatement().getConnection();
-          rs.close();
-          if (conn != null && !conn.isClosed()) {
-            conn.close();
-          }
-        }
-      } catch (SQLException ex) {
-        ex.printStackTrace();
-      }
     }
     return null;
   }
   
   public List<Account> getAllAccount() {
     List<Account> list = new ArrayList<>();
-    String sql = "SELECT * FROM Account";
-    ResultSet rs = null;
+    String sql = "SELECT * " +
+                         "FROM Account";
     
-    try {
-      rs = DBHelper.Instance().executeQuery(sql);
-      if (rs != null && rs.next()) {
-        Account acc = new Account();
-        acc.setFromRS(rs);
-        list.add(acc);
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      try (var rs = pstmt.executeQuery()) {
+        while (rs != null && rs.next()) {
+          Account acc = new Account();
+          acc.setFromRS(rs);
+          list.add(acc);
+        }
       }
     } catch (SQLException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        if (rs != null) {
-          Connection conn = rs.getStatement().getConnection();
-          rs.close();
-          if (conn != null && !conn.isClosed()) {
-            conn.close();
-          }
-        }
-      } catch (SQLException ex) {
-        ex.printStackTrace();
-      }
+      throw new RuntimeException(e);
     }
     return list;
   }
@@ -112,7 +89,11 @@ public class AccountRepository {
   public void update(Account acc) {
     if (acc == null) return;
     String sql = "UPDATE Account SET username = ?, password = ?, role_id = ? WHERE id = ?";
-    DBHelper.Instance().executeUpd(sql, acc.getUsername(), acc.getPassword(), acc.getRoleId(), acc.getAccountId());
+    DBHelper.Instance().executeUpd(sql,
+            acc.getUsername(),
+            acc.getPassword(),
+            acc.getRoleId(),
+            acc.getAccountId());
   }
   
   public void delete(int accId) {
