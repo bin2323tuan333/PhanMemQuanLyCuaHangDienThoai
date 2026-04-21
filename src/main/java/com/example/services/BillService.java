@@ -13,39 +13,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BillService {
-    private BillRepository billRepository;
-    private CustomerRepository customerRepository;
-    private EmployeeRepository employeeRepository;
-
-    public BillService() {
-        billRepository = new BillRepository();
-        customerRepository = new CustomerRepository();
-        employeeRepository = new EmployeeRepository();
+  private BillRepository billRepository;
+  private CustomerRepository customerRepository;
+  private EmployeeRepository employeeRepository;
+  
+  public BillService() {
+    billRepository = new BillRepository();
+    customerRepository = new CustomerRepository();
+    employeeRepository = new EmployeeRepository();
+  }
+  
+  public List<RecentBill> getAllBills() {
+    List<Bill> list = billRepository.getAllBills();
+    List<RecentBill> recentBills = new ArrayList<>();
+    
+    for (Bill item : list) {
+      Customer customer = null;
+      Employee employee = null;
+      
+      if (item.getCustomerId() > 0) {
+        customer = customerRepository.getCustomerById(item.getCustomerId());
+      }
+      if (item.getEmployeeId() > 0) {
+        employee = employeeRepository.getEmployeeByID(item.getEmployeeId());
+      }
+      
+      RecentBill recentBill = new RecentBill(
+              item.getBillId(),
+              customer.getFullName(),
+              item.getInvoiceDate(),
+              item.getTotalAmount(),
+              employee.getFullName(),
+              "COMPLETED"
+      );
+      
+      recentBills.add(recentBill);
     }
-
-    public List<RecentBill> getAllBills() throws SQLException {
-        List<Bill> bills = billRepository.getAllBills();
-        List<RecentBill> recentBills = new ArrayList<>();
-
-        for (Bill bill : bills) {
-            Customer customer = null;
-            Employee employee = null;
-
-            if (bill.getCustomerId() > 0) {
-                customer = customerRepository.getCustomerById(bill.getCustomerId());
-            }
-
-            RecentBill recentBill = new RecentBill(
-                    bill.getBillId(),
-                    customer != null ? customer.getFullName() : "Khách lẻ",
-                    bill.getInvoiceDate(),
-                    bill.getTotalAmount(),
-                    "COMPLETED" // Hoặc lấy từ database nếu có cột status
-            );
-
-            recentBills.add(recentBill);
-        }
-
-        return recentBills;
-    }
+    
+    return recentBills;
+  }
 }

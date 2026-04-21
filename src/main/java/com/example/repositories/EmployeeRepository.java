@@ -66,9 +66,17 @@ public class EmployeeRepository {
   public void updateEmployee(Employee e) {
     if (e == null) return;
     String sql = "UPDATE Employee " +
-                         "SET employee_name = ?, gender = ?, birthday = ?, address = ?, phone_number = ?, salary = ?, status " +
+                         "SET employee_name = ?, gender = ?, birthday = ?, address = ?, phone_number = ?, salary = ?, status = ? " +
                          "WHERE employee_id = ?";
-    DBHelper.Instance().executeUpd(sql);
+    DBHelper.Instance().executeUpd(sql,
+            e.getFullName(),
+            e.getGender(),
+            e.getBirthday(),
+            e.getAddress(),
+            e.getPhoneNumber(),
+            e.getSalary(),
+            e.getStatus(),
+            e.getEmployeeId());
   }
   
   public void deleteEmployee(int id) {

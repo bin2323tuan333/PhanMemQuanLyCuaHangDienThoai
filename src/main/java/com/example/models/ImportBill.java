@@ -32,10 +32,11 @@ public class ImportBill {
   }
   
   public void setFromRS(ResultSet rs) throws SQLException {
-    this.importId = rs.getInt("");
-    this.importDate = rs.getDate("");
-    this.totalAmount = rs.getDouble("");
-    this.employeeId = rs.getInt("");
+    this.importId = rs.getInt("import_id");
+    this.importDate = rs.getDate("import_date");
+    this.totalAmount = rs.getDouble("total_amount");
+    this.supplierId = rs.getInt("supplier_id");
+    this.employeeId = rs.getInt("employee_id");
   }
   
   public int getImportId() {
