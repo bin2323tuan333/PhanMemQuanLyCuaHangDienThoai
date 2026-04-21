@@ -52,7 +52,7 @@ public class EmployeeRepository {
   public void insertEmployee(Employee e) {
     if (e == null) return;
     String sql = "INSERT INTO Employee (employee_name, gender, birthday, address, phone_number, salary, status) " +
-                         "VALUES (?, ?, ?, ?, ?, ?)";
+                         "VALUES (?, ?, ?, ?, ?, ?, ?)";
     DBHelper.Instance().executeUpd(sql,
             e.getFullName(),
             e.getGender(),
