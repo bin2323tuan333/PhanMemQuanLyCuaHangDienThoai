@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepository {
-  public List<Product> getAllProducts() throws SQLException {
+  public List<Product> getAllProducts() {
     List<Product> list = new ArrayList<>();
     String sql = "SELECT * FROM Product";
     try (Connection conn = DBHelper.Instance().getConnection();
@@ -25,7 +25,7 @@ public class ProductRepository {
     return list;
   }
   
-  public Product getProductByID(int id) throws SQLException {
+  public Product getProductById(int id) {
     String sql = "SELECT * FROM Product WHERE product_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -43,7 +43,7 @@ public class ProductRepository {
     return null;
   }
   
-  public List<Product> getProductsByBrand(String Brand) throws SQLException {
+  public List<Product> getProductsByBrand(String Brand) {
     List<Product> list = new ArrayList<>();
     String sql = "SELECT * FROM Product WHERE brand_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
@@ -62,7 +62,7 @@ public class ProductRepository {
     return list;
   }
   
-  public List<Product> getProductsByName(String keyword) throws SQLException {
+  public List<Product> getProductsByName(String keyword) {
     List<Product> list = new ArrayList<>();
     String sql = "SELECT * FROM Product WHERE product_name LIKE ?";
     try (Connection conn = DBHelper.Instance().getConnection();
@@ -81,7 +81,7 @@ public class ProductRepository {
     return list;
   }
   
-  public List<Product> getProductsByCategory(String category) throws SQLException {
+  public List<Product> getProductsByCategory(String category) {
     List<Product> list = new ArrayList<>();
     String sql = "SELECT * FROM Product WHERE category_id LIKE ?";
     try (Connection conn = DBHelper.Instance().getConnection();
@@ -100,7 +100,7 @@ public class ProductRepository {
     return list;
   }
   
-  public List<Product> getProductsByPriceRange(double minPrice, double maxPrice) throws SQLException {
+  public List<Product> getProductsByPriceRange(double minPrice, double maxPrice) {
     List<Product> list = new ArrayList<>();
     String sql = "SELECT * FROM Product WHERE price BETWEEN ? AND ?";
     try (Connection conn = DBHelper.Instance().getConnection();

@@ -35,7 +35,7 @@ public class BrandRepository {
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       pstmt.setInt(1, id);
       try (ResultSet rs = pstmt.executeQuery()) {
-        while (rs != null && rs.next()) {
+        while (rs.next()) {
           Brand brand = new Brand();
           brand.setFromRS(rs);
           return brand;

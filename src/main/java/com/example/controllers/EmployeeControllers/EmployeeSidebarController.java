@@ -5,7 +5,10 @@ import com.example.controllers.TopBarController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -38,6 +41,7 @@ public class EmployeeSidebarController {
   
   public void loadDefaultPage() {
     loadPage("/com/example/employee/EmployeeSale.fxml");
+//    loadPage("/com/example/component/CreateBill.fxml");
   }
   
   @FXML
@@ -82,7 +86,8 @@ public class EmployeeSidebarController {
   private void loadPage(String fxmlPath) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-      MainController.Instance().getMainScrollPane().setContent(loader.load());
+      Node page = loader.load();
+      MainController.Instance().getMainScrollPane().setContent(page);
       MainController.Instance().getMainScrollPane().setFitToWidth(true);
       MainController.Instance().getMainScrollPane().setVvalue(0);
       if (topBarController != null)
