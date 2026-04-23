@@ -51,7 +51,7 @@ public class CreateBillController {
       this.productlist.getChildren().add(node);
     }
     
-    for (int i = 1; i < 10; i++) addProductEngine(1);
+    for (int i = 1; i < 2; i++) addProductEngine(1);
     
   }
   
@@ -61,10 +61,17 @@ public class CreateBillController {
       ProductInfo item = productService.getProductInfoById(id);
       FXMLLoader productComp = new FXMLLoader(getClass().getResource("/com/example/component/card/Cart.fxml"));
       Node node = productComp.load();
-      //..
+      CartCardController cartCardController = productComp.getController();
+      cartCardController.setup(item);
+      cartCardController.setParentController(this);
       this.cartlist.getChildren().add(node);
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+  
+  public void deleteCart(int productId, HBox container) {
+    this.cartlist.getChildren().remove(container);
+    System.out.println("Đã xóa ID: " + productId);
   }
 }

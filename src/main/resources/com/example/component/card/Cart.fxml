@@ -11,86 +11,100 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 12px; -fx-background-radius: 12px;" stylesheets="@../../../../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.CartCardController">
+<HBox fx:id="cartitem_container" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
+      maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0"
+      spacing="10.0"
+      style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 12px; -fx-background-radius: 12px;"
+      stylesheets="@../../../../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.controllers.ComponentControllers.CartCardController">
     <children>
-
-        <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #f2f4f7; -fx-background-radius: 10px; -fx-text-fill: #0056b3; -fx-font-weight: bold;" styleClass="brand-icon" text="Br">
+        <Label fx:id="lb_brand" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0"
+               prefWidth="45.0"
+               style="-fx-background-color: #f2f4f7; -fx-background-radius: 10px; -fx-text-fill: #0056b3; -fx-font-weight: bold;"
+               styleClass="brand-icon" text="Br">
             <font>
-                <Font size="20.0" />
+                <Font size="20.0"/>
             </font>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
         </Label>
         <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="176.0" spacing="5.0">
             <children>
-                <Label style="-fx-font-size: 16px; -fx-text-fill: #212529;" text="Name">
+                <Label fx:id="lb_name" style="-fx-font-size: 16px; -fx-text-fill: #212529;" text="Name">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </Label>
-                <Label style="-fx-text-fill: #6c757d;" text="Category">
+                <Label fx:id="lb_category" style="-fx-text-fill: #6c757d;" text="Category">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
             </children>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
         </VBox>
-        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-pref-width: 32; -fx-pref-height: 32;">
+        <Button fx:id="btn_decrease" mnemonicParsing="false"
+                onAction="#handleDecrease"
+                style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-pref-width: 32; -fx-pref-height: 32;">
             <graphic>
                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../image/minus.png" />
+                        <Image url="@../../../../image/minus.png"/>
                     </image>
                 </ImageView>
             </graphic>
             <cursor>
-                <Cursor fx:constant="HAND" />
+                <Cursor fx:constant="HAND"/>
             </cursor>
         </Button>
-        <Label style="-fx-text-fill: #212529;" text="0">
+        <Label fx:id="lb_quantity" style="-fx-text-fill: #212529;" text="0">
             <font>
-                <Font name="System Bold" size="15.0" />
+                <Font name="System Bold" size="15.0"/>
             </font>
             <padding>
-                <Insets left="10.0" right="10.0" />
+                <Insets left="10.0" right="10.0"/>
             </padding>
         </Label>
-        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-pref-width: 32; -fx-pref-height: 32;">
+        <Button fx:id="btn_increase" mnemonicParsing="false"
+                onAction="#handleIncrease"
+                style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-pref-width: 32; -fx-pref-height: 32;">
             <graphic>
                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../image/plus.png" />
+                        <Image url="@../../../../image/plus.png"/>
                     </image>
                 </ImageView>
             </graphic>
             <cursor>
-                <Cursor fx:constant="HAND" />
+                <Cursor fx:constant="HAND"/>
             </cursor>
         </Button>
-        <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="62.0" HBox.hgrow="ALWAYS" />
-        <Label text="10000000" HBox.hgrow="ALWAYS">
+        <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                minWidth="-Infinity" prefHeight="43.0" prefWidth="62.0" HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lb_price" text="10000000" HBox.hgrow="ALWAYS">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Label>
-        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-pref-width: 32; -fx-pref-height: 32;">
+        <Button fx:id="btn_delete" mnemonicParsing="false"
+                onAction="#handleDelete"
+                style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-pref-width: 32; -fx-pref-height: 32;">
             <graphic>
                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../image/trash-2.png" />
+                        <Image url="@../../../../image/trash-2.png"/>
                     </image>
                 </ImageView>
             </graphic>
             <cursor>
-                <Cursor fx:constant="HAND" />
+                <Cursor fx:constant="HAND"/>
             </cursor>
         </Button>
     </children>
     <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
 </HBox>
