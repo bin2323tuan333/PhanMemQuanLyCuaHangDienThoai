@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import com.example.DTO.ProductInfo;
 import com.example.models.Product;
 
 import java.sql.*;
@@ -23,6 +24,51 @@ public class ProductRepository {
       e.printStackTrace();
     }
     return list;
+  }
+  
+  public List<ProductInfo> getAllProductInfos() {
+    List<ProductInfo> list = new ArrayList<>();
+    String sql = "SELECT p.*, b.brand_name, c.category_name, s.name AS supplier_name " +
+                         "FROM Product p  " +
+                         "INNER JOIN Brand b ON p.brand_id = b.brand_id  " +
+                         "INNER JOIN Category c ON p.category_id = c.category_id  " +
+                         "INNER JOIN Supplier s ON p.supplier_id = s.supplier_id";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+      while (rs != null && rs.next()) {
+        ProductInfo p = new ProductInfo();
+        p.setFromRS(rs);
+        list.add(p);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return list;
+  }
+  
+  public ProductInfo getProductInfoById(int id) {
+    String sql = "SELECT p.*, b.brand_name, c.category_name, s.name AS supplier_name " +
+                         "FROM Product p  " +
+                         "INNER JOIN Brand b ON p.brand_id = b.brand_id  " +
+                         "INNER JOIN Category c ON p.category_id = c.category_id  " +
+                         "INNER JOIN Supplier s ON p.supplier_id = s.supplier_id  " +
+                         "WHERE p.product_id = ?;";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, id);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs != null && rs.next()) {
+          ProductInfo p = new ProductInfo();
+          p.setFromRS(rs);
+          return p;
+        }
+      }
+      
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
   
   public Product getProductById(int id) {
