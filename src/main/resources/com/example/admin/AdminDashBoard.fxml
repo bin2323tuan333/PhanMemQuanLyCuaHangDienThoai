@@ -1,283 +1,303 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="1109.0" prefWidth="1097.0" spacing="20.0" style="-fx-background-color: transparent;"
-      stylesheets="@../../../css/admin/dashboard.css" xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.AdminControllers.DashBoardController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1109.0" prefWidth="1097.0" spacing="20.0" style="-fx-background-color: transparent;" stylesheets="@../../../css/admin/dashboard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.AdminControllers.DashBoardController">
     <children>
 
         <HBox prefHeight="155.0" prefWidth="1077.0" spacing="15.0">
             <children>
-                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0"
-                      style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #66CCFF; -fx-border-width: 0 0 3 0; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);"
-                      HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #66CCFF; -fx-border-width: 0 0 3 0; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);" HBox.hgrow="ALWAYS">
                     <children>
                         <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../image/trending-up.png"/>
+                                <Image url="@../../../image/trending-up.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="lb_revenue" maxWidth="1.7976931348623157E308" prefHeight="56.0" prefWidth="129.0"
-                               text="Label">
+                        <Label fx:id="lb_revenue" maxWidth="1.7976931348623157E308" prefHeight="56.0" prefWidth="129.0" text="0 VNĐ">
                             <font>
-                                <Font name="System Bold" size="32.0"/>
+                                <Font name="System Bold" size="32.0" />
                             </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="160.0" maxWidth="1.7976931348623157E308"
-                               text="Doanh thu hôm nay">
+                        <Label layoutX="10.0" layoutY="160.0" maxWidth="1.7976931348623157E308" text="Doanh thu hôm nay">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </VBox>
-                <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0"
-                      spacing="5.0"
-                      style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #66FF00; -fx-border-width: 0 0 3 0; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);"
-                      HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #66FF00; -fx-border-width: 0 0 3 0; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);" HBox.hgrow="ALWAYS">
                     <children>
                         <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../image/shopping-cart.png"/>
+                                <Image url="@../../../image/shopping-cart.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="lb_order" maxWidth="1.7976931348623157E308" text="Label">
+                        <Label fx:id="lb_order" maxWidth="1.7976931348623157E308" text="0">
                             <font>
-                                <Font name="System Bold" size="32.0"/>
+                                <Font name="System Bold" size="32.0" />
                             </font>
                         </Label>
                         <Label layoutX="10.0" layoutY="160.0" maxWidth="1.7976931348623157E308" text="Đơn hàng mới">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </VBox>
-                <VBox alignment="CENTER_LEFT" layoutX="490.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0"
-                      spacing="5.0"
-                      style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #FFFF66; -fx-border-width: 0 0 3 0; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);"
-                      HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" layoutX="490.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #FFFF66; -fx-border-width: 0 0 3 0; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);" HBox.hgrow="ALWAYS">
                     <children>
                         <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../image/package.png"/>
+                                <Image url="@../../../image/package.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="lb_product" maxWidth="1.7976931348623157E308" text="Label">
+                        <Label fx:id="lb_product" maxWidth="1.7976931348623157E308" text="0">
                             <font>
-                                <Font name="System Bold" size="32.0"/>
+                                <Font name="System Bold" size="32.0" />
                             </font>
                         </Label>
                         <Label layoutX="10.0" layoutY="160.0" maxWidth="1.7976931348623157E308" text="Sản phẩm còn lại">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </VBox>
-                <VBox alignment="CENTER_LEFT" layoutX="490.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0"
-                      spacing="5.0"
-                      style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #FF9999; -fx-border-width: 0 0 3 0; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);"
-                      HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" layoutX="490.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #FF9999; -fx-border-width: 0 0 3 0; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);" HBox.hgrow="ALWAYS">
                     <children>
                         <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../image/smile-plus.png"/>
+                                <Image url="@../../../image/smile-plus.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="lb_customer" maxWidth="1.7976931348623157E308" text="Label">
+                        <Label fx:id="lb_customer" maxWidth="1.7976931348623157E308" text="0">
                             <font>
-                                <Font name="System Bold" size="32.0"/>
+                                <Font name="System Bold" size="32.0" />
                             </font>
                         </Label>
                         <Label layoutX="10.0" layoutY="160.0" maxWidth="1.7976931348623157E308" text="Khách hàng">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </VBox>
             </children>
         </HBox>
-        <HBox prefHeight="353.0" prefWidth="1077.0" spacing="15.0">
+        <HBox prefHeight="378.0" prefWidth="1077.0" spacing="15.0">
             <children>
-                <VBox prefHeight="262.0" prefWidth="525.0" spacing="10.0"
-                      style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);"
-                      HBox.hgrow="ALWAYS">
+                <VBox prefHeight="352.0" prefWidth="0.0" spacing="10.0" style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
                     <children>
-                        <HBox alignment="CENTER" prefHeight="23.0" prefWidth="572.0" spacing="10.0">
+                        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="342.0" prefWidth="698.0" VBox.vgrow="ALWAYS">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
                             <children>
-                                <Label prefHeight="25.0" prefWidth="196.0" text="Thống kê doanh số">
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddBill" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm hóa đơn" textFill="#334155" GridPane.hgrow="ALWAYS">
+                                    <GridPane.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+
+                                    </GridPane.margin>
                                     <font>
-                                        <Font name="System Bold" size="18.0"/>
+                                        <Font name="System Bold" size="14.0" />
                                     </font>
-                                </Label>
-                                <Region maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="295.0"
-                                        HBox.hgrow="ALWAYS"/>
-                                <Button mnemonicParsing="false" onAction="#handle_week_revenue" prefHeight="35.0"
-                                        prefWidth="120.0"
-                                        style="-fx-background-color: #66CCFF; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4); -fx-cursor: hand;"
-                                        text="Tuần">
-                                    <font>
-                                        <Font name="System Bold" size="18.0"/>
-                                    </font>
-                                    <styleClass>
-                                        <String fx:value="modern-button"/>
-                                        <String fx:value="modern-button-selected"/>
-                                    </styleClass>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
                                 </Button>
-                                <Button mnemonicParsing="false" onAction="#handle_month_revenue" prefHeight="35.0"
-                                        prefWidth="120.0"
-                                        style="-fx-background-color: #66CCFF; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4); -fx-cursor: hand;"
-                                        text="Tháng">
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddImportBill" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Nhập hàng" textFill="#334155" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                                    <GridPane.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </GridPane.margin>
                                     <font>
-                                        <Font name="System Bold" size="18.0"/>
+                                        <Font name="System Bold" size="14.0" />
                                     </font>
-                                    <styleClass>
-                                        <String fx:value="modern-button"/>
-                                        <String fx:value="modern-button-selected"/>
-                                    </styleClass>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
                                 </Button>
-                                <Button mnemonicParsing="false" onAction="#handle_year_revenue" prefHeight="35.0"
-                                        prefWidth="120.0"
-                                        style="-fx-background-color: #66CCFF; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4); -fx-cursor: hand;"
-                                        text="Năm">
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddCustomer" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm khách hàng" textFill="#334155" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </GridPane.margin>
                                     <font>
-                                        <Font name="System Bold" size="18.0"/>
+                                        <Font name="System Bold" size="14.0" />
                                     </font>
-                                    <styleClass>
-                                        <String fx:value="modern-button"/>
-                                        <String fx:value="modern-button-selected"/>
-                                    </styleClass>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddProduct" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm sản phẩm" textFill="#334155" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </GridPane.margin>
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
                                 </Button>
                             </children>
-                        </HBox>
-                        <BarChart fx:id="revenueBarChart" animated="true" barGap="0" categoryGap="20" layoutX="10.0"
-                                  layoutY="10.0" legendVisible="false" prefHeight="217.0" prefWidth="649.0"
-                                  VBox.vgrow="ALWAYS">
-                            <xAxis>
-                                <CategoryAxis animated="false" gapStartAndEnd="true" side="BOTTOM">
-                                    <tickLabelFont>
-                                        <Font size="13.0"/>
-                                    </tickLabelFont>
-                                </CategoryAxis>
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis animated="true" minorTickVisible="false" side="LEFT"
-                                            tickLabelsVisible="false" tickMarkVisible="false"/>
-                            </yAxis>
-                        </BarChart>
+                        </GridPane>
+                        <VBox prefHeight="178.0" prefWidth="401.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="369.0" spacing="10.0">
+                                    <children>
+                                        <Label text="Số lượng tồn kho" textFill="#64748b">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Region prefHeight="25.0" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                    </padding>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="369.0" spacing="10.0">
+                                    <children>
+                                        <Label fx:id="lb_top1_name" text="Br1" textFill="#0f172a">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Label>
+                                        <Region prefHeight="25.0" HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="lb_top1_value" layoutX="10.0" layoutY="10.0" text="500.000.000">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                    </padding>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="47.0" prefHeight="34.0" prefWidth="369.0" spacing="10.0">
+                                    <children>
+                                        <Label fx:id="lb_top2_name" text="Br2" textFill="#0f172a">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Label>
+                                        <Region prefHeight="25.0" HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="lb_top2_value" layoutX="10.0" layoutY="10.0" text="500.000.000">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                    </padding>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="82.0" prefHeight="34.0" prefWidth="369.0" spacing="10.0">
+                                    <children>
+                                        <Label fx:id="lb_top3_name" text="Br3" textFill="#0f172a">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Label>
+                                        <Region prefHeight="25.0" HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="lb_top3_value" layoutX="10.0" layoutY="10.0" text="500.000.000">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                    </padding>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="117.0" prefHeight="34.0" prefWidth="369.0" spacing="10.0">
+                                    <children>
+                                        <Label fx:id="lb_top4_name" text="Khác" textFill="#0f172a">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Label>
+                                        <Region prefHeight="25.0" HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="lb_top4_value" layoutX="10.0" layoutY="10.0" text="500.000.000">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                    </padding>
+                                </HBox>
+                            </children>
+                        </VBox>
                     </children>
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </padding>
                 </VBox>
-                <VBox prefHeight="262.0" prefWidth="63.0" spacing="10.0"
-                      style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);"
-                      HBox.hgrow="ALWAYS">
+                <VBox prefHeight="352.0" prefWidth="372.0" spacing="10.0" style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-background-color: #fff; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);" HBox.hgrow="ALWAYS">
                     <children>
                         <Label text="Sản phẩm bán chạy" VBox.vgrow="ALWAYS">
                             <font>
-                                <Font name="System Bold" size="18.0"/>
+                                <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <TableView fx:id="topProductsTable" prefHeight="200.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
-                            <columns>
-                                <TableColumn fx:id="col_id" prefWidth="45.0" text="Id"/>
-                                <TableColumn fx:id="col_name" prefWidth="179.0" text="Product Name"/>
-                                <TableColumn fx:id="col_category" prefWidth="100.0" text="Category"/>
-                                <TableColumn fx:id="col_sold" prefWidth="70.0" text="Sales"/>
-                            </columns>
-                            <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                            </columnResizePolicy>
-                            <styleClass>
-                                <String fx:value="table-row-cell"/>
-                                <String fx:value="table-cell"/>
-                                <String fx:value="table-column"/>
-                                <String fx:value="table-view"/>
-                            </styleClass>
-                        </TableView>
+                        <VBox fx:id="list_product_container" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </VBox>
             </children>
         </HBox>
-        <VBox prefHeight="538.0" prefWidth="1077.0"
-              style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);">
+        <VBox prefHeight="538.0" prefWidth="1077.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-effect: dropshadow(three-pass-box, #0000001a, 10, 0, 0, 4);">
             <children>
                 <HBox prefHeight="6.0" prefWidth="1057.0">
                     <children>
                         <Label text="Hóa đơn gần đây">
                             <font>
-                                <Font name="System Bold" size="18.0"/>
+                                <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
                     </children>
                 </HBox>
-                <TableView fx:id="invoiceTable" prefHeight="445.0" prefWidth="1057.0" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="col_inv_id" prefWidth="100.0" text="Order ID"/>
-                        <TableColumn fx:id="col_inv_customer" prefWidth="150.0" text="Customer"/>
-                        <TableColumn fx:id="col_inv_date" prefWidth="150.0" text="Date"/>
-                        <TableColumn fx:id="col_inv_total" prefWidth="100.0" text="Total"/>
-                        <TableColumn fx:id="col_inv_status" prefWidth="120.0" text="Status"/>
-                    </columns>
-
-                    <placeholder>
-                        <Label text="Chưa có hóa đơn nào gần đây">
-                            <font>
-                                <Font name="System Bold" size="27.0"/>
-                            </font>
-                        </Label>
-                    </placeholder>
-                    <styleClass>
-                        <String fx:value="table-cell"/>
-                        <String fx:value="table-column"/>
-                        <String fx:value="table-row-cell"/>
-                        <String fx:value="table-view"/>
-                    </styleClass>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                    </columnResizePolicy>
-                </TableView>
+                <VBox fx:id="list_bill_container" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
             </children>
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </VBox>
     </children>
     <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
 </VBox>
