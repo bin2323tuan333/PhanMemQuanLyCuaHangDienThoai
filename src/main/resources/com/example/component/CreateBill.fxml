@@ -17,185 +17,232 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="main_container" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="817.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.CreateBillController">
+<HBox fx:id="main_container" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="900.0" prefWidth="817.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.controllers.ComponentControllers.CreateBillController">
     <children>
-        <VBox fx:id="product_container" maxHeight="1.7976931348623157E308" prefHeight="263.0" prefWidth="558.0" HBox.hgrow="ALWAYS">
+
+        <VBox fx:id="product_container" maxHeight="1.7976931348623157E308" prefHeight="263.0" prefWidth="558.0"
+              HBox.hgrow="ALWAYS">
             <children>
                 <Label maxWidth="1.7976931348623157E308" text="Chọn sản phẩm" textFill="#333333">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="18.0"/>
                     </font>
                     <padding>
-                        <Insets bottom="15.0" top="10.0" />
+                        <Insets bottom="15.0" top="10.0"/>
                     </padding>
                 </Label>
                 <HBox maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="314.0" spacing="20.0">
                     <children>
-                        <TextField prefHeight="38.0" prefWidth="296.0" promptText="Tìm kiếm" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="txt_search_product" prefHeight="38.0" prefWidth="296.0" promptText="Tìm kiếm"
+                                   style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;"
+                                   HBox.hgrow="ALWAYS">
                             <font>
-                                <Font size="14.0" />
+                                <Font size="14.0"/>
                             </font>
                             <padding>
-                                <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+                                <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
                             </padding>
                         </TextField>
-                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-text-fill: #495057;" text="Tìm kiếm">
+                        <Button fx:id="btn_search_product" mnemonicParsing="false"
+                                style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-text-fill: #495057;"
+                                text="Tìm kiếm"
+                                onAction="#handleBtnSearchProduct">
                             <font>
-                                <Font size="14.0" />
+                                <Font size="14.0"/>
                             </font>
                             <padding>
-                                <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
+                                <Insets bottom="8.0" left="20.0" right="20.0" top="8.0"/>
                             </padding>
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                         </Button>
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0"/>
                     </padding>
                 </HBox>
-                <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../css/style.css" VBox.vgrow="ALWAYS">
+                <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308"
+                            maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0"
+                            stylesheets="@../../../css/style.css" VBox.vgrow="ALWAYS">
                     <content>
-                        <FlowPane fx:id="productlist" alignment="TOP_CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="508.0" vgap="5.0">
+                        <FlowPane fx:id="productlist" alignment="TOP_CENTER" hgap="5.0"
+                                  maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                  prefHeight="226.0" prefWidth="508.0" vgap="5.0">
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </padding>
                         </FlowPane>
                     </content>
                 </ScrollPane>
             </children>
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </padding>
         </VBox>
-        <VBox fx:id="cart_container" maxHeight="1.7976931348623157E308" prefHeight="263.0" prefWidth="217.0" HBox.hgrow="ALWAYS">
+        <VBox fx:id="cart_container" maxHeight="1.7976931348623157E308" prefHeight="263.0" prefWidth="217.0"
+              HBox.hgrow="ALWAYS">
             <children>
                 <VBox prefHeight="167.0" prefWidth="1600.0" spacing="20.0" VBox.vgrow="ALWAYS">
                     <children>
                         <Label text="Thông tin khách hàng">
                             <font>
-                                <Font name="System Bold" size="16.0" />
+                                <Font name="System Bold" size="16.0"/>
                             </font>
                         </Label>
                         <HBox prefHeight="23.0" prefWidth="218.0" spacing="20.0">
                             <children>
-                                <TextField prefHeight="38.0" prefWidth="17.0" promptText="Nhập số điện thoại" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;" HBox.hgrow="ALWAYS">
+                                <TextField fx:id="txt_search_customer" prefHeight="38.0" prefWidth="17.0"
+                                           promptText="Nhập số điện thoại"
+                                           style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;"
+                                           HBox.hgrow="ALWAYS">
                                     <font>
-                                        <Font size="14.0" />
+                                        <Font size="14.0"/>
                                     </font>
                                     <padding>
-                                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+                                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
                                     </padding>
                                 </TextField>
-                                <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-text-fill: #495057;" text="Tìm kiếm">
+                                <Button fx:id="btn_search_customer" mnemonicParsing="false"
+                                        style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-text-fill: #495057;"
+                                        text="Tìm kiếm"
+                                        onAction="#handleBtnSearchCustomer">
                                     <font>
-                                        <Font size="14.0" />
+                                        <Font size="14.0"/>
                                     </font>
                                     <padding>
-                                        <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
+                                        <Insets bottom="8.0" left="20.0" right="20.0" top="8.0"/>
                                     </padding>
                                     <cursor>
-                                        <Cursor fx:constant="HAND" />
+                                        <Cursor fx:constant="HAND"/>
                                     </cursor>
                                 </Button>
-                                <Button layoutX="166.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-text-fill: #495057;">
+                                <Button layoutX="166.0" layoutY="15.0" mnemonicParsing="false"
+                                        onAction="#handleBtnAddCustomer"
+                                        style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-text-fill: #495057;">
                                     <font>
-                                        <Font size="14.0" />
+                                        <Font size="14.0"/>
                                     </font>
                                     <cursor>
-                                        <Cursor fx:constant="HAND" />
+                                        <Cursor fx:constant="HAND"/>
                                     </cursor>
                                     <graphic>
-                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="btn_add_customer" fitHeight="24.0" fitWidth="24.0"
+                                                   pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../image/plus.png" />
+                                                <Image url="@../../../image/plus.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                     <padding>
-                                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
                                     </padding>
                                 </Button>
                             </children>
                             <padding>
-                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0"/>
                             </padding>
                         </HBox>
-                        <GridPane hgap="15.0" style="-fx-background-color: #f8f9fa; -fx-border-color: #e0e0e0; -fx-background-radius: 8px; -fx-border-radius: 8px;" vgap="12.0" VBox.vgrow="ALWAYS">
+                        <GridPane hgap="15.0"
+                                  style="-fx-background-color: #f8f9fa; -fx-border-color: #e0e0e0; -fx-background-radius: 8px; -fx-border-radius: 8px;"
+                                  vgap="12.0" VBox.vgrow="ALWAYS">
                             <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
                             </padding>
 
                             <columnConstraints>
-                                <ColumnConstraints halignment="LEFT" minWidth="90.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="ALWAYS" />
+                                <ColumnConstraints halignment="LEFT" minWidth="90.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
                             </columnConstraints>
 
                             <children>
-                                <Label styleClass="info-title" text="Họ và Tên:" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                                <Label fx:id="lb_name" text="Nguyễn Văn A" textFill="#212529" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                           <font>
-                              <Font size="15.0" />
-                           </font></Label>
+                                <Label styleClass="info-title" text="Họ và Tên:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="0">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="lb_name" textFill="#212529" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="0">
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </Label>
 
-                                <Label styleClass="info-title" text="Số điện thoại:" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                                <Label fx:id="lb_phone" text="0987.654.321" textFill="#212529" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="15.0" />
-                           </font></Label>
+                                <Label styleClass="info-title" text="Số điện thoại:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="lb_phone" textFill="#212529" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </Label>
 
-                                <Label styleClass="info-title" text="Ngày sinh:" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                                <Label fx:id="lb_dob" text="01/01/1990" textFill="#212529" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="15.0" />
-                           </font></Label>
+                                <Label styleClass="info-title" text="Ngày sinh:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="lb_dob" textFill="#212529" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </Label>
 
-                                <Label styleClass="info-title" text="Giới tính:" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                                <Label fx:id="lb_gender" text="Nam" textFill="#212529" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="15.0" />
-                           </font></Label>
+                                <Label styleClass="info-title" text="Giới tính:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="3">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="lb_gender" textFill="#212529" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="3">
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </Label>
 
-                                <Label styleClass="info-title" text="Địa chỉ:" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                                <Label fx:id="lb_address" text="123 Đường Tôn Đức Thắng, Phường Hòa Minh, Quận Liên Chiểu, TP Đà Nẵng" textFill="#212529" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <font>
-                              <Font size="15.0" />
-                           </font></Label>
+                                <Label styleClass="info-title" text="Địa chỉ:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="4">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="lb_address" textFill="#212529" wrapText="true" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="4">
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </Label>
                             </children>
-                     <rowConstraints>
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                     </rowConstraints>
+                            <rowConstraints>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                            </rowConstraints>
                         </GridPane>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </padding>
                 </VBox>
-                <ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="375.0" prefWidth="238.0" stylesheets="@../../../css/style.css" VBox.vgrow="ALWAYS">
+                <ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            prefHeight="375.0" prefWidth="238.0" stylesheets="@../../../css/style.css"
+                            VBox.vgrow="ALWAYS">
                     <content>
                         <VBox fx:id="cartlist" prefHeight="386.0" prefWidth="238.0" spacing="5.0">
                             <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </padding>
                         </VBox>
                     </content>
@@ -206,64 +253,70 @@
                             <children>
                                 <Label prefHeight="25.0" prefWidth="71.0" text="Tổng tiền" textFill="#555555">
                                     <font>
-                                        <Font size="16.0" />
+                                        <Font size="16.0"/>
                                     </font>
                                 </Label>
-                                <Region prefHeight="25.0" prefWidth="34.0" HBox.hgrow="ALWAYS" />
-                                <Label text="0" textFill="#333333">
+                                <Region prefHeight="25.0" prefWidth="34.0" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="lb_total_price" text="0" textFill="#333333">
                                     <font>
-                                        <Font name="System Bold" size="18.0" />
-                                    </font>
-                                </Label>
-                                <Label text="VND" textFill="#333333">
-                                    <font>
-                                        <Font name="System Bold" size="18.0" />
+                                        <Font name="System Bold" size="18.0"/>
                                     </font>
                                 </Label>
                             </children>
                             <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </padding>
                         </HBox>
                         <HBox prefHeight="21.0" prefWidth="351.0" spacing="10.0">
                             <children>
-                                <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;" text="Xóa tất cả" textFill="#495057" HBox.hgrow="ALWAYS">
+                                <Button mnemonicParsing="false"
+                                        style="-fx-background-color: transparent; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;"
+                                        text="Xóa tất cả" textFill="#495057" HBox.hgrow="ALWAYS"
+                                        onAction="#handleBtnDeleteCart">
                                     <graphic>
-                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../image/trash-2.png" />
-                                 </image></ImageView>
+                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../image/trash-2.png"/>
+                                            </image>
+                                        </ImageView>
                                     </graphic>
                                     <padding>
-                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                                     </padding>
                                     <cursor>
-                                        <Cursor fx:constant="HAND" />
+                                        <Cursor fx:constant="HAND"/>
                                     </cursor>
                                     <font>
-                                        <Font size="14.0" />
+                                        <Font size="14.0"/>
                                     </font>
                                 </Button>
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="149.0" style="-fx-background-color: #e9ecef; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;" text="Thanh toán" textFill="#495057" HBox.hgrow="ALWAYS">
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0"
+                                        prefWidth="149.0"
+                                        style="-fx-background-color: #e9ecef; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;"
+                                        text="Thanh toán" textFill="#495057" HBox.hgrow="ALWAYS"
+                                        onAction="#handleBtnCheckout">
                                     <graphic>
-                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../image/credit-card.png" />
-                                 </image></ImageView>
+                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../image/credit-card.png"/>
+                                            </image>
+                                        </ImageView>
                                     </graphic>
                                     <padding>
-                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                                     </padding>
                                     <cursor>
-                                        <Cursor fx:constant="HAND" />
+                                        <Cursor fx:constant="HAND"/>
                                     </cursor>
                                     <font>
-                                        <Font size="14.0" />
+                                        <Font size="14.0"/>
                                     </font>
                                 </Button>
                             </children>
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </padding>
                         </HBox>
                     </children>

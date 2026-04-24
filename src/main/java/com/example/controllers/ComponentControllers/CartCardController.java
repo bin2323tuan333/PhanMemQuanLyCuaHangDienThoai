@@ -1,6 +1,8 @@
 package com.example.controllers.ComponentControllers;
 
+import com.example.DTO.CartInfo;
 import com.example.DTO.ProductInfo;
+import com.example.services.ProductService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,11 +31,16 @@ public class CartCardController {
   private Button btn_delete;
   
   private int productId;
+  private CartInfo item;
   private double price;
   private CreateBillController parentController;
   
   public void setParentController(CreateBillController parentController) {
     this.parentController = parentController;
+  }
+  
+  public void setItem(CartInfo item) {
+    this.item = item;
   }
   
   
@@ -54,7 +61,8 @@ public class CartCardController {
       this.lb_quantity.setText(--quantity + "");
       DecimalFormat df = new DecimalFormat("#,###");
       this.lb_price.setText(df.format(this.price * quantity) + " VNĐ");
-//      parentController.tinhTien();
+      this.parentController.decreaseQuantity(this.productId);
+      this.parentController.caculate();
     } else {
       if (this.parentController != null) {
         this.parentController.deleteCart(this.productId, this.cartitem_container);
@@ -64,23 +72,19 @@ public class CartCardController {
   
   public void handleIncrease() {
     int quantity = Integer.parseInt(this.lb_quantity.getText());
-    
-    if (quantity >= 5) {
+    int stock = this.item.getProductInfo().getStock();
+    if (quantity >= stock) {
       return;
     }
-    
-    
     this.lb_quantity.setText(++quantity + "");
     DecimalFormat df = new DecimalFormat("#,###");
     this.lb_price.setText(df.format(this.price * quantity) + " VNĐ");
-    if (this.parentController != null) {
-//      this.parentController.tinhTongTien();
-    }
+    this.parentController.increaseQuantity(this.productId);
+    this.parentController.caculate();
   }
   
   public void handleDelete() {
-    if (this.parentController != null) {
-      this.parentController.deleteCart(this.productId, this.cartitem_container);
-    }
+    this.parentController.deleteCart(this.productId, this.cartitem_container);
+    this.parentController.caculate();
   }
 }

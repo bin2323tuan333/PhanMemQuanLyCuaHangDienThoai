@@ -53,6 +53,7 @@ public class ProductCardController {
       if (this.createBillController != null) {
         this.createBillController.addProductEngine(this.productId);
       }
+      this.createBillController.caculate();
     }
   }
   
