@@ -22,6 +22,7 @@ public class AnalyticsController {
   @FXML
   private Label customerGrowth;
 
+
   
   @FXML
   public void initialize() {
@@ -31,35 +32,36 @@ public class AnalyticsController {
     customerGrowth.setText("+1,240");
     
     // Set dữ liệu cho biểu đồ
-    setupChart();
+//    setupChart();
     
 
   }
   
-  private void setupChart() {
-    XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
-    revenueSeries.setName("Doanh thu (Triệu VNĐ)");
-    revenueSeries.getData().addAll(
-            new XYChart.Data<>("Tháng 1", 120000),
-            new XYChart.Data<>("Tháng 2", 135000),
-            new XYChart.Data<>("Tháng 3", 150000),
-            new XYChart.Data<>("Tháng 4", 180000),
-            new XYChart.Data<>("Tháng 5", 210000),
-            new XYChart.Data<>("Tháng 6", 250000)
-    );
-    
-    XYChart.Series<String, Number> profitSeries = new XYChart.Series<>();
-    profitSeries.setName("Lợi nhuận (Triệu VNĐ)");
-    profitSeries.getData().addAll(
-            new XYChart.Data<>("Tháng 1", 45000),
-            new XYChart.Data<>("Tháng 2", 50000),
-            new XYChart.Data<>("Tháng 3", 55000),
-            new XYChart.Data<>("Tháng 4", 65000),
-            new XYChart.Data<>("Tháng 5", 80000),
-            new XYChart.Data<>("Tháng 6", 95000)
-    );
-    
-
-    BarChart<String, Number> barChart = (BarChart<String, Number>) totalRevenue.getScene().lookup("#revenueChart");
-  }
+//  private void setupChart() {
+//    XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
+//    revenueSeries.setName("Doanh thu (Triệu VNĐ)");
+//    revenueSeries.getData().addAll(
+//            new XYChart.Data<>("Tháng 1", 120000),
+//            new XYChart.Data<>("Tháng 2", 135000),
+//            new XYChart.Data<>("Tháng 3", 150000),
+//            new XYChart.Data<>("Tháng 4", 180000),
+//            new XYChart.Data<>("Tháng 5", 210000),
+//            new XYChart.Data<>("Tháng 6", 250000)
+//    );
+//
+//    XYChart.Series<String, Number> profitSeries = new XYChart.Series<>();
+//    profitSeries.setName("Lợi nhuận (Triệu VNĐ)");
+//    profitSeries.getData().addAll(
+//            new XYChart.Data<>("Tháng 1", 45000),
+//            new XYChart.Data<>("Tháng 2", 50000),
+//            new XYChart.Data<>("Tháng 3", 55000),
+//            new XYChart.Data<>("Tháng 4", 65000),
+//            new XYChart.Data<>("Tháng 5", 80000),
+//            new XYChart.Data<>("Tháng 6", 95000)
+//    );
+//
+//
+//    BarChart<String, Number> barChart = (BarChart<String, Number>) totalRevenue.getScene().lookup("#revenueChart");
+//
+//  }
 }
