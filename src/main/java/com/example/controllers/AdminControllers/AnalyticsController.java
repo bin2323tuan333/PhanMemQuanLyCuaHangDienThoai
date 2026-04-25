@@ -35,7 +35,7 @@ public class AnalyticsController {
 //    setupChart();
     
 
-  }
+
   
 //  private void setupChart() {
 //    XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
@@ -64,4 +64,4 @@ public class AnalyticsController {
 //    BarChart<String, Number> barChart = (BarChart<String, Number>) totalRevenue.getScene().lookup("#revenueChart");
 //
 //  }
-}
+}}

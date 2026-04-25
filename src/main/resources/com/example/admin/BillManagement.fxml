@@ -33,6 +33,11 @@
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;" text="Danh sách hóa đơn" />
                     <Region HBox.hgrow="ALWAYS" />
+
+
+                        <Button fx:id="btn_add" onAction="#handleAdd" text="Thêm" />
+                        <Button fx:id="btn_delete" onAction="#handleDelete" text="Xóa" />
+
                     <Button fx:id="btn_viewDetail" onAction="#handleViewDetail" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 16;" text="Xem chi tiết" />
                 </HBox>
 
@@ -54,9 +59,11 @@
                 </HBox>
             </children>
         </VBox>
+      <ListView prefHeight="200.0" prefWidth="200.0" />
     </children>
 
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
+
 </VBox>

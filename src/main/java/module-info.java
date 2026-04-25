@@ -11,5 +11,6 @@ module com.example {
   opens com.example.controllers to javafx.fxml;
   opens com.example.controllers.AdminControllers to javafx.fxml;
   opens com.example.controllers.EmployeeControllers to javafx.fxml;
+  opens com.example.controllers.ComponentControllers to javafx.fxml;
   opens com.example.repositories to javafx.base;
 }

@@ -65,7 +65,7 @@ public class Account {
     return this.employeeId;
   }
   
-  public void setEmployeeId(int role) {
+  public void setEmployeeId(int employeeId) {
     this.employeeId = employeeId;
   }
   

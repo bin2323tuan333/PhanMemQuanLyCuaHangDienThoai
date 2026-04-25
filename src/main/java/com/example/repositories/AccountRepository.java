@@ -76,7 +76,7 @@ public class AccountRepository {
             acc.getUsername(),
             acc.getPassword(),
             acc.getRoleId(),
-            acc.getEmployeeId());
+            acc.getEmployeeId() == 0 ? null : acc.getEmployeeId());
   }
   
   public void updateAccount(Account acc) {
@@ -90,7 +90,7 @@ public class AccountRepository {
   }
   
   public void deleteAccount(int accId) {
-    String sql = "DELETE FROM Account WHERE id = ?";
+    String sql = "DELETE FROM Account WHERE account_id = ?";
     DBHelper.Instance().executeUpd(sql, accId);
   }
 }

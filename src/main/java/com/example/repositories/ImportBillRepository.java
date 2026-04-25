@@ -30,7 +30,7 @@ public class ImportBillRepository {
   }
   
   public ImportBill getImportBillByID(int id) {
-    String sql = "SELECT * FROM ImportBill WHERE ";
+    String sql = "SELECT * FROM ImportBill WHERE import_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       pstmt.setInt(1, id);
