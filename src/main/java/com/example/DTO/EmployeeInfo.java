@@ -1,10 +1,10 @@
-package com.example.models;
+package com.example.DTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class Employee {
+public class EmployeeInfo {
   private int employeeId;
   private String fullName;
   private boolean gender;
@@ -13,26 +13,12 @@ public class Employee {
   private String phoneNumber;
   private double salary;
   private boolean status;
+  private String roleName;
   
-  private int accountId; // FK -> Account
-  
-  public Employee() {
-  }
-
-  public void setFromRS(ResultSet rs) throws SQLException {
-    this.employeeId = rs.getInt("employee_id");
-    this.fullName = rs.getString("full_name");
-    this.gender = rs.getBoolean("gender");
-    this.salary = rs.getDouble("salary");
-    this.phoneNumber = rs.getString("phone");
-
-    this.address = null;
-    this.birthday = null;
-    this.status = true;
+  public EmployeeInfo() {
   }
   
-  public Employee(int employeeId, String fullName, boolean gender, Date birthday,
-                  String address, String phoneNumber, double salary, boolean status, int accountId) {
+  public EmployeeInfo(int employeeId, String fullName, boolean gender, Date birthday, String address, String phoneNumber, double salary, boolean status, String roleName) {
     this.employeeId = employeeId;
     this.fullName = fullName;
     this.gender = gender;
@@ -41,12 +27,21 @@ public class Employee {
     this.phoneNumber = phoneNumber;
     this.salary = salary;
     this.status = status;
-    this.accountId = accountId;
+    this.roleName = roleName;
   }
-
-
-
-
+  
+  public void setFromRS(ResultSet rs) throws SQLException {
+    this.employeeId = rs.getInt("employee_id");
+    this.fullName = rs.getString("employee_name");
+    this.gender = rs.getBoolean("gender");
+    this.birthday = rs.getDate("birthday");
+    this.address = rs.getString("address");
+    this.phoneNumber = rs.getString("phone_number");
+    this.salary = rs.getDouble("salary");
+    this.status = rs.getBoolean("status");
+    this.roleName = rs.getString("role_name");
+  }
+  
   public int getEmployeeId() {
     return employeeId;
   }
@@ -63,7 +58,7 @@ public class Employee {
     this.fullName = fullName;
   }
   
-  public boolean getGender() {
+  public boolean isGender() {
     return gender;
   }
   
@@ -103,24 +98,21 @@ public class Employee {
     this.salary = salary;
   }
   
-  public Boolean getStatus() {
+  public boolean getStatus() {
     return status;
   }
   
-  public void setStatus(Boolean status) {
+  public void setStatus(boolean status) {
     this.status = status;
   }
   
-  public int getAccountId() {
-    return accountId;
+  public String getRoleName() {
+    return roleName;
   }
   
-  public void setAccountId(int accountId) {
-    this.accountId = accountId;
+  public void setRoleName(String roleName) {
+    this.roleName = roleName;
   }
   
-  @Override
-  public String toString() {
-    return fullName + " (" + phoneNumber + ")";
-  }
+  
 }
