@@ -76,8 +76,6 @@ public class CreateBillController {
       controller.setCreateBillController(this);
       this.productlist.getChildren().add(node);
     }
-    
-    
   }
   
   public void addProductEngine(int id) {

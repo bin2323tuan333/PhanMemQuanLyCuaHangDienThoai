@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import com.example.DTO.EmployeeInfo;
 import com.example.models.Employee;
 
 import java.sql.*;
@@ -24,6 +25,28 @@ public class EmployeeRepository {
       throw new RuntimeException(e);
     }
     
+    return list;
+  }
+  
+  public List<EmployeeInfo> getAllEmployeeInfo() {
+    List<EmployeeInfo> list = new ArrayList<>();
+    String sql = "SELECT e.employee_id, e.employee_name, e.gender, e.birthday, e.address, e.phone_number, e.salary, e.status, r.role_name " +
+                         "FROM Employee e " +
+                         "LEFT JOIN Account a ON e.employee_id = a.employee_id " +
+                         "LEFT JOIN Role r ON a.role_id = r.role_id;";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs.next()) {
+          EmployeeInfo e = new EmployeeInfo();
+          e.setFromRS(rs);
+          list.add(e);
+        }
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
     return list;
   }
   

@@ -61,7 +61,7 @@ public class AdminSideBarController {
         loadPage("/com/example/admin/Analytics.fxml");
         break;
       case "btn_employee":
-        loadPage("/com/example/admin/EmployeeManagement.fxml");
+        loadPage("/com/example/component/EmployeeManagement.fxml");
         break;
       case "btn_bill":
         loadPage("/com/example/admin/BillManagement.fxml");
