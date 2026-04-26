@@ -4,6 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.BarChart?>
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" style="-fx-background-color: #f1f5f9;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.AdminControllers.AnalyticsController">
 
     <children>
@@ -50,8 +53,6 @@
             </children>
         </HBox>
 
-        <!-- Biểu đồ doanh thu -->
-        <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" />
 
         <!-- Doanh thu theo danh mục + Thị phần -->
         <HBox spacing="20.0">

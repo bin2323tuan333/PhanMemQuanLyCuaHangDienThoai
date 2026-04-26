@@ -22,6 +22,9 @@ public class BillService {
     customerRepository = new CustomerRepository();
     employeeRepository = new EmployeeRepository();
   }
+  public void deleteBill (int id) throws SQLException {
+    billRepository.deleteBill(id);
+  }
   
   public List<RecentBill> getAllBills() {
     List<Bill> list = billRepository.getAllBills();
@@ -37,14 +40,18 @@ public class BillService {
       if (item.getEmployeeId() > 0) {
         employee = employeeRepository.getEmployeeByID(item.getEmployeeId());
       }
-      
+
+      String customerName = (customer != null) ? customer.getFullName() : "Không có";
+      String employeeName = (employee != null) ? employee.getFullName() : "Không có";
+
       RecentBill recentBill = new RecentBill(
               item.getBillId(),
-              customer.getFullName(),
+              customerName,
               item.getInvoiceDate(),
               item.getTotalAmount(),
-              employee.getFullName(),
+              employeeName,
               "COMPLETED"
+
       );
       
       recentBills.add(recentBill);

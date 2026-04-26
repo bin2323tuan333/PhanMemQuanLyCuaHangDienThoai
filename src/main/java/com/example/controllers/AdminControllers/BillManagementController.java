@@ -1,12 +1,17 @@
 package com.example.controllers.AdminControllers;
 
 import com.example.DTO.RecentBill;
+import com.example.controllers.MainController;
 import com.example.services.BillService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -46,6 +51,11 @@ public class BillManagementController {
   @FXML
   private Button btn_viewDetail;
   @FXML
+    private Button btn_delete;
+  @FXML
+    private Button btn_add;
+
+  @FXML
   private Label lb_totalAmount;
   @FXML
   private Label lb_totalBills;
@@ -61,6 +71,47 @@ public class BillManagementController {
     setupDatePickers();
     loadBillData();
   }
+
+
+  public void handleDelete  () {
+    RecentBill selectedBill = billTable.getSelectionModel().getSelectedItem();
+    if (selectedBill == null) {
+      showAlert("Thông báo", "Vui lòng chọn hóa đơn để xóa!");
+      return;
+    }
+
+    Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+    confirmAlert.setTitle("Xác nhận xóa");
+    confirmAlert.setHeaderText(null);
+    confirmAlert.setContentText("Bạn có chắc muốn xóa hóa đơn #" + selectedBill.getBillId() + "?");
+
+    if (confirmAlert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+      try {
+        billService.deleteBill(selectedBill.getBillId());
+        loadBillData();
+        updateSummary();
+        showAlert("Thành công", "Hóa đơn đã được xóa!");
+      } catch (SQLException e) {
+        showAlert("Lỗi", "Không thể xóa hóa đơn: " + e.getMessage());
+      }
+    }
+  }
+  public void handleAdd(){
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CreateBill.fxml"));
+      Parent root = loader.load();
+      Stage stage = new Stage();
+      stage.setTitle("Thêm hóa đơn mới");
+      stage.setScene(new Scene(root));
+      stage.showAndWait();
+
+      // Sau khi đóng cửa sổ thêm, reload lại dữ liệu
+      loadBillData();
+    } catch (Exception e) {
+      showAlert("Lỗi", "Không thể mở cửa sổ thêm hóa đơn: " + e.getMessage());
+    }
+  }
+
   
   private void setupTable() {
     // Gán dữ liệu cho các cột
@@ -220,8 +271,9 @@ public class BillManagementController {
     }
     
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    String dateStr = sdf.format(selectedBill.getDate());
-    
+    String dateStr = selectedBill.getDate() != null
+            ? sdf.format(selectedBill.getDate())
+            : "";
     showAlert("Chi tiết hóa đơn",
             "📋 Mã hóa đơn: #" + selectedBill.getBillId() +
                     "\n👤 Khách hàng: " + selectedBill.getCustomerName() +
@@ -238,4 +290,5 @@ public class BillManagementController {
     alert.setContentText(content);
     alert.showAndWait();
   }
+
 }

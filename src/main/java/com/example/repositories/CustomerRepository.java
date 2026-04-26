@@ -15,6 +15,7 @@ public class CustomerRepository {
     
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
       try (ResultSet rs = pstmt.executeQuery()) {
         while (rs != null && rs.next()) {
           Customer cus = new Customer();
@@ -34,6 +35,7 @@ public class CustomerRepository {
                          "WHERE customer_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, id);
       try (ResultSet rs = pstmt.executeQuery()) {
         if (rs.next()) {
           Customer cus = new Customer();

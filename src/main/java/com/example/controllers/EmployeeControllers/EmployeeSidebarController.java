@@ -71,7 +71,7 @@ public class EmployeeSidebarController {
         loadPage("/com/example/admin/BillManagement.fxml");
         break;
       case "btn_setting":
-        loadPage("/com/example/admin/AdminSetting.fxml");
+        loadPage("/com/example/component/Setting.fxml");
         break;
       case "btn_logout":
         System.out.println("Logout");
