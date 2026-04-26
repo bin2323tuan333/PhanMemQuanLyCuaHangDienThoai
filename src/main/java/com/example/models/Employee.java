@@ -18,17 +18,17 @@ public class Employee {
   
   public Employee() {
   }
-  
+
   public void setFromRS(ResultSet rs) throws SQLException {
     this.employeeId = rs.getInt("employee_id");
-    this.fullName = rs.getString("employee_name");
-    this.address = rs.getString("address");
-    this.birthday = rs.getDate("birthday");
+    this.fullName = rs.getString("full_name");
     this.gender = rs.getBoolean("gender");
-
     this.salary = rs.getDouble("salary");
-    this.status = rs.getBoolean("status");
-    this.phoneNumber = rs.getString("phone_number");
+    this.phoneNumber = rs.getString("phone");
+
+    this.address = null;
+    this.birthday = null;
+    this.status = true;
   }
   
   public Employee(int employeeId, String fullName, boolean gender, Date birthday,
