@@ -3,6 +3,7 @@ package com.example.controllers.AdminControllers;
 import com.example.DTO.RecentBill;
 import com.example.controllers.MainController;
 import com.example.services.BillService;
+import com.example.controllers.ComponentControllers.BillCardController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,12 +12,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillManagementController {
@@ -28,21 +32,7 @@ public class BillManagementController {
   @FXML
   private DatePicker toDate;
   @FXML
-  private TableView<RecentBill> billTable;
-  
-  // Khai báo các cột trong TableView
-  @FXML
-  private TableColumn<RecentBill, Integer> col_billId;
-  @FXML
-  private TableColumn<RecentBill, String> col_customerName;
-  @FXML
-  private TableColumn<RecentBill, String> col_invoiceDate;
-  @FXML
-  private TableColumn<RecentBill, Double> col_totalAmount;
-  @FXML
-  private TableColumn<RecentBill, String> col_employeeName;  // Thêm cột nhân viên
-  @FXML
-  private TableColumn<RecentBill, String> col_status;        // Thêm cột trạng thái
+  private FlowPane billContainer;
   
   @FXML
   private Button btn_search;
@@ -62,38 +52,37 @@ public class BillManagementController {
   
   private BillService billService;
   private ObservableList<RecentBill> billList;
-  
+
+  private VBox selectedCard = null;
+
   @FXML
   public void initialize() {
     billService = new BillService();
-    setupTable();
     setupComboBox();
     setupDatePickers();
     loadBillData();
+    billContainer.getStylesheets().add(
+            getClass().getResource("/css/style.css").toExternalForm()
+    );
+  }
+  private RecentBill selectedBill;
+  private void handleCardClick(RecentBill bill) {
+    selectedBill = bill;
   }
 
 
-  public void handleDelete  () {
-    RecentBill selectedBill = billTable.getSelectionModel().getSelectedItem();
+  public void handleDelete() {
     if (selectedBill == null) {
-      showAlert("Thông báo", "Vui lòng chọn hóa đơn để xóa!");
+      showAlert("Thông báo", "Vui lòng chọn hóa đơn!");
       return;
     }
 
-    Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-    confirmAlert.setTitle("Xác nhận xóa");
-    confirmAlert.setHeaderText(null);
-    confirmAlert.setContentText("Bạn có chắc muốn xóa hóa đơn #" + selectedBill.getBillId() + "?");
-
-    if (confirmAlert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-      try {
-        billService.deleteBill(selectedBill.getBillId());
-        loadBillData();
-        updateSummary();
-        showAlert("Thành công", "Hóa đơn đã được xóa!");
-      } catch (SQLException e) {
-        showAlert("Lỗi", "Không thể xóa hóa đơn: " + e.getMessage());
-      }
+    try {
+      billService.deleteBill(selectedBill.getBillId());
+      loadBillData();
+      showAlert("Thành công", "Đã xóa!");
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
   public void handleAdd(){
@@ -113,66 +102,7 @@ public class BillManagementController {
   }
 
   
-  private void setupTable() {
-    // Gán dữ liệu cho các cột
-    col_billId.setCellValueFactory(new PropertyValueFactory<>("billId"));
-    col_customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-    
-    // Xử lý cột date từ Date thành String để hiển thị
-    col_invoiceDate.setCellValueFactory(cellData -> {
-      RecentBill bill = cellData.getValue();
-      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-      return new javafx.beans.property.SimpleStringProperty(sdf.format(bill.getDate()));
-    });
-    
-    col_totalAmount.setCellValueFactory(new PropertyValueFactory<>("total"));
-    col_employeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
-    col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
-    
-    // Định dạng cột số tiền
-    col_totalAmount.setCellFactory(column -> new TableCell<RecentBill, Double>() {
-      @Override
-      protected void updateItem(Double item, boolean empty) {
-        super.updateItem(item, empty);
-        if (empty || item == null) {
-          setText(null);
-        } else {
-          setText(String.format("%,.0f VNĐ", item));
-        }
-      }
-    });
-    
-    // Định dạng cột trạng thái với màu sắc
-    col_status.setCellFactory(column -> new TableCell<RecentBill, String>() {
-      @Override
-      protected void updateItem(String item, boolean empty) {
-        super.updateItem(item, empty);
-        if (empty || item == null) {
-          setText(null);
-          setStyle("");
-        } else {
-          setText(item);
-          switch (item) {
-            case "COMPLETED":
-              setStyle("-fx-text-fill: #10b981; -fx-font-weight: bold;");
-              break;
-            case "PROCESSING":
-              setStyle("-fx-text-fill: #3b82f6; -fx-font-weight: bold;");
-              break;
-            case "PENDING":
-              setStyle("-fx-text-fill: #f59e0b; -fx-font-weight: bold;");
-              break;
-            case "CANCELLED":
-              setStyle("-fx-text-fill: #ef4444; -fx-font-weight: bold;");
-              break;
-            default:
-              setStyle("-fx-text-fill: #64748b;");
-          }
-        }
-      }
-    });
-  }
-  
+
   
   private void setupComboBox() {
     statusCombo.getItems().setAll("Tất cả", "COMPLETED", "PROCESSING", "PENDING", "CANCELLED");
@@ -186,57 +116,92 @@ public class BillManagementController {
     fromDate.setOnAction(event -> filterBills());
     toDate.setOnAction(event -> filterBills());
   }
-  
+
   private void loadBillData() {
+
     List<RecentBill> bills = billService.getAllBills();
     billList = FXCollections.observableArrayList(bills);
-    billTable.setItems(billList);
-    updateSummary();
-  }
-  
-  private void filterBills() {
-    String selectedStatus = statusCombo.getValue();
-    LocalDate startDate = fromDate.getValue();
-    LocalDate endDate = toDate.getValue();
-    
-    ObservableList<RecentBill> filteredList = FXCollections.observableArrayList();
-    
+
+    billContainer.getChildren().clear();
+    selectedCard = null;
     for (RecentBill bill : billList) {
-      boolean matchStatus = true;
-      
-      if (selectedStatus != null && !selectedStatus.equals("Tất cả")) {
-        matchStatus = bill.getStatus() != null && bill.getStatus().equals(selectedStatus);
-      }
-      
-      // Lọc theo khoảng ngày (Date -> LocalDate)
-      boolean matchDate = true;
-      if (startDate != null || endDate != null) {
-        if (bill.getDate() != null) {
-          LocalDate billDate = new java.sql.Date(bill.getDate().getTime()).toLocalDate();
-          
-          if (startDate != null && endDate != null) {
-            matchDate = !billDate.isBefore(startDate) && !billDate.isAfter(endDate);
-          } else if (startDate != null) {
-            matchDate = !billDate.isBefore(startDate);
-          } else if (endDate != null) {
-            matchDate = !billDate.isAfter(endDate);
-          }
+      try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Card/Bill.fxml"));
+        VBox card = loader.load();
+        BillCardController controller = loader.getController();
+
+
+        if (controller != null) {
+          controller.setData(bill);
         } else {
-          matchDate = false;
+          System.out.println("Controller NULL!");
         }
-      }
-      
-      if (matchStatus && matchDate) {
-        filteredList.add(bill);
+
+        card.getStyleClass().add("card");
+        card.setOnMouseClicked(e -> {
+          handleCardClick(bill);
+
+          if (selectedCard != null) {
+            selectedCard.getStyleClass().remove("card-selected");
+          }
+
+          selectedCard = card;
+          selectedCard.getStyleClass().add("card-selected");
+        });
+          billContainer.getChildren().add(card);
+
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     }
-    
-    billTable.setItems(filteredList);
-    updateSummary(filteredList);
+
+    updateSummary(billList);
   }
-  
+  private void filterBills() {
+    String selectedStatus = statusCombo.getValue();
+
+    List<RecentBill> filtered = new ArrayList<>();
+
+    for (RecentBill bill : billList) {
+      if (selectedStatus.equals("Tất cả") || bill.getStatus().equals(selectedStatus)) {
+        filtered.add(bill);
+      }
+    }
+
+    // render lại card
+    billContainer.getChildren().clear();
+
+    for (RecentBill bill : filtered) {
+      try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Card/Bill.fxml"));
+        VBox card = loader.load();
+        BillCardController controller = loader.getController();
+        if (controller != null) {
+          controller.setData(bill);
+        }
+
+        card.getStyleClass().add("card");
+        card.setOnMouseClicked(e -> {
+          handleCardClick(bill);
+
+          if (selectedCard != null) {
+            selectedCard.getStyleClass().remove("card-selected");
+          }
+
+          selectedCard = card;
+          selectedCard.getStyleClass().add("card-selected");
+        });
+        billContainer.getChildren().add(card);
+
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    updateSummary(FXCollections.observableArrayList(filtered));
+  }
   private void updateSummary() {
-    updateSummary(billTable.getItems());
+    updateSummary(billList);
   }
   
   private void updateSummary(ObservableList<RecentBill> bills) {
@@ -258,29 +223,25 @@ public class BillManagementController {
     statusCombo.setValue("Tất cả");
     fromDate.setValue(null);
     toDate.setValue(null);
-    billTable.setItems(billList);
+    selectedBill = null;
+    loadBillData();
     updateSummary();
   }
-  
+
   @FXML
   public void handleViewDetail() {
-    RecentBill selectedBill = billTable.getSelectionModel().getSelectedItem();
     if (selectedBill == null) {
-      showAlert("Thông báo", "Vui lòng chọn hóa đơn để xem chi tiết!");
+      showAlert("Thông báo", "Vui lòng chọn hóa đơn!");
       return;
     }
-    
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    String dateStr = selectedBill.getDate() != null
-            ? sdf.format(selectedBill.getDate())
-            : "";
-    showAlert("Chi tiết hóa đơn",
-            "📋 Mã hóa đơn: #" + selectedBill.getBillId() +
-                    "\n👤 Khách hàng: " + selectedBill.getCustomerName() +
-                    "\n👨‍💼 Nhân viên: " + selectedBill.getEmployeeName() +
-                    "\n💰 Tổng tiền: " + String.format("%,.0f VNĐ", selectedBill.getTotal()) +
-                    "\n📅 Ngày tạo: " + dateStr +
-                    "\n📌 Trạng thái: " + selectedBill.getStatus());
+
+    showAlert("Chi tiết",
+            "ID: " + selectedBill.getBillId() +
+                    "\nKhách: " + selectedBill.getCustomerName() +
+                    "\nNhân viên: " + selectedBill.getEmployeeName() +
+                    "\nTiền: " + selectedBill.getTotal());
   }
   
   private void showAlert(String title, String content) {

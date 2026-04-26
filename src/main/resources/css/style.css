@@ -15,3 +15,25 @@
 .brand-icon, .brand-icon:focused {
     -fx-font-size: 20px !important;
 }
+
+.card {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6,0,0,2);
+    -fx-cursor: hand;
+}
+
+
+.card:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+.card-selected {
+    -fx-background-color: #93c5fd;
+    -fx-border-color: #1d4ed8;
+    -fx-border-width: 2;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 6,0,0,2);
+}

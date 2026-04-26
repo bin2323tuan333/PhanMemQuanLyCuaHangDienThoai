@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<VBox spacing="8" style="         -fx-background-color: white;         -fx-padding: 15;         -fx-background-radius: 12;         -fx-border-radius: 12;         -fx-border-color: #e5e7eb;         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);       " xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.BillCardController">
+
+    <Label fx:id="lb_id" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+
+    <Label fx:id="lb_customer" />
+    <Label fx:id="lb_employee" />
+
+    <Label fx:id="lb_total" style="-fx-text-fill: #16a34a; -fx-font-weight: bold;" />
+
+    <Label fx:id="lb_status" />
+   <effect>
+      <Shadow>
+         <color>
+            <Color red="0.5263158082962036" green="0.27534112334251404" blue="0.27534112334251404" />
+         </color>
+      </Shadow>
+   </effect>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+
+</VBox>

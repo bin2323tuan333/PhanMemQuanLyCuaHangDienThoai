@@ -41,17 +41,10 @@
                     <Button fx:id="btn_viewDetail" onAction="#handleViewDetail" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 16;" text="Xem chi tiết" />
                 </HBox>
 
-                <TableView fx:id="billTable" prefHeight="400">
-                    <columns>
-                        <TableColumn fx:id="col_billId" prefWidth="80" text="Mã HD" />
-                        <TableColumn fx:id="col_customerName" prefWidth="200" text="Khách hàng" />
-                        <TableColumn fx:id="col_invoiceDate" prefWidth="150" text="Ngày tạo" />
-                        <TableColumn fx:id="col_totalAmount" prefWidth="200" text="Tổng tiền" />
-                        <TableColumn fx:id="col_employeeName" prefWidth="150" text="Nhân viên" />
-                        <TableColumn fx:id="col_status" prefWidth="120" text="Trạng thái" />
-                    </columns>
-                </TableView>
-
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <FlowPane fx:id="billContainer" hgap="15" pickOnBounds="false" prefWrapLength="900" style="-fx-padding: 20;" vgap="15">
+                    </FlowPane>
+                </ScrollPane>
                 <!-- Footer -->
                 <HBox alignment="CENTER_RIGHT" spacing="15">
                     <Label fx:id="lb_totalBills" style="-fx-text-fill: #475569;" />
