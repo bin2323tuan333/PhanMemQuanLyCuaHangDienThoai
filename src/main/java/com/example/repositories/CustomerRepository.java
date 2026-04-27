@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import com.example.DTO.CustomerInfo;
 import com.example.models.Customer;
 
 import java.sql.*;
@@ -15,10 +16,32 @@ public class CustomerRepository {
     
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+      
       try (ResultSet rs = pstmt.executeQuery()) {
         while (rs != null && rs.next()) {
           Customer cus = new Customer();
+          cus.setFromRS(rs);
+          customers.add(cus);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return customers;
+  }
+  
+  public List<CustomerInfo> getAllCustomerInfos() {
+    List<CustomerInfo> customers = new ArrayList<>();
+    String sql = "SELECT  customer_id,  full_name,  gender,  birthday,  address,  phone_number " +
+                         "FROM customer " +
+                         "ORDER BY customer_id DESC";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs != null && rs.next()) {
+          CustomerInfo cus = new CustomerInfo();
           cus.setFromRS(rs);
           customers.add(cus);
         }

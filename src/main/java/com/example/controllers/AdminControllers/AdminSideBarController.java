@@ -5,6 +5,7 @@ import com.example.controllers.TopBarController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class AdminSideBarController {
         loadPage("/com/example/admin/BillManagement.fxml");
         break;
       case "btn_setting":
-        loadPage("/com/example/admin/AdminSetting.fxml");
+        loadPage("/com/example/component/Setting.fxml");
         break;
       case "btn_customer":
         loadPage("/com/example/admin/CustomerManagement.fxml");
@@ -85,9 +86,9 @@ public class AdminSideBarController {
   private void loadPage(String fxmlPath) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-      MainController.Instance().getMainScrollPane().setContent(loader.load());
-      MainController.Instance().getMainScrollPane().setFitToWidth(true);
-      MainController.Instance().getMainScrollPane().setVvalue(0);
+      Node page = loader.load();
+      var controller = loader.getController();
+      MainController.Instance().getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {

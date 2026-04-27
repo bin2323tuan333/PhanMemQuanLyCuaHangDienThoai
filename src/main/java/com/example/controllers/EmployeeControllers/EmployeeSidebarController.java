@@ -87,9 +87,8 @@ public class EmployeeSidebarController {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
       Node page = loader.load();
+      var controller = loader.getController();
       MainController.Instance().getMainScrollPane().setContent(page);
-      MainController.Instance().getMainScrollPane().setFitToWidth(true);
-      MainController.Instance().getMainScrollPane().setVvalue(0);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
