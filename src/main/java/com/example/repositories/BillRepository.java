@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import com.example.DTO.RecentBill;
 import com.example.models.Bill;
 
 import java.sql.*;
@@ -68,5 +69,24 @@ public class BillRepository {
     String sql = "DELETE FROM Bill WHERE bill_id = ?";
     DBHelper.Instance().executeUpd(sql, id);
   }
-  
+public List<RecentBill> searchBills (String keyword) throws Exception {
+  List<RecentBill> bills = new ArrayList<>();
+  String sql = "SELECT * FROM Bill WHERE invoice_date LIKE ? OR total_amount LIKE ? ORDER BY invoice_date DESC";
+
+  try (Connection conn = DBHelper.Instance().getConnection();
+       PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    pstmt.setString(1, "%" + keyword + "%");
+    pstmt.setString(2, "%" + keyword + "%");
+    try (ResultSet rs = pstmt.executeQuery()) {
+      while (rs != null && rs.next()) {
+        RecentBill bill = new RecentBill();
+        bill.setFromRS(rs);
+        bills.add(bill);
+      }
+    }
+  } catch (SQLException e) {
+    System.out.println(e.getErrorCode());
+  }
+    return bills;
+}
 }

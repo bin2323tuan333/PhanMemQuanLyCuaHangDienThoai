@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.RecentBill;
+import com.example.repositories.BillRepository;
 import com.example.services.BillService;
 import com.example.controllers.ComponentControllers.Card.BillCardController;
 import javafx.collections.FXCollections;
@@ -27,7 +28,7 @@ public class BillManagementController {
   @FXML
   private DatePicker toDate;
   @FXML
-  private FlowPane bill_container;
+  private VBox bill_container;
   
   @FXML
   private TextField txt_search;
@@ -39,11 +40,13 @@ public class BillManagementController {
   
   private BillService billService;
   private ObservableList<RecentBill> billList;
+private BillRepository billRepository;
   
   
   @FXML
   public void initialize() {
     billService = new BillService();
+    billRepository = new BillRepository();
     setupComboBox();
     setupDatePickers();
     loadBillData();
@@ -155,6 +158,37 @@ public class BillManagementController {
       }
     }
     
+  }
+public  void handleSearch() throws Exception {
+    String keyword = txt_search.getText().trim();
+    if (keyword.isEmpty()) {
+      loadBillData();
+      return;
+    }
+
+    List<RecentBill> searchResults = billRepository.searchBills(keyword);
+
+    bill_container.getChildren().clear();
+
+    for (RecentBill bill : searchResults) {
+      try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Card/Bill.fxml"));
+        VBox card = loader.load();
+        BillCardController controller = loader.getController();
+        if (controller != null) {
+          controller.setData(bill);
+        }
+
+        card.getStyleClass().add("card");
+        card.setOnMouseClicked(e -> {
+          handleCardClick(bill);
+        });
+        bill_container.getChildren().add(card);
+
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
   
   

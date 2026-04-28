@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class BillService {
   private BillRepository billRepository;
   private CustomerRepository customerRepository;
@@ -59,4 +60,5 @@ public class BillService {
     
     return recentBills;
   }
+
 }

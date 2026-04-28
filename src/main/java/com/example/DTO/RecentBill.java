@@ -1,5 +1,6 @@
 package com.example.DTO;
 
+import java.sql.ResultSet;
 import java.util.Date;
 
 public class RecentBill {
@@ -9,7 +10,9 @@ public class RecentBill {
   private double total;
   private String status;
   private String employeeName;
-  
+
+  public  RecentBill() {
+  }
   public RecentBill(int billId, String customerName, Date date, double total, String employeeName) {
     this.billId = billId;
     this.customerName = customerName;
@@ -17,6 +20,14 @@ public class RecentBill {
     this.total = total;
     this.employeeName = employeeName;
     this.status = "COMPLETED";
+  }
+  public void setFromRS(ResultSet rs) throws Exception {
+    this.billId = rs.getInt("bill_id");
+    this.customerName = rs.getString("customer_name");
+    this.date = rs.getDate("invoice_date");
+    this.total = rs.getDouble("total_amount");
+    this.employeeName = rs.getString("employee_name");
+        this.status = rs.getString("status");
   }
   
   public RecentBill(int billId, String customerName, Date date, double total, String employeeName, String status) {
@@ -76,4 +87,6 @@ public class RecentBill {
   public void setEmployeeName(String employeeName) {
     this.employeeName = employeeName;
   }
+
+
 }
