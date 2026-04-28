@@ -1,15 +1,7 @@
-package com.example.controllers.AdminControllers;
+package com.example.controllers.ComponentControllers;
 
-import com.example.DTO.MarketShare;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AnalyticsController {
   
@@ -21,8 +13,7 @@ public class AnalyticsController {
   private Label avgOrderValue;
   @FXML
   private Label customerGrowth;
-
-
+  
   
   @FXML
   public void initialize() {
@@ -33,10 +24,8 @@ public class AnalyticsController {
     
     // Set dữ liệu cho biểu đồ
 //    setupChart();
-    
 
 
-  
 //  private void setupChart() {
 //    XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
 //    revenueSeries.setName("Doanh thu (Triệu VNĐ)");
@@ -64,4 +53,5 @@ public class AnalyticsController {
 //    BarChart<String, Number> barChart = (BarChart<String, Number>) totalRevenue.getScene().lookup("#revenueChart");
 //
 //  }
-}}
+  }
+}

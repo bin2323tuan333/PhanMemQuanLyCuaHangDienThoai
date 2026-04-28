@@ -1,4 +1,4 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.SideBar;
 
 import com.example.controllers.MainController;
 import com.example.controllers.TopBarController;
@@ -19,8 +19,6 @@ public class EmployeeSidebarController {
   private Button btn_customer;
   @FXML
   private Button btn_receipt;
-  @FXML
-  private Button btn_person;
   @FXML
   private Button btn_setting;
   @FXML
@@ -59,13 +57,10 @@ public class EmployeeSidebarController {
         loadPage("/com/example/component/ProductManagement.fxml");
         break;
       case "btn_customer":
-        loadPage("/com/example/component/Analytics.fxml");
+        loadPage("/com/example/component/CustomerManagement.fxml");
         break;
       case "btn_receipt":
-        loadPage("/com/example/admin/EmployeeManagement.fxml");
-        break;
-      case "btn_person":
-        loadPage("/com/example/component/BillManagement.fxml");
+        loadPage("/com/example/component/EmployeeManagement.fxml");
         break;
       case "btn_setting":
         loadPage("/com/example/component/Setting.fxml");

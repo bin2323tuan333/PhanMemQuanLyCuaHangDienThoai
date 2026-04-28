@@ -1,30 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<VBox spacing="8" style="         -fx-background-color: white;         -fx-padding: 15;         -fx-background-radius: 12;         -fx-border-radius: 12;         -fx-border-color: #e5e7eb;         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);       " xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.BillCardController">
+<VBox prefHeight="152.0" prefWidth="250.0" spacing="15.0"
+      style=" -fx-background-color: white; -fx-padding: 15; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e5e7eb; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);       "
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.controllers.ComponentControllers.Card.BillCardController">
+    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
 
-    <Label fx:id="lb_id" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+        <children>
+            <Label text="ID:">
+                <font>
+                    <Font name="System Bold" size="16.0"/>
+                </font>
+            </Label>
 
-    <Label fx:id="lb_customer" />
-    <Label fx:id="lb_employee" />
+            <Label fx:id="lb_id" text="id" textFill="#2c3e50">
+                <font>
+                    <Font name="System Bold" size="16.0"/>
+                </font>
+            </Label>
+        </children>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+    </HBox>
 
-    <Label fx:id="lb_total" style="-fx-text-fill: #16a34a; -fx-font-weight: bold;" />
+    <Label fx:id="lb_customer" text="name_customer">
+        <font>
+            <Font size="14.0"/>
+        </font>
+        <VBox.margin>
+            <Insets left="10.0"/>
+        </VBox.margin>
+    </Label>
+    <Label fx:id="lb_employee" text="name_employee">
+        <font>
+            <Font size="14.0"/>
+        </font>
+        <VBox.margin>
+            <Insets left="10.0"/>
+        </VBox.margin>
+    </Label>
 
-    <Label fx:id="lb_status" />
-   <effect>
-      <Shadow>
-         <color>
-            <Color red="0.5263158082962036" green="0.27534112334251404" blue="0.27534112334251404" />
-         </color>
-      </Shadow>
-   </effect>
-   <cursor>
-      <Cursor fx:constant="HAND" />
-   </cursor>
+    <Label fx:id="lb_total" style="-fx-text-fill: #16a34a; -fx-font-weight: bold;" text="lb_total">
+        <font>
+            <Font size="14.0"/>
+        </font>
+        <VBox.margin>
+            <Insets left="10.0"/>
+        </VBox.margin>
+    </Label>
+
+    <Label fx:id="lb_status" text="status">
+        <font>
+            <Font size="14.0"/>
+        </font>
+        <VBox.margin>
+            <Insets left="10.0"/>
+        </VBox.margin>
+    </Label>
+    <effect>
+        <Shadow>
+            <color>
+                <Color red="0.5263158082962036" green="0.27534112334251404" blue="0.27534112334251404"/>
+            </color>
+        </Shadow>
+    </effect>
+    <cursor>
+        <Cursor fx:constant="HAND"/>
+    </cursor>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
 
 </VBox>

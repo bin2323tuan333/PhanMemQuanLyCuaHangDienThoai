@@ -1,4 +1,4 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.SideBar;
 
 import com.example.controllers.MainController;
 import com.example.controllers.TopBarController;
@@ -38,7 +38,7 @@ public class AdminSideBarController {
   }
   
   public void loadDefaultPage() {
-    loadPage("/com/example/component/AdminDashBoard.fxml");
+    loadPage("/com/example/component/DashBoard.fxml");
   }
   
   @FXML
@@ -53,7 +53,7 @@ public class AdminSideBarController {
     String buttonId = clickedButton.getId();
     switch (buttonId) {
       case "btn_dashboard":
-        loadPage("/com/example/component/AdminDashBoard.fxml");
+        loadPage("/com/example/component/DashBoard.fxml");
         break;
       case "btn_product":
         loadPage("/com/example/component/ProductManagement.fxml");
@@ -92,7 +92,7 @@ public class AdminSideBarController {
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
-      System.err.println("Lỗi load trang: " + fxmlPath);
+      e.printStackTrace();
     }
   }
 }

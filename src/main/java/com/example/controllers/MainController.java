@@ -1,7 +1,7 @@
 package com.example.controllers;
 
-import com.example.controllers.AdminControllers.AdminSideBarController;
-import com.example.controllers.EmployeeControllers.EmployeeSidebarController;
+import com.example.controllers.ComponentControllers.SideBar.AdminSideBarController;
+import com.example.controllers.ComponentControllers.SideBar.EmployeeSidebarController;
 import com.example.models.Account;
 import com.example.services.AccountService;
 import javafx.animation.KeyFrame;
@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class MainController {
   @FXML
@@ -59,14 +58,14 @@ public class MainController {
       System.out.println("Không tìm thấy account với id: " + this.accountId);
       return;
     }
-
+    
     System.out.println("Account role: " + acc.getRoleId());
-
+    
     if (acc.getRoleId() == 2) {
       try {
-        FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/admin/AdminSideBar.fxml"));
+        FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/component/SideBar/AdminSideBar.fxml"));
         sideBar.setContent(loaderSideBar.load());
-        FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/admin/AdminDashBoard.fxml"));
+        FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/component/DashBoard.fxml"));
         mainScrollPane.setContent(loaderMain.load());
         adminSideBarController = loaderSideBar.getController();
         sideBar.setVisible(false);
@@ -77,9 +76,9 @@ public class MainController {
       }
     } else {
       try {
-        FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/employee/EmployeeSideBar.fxml"));
+        FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/component/SideBar/EmployeeSideBar.fxml"));
         sideBar.setContent(loaderSideBar.load());
-        FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/employee/EmployeeSale.fxml"));
+        FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/component/CreateBill.fxml"));
         mainScrollPane.setContent(loaderMain.load());
         employeeSidebarController = loaderSideBar.getController();
         sideBar.setVisible(false);

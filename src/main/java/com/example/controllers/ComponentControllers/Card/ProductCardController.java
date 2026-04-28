@@ -1,14 +1,10 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.ProductInfo;
-import com.example.models.Brand;
-import com.example.models.Product;
-import com.example.services.BrandService;
-import com.example.services.ProductService;
+import com.example.controllers.ComponentControllers.CreateBillController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 
 public class ProductCardController {

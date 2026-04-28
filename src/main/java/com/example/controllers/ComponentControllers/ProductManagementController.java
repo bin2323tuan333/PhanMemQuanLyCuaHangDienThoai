@@ -1,4 +1,4 @@
-package com.example.controllers.AdminControllers;
+package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;

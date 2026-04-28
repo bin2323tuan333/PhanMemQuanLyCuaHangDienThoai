@@ -1,4 +1,4 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.CustomerInfo;
 import javafx.fxml.FXML;
