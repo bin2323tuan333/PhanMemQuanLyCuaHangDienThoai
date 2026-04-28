@@ -1,10 +1,11 @@
-package com.example.controllers.AdminControllers;
+package com.example.controllers.ComponentControllers.SideBar;
 
 import com.example.controllers.MainController;
 import com.example.controllers.TopBarController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class AdminSideBarController {
   }
   
   public void loadDefaultPage() {
-    loadPage("/com/example/admin/AdminDashBoard.fxml");
+    loadPage("/com/example/component/DashBoard.fxml");
   }
   
   @FXML
@@ -52,25 +53,25 @@ public class AdminSideBarController {
     String buttonId = clickedButton.getId();
     switch (buttonId) {
       case "btn_dashboard":
-        loadPage("/com/example/admin/AdminDashBoard.fxml");
+        loadPage("/com/example/component/DashBoard.fxml");
         break;
       case "btn_product":
-        loadPage("/com/example/admin/ProductManagement.fxml");
+        loadPage("/com/example/component/ProductManagement.fxml");
         break;
       case "btn_analytics":
-        loadPage("/com/example/admin/Analytics.fxml");
+        loadPage("/com/example/component/Analytics.fxml");
         break;
       case "btn_employee":
         loadPage("/com/example/component/EmployeeManagement.fxml");
         break;
       case "btn_bill":
-        loadPage("/com/example/admin/BillManagement.fxml");
+        loadPage("/com/example/component/BillManagement.fxml");
         break;
       case "btn_setting":
-        loadPage("/com/example/admin/AdminSetting.fxml");
+        loadPage("/com/example/component/Setting.fxml");
         break;
       case "btn_customer":
-        loadPage("/com/example/admin/CustomerManagement.fxml");
+        loadPage("/com/example/component/CustomerManagement.fxml");
         break;
       case "btn_logout":
         System.out.println("Logout");
@@ -85,13 +86,13 @@ public class AdminSideBarController {
   private void loadPage(String fxmlPath) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-      MainController.Instance().getMainScrollPane().setContent(loader.load());
-      MainController.Instance().getMainScrollPane().setFitToWidth(true);
-      MainController.Instance().getMainScrollPane().setVvalue(0);
+      Node page = loader.load();
+      var controller = loader.getController();
+      MainController.Instance().getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
-      System.err.println("Lỗi load trang: " + fxmlPath);
+      e.printStackTrace();
     }
   }
 }

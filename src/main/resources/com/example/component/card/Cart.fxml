@@ -16,7 +16,7 @@
       spacing="10.0"
       style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 12px; -fx-background-radius: 12px;"
       stylesheets="@../../../../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.controllers.ComponentControllers.CartCardController">
+      fx:controller="com.example.controllers.ComponentControllers.Card.CartCardController">
     <children>
         <Label fx:id="lb_brand" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0"
                prefWidth="45.0"

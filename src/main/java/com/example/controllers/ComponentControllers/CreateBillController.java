@@ -2,13 +2,14 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.CartInfo;
 import com.example.DTO.ProductInfo;
+import com.example.controllers.ComponentControllers.Card.CartCardController;
+import com.example.controllers.ComponentControllers.Card.ProductCardController;
 import com.example.models.Customer;
 import com.example.services.CustomerService;
 import com.example.services.ProductService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;

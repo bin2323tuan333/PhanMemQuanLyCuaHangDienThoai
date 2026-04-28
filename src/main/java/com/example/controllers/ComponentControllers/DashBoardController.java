@@ -1,21 +1,9 @@
-package com.example.controllers.AdminControllers;
+package com.example.controllers.ComponentControllers;
 
 
-import com.example.DTO.ProductSale;
-import com.example.DTO.RecentBill;
 import com.example.services.*;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.util.Date;
-import java.util.List;
 
 public class DashBoardController {
   @FXML

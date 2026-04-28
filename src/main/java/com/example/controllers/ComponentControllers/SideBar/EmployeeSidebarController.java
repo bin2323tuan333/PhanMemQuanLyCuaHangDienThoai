@@ -1,4 +1,4 @@
-package com.example.controllers.EmployeeControllers;
+package com.example.controllers.ComponentControllers.SideBar;
 
 import com.example.controllers.MainController;
 import com.example.controllers.TopBarController;
@@ -7,8 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -21,8 +19,6 @@ public class EmployeeSidebarController {
   private Button btn_customer;
   @FXML
   private Button btn_receipt;
-  @FXML
-  private Button btn_person;
   @FXML
   private Button btn_setting;
   @FXML
@@ -40,8 +36,7 @@ public class EmployeeSidebarController {
   }
   
   public void loadDefaultPage() {
-    loadPage("/com/example/employee/EmployeeSale.fxml");
-//    loadPage("/com/example/component/CreateBill.fxml");
+    loadPage("/com/example/component/CreateBill.fxml");
   }
   
   @FXML
@@ -56,19 +51,16 @@ public class EmployeeSidebarController {
     String buttonId = clickedButton.getId();
     switch (buttonId) {
       case "btn_sale":
-        loadPage("/com/example/employee/EmployeeSale.fxml");
+        loadPage("/com/example/component/CreateBill.fxml");
         break;
       case "btn_product":
-        loadPage("/com/example/admin/ProductManagement.fxml");
+        loadPage("/com/example/component/ProductManagement.fxml");
         break;
       case "btn_customer":
-        loadPage("/com/example/admin/Analytics.fxml");
+        loadPage("/com/example/component/CustomerManagement.fxml");
         break;
       case "btn_receipt":
-        loadPage("/com/example/admin/EmployeeManagement.fxml");
-        break;
-      case "btn_person":
-        loadPage("/com/example/admin/BillManagement.fxml");
+        loadPage("/com/example/component/EmployeeManagement.fxml");
         break;
       case "btn_setting":
         loadPage("/com/example/component/Setting.fxml");
@@ -87,9 +79,8 @@ public class EmployeeSidebarController {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
       Node page = loader.load();
+      var controller = loader.getController();
       MainController.Instance().getMainScrollPane().setContent(page);
-      MainController.Instance().getMainScrollPane().setFitToWidth(true);
-      MainController.Instance().getMainScrollPane().setVvalue(0);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {

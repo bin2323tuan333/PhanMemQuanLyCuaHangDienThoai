@@ -1,7 +1,7 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.EmployeeInfo;
-import com.example.models.Employee;
+import com.example.controllers.ComponentControllers.Card.EmployeeCardController;
 import com.example.services.EmployeeService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

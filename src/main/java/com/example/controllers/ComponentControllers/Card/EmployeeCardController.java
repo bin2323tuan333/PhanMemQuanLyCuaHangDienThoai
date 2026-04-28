@@ -1,10 +1,9 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.EmployeeInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class EmployeeCardController {
   @FXML

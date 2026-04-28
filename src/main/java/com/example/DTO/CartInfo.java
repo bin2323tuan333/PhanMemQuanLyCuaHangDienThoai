@@ -1,9 +1,6 @@
 package com.example.DTO;
 
-import com.example.controllers.ComponentControllers.CartCardController;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.example.controllers.ComponentControllers.Card.CartCardController;
 
 public class CartInfo {
   private ProductInfo productInfo;
