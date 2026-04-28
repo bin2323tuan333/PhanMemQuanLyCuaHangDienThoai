@@ -1,17 +1,13 @@
 package com.example.controllers.AdminControllers;
 
 import com.example.DTO.ProductInfo;
-import com.example.controllers.ComponentControllers.ProductCardController;
+import com.example.controllers.ComponentControllers.Card.ProductCardController;
 import com.example.services.ProductService;
-import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
 import java.util.List;
 

@@ -1,11 +1,8 @@
 package com.example.controllers.AdminControllers;
 
 import com.example.DTO.CustomerInfo;
-import com.example.controllers.ComponentControllers.CustomerCardController;
+import com.example.controllers.ComponentControllers.Card.CustomerCardController;
 import com.example.services.CustomerService;
-import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerManagementController {

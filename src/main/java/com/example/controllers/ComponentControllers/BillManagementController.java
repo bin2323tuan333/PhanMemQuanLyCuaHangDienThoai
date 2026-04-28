@@ -1,9 +1,8 @@
 package com.example.controllers.AdminControllers;
 
 import com.example.DTO.RecentBill;
-import com.example.controllers.MainController;
 import com.example.services.BillService;
-import com.example.controllers.ComponentControllers.BillCardController;
+import com.example.controllers.ComponentControllers.Card.BillCardController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,15 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +36,10 @@ public class BillManagementController {
   @FXML
   private Button btn_viewDetail;
   @FXML
-    private Button btn_delete;
+  private Button btn_delete;
   @FXML
-    private Button btn_add;
-
+  private Button btn_add;
+  
   @FXML
   private Label lb_totalAmount;
   @FXML
@@ -52,9 +47,9 @@ public class BillManagementController {
   
   private BillService billService;
   private ObservableList<RecentBill> billList;
-
+  
   private VBox selectedCard = null;
-
+  
   @FXML
   public void initialize() {
     billService = new BillService();
@@ -65,18 +60,20 @@ public class BillManagementController {
             getClass().getResource("/css/style.css").toExternalForm()
     );
   }
+  
   private RecentBill selectedBill;
+  
   private void handleCardClick(RecentBill bill) {
     selectedBill = bill;
   }
-
-
+  
+  
   public void handleDelete() {
     if (selectedBill == null) {
       showAlert("Thông báo", "Vui lòng chọn hóa đơn!");
       return;
     }
-
+    
     try {
       billService.deleteBill(selectedBill.getBillId());
       loadBillData();
@@ -85,7 +82,8 @@ public class BillManagementController {
       e.printStackTrace();
     }
   }
-  public void handleAdd(){
+  
+  public void handleAdd() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CreateBill.fxml"));
       Parent root = loader.load();
@@ -93,16 +91,14 @@ public class BillManagementController {
       stage.setTitle("Thêm hóa đơn mới");
       stage.setScene(new Scene(root));
       stage.showAndWait();
-
+      
       // Sau khi đóng cửa sổ thêm, reload lại dữ liệu
       loadBillData();
     } catch (Exception e) {
       showAlert("Lỗi", "Không thể mở cửa sổ thêm hóa đơn: " + e.getMessage());
     }
   }
-
   
-
   
   private void setupComboBox() {
     statusCombo.getItems().setAll("Tất cả", "COMPLETED", "PROCESSING", "PENDING", "CANCELLED");
@@ -116,12 +112,12 @@ public class BillManagementController {
     fromDate.setOnAction(event -> filterBills());
     toDate.setOnAction(event -> filterBills());
   }
-
+  
   private void loadBillData() {
-
+    
     List<RecentBill> bills = billService.getAllBills();
     billList = FXCollections.observableArrayList(bills);
-
+    
     billContainer.getChildren().clear();
     selectedCard = null;
     for (RecentBill bill : billList) {
@@ -129,48 +125,49 @@ public class BillManagementController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Card/Bill.fxml"));
         VBox card = loader.load();
         BillCardController controller = loader.getController();
-
-
+        
+        
         if (controller != null) {
           controller.setData(bill);
         } else {
           System.out.println("Controller NULL!");
         }
-
+        
         card.getStyleClass().add("card");
         card.setOnMouseClicked(e -> {
           handleCardClick(bill);
-
+          
           if (selectedCard != null) {
             selectedCard.getStyleClass().remove("card-selected");
           }
-
+          
           selectedCard = card;
           selectedCard.getStyleClass().add("card-selected");
         });
-          billContainer.getChildren().add(card);
-
+        billContainer.getChildren().add(card);
+        
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
-
+    
     updateSummary(billList);
   }
+  
   private void filterBills() {
     String selectedStatus = statusCombo.getValue();
-
+    
     List<RecentBill> filtered = new ArrayList<>();
-
+    
     for (RecentBill bill : billList) {
       if (selectedStatus.equals("Tất cả") || bill.getStatus().equals(selectedStatus)) {
         filtered.add(bill);
       }
     }
-
+    
     // render lại card
     billContainer.getChildren().clear();
-
+    
     for (RecentBill bill : filtered) {
       try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Card/Bill.fxml"));
@@ -179,27 +176,28 @@ public class BillManagementController {
         if (controller != null) {
           controller.setData(bill);
         }
-
+        
         card.getStyleClass().add("card");
         card.setOnMouseClicked(e -> {
           handleCardClick(bill);
-
+          
           if (selectedCard != null) {
             selectedCard.getStyleClass().remove("card-selected");
           }
-
+          
           selectedCard = card;
           selectedCard.getStyleClass().add("card-selected");
         });
         billContainer.getChildren().add(card);
-
+        
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
-
+    
     updateSummary(FXCollections.observableArrayList(filtered));
   }
+  
   private void updateSummary() {
     updateSummary(billList);
   }
@@ -227,16 +225,16 @@ public class BillManagementController {
     loadBillData();
     updateSummary();
   }
-
+  
   @FXML
   public void handleViewDetail() {
     if (selectedBill == null) {
       showAlert("Thông báo", "Vui lòng chọn hóa đơn!");
       return;
     }
-
+    
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
+    
     showAlert("Chi tiết",
             "ID: " + selectedBill.getBillId() +
                     "\nKhách: " + selectedBill.getCustomerName() +
@@ -251,5 +249,5 @@ public class BillManagementController {
     alert.setContentText(content);
     alert.showAndWait();
   }
-
+  
 }

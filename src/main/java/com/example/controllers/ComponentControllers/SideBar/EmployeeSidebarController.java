@@ -1,4 +1,4 @@
-package com.example.controllers.AdminControllers;
+package com.example.controllers.ComponentControllers;
 
 import com.example.controllers.MainController;
 import com.example.controllers.TopBarController;
@@ -10,21 +10,21 @@ import javafx.scene.control.Button;
 
 import java.io.IOException;
 
-public class AdminSideBarController {
+public class EmployeeSidebarController {
   @FXML
-  private Button btn_dashboard;
+  private Button btn_sale;
   @FXML
   private Button btn_product;
   @FXML
   private Button btn_customer;
   @FXML
-  private Button btn_bill;
+  private Button btn_receipt;
   @FXML
-  private Button btn_employee;
-  @FXML
-  private Button btn_analytics;
+  private Button btn_person;
   @FXML
   private Button btn_setting;
+  @FXML
+  private Button btn_logout;
   @FXML
   private TopBarController topBarController;
   
@@ -33,12 +33,12 @@ public class AdminSideBarController {
   
   @FXML
   public void initialize() {
-    currentActiveButton = btn_dashboard;
-    btn_dashboard.getStyleClass().add("active-menu");
+    currentActiveButton = btn_sale;
+    btn_sale.getStyleClass().add("active-menu");
   }
   
   public void loadDefaultPage() {
-    loadPage("/com/example/admin/AdminDashBoard.fxml");
+    loadPage("/com/example/component/CreateBill.fxml");
   }
   
   @FXML
@@ -52,26 +52,23 @@ public class AdminSideBarController {
     
     String buttonId = clickedButton.getId();
     switch (buttonId) {
-      case "btn_dashboard":
-        loadPage("/com/example/admin/AdminDashBoard.fxml");
+      case "btn_sale":
+        loadPage("/com/example/component/CreateBill.fxml");
         break;
       case "btn_product":
-        loadPage("/com/example/admin/ProductManagement.fxml");
+        loadPage("/com/example/component/ProductManagement.fxml");
         break;
-      case "btn_analytics":
-        loadPage("/com/example/admin/Analytics.fxml");
+      case "btn_customer":
+        loadPage("/com/example/component/Analytics.fxml");
         break;
-      case "btn_employee":
-        loadPage("/com/example/component/EmployeeManagement.fxml");
+      case "btn_receipt":
+        loadPage("/com/example/admin/EmployeeManagement.fxml");
         break;
-      case "btn_bill":
-        loadPage("/com/example/admin/BillManagement.fxml");
+      case "btn_person":
+        loadPage("/com/example/component/BillManagement.fxml");
         break;
       case "btn_setting":
         loadPage("/com/example/component/Setting.fxml");
-        break;
-      case "btn_customer":
-        loadPage("/com/example/admin/CustomerManagement.fxml");
         break;
       case "btn_logout":
         System.out.println("Logout");

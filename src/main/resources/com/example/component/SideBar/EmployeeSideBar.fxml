@@ -12,7 +12,7 @@
       prefHeight="594.0" prefWidth="200.0" spacing="10.0"
       style="-fx-background-color: transparent; -fx-border-color: #eee; -fx-border-width: 0 1 0 0;"
       xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.controllers.EmployeeControllers.EmployeeSidebarController">
+      fx:controller="com.example.controllers.ComponentControllers.EmployeeSidebarController">
     <children>
         <Button fx:id="btn_sale" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
                 onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item"
