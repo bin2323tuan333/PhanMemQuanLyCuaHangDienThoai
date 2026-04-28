@@ -21,10 +21,10 @@ public class Employee {
 
   public void setFromRS(ResultSet rs) throws SQLException {
     this.employeeId = rs.getInt("employee_id");
-    this.fullName = rs.getString("full_name");
+    this.fullName = rs.getString("employee_name");
     this.gender = rs.getBoolean("gender");
     this.salary = rs.getDouble("salary");
-    this.phoneNumber = rs.getString("phone");
+    this.phoneNumber = rs.getString("phone_number");
 
     this.address = null;
     this.birthday = null;

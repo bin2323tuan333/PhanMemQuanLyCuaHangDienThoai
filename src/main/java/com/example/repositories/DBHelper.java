@@ -5,7 +5,7 @@ import java.sql.*;
 public class DBHelper {
   private static String DB_URL = "jdbc:mysql://localhost:3306/sales_management";
   private static String USER = "root";
-  private static String PASS = "123456";
+  private static String PASS = "0905997689";
   
   private static DBHelper _instance;
   
