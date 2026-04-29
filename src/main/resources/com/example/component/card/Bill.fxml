@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<VBox spacing="8" style="         -fx-background-color: white;         -fx-padding: 15;         -fx-background-radius: 12;         -fx-border-radius: 12;         -fx-border-color: #e5e7eb;         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);       " xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.BillCardController">
+<VBox spacing="8" style="         -fx-background-color: white;         -fx-padding: 15;         -fx-background-radius: 12;         -fx-border-radius: 12;         -fx-border-color: #e5e7eb;         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);       " xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.Card.BillCardController">
 
     <Label fx:id="lb_id" style="-fx-font-weight: bold; -fx-font-size: 14;" />
 

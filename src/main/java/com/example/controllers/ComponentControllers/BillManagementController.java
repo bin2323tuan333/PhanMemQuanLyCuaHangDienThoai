@@ -98,7 +98,7 @@ private BillRepository billRepository;
     bill_container.getChildren().clear();
     for (RecentBill bill : billList) {
       try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Card/Bill.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Bill.fxml"));
         VBox card = loader.load();
         BillCardController controller = loader.getController();
         
@@ -138,7 +138,7 @@ private BillRepository billRepository;
     
     for (RecentBill bill : filtered) {
       try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Card/Bill.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Bill.fxml"));
         VBox card = loader.load();
         BillCardController controller = loader.getController();
         if (controller != null) {
@@ -172,7 +172,7 @@ public  void handleSearch() throws Exception {
 
     for (RecentBill bill : searchResults) {
       try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Card/Bill.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Bill.fxml"));
         VBox card = loader.load();
         BillCardController controller = loader.getController();
         if (controller != null) {
