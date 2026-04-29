@@ -27,7 +27,7 @@ public class RecentBill {
     this.date = rs.getDate("invoice_date");
     this.total = rs.getDouble("total_amount");
     this.employeeName = rs.getString("employee_name");
-        this.status = rs.getString("status");
+    this.status = "COMPLETED";
   }
   
   public RecentBill(int billId, String customerName, Date date, double total, String employeeName, String status) {
@@ -80,9 +80,8 @@ public class RecentBill {
     this.total = total;
   }
   
-  public void setStatus(String status) {
-    this.status = status;
-  }
+
+
   
   public void setEmployeeName(String employeeName) {
     this.employeeName = employeeName;

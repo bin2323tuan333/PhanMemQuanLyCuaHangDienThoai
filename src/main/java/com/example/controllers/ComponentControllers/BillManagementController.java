@@ -53,7 +53,13 @@ private BillRepository billRepository;
     bill_container.getStylesheets().add(
             getClass().getResource("/css/style.css").toExternalForm()
     );
-  }
+    txt_search.textProperty().addListener((obs, oldVal, newVal) -> {
+      try {
+        handleSearch();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    });  }
   
   private RecentBill selectedBill;
   
@@ -159,17 +165,10 @@ private BillRepository billRepository;
     }
     
   }
-public  void handleSearch() throws Exception {
+  public void handleSearch() throws Exception {
     String keyword = txt_search.getText().trim();
-    if (keyword.isEmpty()) {
-      loadBillData();
-      return;
-    }
-
     List<RecentBill> searchResults = billRepository.searchBills(keyword);
-
     bill_container.getChildren().clear();
-
     for (RecentBill bill : searchResults) {
       try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Bill.fxml"));
@@ -182,6 +181,8 @@ public  void handleSearch() throws Exception {
         card.getStyleClass().add("card");
         card.setOnMouseClicked(e -> {
           handleCardClick(bill);
+
+
         });
         bill_container.getChildren().add(card);
 
@@ -189,6 +190,7 @@ public  void handleSearch() throws Exception {
         e.printStackTrace();
       }
     }
+
   }
   
   
