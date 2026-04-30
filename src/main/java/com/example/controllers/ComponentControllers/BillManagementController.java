@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.RecentBill;
+import com.example.controllers.ComponentControllers.Card.BillDetailController;
 import com.example.repositories.BillRepository;
 import com.example.services.BillService;
 import com.example.controllers.ComponentControllers.Card.BillCardController;
@@ -15,6 +16,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ public class BillManagementController {
   private BillService billService;
   private ObservableList<RecentBill> billList;
 private BillRepository billRepository;
+
   
   
   @FXML
@@ -65,6 +68,21 @@ private BillRepository billRepository;
   
   private void handleCardClick(RecentBill bill) {
     selectedBill = bill;
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/BillDetail.fxml"));
+      Parent root = loader.load();
+      BillDetailController controller = loader.getController();
+      controller.setData(bill);
+
+      Stage stage = new Stage();
+      stage.setTitle("Chi tiết hóa đơn #" + bill.getBillId());
+      stage.setScene(new Scene(root));
+      stage.showAndWait();
+
+      loadBillData(); // refresh data sau khi xem chi tiết
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   
@@ -81,6 +99,7 @@ private BillRepository billRepository;
     } catch (Exception e) {
     }
   }
+
   
   
   private void setupComboBox() {
@@ -192,6 +211,7 @@ private BillRepository billRepository;
     }
 
   }
+
   
   
 }

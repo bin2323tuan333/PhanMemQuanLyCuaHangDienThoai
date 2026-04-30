@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="TOP_LEFT"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.controllers.ComponentControllers.Card.BillDetailController"
+      style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+
+    <Label text="CHI TIẾT HÓA ĐƠN"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <!-- Thông tin -->
+    <GridPane hgap="10" vgap="10">
+        <Label text="Mã hóa đơn:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Label fx:id="lb_id" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Khách hàng:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <Label fx:id="lb_customer" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Nhân viên:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <Label fx:id="lb_employee" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Ngày:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <Label fx:id="lb_date" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Tổng tiền:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <Label fx:id="lb_total" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Button -->
+    <HBox spacing="10">
+        <Button text="✏ Sửa" fx:id="btn_edit" onAction="#handleEdit"
+                style="-fx-background-color: #3b82f6; -fx-text-fill: white;" />
+
+        <Button text="🗑 Xóa" fx:id="btn_delete" onAction="#handleDelete"
+                style="-fx-background-color: #ef4444; -fx-text-fill: white;" />
+    </HBox>
+
+</VBox>
