@@ -2,12 +2,21 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;
+import com.example.models.Brand;
+import com.example.models.Category;
+import com.example.services.BrandService;
+import com.example.services.CategoryService;
 import com.example.services.ProductService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -19,9 +28,9 @@ public class ProductManagementController {
   @FXML
   private Button btn_add_product;
   @FXML
-  private ComboBox<String> cbb_brand;
+  private ComboBox<Brand> cbb_brand;
   @FXML
-  private ComboBox<String> cbb_category;
+  private ComboBox<Category> cbb_category;
   @FXML
   private ComboBox<String> cbb_price;
   @FXML
@@ -33,9 +42,9 @@ public class ProductManagementController {
   }
   
   private void setup() {
+    ProductService productService = new ProductService();
+    List<ProductInfo> list = productService.getAllProductInfos();
     try {
-      ProductService productService = new ProductService();
-      List<ProductInfo> list = productService.getAllProductInfos();
       for (var item : list) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
         Node node = loader.load();
@@ -46,19 +55,54 @@ public class ProductManagementController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
+    CategoryService categoryService = new CategoryService();
+    BrandService brandService = new BrandService();
+    List<Category> categories = categoryService.getAllCategorys();
+    List<Brand> brands = brandService.getAllBrands();
+    this.cbb_category.setItems(FXCollections.observableArrayList(categories));
+    this.cbb_brand.setItems(FXCollections.observableArrayList(brands));
   }
   
   public void handleBtnAdd() {
-  
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductForm.fxml"));
+      Parent root = loader.load();
+      ProductFormController productFormController = loader.getController();
+      productFormController.setProductInfo(null);
+      Stage stage = new Stage();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Thêm mới");
+      stage.showAndWait();
+      setup();
+    } catch (java.io.IOException e) {
+      e.printStackTrace();
+    }
   }
   
   public void handleBtnSearch() {
-  
+    String s = txt_search.getText().trim().toLowerCase();
+    this.product_container.getChildren().clear();
+    try {
+      ProductService productService = new ProductService();
+      List<ProductInfo> list = productService.getAllProductInfos();
+      for (var item : list) {
+        if (item.getProductName().trim().toLowerCase().contains(s) ||
+                    String.valueOf(item.getProductId()).contains(s)) {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
+          Node node = loader.load();
+          ProductCardController controller = loader.getController();
+          controller.setProduct(item);
+          this.product_container.getChildren().add(node);
+        }
+        
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   public void handleCbb() {
-    
+  
   }
 
 //    @FXML private TextField txtSearch;

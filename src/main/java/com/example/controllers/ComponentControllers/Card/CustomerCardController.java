@@ -1,8 +1,15 @@
 package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.CustomerInfo;
+import com.example.controllers.ComponentControllers.CustomerFormController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class CustomerCardController {
@@ -35,7 +42,23 @@ public class CustomerCardController {
     this.lb_phone.setText((phone != null && !phone.isEmpty()) ? phone : "N/A");
     String address = this.customerInfo.getAddress();
     this.lb_address.setText((address != null && !address.isEmpty()) ? address : "Chưa cập nhật");
-    this.lb_gender.setText(this.customerInfo.isGender() ? "Nữ" : "Nam");
+    this.lb_gender.setText(this.customerInfo.getGender() ? "Nữ" : "Nam");
     this.lb_dob.setText(this.customerInfo.getDob().toString());
+  }
+  
+  public void handleClick() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
+      Parent root = loader.load();
+      CustomerFormController customerFormController = loader.getController();
+      customerFormController.setCustomerInfo(this.customerInfo);
+      Stage stage = new Stage();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Thêm mới");
+      stage.showAndWait();
+      setup();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

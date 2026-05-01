@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,65 +12,42 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.ProductFormController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.EmployeeFormController">
     <children>
-        <Label text="Thông tin chi tiết sản phẩm" textFill="#2c3e50">
+
+        <Label text="Thông tin chi tiết hóa đơn" textFill="#2c3e50">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <GridPane prefHeight="524.0" prefWidth="600.0">
+        <GridPane prefHeight="211.0" prefWidth="552.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="122.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="430.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="131.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="421.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Mã sản phẩm" textFill="#4a5568">
+                <Label text="Mã hóa đơn" textFill="#4a5568">
                     <font>
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <Label text="Tên sản phẩm" textFill="#4a5568" GridPane.rowIndex="1">
+                <Label text="Khách hàng" textFill="#4a5568" GridPane.rowIndex="1">
                     <font>
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <Label text="Số lượng còn lại" textFill="#4a5568" GridPane.rowIndex="2">
+                <Label text="Tổng giá tiền" textFill="#4a5568" GridPane.rowIndex="2">
                     <font>
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <Label text="Mô tả" textFill="#4a5568" GridPane.rowIndex="3">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <Label text="Giá" textFill="#4a5568" GridPane.rowIndex="4">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <Label text="Loại sản phẩm" textFill="#4a5568" GridPane.rowIndex="5">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <Label text="Nhãn hàng" textFill="#4a5568" GridPane.rowIndex="6">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <Label text="Nhà cung cấp" textFill="#4a5568" GridPane.rowIndex="7">
+                <Label text="Người lập hóa đơn" textFill="#4a5568" GridPane.rowIndex="3">
                     <font>
                         <Font size="13.0" />
                     </font>
@@ -80,32 +57,33 @@
                         <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <TextField fx:id="txt_name" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <TextField fx:id="txt_name_customer" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <padding>
                         <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <TextField fx:id="txt_price" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <TextField fx:id="txt_total_price" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <padding>
                         <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <TextField fx:id="txt_description" layoutX="132.0" layoutY="59.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <TextField fx:id="txt_name_employee" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <padding>
                         <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <TextField fx:id="txt_stock" layoutX="132.0" layoutY="59.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
-                    </padding>
-                </TextField>
-                <ComboBox fx:id="cbb_category" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ccc;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <ComboBox fx:id="cbb_brand" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ccc;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <ComboBox fx:id="cbb_supplier" layoutX="132.0" layoutY="277.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ccc;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             </children>
         </GridPane>
-        <HBox alignment="CENTER" prefHeight="216.0" prefWidth="600.0" spacing="20.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="307.0" prefWidth="552.0" style="-fx-background-color: #fff;">
+         <content>
+            <VBox fx:id="bill_detail_container" prefHeight="329.0" prefWidth="543.0" spacing="10.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+        <HBox alignment="CENTER" prefHeight="6.0" prefWidth="552.0" spacing="20.0">
             <children>
                 <Button fx:id="btn_add" mnemonicParsing="false" onAction="#handleBtnAdd" style="-fx-background-radius: 6; -fx-background-color: #48BB78; -fx-border-radius: 6;" text="Thêm" textFill="WHITE">
                     <font>

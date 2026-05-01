@@ -38,6 +38,6 @@ public class Category {
   
   @Override
   public String toString() {
-    return categoryName;
+    return this.categoryName;
   }
 }

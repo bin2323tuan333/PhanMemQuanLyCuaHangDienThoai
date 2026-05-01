@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 
 <HBox fx:id="main_container" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="900.0" prefWidth="817.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/25"
+      minWidth="-Infinity" prefHeight="900.0" prefWidth="817.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.controllers.ComponentControllers.CreateBillController">
     <children>

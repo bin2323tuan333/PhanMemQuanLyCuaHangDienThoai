@@ -3,7 +3,6 @@ package com.example.controllers;
 import com.example.models.Employee;
 import com.example.services.AccountService;
 import com.example.services.EmployeeService;
-import com.example.services.IAuthService;
 import com.example.services.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -18,7 +17,7 @@ public class TopBarController {
   private Label lb_title;
   private MainController mainController;
   
-  IAuthService loginService = new AuthService();
+  AuthService loginService = new AuthService();
   
   @FXML
   public void initialize() {

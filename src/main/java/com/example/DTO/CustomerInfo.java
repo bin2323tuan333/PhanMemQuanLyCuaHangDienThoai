@@ -2,7 +2,8 @@ package com.example.DTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class CustomerInfo {
   private int customerId;
@@ -65,7 +66,7 @@ public class CustomerInfo {
     this.dob = dob;
   }
   
-  public boolean isGender() {
+  public boolean getGender() {
     return gender;
   }
   

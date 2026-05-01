@@ -1,9 +1,16 @@
 package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.EmployeeInfo;
+import com.example.controllers.ComponentControllers.EmployeeFormController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class EmployeeCardController {
   @FXML
@@ -45,7 +52,19 @@ public class EmployeeCardController {
   }
   
   public void handleClick() {
-    System.out.println("In ra cái chi tiết nhân viên mày!");
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/EmployeeForm.fxml"));
+      Parent root = loader.load();
+      EmployeeFormController controller = loader.getController();
+      controller.setEmployeeInfo(this.employeeInfo);
+      
+      Stage stage = new Stage();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Thêm nhân viên mới");
+      stage.showAndWait();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
   
 }

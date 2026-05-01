@@ -2,7 +2,8 @@ package com.example.DTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 
 public class EmployeeInfo {
   private int employeeId;
@@ -58,7 +59,7 @@ public class EmployeeInfo {
     this.fullName = fullName;
   }
   
-  public boolean isGender() {
+  public boolean getGender() {
     return gender;
   }
   

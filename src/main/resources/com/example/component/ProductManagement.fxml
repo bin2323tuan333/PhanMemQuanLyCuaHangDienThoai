@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600" prefWidth="900" spacing="15" xmlns="http://javafx.com/javafx/25"
+<VBox prefHeight="600" prefWidth="900" spacing="15" xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.controllers.ComponentControllers.ProductManagementController">
     <padding>
@@ -28,7 +28,8 @@
         </TextField>
         <Button fx:id="btn_search_product" mnemonicParsing="false"
                 style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-background-color: #2563eb; -fx-text-fill: white;"
-                text="Tìm kiếm">
+                text="Tìm kiếm"
+                onAction="#handleBtnSearch">
             <font>
                 <Font name="System Bold" size="16.0"/>
             </font>
@@ -41,7 +42,8 @@
         </Button>
         <Button fx:id="btn_add_product" mnemonicParsing="false"
                 style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #e2e8f0; -fx-text-fill: #475569;"
-                text="Thêm sản phẩm">
+                text="Thêm sản phẩm"
+                onAction="#handleBtnAdd">
             <font>
                 <Font name="System Bold" size="16.0"/>
             </font>
@@ -60,19 +62,22 @@
     <HBox spacing="10">
         <children>
             <ComboBox fx:id="cbb_category" prefWidth="180.0" promptText="Loại sản phẩm"
-                      style="-fx-background-color: #fff; -fx-border-color: #e2e8f0; -fx-background-radius: 6; -fx-border-radius: 6;">
+                      style="-fx-background-color: #fff; -fx-border-color: #e2e8f0; -fx-background-radius: 6; -fx-border-radius: 6;"
+                      onAction="#handleCbb">
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </padding>
             </ComboBox>
             <ComboBox fx:id="cbb_brand" layoutX="30.0" layoutY="20.0" prefWidth="180.0" promptText="Thương hiệu"
-                      style="-fx-background-color: #fff; -fx-border-color: #e2e8f0; -fx-background-radius: 6; -fx-border-radius: 6;">
+                      style="-fx-background-color: #fff; -fx-border-color: #e2e8f0; -fx-background-radius: 6; -fx-border-radius: 6;"
+                      onAction="#handleCbb">
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </padding>
             </ComboBox>
             <ComboBox fx:id="cbb_price" layoutX="220.0" layoutY="20.0" prefWidth="180.0" promptText="Giá cả"
-                      style="-fx-background-color: #fff; -fx-border-color: #e2e8f0; -fx-background-radius: 6; -fx-border-radius: 6;">
+                      style="-fx-background-color: #fff; -fx-border-color: #e2e8f0; -fx-background-radius: 6; -fx-border-radius: 6;"
+                      onAction="#handleCbb">
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </padding>

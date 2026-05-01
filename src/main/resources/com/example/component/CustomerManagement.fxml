@@ -51,7 +51,7 @@
 <!--    </TableView>-->
 <!--</VBox>-->
 
-<VBox prefHeight="600" prefWidth="900" spacing="15" xmlns="http://javafx.com/javafx/25"
+<VBox prefHeight="600" prefWidth="900" spacing="15" xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.controllers.ComponentControllers.CustomerManagementController">
     <padding>
@@ -82,7 +82,8 @@
         </Button>
         <Button fx:id="btn_add_customer" mnemonicParsing="false"
                 style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #e2e8f0; -fx-text-fill: #475569;"
-                text="Thêm khách hàng">
+                text="Thêm khách hàng"
+                onAction="#handleBtnAdd">
             <font>
                 <Font name="System Bold" size="16.0"/>
             </font>

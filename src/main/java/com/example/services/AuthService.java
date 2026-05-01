@@ -3,7 +3,7 @@ package com.example.services;
 import com.example.models.Account;
 import com.example.repositories.AccountRepository;
 
-public class AuthService implements IAuthService {
+public class AuthService {
   public Account login(String username, String password) {
     if (username == null || password == null) {
       System.out.println("Nhap thieu thong tin");

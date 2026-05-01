@@ -1,7 +1,6 @@
 package com.example.controllers;
 
 import com.example.models.Account;
-import com.example.services.IAuthService;
 import com.example.services.AuthService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,14 +31,14 @@ public class LoginController {
   public void button_login_click() {
     String user = textField_username.getText();
     String pass = textField_password.getText();
-
+    
     if (user.isEmpty() || pass.isEmpty()) {
       label_message.setText("Không được để trống!");
       label_message.setStyle("-fx-text-fill: red;");
       return;
     }
     
-    IAuthService authService = new AuthService();
+    AuthService authService = new AuthService();
     Account acc = authService.login(user, pass);
     if (acc != null) {
       label_message.setText("Đăng nhập thành công!");
@@ -65,12 +64,12 @@ public class LoginController {
       label_message.setStyle("-fx-text-fill: red;");
     }
   }
-
-    public Button getButton_login() {
-        return button_login;
-    }
-
-    public void setButton_login(Button button_login) {
-        this.button_login = button_login;
-    }
+  
+  public Button getButton_login() {
+    return button_login;
+  }
+  
+  public void setButton_login(Button button_login) {
+    this.button_login = button_login;
+  }
 }
