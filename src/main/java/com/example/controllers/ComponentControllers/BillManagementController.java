@@ -69,7 +69,7 @@ private BillRepository billRepository;
   private void handleCardClick(RecentBill bill) {
     selectedBill = bill;
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/BillDetail.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/BillForm.fxml"));
       Parent root = loader.load();
       BillDetailController controller = loader.getController();
       controller.setData(bill);

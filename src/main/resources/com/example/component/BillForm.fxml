@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.EmployeeFormController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.Card.BillDetailController">
     <children>
 
         <Label text="Thông tin chi tiết hóa đơn" textFill="#2c3e50">
@@ -85,7 +85,8 @@
       </ScrollPane>
         <HBox alignment="CENTER" prefHeight="6.0" prefWidth="552.0" spacing="20.0">
             <children>
-                <Button fx:id="btn_add" mnemonicParsing="false" onAction="#handleBtnAdd" style="-fx-background-radius: 6; -fx-background-color: #48BB78; -fx-border-radius: 6;" text="Thêm" textFill="WHITE">
+
+                <Button fx:id="btn_update" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleEdit" style="-fx-background-radius: 6; -fx-background-color: #4299E1; -fx-border-radius: 6;" text="Cập nhật" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -93,7 +94,7 @@
                         <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btn_update" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleBtnUpdate" style="-fx-background-radius: 6; -fx-background-color: #4299E1; -fx-border-radius: 6;" text="Cập nhật" textFill="WHITE">
+                <Button fx:id="btn_cancel" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-radius: 6; -fx-background-color: #ECC94B; -fx-border-radius: 6;" text="Hủy" textFill="#1a202c">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -101,15 +102,7 @@
                         <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btn_cancel" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleBtnCancel" style="-fx-background-radius: 6; -fx-background-color: #ECC94B; -fx-border-radius: 6;" text="Hủy" textFill="#1a202c">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="btn_delete" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleBtnDelete" style="-fx-background-radius: 6; -fx-background-color: #F56565; -fx-border-radius: 6;" text="Xóa" textFill="WHITE">
+                <Button fx:id="btn_delete" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-radius: 6; -fx-background-color: #F56565; -fx-border-radius: 6;" text="Xóa" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
