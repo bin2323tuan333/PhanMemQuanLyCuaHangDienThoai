@@ -90,16 +90,16 @@ public class ProductFormController {
       txt_price.setText(String.valueOf(productInfo.getPrice()));
       txt_stock.setText(String.valueOf(productInfo.getStock()));
       txt_description.setText(productInfo.getDescription());
-
-//      if (productInfo.getCategory() != null) {
-//        cbb_category.setValue(productInfo.getCategory());
-//      }
-//      if (productInfo.getBrand() != null) {
-//        cbb_brand.setValue(productInfo.getBrand());
-//      }
-//      if (productInfo.getSupplier() != null) {
-//        cbb_supplier.setValue(productInfo.getSupplier());
-//      }
+      
+      if (productInfo.getCategory() != null) {
+        cbb_category.setValue(productInfo.getCategory());
+      }
+      if (productInfo.getBrand() != null) {
+        cbb_brand.setValue(productInfo.getBrand());
+      }
+      if (productInfo.getSupplier() != null) {
+        cbb_supplier.setValue(productInfo.getSupplier());
+      }
     }
   }
   
@@ -168,9 +168,9 @@ public class ProductFormController {
       p.setPrice(price);
       p.setStock(stock);
       p.setDescription(description);
-//      p.setCategory(category);
-//      p.setBrand(brand);
-//      p.setSupplier(supplier);
+      p.setCategory(category);
+      p.setBrand(brand);
+      p.setSupplier(supplier);
       
       return p;
     } catch (NumberFormatException e) {

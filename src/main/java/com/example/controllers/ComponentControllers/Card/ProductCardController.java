@@ -48,7 +48,7 @@ public class ProductCardController {
     DecimalFormat df = new DecimalFormat("#,###");
     this.lb_price.setText(df.format(p.getPrice()) + " VNĐ");
     this.lb_stock.setText("" + p.getStock());
-    this.lb_brand.setText(p.getBrandName());
+    this.lb_brand.setText(p.getBrand().getBrandName());
   }
   
   public void handleClick() {

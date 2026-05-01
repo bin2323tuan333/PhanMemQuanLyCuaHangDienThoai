@@ -1,5 +1,9 @@
 package com.example.DTO;
 
+import com.example.models.Brand;
+import com.example.models.Category;
+import com.example.models.Supplier;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -14,16 +18,16 @@ public class ProductInfo {
   private int categoryId; // FK -> Category
   private int brandId;    // FK -> Brand
   
-  private String brandName;
-  private String supplierName;
-  private String categoryName;
+  private Brand brand;
+  private Supplier supplier;
+  private Category category;
   
   
   public ProductInfo() {
   
   }
   
-  public ProductInfo(int productId, String productName, int quantity, String description, double price, int stock, int categoryId, int brandId, String brandName, String supplierName, String categoryName) {
+  public ProductInfo(int productId, String productName, int quantity, String description, double price, int stock, int categoryId, int brandId, Brand brand, Supplier supplier, Category category) {
     this.productId = productId;
     this.productName = productName;
     this.quantity = quantity;
@@ -32,9 +36,9 @@ public class ProductInfo {
     this.stock = stock;
     this.categoryId = categoryId;
     this.brandId = brandId;
-    this.brandName = brandName;
-    this.supplierName = supplierName;
-    this.categoryName = categoryName;
+    this.brand = brand;
+    this.supplier = supplier;
+    this.category = category;
   }
   
   public void setFromRS(ResultSet rs) throws SQLException {
@@ -44,11 +48,21 @@ public class ProductInfo {
     this.description = rs.getString("description");
     this.price = rs.getDouble("price");
     this.stock = rs.getInt("stock");
-    this.categoryId = rs.getInt("category_id");
-    this.brandId = rs.getInt("brand_id");
-    this.brandName = rs.getString("brand_name");
-    this.supplierName = rs.getString("supplier_name");
-    this.categoryName = rs.getString("category_name");
+    
+    Category category = new Category();
+    category.setCategoryId(rs.getInt("category_id"));
+    category.setCategoryName(rs.getString("category_name"));
+    this.setCategory(category);
+    
+    Brand brand = new Brand();
+    brand.setBrandId(rs.getInt("brand_id"));
+    brand.setBrandName(rs.getString("brand_name"));
+    this.setBrand(brand);
+    
+    Supplier supplier = new Supplier();
+    supplier.setSupplierId(rs.getInt("supplier_id"));
+    supplier.setName(rs.getString("supplier_name"));
+    this.setSupplier(supplier);
   }
   
   public int getProductId() {
@@ -115,27 +129,27 @@ public class ProductInfo {
     this.brandId = brandId;
   }
   
-  public String getBrandName() {
-    return brandName;
+  public Brand getBrand() {
+    return brand;
   }
   
-  public void setBrandName(String brandName) {
-    this.brandName = brandName;
+  public void setBrand(Brand brand) {
+    this.brand = brand;
   }
   
-  public String getCategoryName() {
-    return categoryName;
+  public Supplier getSupplier() {
+    return supplier;
   }
   
-  public void setCategoryName(String categoryName) {
-    this.categoryName = categoryName;
+  public void setSupplier(Supplier supplier) {
+    this.supplier = supplier;
   }
   
-  public String getSupplierName() {
-    return supplierName;
+  public Category getCategory() {
+    return category;
   }
   
-  public void setSupplierName(String supplierName) {
-    this.supplierName = supplierName;
+  public void setCategory(Category category) {
+    this.category = category;
   }
 }

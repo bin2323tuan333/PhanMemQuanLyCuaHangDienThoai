@@ -47,12 +47,12 @@ public class CartCardController {
   public void setup(ProductInfo p) {
     this.productId = p.getProductId();
     this.price = p.getPrice();
-    this.lb_brand.setText("" + p.getBrandName().charAt(0) + p.getBrandName().charAt(1));
+    this.lb_brand.setText("" + p.getBrand().getBrandName().charAt(0) + p.getBrand().getBrandName().charAt(1));
     DecimalFormat df = new DecimalFormat("#,###");
     this.lb_quantity.setText("1");
     this.lb_price.setText(df.format(p.getPrice()) + " VNĐ");
     this.lb_name.setText(p.getProductName());
-    this.lb_category.setText(p.getCategoryName());
+    this.lb_category.setText(p.getCategory().getCategoryName());
   }
   
   public void handleDecrease() {
