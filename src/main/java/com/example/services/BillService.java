@@ -1,9 +1,12 @@
 package com.example.services;
 
+import com.example.DTO.BillDetailInfo;
+import com.example.DTO.BillInfo;
 import com.example.DTO.RecentBill;
 import com.example.models.Bill;
 import com.example.models.Customer;
 import com.example.models.Employee;
+import com.example.repositories.BillDetailRepository;
 import com.example.repositories.BillRepository;
 import com.example.repositories.CustomerRepository;
 import com.example.repositories.EmployeeRepository;
@@ -23,8 +26,22 @@ public class BillService {
     customerRepository = new CustomerRepository();
     employeeRepository = new EmployeeRepository();
   }
-  public void deleteBill (int id) throws SQLException {
+  
+  public void deleteBill(int id) throws SQLException {
     billRepository.deleteBill(id);
+  }
+  
+  public List<BillInfo> getAllBillInfos() {
+    return billRepository.getAllBillInfos();
+  }
+  
+  public List<BillDetailInfo> getAllBillDetailInfos() {
+    BillDetailRepository billDetailRepository = new BillDetailRepository();
+    return billDetailRepository.getAllBillDetailInfos();
+  }
+  
+  public BillInfo getBillInfoByID(int id) {
+    return billRepository.getBillInfoByID(id);
   }
   
   public List<RecentBill> getAllBills() {
@@ -41,10 +58,10 @@ public class BillService {
       if (item.getEmployeeId() > 0) {
         employee = employeeRepository.getEmployeeByID(item.getEmployeeId());
       }
-
+      
       String customerName = (customer != null) ? customer.getFullName() : "Không có";
       String employeeName = (employee != null) ? employee.getFullName() : "Không có";
-
+      
       RecentBill recentBill = new RecentBill(
               item.getBillId(),
               customerName,
@@ -52,7 +69,7 @@ public class BillService {
               item.getTotalAmount(),
               employeeName,
               "COMPLETED"
-
+      
       );
       
       recentBills.add(recentBill);
@@ -60,5 +77,5 @@ public class BillService {
     
     return recentBills;
   }
-
+  
 }

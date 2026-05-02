@@ -1,11 +1,11 @@
 package com.example.controllers.ComponentControllers;
 
+import com.example.DTO.EmployeeInfo;
+import com.example.DTO.SystemSetting;
 import com.example.controllers.MainController;
+import com.example.services.SystemService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -36,6 +36,16 @@ public class SettingController {
   private TextField txt_shop_tax;
   
   private MainController mainController;
+  private EmployeeInfo employeeInfo;
+  private SystemSetting systemSetting;
+  
+  
+  private ToggleGroup genderGroup;
+  
+  public void setEmployeeInfo(EmployeeInfo employeeInfo) {
+    this.employeeInfo = employeeInfo;
+    setup();
+  }
   
   public void setMainController(MainController main) {
     this.mainController = main;
@@ -43,11 +53,38 @@ public class SettingController {
   
   @FXML
   public void initialize() {
-//    hideSystemContainer();
+    genderGroup = new ToggleGroup();
+    rd_male.setToggleGroup(genderGroup);
+    rd_female.setToggleGroup(genderGroup);
+    rd_male.setSelected(true);
   }
   
   public void setup() {
-  
+    if (employeeInfo != null) {
+      txt_employee_id.setText(String.valueOf(employeeInfo.getEmployeeId()));
+      txt_employee_name.setText(employeeInfo.getFullName());
+      txt_employee_phone.setText(employeeInfo.getPhoneNumber());
+      txt_employee_address.setText(employeeInfo.getAddress());
+      
+      if (employeeInfo.getGender()) {
+        rd_male.setSelected(true);
+      } else {
+        rd_female.setSelected(true);
+      }
+      
+      if (employeeInfo.getBirthday() != null) {
+        dp_employee_dob.setValue(employeeInfo.getBirthday().toLocalDate());
+      }
+    }
+    
+    SystemService systemService = new SystemService();
+    this.systemSetting = systemService.getSystemInfo();
+    if (this.systemSetting != null) {
+      txt_shop_name.setText(systemSetting.getShopName());
+      txt_shop_address.setText(systemSetting.getShopAddress());
+      txt_shop_phone.setText(systemSetting.getShopPhone());
+      txt_shop_tax.setText(systemSetting.getTaxCode());
+    }
   }
   
   public void hideSystemContainer() {

@@ -1,7 +1,9 @@
 package com.example.controllers;
 
+import com.example.DTO.EmployeeInfo;
 import com.example.models.Account;
 import com.example.services.AuthService;
+import com.example.services.EmployeeService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,6 +49,9 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/MainContainer.fxml"));
         Parent root = loader.load();
         MainController mainController = loader.getController();
+        EmployeeService employeeService = new EmployeeService();
+        EmployeeInfo employeeInfo = employeeService.getEmployeeInfoByID(acc.getEmployeeId());
+        mainController.setEmployeeInfo(employeeInfo);
         mainController.setAccountId(acc.getAccountId());
         mainController.setup();
         

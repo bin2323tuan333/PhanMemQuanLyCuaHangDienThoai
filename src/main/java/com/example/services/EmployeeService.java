@@ -16,4 +16,9 @@ public class EmployeeService {
     EmployeeRepository employeeRepository = new EmployeeRepository();
     return employeeRepository.getAllEmployeeInfo();
   }
+  
+  public EmployeeInfo getEmployeeInfoByID(int id) {
+    EmployeeRepository employeeRepository = new EmployeeRepository();
+    return employeeRepository.getEmployeeInfoByID(id);
+  }
 }

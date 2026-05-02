@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import com.example.DTO.BillDetailInfo;
 import com.example.models.Bill;
 import com.example.models.BillDetail;
 
@@ -11,6 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BillDetailRepository {
+  public List<BillDetailInfo> getAllBillDetailInfos() {
+    String sql = "SELECT *\n" +
+                         "FROM billdetail bd \n" +
+                         "LEFT JOIN product p ON bd.product_id = p.product_id \n" +
+                         "LIMIT 0, 1000;";
+    List<BillDetailInfo> list = new ArrayList<>();
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs != null && rs.next()) {
+          BillDetailInfo billDetail = new BillDetailInfo();
+          billDetail.setFromRS(rs);
+          list.add(billDetail);
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getErrorCode());
+    }
+    return list;
+  }
+  
   public List<BillDetail> getAllBillDetails() {
     List<BillDetail> list = new ArrayList<>();
     String sql = "SELECT * FROM BillDetail";

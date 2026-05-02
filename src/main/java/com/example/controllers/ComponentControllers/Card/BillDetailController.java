@@ -1,49 +1,41 @@
 package com.example.controllers.ComponentControllers.Card;
 
+import com.example.DTO.BillDetailInfo;
 import com.example.DTO.RecentBill;
+import com.example.models.BillDetail;
+import com.example.models.Category;
 import com.example.services.BillService;
+import com.example.services.CategoryService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
-import java.awt.*;
 
 public class BillDetailController {
-    @FXML
-    private Label lb_id;
-    @FXML
-    private Label lb_customer;
-    @FXML
-    private Label lb_employee;
-    @FXML
-    private Label lb_total;
-    @FXML
-    private Label lb_date;
-
-    private RecentBill bill;
-    private BillService billService = new BillService();
-
-    public void setData(RecentBill bill) {
-        this.bill = bill;
-        lb_id.setText("🧾 #" + bill.getBillId());
-        lb_customer.setText("👤 " + bill.getCustomerName());
-        lb_employee.setText("👨‍💼 " + bill.getEmployeeName());
-        lb_total.setText("💰 " + String.format("%,.0f VNĐ", bill.getTotal()));
-        lb_date.setText("📅 " + bill.getDate().toString());
+  @FXML
+  private Label lb_name;
+  @FXML
+  private Label lb_quantity;
+  @FXML
+  private Label lb_price;
+  
+  private BillDetailInfo billDetailInfo;
+  
+  public void setBillDetailInfo(BillDetailInfo billDetailInfo) {
+    this.billDetailInfo = billDetailInfo;
+    setup();
+  }
+  
+  @FXML
+  public void initialize() {
+  
+  }
+  
+  public void setup() {
+    if (billDetailInfo != null) {
+      lb_name.setText(billDetailInfo.getProduct().getProductName());
+      lb_quantity.setText(String.valueOf(billDetailInfo.getQuantity()));
+      lb_price.setText(String.format("%,.0f", billDetailInfo.getQuantity() * billDetailInfo.getProduct().getQuantity()) + " đ");
     }
-    @FXML
-    private void handleEdit() {
-        System.out.println("Edit bill: " + bill.getBillId());
-
-    }
-        @FXML
-    private void handleDelete() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Xác nhận xóa");
-        alert.setHeaderText(null);
-        alert.setContentText("Bạn có chắc muốn xóa hóa đơn #" + bill.getBillId() + "?");
-
-
-
-}}
+  }
+}

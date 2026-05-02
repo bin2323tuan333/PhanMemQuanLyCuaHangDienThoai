@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.DTO.EmployeeInfo;
 import com.example.controllers.ComponentControllers.SideBar.AdminSideBarController;
 import com.example.controllers.ComponentControllers.SideBar.EmployeeSidebarController;
 import com.example.models.Account;
@@ -33,6 +34,15 @@ public class MainController {
   private final double expandedWidth = 200;
   private final double collapsedWidth = 0;
   private int accountId;
+  private EmployeeInfo employeeInfo;
+  
+  public void setEmployeeInfo(EmployeeInfo employeeInfo) {
+    this.employeeInfo = employeeInfo;
+  }
+  
+  public EmployeeInfo getEmployeeInfo() {
+    return this.employeeInfo;
+  }
   
   private static MainController _instance;
   

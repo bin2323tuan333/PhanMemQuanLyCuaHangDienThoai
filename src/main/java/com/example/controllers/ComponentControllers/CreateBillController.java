@@ -73,6 +73,7 @@ public class CreateBillController {
       FXMLLoader productComp = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
       Node node = productComp.load();
       ProductCardController controller = productComp.getController();
+      controller.setSale(true);
       controller.setProduct(item);
       controller.setCreateBillController(this);
       this.productlist.getChildren().add(node);

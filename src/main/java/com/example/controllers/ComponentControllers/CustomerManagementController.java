@@ -2,6 +2,7 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.CustomerInfo;
 import com.example.controllers.ComponentControllers.Card.CustomerCardController;
+import com.example.controllers.ComponentControllers.Card.ProductCardController;
 import com.example.services.CustomerService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,13 +54,33 @@ public class CustomerManagementController {
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm mới");
       stage.showAndWait();
+      this.customer_container.getChildren().clear();
+      this.setup();
     } catch (java.io.IOException e) {
       e.printStackTrace();
     }
   }
   
   public void handleBtnSearch() {
-  
+    String s = txt_search.getText().trim().toLowerCase();
+    this.customer_container.getChildren().clear();
+    CustomerService customerService = new CustomerService();
+    List<CustomerInfo> list = customerService.getAllCustomerInfos();
+    for (CustomerInfo item : list) {
+      if (item.getCustomerName().toLowerCase().contains(s) ||
+                  item.getPhone().toLowerCase().contains(s) ||
+                  String.valueOf(item.getCustomerId()).contains(s)) {
+        try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
+          Node node = loader.load();
+          CustomerCardController controller = loader.getController();
+          controller.setCustomerInfo(item);
+          customer_container.getChildren().add(node);
+        } catch (java.io.IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
   }
   
 }

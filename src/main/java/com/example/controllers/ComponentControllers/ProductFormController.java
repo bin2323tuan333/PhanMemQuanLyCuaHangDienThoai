@@ -47,6 +47,7 @@ public class ProductFormController {
   
   public void setProductInfo(ProductInfo productInfo) {
     this.productInfo = productInfo;
+    setup();
   }
   
   @FXML
@@ -65,20 +66,14 @@ public class ProductFormController {
   
   public void setup() {
     if (productInfo == null) {
-      if (btn_delete != null) {
-        btn_delete.setVisible(false);
-        btn_delete.setManaged(false);
-      }
-      if (btn_update != null) {
-        btn_update.setVisible(false);
-        btn_update.setManaged(false);
-      }
+      btn_delete.setVisible(false);
+      btn_delete.setManaged(false);
+      btn_update.setVisible(false);
+      btn_update.setManaged(false);
       clearForm();
     } else {
-      if (btn_add != null) {
-        btn_add.setVisible(false);
-        btn_add.setManaged(false);
-      }
+      btn_add.setVisible(false);
+      btn_add.setManaged(false);
       show();
     }
   }
@@ -158,11 +153,9 @@ public class ProductFormController {
       double price = Double.parseDouble(txt_price.getText().trim());
       int stock = Integer.parseInt(txt_stock.getText().trim());
       String description = txt_description.getText().trim();
-      
       Category category = cbb_category.getValue();
       Brand brand = cbb_brand.getValue();
       Supplier supplier = cbb_supplier.getValue();
-      
       ProductInfo p = new ProductInfo();
       p.setProductName(name);
       p.setPrice(price);

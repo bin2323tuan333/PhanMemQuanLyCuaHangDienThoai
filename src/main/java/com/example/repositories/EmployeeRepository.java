@@ -50,6 +50,27 @@ public class EmployeeRepository {
     return list;
   }
   
+  public EmployeeInfo getEmployeeInfoByID(int id) {
+    String sql = "SELECT e.employee_id, e.employee_name, e.gender, e.birthday, e.address, e.phone_number, e.salary, e.status, r.role_name " +
+                         "FROM Employee e " +
+                         "LEFT JOIN Account a ON e.employee_id = a.employee_id " +
+                         "LEFT JOIN Role r ON a.role_id = r.role_id WHERE e.employee_id = ?";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, id);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          EmployeeInfo e = new EmployeeInfo();
+          e.setFromRS(rs);
+          return e;
+        }
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return null;
+  }
+  
   public Employee getEmployeeByID(int id) {
     String sql = "SELECT * " +
                          "FROM Employee " +

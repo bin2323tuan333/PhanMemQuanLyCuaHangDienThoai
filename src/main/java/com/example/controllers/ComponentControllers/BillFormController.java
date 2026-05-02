@@ -1,0 +1,104 @@
+package com.example.controllers.ComponentControllers;
+
+import com.example.DTO.BillDetailInfo;
+import com.example.DTO.BillInfo;
+import com.example.controllers.ComponentControllers.Card.BillDetailController;
+import com.example.services.BillService;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+
+public class BillFormController {
+  @FXML
+  private TextField txt_id;
+  @FXML
+  private TextField txt_name_customer;
+  @FXML
+  private TextField txt_total_price;
+  @FXML
+  private TextField txt_name_employee;
+  @FXML
+  private VBox bill_detail_container;
+  
+  private BillInfo billInfo;
+  
+  public void setBillInfo(BillInfo billInfo) {
+    this.billInfo = billInfo;
+    setup();
+  }
+  
+  @FXML
+  public void initialize() {
+  
+  }
+  
+  public void setup() {
+    if (billInfo != null) {
+      txt_id.setText(String.valueOf(billInfo.getBillId()));
+      txt_name_customer.setText(billInfo.getCustomer().getFullName());
+      txt_total_price.setText(String.format("%,.0f", billInfo.getTotalAmount()));
+      txt_name_employee.setText(billInfo.getEmployee().getFullName());
+      
+      loadBillDetails();
+    }
+  }
+  
+  
+  public void handleBtnUpdate() {
+    if (billInfo != null) {
+      // billService.updateBill(billInfo);
+      closeForm();
+    }
+    closeForm();
+  }
+  
+  public void handleBtnDelete() {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Xác nhận xóa");
+    alert.setHeaderText(null);
+    alert.setContentText("Bạn có chắc chắn muốn xóa hóa đơn này không?");
+    
+    Optional<ButtonType> option = alert.showAndWait();
+    if (option.isPresent() && option.get() == ButtonType.OK) {
+      // billService.deleteBill(billInfo.getBillId());
+      closeForm();
+    }
+  }
+  
+  public void handleBtnCancel() {
+    closeForm();
+  }
+  
+  private void closeForm() {
+    Stage stage = (Stage) txt_id.getScene().getWindow();
+    stage.close();
+  }
+  
+  public void loadBillDetails() {
+    BillService billService = new BillService();
+    List<BillDetailInfo> list = billService.getAllBillDetailInfos();
+    try {
+      for (var item : list) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/BillDetail.fxml"));
+        Node node = loader.load();
+        BillDetailController controller = loader.getController();
+        controller.setBillDetailInfo(item);
+        this.bill_detail_container.getChildren().add(node);
+      }
+    } catch (IOException ee) {
+      ee.printStackTrace();
+    }
+    
+  }
+}

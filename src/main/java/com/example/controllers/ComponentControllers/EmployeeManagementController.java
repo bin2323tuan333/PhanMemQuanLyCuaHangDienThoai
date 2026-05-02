@@ -61,6 +61,7 @@ public class EmployeeManagementController {
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm nhân viên mới");
       stage.showAndWait();
+      setup();
     } catch (IOException e) {
       e.printStackTrace();
     }

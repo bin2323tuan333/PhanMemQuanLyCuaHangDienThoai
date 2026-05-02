@@ -15,7 +15,7 @@
       fx:controller="com.example.controllers.ComponentControllers.SideBar.EmployeeSidebarController">
     <children>
         <Button fx:id="btn_sale" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                onAction="#handle_menu_click" style="-fx-background-color: transparent;" styleClass="sidebar-item"
+                onAction="#handleBtnSale" style="-fx-background-color: transparent;" styleClass="sidebar-item"
                 stylesheets="@../../../../css/sidebar.css" text="Bán hàng">
             <graphic>
                 <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -29,7 +29,7 @@
             </font>
         </Button>
         <Button fx:id="btn_product" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="20.0"
-                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handBtnProduct"
                 style="-fx-background-color: transparent;" styleClass="sidebar-item"
                 stylesheets="@../../../../css/sidebar.css" text="Sản phẩm">
             <graphic>
@@ -44,7 +44,7 @@
             </font>
         </Button>
         <Button fx:id="btn_customer" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="72.0"
-                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnCustomer"
                 style="-fx-background-color: transparent;" styleClass="sidebar-item"
                 stylesheets="@../../../../css/sidebar.css" text="Khách hàng">
             <graphic>
@@ -59,7 +59,7 @@
             </font>
         </Button>
         <Button fx:id="btn_receipt" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="124.0"
-                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnReceipt"
                 style="-fx-background-color: transparent;" styleClass="sidebar-item"
                 stylesheets="@../../../../css/sidebar.css" text="Hóa đơn">
             <graphic>
@@ -74,7 +74,7 @@
             </font>
         </Button>
         <Button fx:id="btn_setting" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="228.0"
-                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnSetting"
                 style="-fx-background-color: transparent;" styleClass="sidebar-item"
                 stylesheets="@../../../../css/sidebar.css" text="Cài đặt">
             <graphic>
@@ -90,7 +90,7 @@
         </Button>
         <Region maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
         <Button fx:id="btn_logout" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="436.0"
-                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle_menu_click"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnLogout"
                 style="-fx-background-color: transparent;" styleClass="sidebar-item"
                 stylesheets="@../../../../css/sidebar.css" text="Đăng xuất">
             <graphic>

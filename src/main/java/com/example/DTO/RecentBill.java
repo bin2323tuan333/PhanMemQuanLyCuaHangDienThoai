@@ -1,6 +1,7 @@
 package com.example.DTO;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class RecentBill {
@@ -10,9 +11,10 @@ public class RecentBill {
   private double total;
   private String status;
   private String employeeName;
-
-  public  RecentBill() {
+  
+  public RecentBill() {
   }
+  
   public RecentBill(int billId, String customerName, Date date, double total, String employeeName) {
     this.billId = billId;
     this.customerName = customerName;
@@ -21,7 +23,8 @@ public class RecentBill {
     this.employeeName = employeeName;
     this.status = "COMPLETED";
   }
-  public void setFromRS(ResultSet rs) throws Exception {
+  
+  public void setFromRS(ResultSet rs) throws SQLException {
     this.billId = rs.getInt("bill_id");
     this.customerName = rs.getString("customer_name");
     this.date = rs.getDate("invoice_date");
@@ -80,12 +83,10 @@ public class RecentBill {
     this.total = total;
   }
   
-
-
   
   public void setEmployeeName(String employeeName) {
     this.employeeName = employeeName;
   }
-
-
+  
+  
 }
