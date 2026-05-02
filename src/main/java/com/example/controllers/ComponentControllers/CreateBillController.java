@@ -10,11 +10,14 @@ import com.example.services.ProductService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -192,7 +195,18 @@ public class CreateBillController {
   }
   
   public void handleBtnAddCustomer() {
-    // show add customer form
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
+      Parent root = loader.load();
+      CustomerFormController customerFormController = loader.getController();
+      customerFormController.setCustomerInfo(null);
+      Stage stage = new Stage();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Thêm mới");
+      stage.showAndWait();
+    } catch (java.io.IOException e) {
+      e.printStackTrace();
+    }
   }
 }
 

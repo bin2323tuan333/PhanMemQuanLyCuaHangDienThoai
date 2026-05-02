@@ -26,6 +26,28 @@ public class ProductRepository {
     return list;
   }
   
+  public int getTotalRemainingStock() {
+    int totalStock = 0;
+    String sql = """
+            SELECT SUM(stock)
+            FROM product
+            """;
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          totalStock = rs.getInt(1);
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println("Lỗi lấy tổng tồn kho: " + e.getErrorCode());
+      e.printStackTrace();
+    }
+    return totalStock;
+  }
+  
   public List<ProductInfo> getAllProductInfos() {
     List<ProductInfo> list = new ArrayList<>();
     String sql = "SELECT p.*, b.brand_name, c.category_name, s.name AS supplier_name " +

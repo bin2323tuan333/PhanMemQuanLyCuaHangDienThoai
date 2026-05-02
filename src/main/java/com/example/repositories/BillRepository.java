@@ -9,6 +9,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BillRepository {
+  public double getRevenueMonth() {
+    Double revenue = 0.0;
+    String sql = "SELECT SUM(total_amount)\n" +
+                         "        FROM bill \n" +
+                         "        WHERE YEAR(invoice_date) = YEAR(CURDATE()) \n" +
+                         "          AND MONTH(invoice_date) = MONTH(CURDATE())";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs != null && rs.next()) {
+          revenue = rs.getDouble(1);
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getErrorCode());
+      e.printStackTrace();
+    }
+    return revenue;
+  }
+  
+  public int getThisMonthOrders() {
+    int count = 0;
+    String sql = """
+            SELECT COUNT(*)
+            FROM bill
+            WHERE YEAR(invoice_date) = YEAR(CURDATE())
+              AND MONTH(invoice_date) = MONTH(CURDATE())
+            """;
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          count = rs.getInt(1);
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println("Lỗi lấy số đơn hàng tháng này: " + e.getErrorCode());
+      e.printStackTrace();
+    }
+    return count;
+  }
   
   public List<Bill> getAllBills() {
     List<Bill> bills = new ArrayList<>();

@@ -31,6 +31,7 @@ public class BillService {
     billRepository.deleteBill(id);
   }
   
+  
   public List<BillInfo> getAllBillInfos() {
     return billRepository.getAllBillInfos();
   }
