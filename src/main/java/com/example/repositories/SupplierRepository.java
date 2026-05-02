@@ -76,9 +76,8 @@ public class SupplierRepository {
             supplier.getSupplierId(),
             supplier.getName(),
             supplier.getAddress(),
-            supplier.getEmail(),
-            
-            supplier.getPhone());
+            supplier.getPhone(),
+            supplier.getEmail());
   }
   
   public void updateSupplier(Supplier supplier) {

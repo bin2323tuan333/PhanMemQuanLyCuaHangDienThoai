@@ -5,6 +5,9 @@ import com.example.models.ImportBillDetail;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImportBillDetailRepository {
   public void insertImportBillDetail(int billId, int productId, int quantity, double unitPrice) {
@@ -46,21 +49,23 @@ public class ImportBillDetailRepository {
     }
   }
   
-  public void getImportBillDetailsByBillId(int id) {
+  public List<ImportBillDetail> getImportBillDetailsByBillId(int id) {
+    List<ImportBillDetail> list = new ArrayList<>();
     String sql = "SELECT * FROM ImportBillDetail WHERE import_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
       stmt.setInt(1, id);
-      try (var rs = stmt.executeQuery()) {
+      try (ResultSet rs = stmt.executeQuery()) {
         while (rs != null && rs.next()) {
           ImportBillDetail detail = new ImportBillDetail();
           detail.setFromRS(rs);
+          list.add(detail);
         }
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
+    return list;
   }
 }
 

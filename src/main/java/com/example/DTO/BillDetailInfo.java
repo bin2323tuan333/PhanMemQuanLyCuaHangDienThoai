@@ -28,8 +28,10 @@ public class BillDetailInfo {
     this.billDetailId = rs.getInt("bill_detail_id");
     this.quantity = rs.getInt("quantity");
     this.unitPrice = rs.getDouble("unit_price");
+    
     this.bill = new Bill();
-    this.bill.setFromRS(rs);
+    this.bill.setBillId(rs.getInt("bill_id"));
+    
     this.product = new Product();
     this.product.setFromRS(rs);
   }

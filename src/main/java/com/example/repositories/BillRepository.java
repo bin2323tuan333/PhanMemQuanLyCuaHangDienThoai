@@ -56,8 +56,7 @@ public class BillRepository {
                          "FROM Bill b\n" +
                          "LEFT JOIN Customer c ON b.customer_id = c.customer_id " +
                          "LEFT JOIN Employee e ON b.employee_id = e.employee_id " +
-                         "where b.bill_id = ?" +
-                         " BY b.invoice_date DESC";
+                         "where b.bill_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       pstmt.setInt(1, id);

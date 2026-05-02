@@ -71,7 +71,7 @@ public class CustomerManagementController {
                   item.getPhone().toLowerCase().contains(s) ||
                   String.valueOf(item.getCustomerId()).contains(s)) {
         try {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Customer.fxml"));
           Node node = loader.load();
           CustomerCardController controller = loader.getController();
           controller.setCustomerInfo(item);

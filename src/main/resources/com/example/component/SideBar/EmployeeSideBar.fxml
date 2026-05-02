@@ -29,7 +29,7 @@
             </font>
         </Button>
         <Button fx:id="btn_product" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="20.0"
-                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handBtnProduct"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnProduct"
                 style="-fx-background-color: transparent;" styleClass="sidebar-item"
                 stylesheets="@../../../../css/sidebar.css" text="Sản phẩm">
             <graphic>

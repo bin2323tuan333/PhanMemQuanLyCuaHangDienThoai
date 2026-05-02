@@ -78,4 +78,10 @@ public class BillService {
     return recentBills;
   }
   
+  public List<BillDetailInfo> getBillDetailInfoByBillId(int id) {
+    BillDetailRepository billDetailRepository = new BillDetailRepository();
+    return billDetailRepository.getBillDetailInfosByBillId(id);
+  }
+  
+  
 }

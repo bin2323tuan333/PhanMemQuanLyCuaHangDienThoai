@@ -35,7 +35,7 @@ public class BillDetailController {
     if (billDetailInfo != null) {
       lb_name.setText(billDetailInfo.getProduct().getProductName());
       lb_quantity.setText(String.valueOf(billDetailInfo.getQuantity()));
-      lb_price.setText(String.format("%,.0f", billDetailInfo.getQuantity() * billDetailInfo.getProduct().getQuantity()) + " đ");
+      lb_price.setText(String.format("%,.0f", billDetailInfo.getQuantity() * billDetailInfo.getProduct().getPrice()) + " đ");
     }
   }
 }

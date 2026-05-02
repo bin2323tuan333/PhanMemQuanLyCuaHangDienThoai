@@ -87,18 +87,18 @@ public class BillFormController {
   
   public void loadBillDetails() {
     BillService billService = new BillService();
-    List<BillDetailInfo> list = billService.getAllBillDetailInfos();
+    List<BillDetailInfo> list = billService.getBillDetailInfoByBillId(billInfo.getBillId());
     try {
       for (var item : list) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/BillDetail.fxml"));
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/example/component/card/BillDetail.fxml"));
         Node node = loader.load();
         BillDetailController controller = loader.getController();
         controller.setBillDetailInfo(item);
         this.bill_detail_container.getChildren().add(node);
       }
-    } catch (IOException ee) {
-      ee.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    
   }
 }
