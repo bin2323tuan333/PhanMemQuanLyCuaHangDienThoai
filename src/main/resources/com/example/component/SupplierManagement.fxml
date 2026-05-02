@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600" prefWidth="900" spacing="15" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.SupplierManagementController">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #fff; -fx-background-radius: 12;">
+        <TextField fx:id="txt_search" promptText="Tìm kiếm nhà cung cấp" style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+            </padding>
+        </TextField>
+        <Button fx:id="btn_search_supplier" mnemonicParsing="false" onAction="#handleBtnSearch" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-background-color: #2563eb; -fx-text-fill: white;" text="Tìm kiếm">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <padding>
+                <Insets bottom="6.0" left="8.0" right="8.0" top="6.0" />
+            </padding>
+        </Button>
+        <Button fx:id="btn_add_supplier" mnemonicParsing="false" onAction="#handleBtnAdd" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #e2e8f0; -fx-text-fill: #475569;" text="Thêm nhà cung cấp">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <padding>
+                <Insets bottom="6.0" left="8.0" right="8.0" top="6.0" />
+            </padding>
+        </Button>
+        <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+        </padding>
+    </HBox>
+    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-border-color: transparent; -fx-border-width: 0;" VBox.vgrow="ALWAYS">
+      <content>
+         <VBox fx:id="supplier_container" prefHeight="200.0" prefWidth="100.0" />
+      </content>
+    </ScrollPane>
+
+</VBox>

@@ -20,6 +20,10 @@ public class AdminSideBarController {
   @FXML
   private Button btn_product;
   @FXML
+  private Button btn_supplier;
+  @FXML
+  private Button btn_category;
+  @FXML
   private Button btn_customer;
   @FXML
   private Button btn_bill;
@@ -60,6 +64,34 @@ public class AdminSideBarController {
     setActiveButton(btn_dashboard);
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/DashBoard.fxml"));
+      Node page = loader.load();
+      var controller = loader.getController();
+      MainController.Instance().getMainScrollPane().setContent(page);
+      if (topBarController != null)
+        topBarController.setTitle(currentActiveButton.getText());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  public void handleBtnSupplier() {
+    setActiveButton(btn_supplier);
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/SupplierManagement.fxml"));
+      Node page = loader.load();
+      var controller = loader.getController();
+      MainController.Instance().getMainScrollPane().setContent(page);
+      if (topBarController != null)
+        topBarController.setTitle(currentActiveButton.getText());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  public void handleBtnCategory() {
+    setActiveButton(btn_category);
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CategoryManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
       MainController.Instance().getMainScrollPane().setContent(page);

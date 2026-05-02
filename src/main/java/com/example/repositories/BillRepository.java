@@ -80,9 +80,12 @@ public class BillRepository {
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       pstmt.setInt(1, id);
       try (ResultSet rs = pstmt.executeQuery()) {
-        Bill bill = new Bill();
-        bill.setFromRS(rs);
-        return bill;
+        if (rs.next()) {
+          Bill bill = new Bill();
+          bill.setFromRS(rs);
+          return bill;
+        }
+        
       }
       
     } catch (SQLException e) {

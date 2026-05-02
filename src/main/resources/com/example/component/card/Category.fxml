@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleClick" prefHeight="39.0" prefWidth="253.0" style="-fx-background-color: #e2e8f0; -fx-border-color: #cbd5e1; -fx-background-radius: 6; -fx-border-radius: 6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.Card.CategoryCardController">
+    <children>
+
+        <Label fx:id="lb_name" text="Label" textFill="#334155">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+    </children>
+    <padding>
+        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+    </padding>
+</VBox>
