@@ -29,4 +29,12 @@ public class CustomerService {
     CustomerRepository customerRepository = new CustomerRepository();
     customerRepository.deleteCustomer(customerId);
   }
+  public void searchCustomersByPhoneNumber(String phone) {
+    CustomerRepository customerRepository = new CustomerRepository();
+    customerRepository.searchCustomersByPhoneNumber(phone);
+  }
+  public void searchCustomersByName(String name) {
+    CustomerRepository customerRepository = new CustomerRepository();
+    customerRepository.searchCustomersByName(name);
+  }
 }

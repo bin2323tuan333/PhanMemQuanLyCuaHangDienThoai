@@ -188,7 +188,7 @@ public class ProductRepository {
     return list;
   }
   
-  public void insertProduct(Product p) {
+  public void insertProduct( ProductInfo p) {
     String sql = "INSERT INTO Product (product_name, quantity, description, price, stock, category_id, brand_id) " +
                          "VALUES (?, ?, ?, ?, ?, ?, ?)";
     DBHelper.Instance().executeUpd(sql,
@@ -201,7 +201,7 @@ public class ProductRepository {
             p.getBrandId());
   }
   
-  public void updateProduct(Product p) {
+  public void updateProduct( ProductInfo p) {
     String sql = "UPDATE Product SET product_name = ?, quantity = ?, description = ?, " +
                          "price = ?, stock = ?, category_id = ?, brand_id = ? WHERE product_id = ?";
     DBHelper.Instance().executeUpd(sql,

@@ -115,7 +115,7 @@ public class ProductFormController {
     ProductService productService = new ProductService();
     ProductInfo newProduct = getProductDataFromForm();
     if (newProduct != null) {
-//      productService.addProduct(newProduct);
+    productService.addProduct(newProduct);
       closeForm();
     }
   }
@@ -127,7 +127,7 @@ public class ProductFormController {
       ProductInfo updatedProduct = getProductDataFromForm();
       if (updatedProduct != null) {
         updatedProduct.setProductId(productInfo.getProductId());
-//        productService.updateProduct(updatedProduct);
+       productService.updateProduct(updatedProduct);
         closeForm();
       }
     }
@@ -137,7 +137,7 @@ public class ProductFormController {
   public void handleBtnDelete() {
     ProductService productService = new ProductService();
     if (productInfo != null) {
-//      productService.deleteProduct(productInfo.getProductId());
+     productService.deleteProduct(productInfo.getProductId());
       closeForm();
     }
   }

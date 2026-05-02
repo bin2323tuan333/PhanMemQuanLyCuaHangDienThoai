@@ -30,5 +30,16 @@ public class ProductService {
     ProductInfo item = productRepo.getProductInfoById(id);
     return item;
   }
+  public void addProduct(ProductInfo productInfo) {
+    ProductRepository productRepo = new ProductRepository();
+    productRepo.insertProduct(productInfo);
+  }
+  public  void updateProduct(ProductInfo productInfo) {
+    ProductRepository productRepo = new ProductRepository();
+    productRepo.updateProduct(productInfo);
+  }
+  public void deleteProduct(int productId) {
+    ProductRepository productRepo = new ProductRepository();
+    productRepo.deleteProduct(productId);}
   
 }
