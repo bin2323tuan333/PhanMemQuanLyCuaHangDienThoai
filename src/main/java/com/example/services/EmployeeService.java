@@ -21,4 +21,16 @@ public class EmployeeService {
     EmployeeRepository employeeRepository = new EmployeeRepository();
     return employeeRepository.getEmployeeInfoByID(id);
   }
+  public void updateEmployee(EmployeeInfo emp) {
+    EmployeeRepository employeeRepository = new EmployeeRepository();
+    employeeRepository.updateEmployee(emp);
+  }
+  public void addEmployee(EmployeeInfo emp) {
+    EmployeeRepository employeeRepository = new EmployeeRepository();
+    employeeRepository.insertEmployee(emp);
+  }
+  public void deleteEmployee(int employeeId) {
+    EmployeeRepository employeeRepository = new EmployeeRepository();
+    employeeRepository.deleteEmployee(employeeId);
+  }
 }

@@ -44,6 +44,8 @@ public class EmployeeFormController {
   
   
   private EmployeeInfo employeeInfo;
+
+
   
   public void setEmployeeInfo(EmployeeInfo employeeInfo) {
     this.employeeInfo = employeeInfo;
@@ -115,20 +117,39 @@ public class EmployeeFormController {
   public void handleBtnAdd() {
     EmployeeService employeeService = new EmployeeService();
     EmployeeInfo newEmployee = getEmployeeDataFromForm();
+    if (newEmployee != null) {
+      employeeService.addEmployee(newEmployee);
+      closeForm();
+    } else {
+      Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input. Please check the data and try again.", ButtonType.OK);
+      alert.showAndWait();}
     
   }
   
   public void handleBtnUpdate() {
     EmployeeService employeeService = new EmployeeService();
+    if (employeeInfo != null) {
+      EmployeeInfo updatedEmployee = getEmployeeDataFromForm();
+      if (updatedEmployee != null) {
+        updatedEmployee.setEmployeeId(employeeInfo.getEmployeeId());
+        employeeService.updateEmployee(updatedEmployee);
+
+        closeForm();
+      } else {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input. Please check the data and try again.", ButtonType.OK);
+        alert.showAndWait();
+      }
+    }
     
   }
   
   public void handleBtnDelete() {
     EmployeeService employeeService = new EmployeeService();
     if (employeeInfo != null) {
-//      employeeService.deleteEmployee(employeeInfo.getEmployeeId());
-      closeForm();
-    }
+      employeeService.deleteEmployee(employeeInfo.getEmployeeId());
+
+
+        closeForm();}
   }
   
   public void handleBtnCancel() {

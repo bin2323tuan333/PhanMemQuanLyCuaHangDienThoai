@@ -119,23 +119,23 @@ public class CustomerRepository {
     }
     return customers;
   }
-  
-  public void insertCustomer(Customer cus) {
+
+  public void insertCustomer( CustomerInfo cus) {
     String sql = "INSERT INTO Customer (full_name, birthday, address, phone_number) VALUES (?, ?, ?, ?)";
     DBHelper.Instance().executeUpd(sql,
-            cus.getFullName(),
-            cus.getBirthday(),
+            cus.getCustomerName(),
+            cus.getDob(),
             cus.getAddress(),
-            cus.getPhoneNumber());
+            cus.getPhone());
   }
   
-  public void updateCustomer(Customer cus) {
+  public void updateCustomer( CustomerInfo cus) {
     String sql = "UPDATE Customer SET full_name = ?, birthday = ?, address = ?, phone_number = ? WHERE customer_id = ?";
     DBHelper.Instance().executeUpd(sql,
-            cus.getFullName(),
-            cus.getBirthday(),
+            cus.getCustomerName(),
+            cus.getDob(),
             cus.getAddress(),
-            cus.getPhoneNumber(),
+            cus.getPhone(),
             cus.getCustomerId());
   }
   

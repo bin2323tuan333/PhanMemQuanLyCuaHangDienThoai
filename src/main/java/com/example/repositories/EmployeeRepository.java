@@ -93,7 +93,7 @@ public class EmployeeRepository {
     return null;
   }
   
-  public void insertEmployee(Employee e) {
+  public void insertEmployee(EmployeeInfo e) {
     if (e == null) return;
     String sql = "INSERT INTO Employee (employee_name, gender, birthday, address, phone_number, salary, status) " +
                          "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -107,7 +107,7 @@ public class EmployeeRepository {
             e.getStatus());
   }
   
-  public void updateEmployee(Employee e) {
+  public void updateEmployee(EmployeeInfo e) {
     if (e == null) return;
     String sql = "UPDATE Employee " +
                          "SET employee_name = ?, gender = ?, birthday = ?, address = ?, phone_number = ?, salary = ?, status = ? " +

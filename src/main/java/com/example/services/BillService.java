@@ -83,6 +83,9 @@ public class BillService {
     BillDetailRepository billDetailRepository = new BillDetailRepository();
     return billDetailRepository.getBillDetailInfosByBillId(id);
   }
+  public void updateBill(Bill billInfo) throws SQLException {
+    billRepository.updateBill(billInfo);
+  }
   
   
 }

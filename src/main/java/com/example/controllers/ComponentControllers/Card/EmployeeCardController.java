@@ -31,6 +31,7 @@ public class EmployeeCardController {
   private Label lb_status;
   
   private EmployeeInfo employeeInfo;
+
   
   public void setEmployeeInfo(EmployeeInfo employeeInfo) {
     this.employeeInfo = employeeInfo;
@@ -62,6 +63,8 @@ public class EmployeeCardController {
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm nhân viên mới");
       stage.showAndWait();
+
+
     } catch (IOException e) {
       e.printStackTrace();
     }

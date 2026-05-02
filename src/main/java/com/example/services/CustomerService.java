@@ -16,4 +16,17 @@ public class CustomerService {
     CustomerRepository customerRepository = new CustomerRepository();
     return customerRepository.getAllCustomerInfos();
   }
+  public void updateCustomer(CustomerInfo cus) {
+    CustomerRepository customerRepository = new CustomerRepository();
+    customerRepository.updateCustomer(cus);
+  }
+  public void addCustomer(CustomerInfo cus) {
+    CustomerRepository customerRepository = new CustomerRepository();
+    customerRepository.insertCustomer(cus);
+  }
+
+  public void deleteCustomer(int customerId) {
+    CustomerRepository customerRepository = new CustomerRepository();
+    customerRepository.deleteCustomer(customerId);
+  }
 }

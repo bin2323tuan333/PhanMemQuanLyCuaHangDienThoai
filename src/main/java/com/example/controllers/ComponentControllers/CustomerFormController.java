@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.CustomerInfo;
+import com.example.models.Customer;
 import com.example.services.CustomerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -100,7 +101,7 @@ public class CustomerFormController {
     CustomerService customerService = new CustomerService();
     CustomerInfo newCustomer = getCustomerDataFromForm();
     if (newCustomer != null) {
-//      customerService.addCustomer(newCustomer);
+      customerService.addCustomer(newCustomer);
       closeForm();
     }
   }
@@ -112,18 +113,23 @@ public class CustomerFormController {
       CustomerInfo updatedCustomer = getCustomerDataFromForm();
       if (updatedCustomer != null) {
         updatedCustomer.setCustomerId(customerInfo.getCustomerId());
-//        customerService.updateCustomer(updatedCustomer);
+        customerService.updateCustomer(updatedCustomer);
         closeForm();
       }
-    }
-  }
-  
+    }}
   @FXML
   public void handleBtnDelete() {
-    CustomerService customerService = new CustomerService();
     if (customerInfo != null) {
-//      customerService.deleteCustomer(customerInfo.getCustomerId());
-      closeForm();
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Xác nhận");
+      alert.setHeaderText(null);
+      alert.setContentText("Bạn có chắc chắn muốn xóa khách hàng này?");
+
+      if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+        CustomerService customerService = new CustomerService();
+        customerService.deleteCustomer(customerInfo.getCustomerId());
+        closeForm();
+      }
     }
   }
   

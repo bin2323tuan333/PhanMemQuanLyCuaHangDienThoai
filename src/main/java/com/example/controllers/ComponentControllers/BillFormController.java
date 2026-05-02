@@ -3,6 +3,8 @@ package com.example.controllers.ComponentControllers;
 import com.example.DTO.BillDetailInfo;
 import com.example.DTO.BillInfo;
 import com.example.controllers.ComponentControllers.Card.BillDetailController;
+import com.example.models.Bill;
+import com.example.repositories.BillRepository;
 import com.example.services.BillService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +34,7 @@ public class BillFormController {
   private VBox bill_detail_container;
   
   private BillInfo billInfo;
+  private BillRepository bill = new BillRepository();
   
   public void setBillInfo(BillInfo billInfo) {
     this.billInfo = billInfo;
@@ -56,22 +59,29 @@ public class BillFormController {
   
   
   public void handleBtnUpdate() {
-    if (billInfo != null) {
-      // billService.updateBill(billInfo);
-      closeForm();
-    }
-    closeForm();
+    Bill updatedBill = getBillFromForm();
+     if(updatedBill != null) {
+        bill.updateBill(updatedBill);
+       closeForm();
+     } else {
+       Alert alert = new Alert(Alert.AlertType.ERROR);
+       alert.setTitle("Lỗi");
+       alert.setHeaderText(null);
+       alert.setContentText("Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.");
+       alert.showAndWait();
+     }
+
   }
   
   public void handleBtnDelete() {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Xác nhận xóa");
     alert.setHeaderText(null);
-    alert.setContentText("Bạn có chắc chắn muốn xóa hóa đơn này không?");
-    
-    Optional<ButtonType> option = alert.showAndWait();
-    if (option.isPresent() && option.get() == ButtonType.OK) {
-      // billService.deleteBill(billInfo.getBillId());
+    alert.setContentText("Bạn có chắc chắn muốn xóa hóa đơn này?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+      bill.deleteBill(billInfo.getBillId());
       closeForm();
     }
   }
@@ -100,5 +110,14 @@ public class BillFormController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  private Bill getBillFromForm() {
+    Bill bill = new Bill();
+    bill.setBillId(Integer.parseInt(txt_id.getText()));
+    bill.setCustomerId(billInfo.getCustomer().getCustomerId());
+    bill.setEmployeeId(billInfo.getEmployee().getEmployeeId());
+    bill.setInvoiceDate(billInfo.getInvoiceDate());
+    bill.setTotalAmount(Double.parseDouble(txt_total_price.getText().replaceAll(",", "")));
+    return bill;
   }
 }
