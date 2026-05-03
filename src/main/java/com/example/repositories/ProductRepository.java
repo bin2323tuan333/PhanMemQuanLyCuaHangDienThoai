@@ -203,7 +203,7 @@ public class ProductRepository {
   
   public void updateProduct(ProductInfo p) {
     String sql = "UPDATE Product SET product_name = ?, quantity = ?, description = ?, " +
-                         "price = ?, stock = ?, category_id = ?, brand_id = ? WHERE product_id = ?";
+                         "price = ?, stock = ?, category_id = ?, brand_id = ?, supplier_id = ? WHERE product_id = ?";
     DBHelper.Instance().executeUpd(sql,
             p.getProductName(),
             p.getQuantity(),
@@ -212,6 +212,7 @@ public class ProductRepository {
             p.getStock(),
             p.getCategoryId(),
             p.getBrandId(),
+            p.getSupplier().getSupplierId(),
             p.getProductId());
   }
   

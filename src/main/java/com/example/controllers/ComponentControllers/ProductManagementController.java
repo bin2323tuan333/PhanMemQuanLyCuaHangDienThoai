@@ -114,10 +114,10 @@ public class ProductManagementController {
         
         boolean matchesCategory = selectedCategory == null ||
                                           selectedCategory.toString().equals("Tất cả") ||
-                                          (item.getCategory().getCategoryName() != null && item.getCategory().getCategoryName().equals(selectedCategory.getCategoryName()));
+                                          (item.getCategory() != null && item.getCategory().getCategoryName() != null && item.getCategory().getCategoryName().equals(selectedCategory.getCategoryName()));
         
         boolean matchesBrand = selectedBrand == null ||
-                                       (item.getBrand().getBrandName() != null && item.getBrand().getBrandName().equals(selectedBrand.getBrandName()));
+                                       (item.getBrand() != null && item.getBrand().getBrandName() != null && item.getBrand().getBrandName().equals(selectedBrand.getBrandName()));
         
         boolean matchesPrice = true;
         
