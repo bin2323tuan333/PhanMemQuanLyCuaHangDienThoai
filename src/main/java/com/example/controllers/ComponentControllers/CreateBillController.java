@@ -10,6 +10,7 @@ import com.example.controllers.ComponentControllers.Card.ProductCardController;
 import com.example.models.Bill;
 import com.example.models.Customer;
 import com.example.models.ImportBill;
+import com.example.repositories.BillDetailRepository;
 import com.example.services.BillService;
 import com.example.services.CustomerService;
 import com.example.services.ProductService;
@@ -38,12 +39,13 @@ public class CreateBillController {
     private FlowPane customerlist;
   @FXML
   private VBox cartlist;
+  @FXML private VBox customerBox;
+
   @FXML
   private HBox main_container;
   @FXML
   private VBox product_container;
-  @FXML
-  private VBox cart_container;
+
   @FXML
   private Label lb_total_price;
   @FXML
@@ -264,12 +266,12 @@ String keyword = txt_search_customer.getText().trim().toLowerCase();
   public void handleBtnAddBill() throws SQLException {
 
     if (customer == null) {
-      System.out.println("Chưa chọn khách hàng!");
+
       return;
     }
 
     if (listCart.isEmpty()) {
-      System.out.println("Chưa có sản phẩm!");
+
       return;
     }
 
@@ -285,20 +287,48 @@ String keyword = txt_search_customer.getText().trim().toLowerCase();
 
     bill.setTotalAmount(total);
 
+
     billService.addBill(bill);
+    int billId = bill.getBillId();
+
+    BillDetailRepository billDetailService = new BillDetailRepository();
+
+    for (CartInfo item : listCart) {
+      billDetailService.insertBillDetail(
+                billId,
+                item.getProductInfo().getProductId(),
+                item.getQuantity(),
+                item.getProductInfo().getPrice()
+        );
+    }
 
     System.out.println("Thanh toán thành công!");
+
+
+    Stage stage = (Stage) main_container.getScene().getWindow();
+    stage.close();
   }
+
+
   public void selectCustomer(CustomerInfo customer) {
     this.customer = customer;
+
 
     lb_name.setText(customer.getCustomerName());
     lb_phone.setText(customer.getPhone());
     lb_dob.setText(customer.getDob().toString());
     lb_gender.setText(customer.getGender() ? "Nữ" : "Nam");
     lb_address.setText(customer.getAddress());
+
+
+    cartlist.getChildren().clear();
+
+    Label customerItem = new Label("👤 " + customer.getCustomerName() + " - " + customer.getPhone());
+    customerItem.setStyle("-fx-background-color: #d0ebff; -fx-padding: 10; -fx-background-radius: 8;");
+
+    cartlist.getChildren().add(customerItem);
   }
 
-}
+  }
 
 

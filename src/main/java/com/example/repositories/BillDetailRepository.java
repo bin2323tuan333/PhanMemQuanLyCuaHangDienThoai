@@ -147,5 +147,10 @@ public class BillDetailRepository {
                          "WHERE bill_detail_id = ?;";
     DBHelper.Instance().executeUpd(sql, id);
   }
-  
+
+  public void insertBillDetail(int billId, int productId, int quantity, double price) {
+    String sql = "INSERT INTO billdetail (bill_id, product_id, quantity, unit_price) " +
+                         "VALUES (?, ?, ?, ?);";
+    DBHelper.Instance().executeUpd(sql, billId, productId, quantity, price);
+  }
 }
