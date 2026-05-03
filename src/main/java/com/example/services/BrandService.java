@@ -16,4 +16,16 @@ public class BrandService {
     BrandRepository brandRepository = new BrandRepository();
     return brandRepository.getAllBrands();
   }
+  public void insertBrand(Brand b) {
+    BrandRepository brandRepository = new BrandRepository();
+    brandRepository.insertBrand(b);
+  }
+  public  void updateBrand(Brand b) {
+    BrandRepository brandRepository = new BrandRepository();
+    brandRepository.updateBrand(b);
+  }
+  public void deleteBrand(int brandId) {
+    BrandRepository brandRepository = new BrandRepository();
+    brandRepository.deleteBrand(brandId);}
+
 }

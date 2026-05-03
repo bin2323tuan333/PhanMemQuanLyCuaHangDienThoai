@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.models.Category;
+import com.example.services.CategoryService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -55,14 +56,25 @@ public class CategoryFormController {
   }
   
   public void handleBtnAdd() {
+    CategoryService categoryService = new CategoryService();
+    Category c = new Category();
+    c.setCategoryName(txt_name.getText());
+    categoryService.insertCategory(c);
     closeForm();
   }
   
   public void handleBtnUpdate() {
+    if (this.category == null) return;
+    CategoryService categoryService = new CategoryService();
+    this.category.setCategoryName(txt_name.getText());
+    categoryService.updateCategory(this.category);
     closeForm();
   }
   
   public void handleBtnDelete() {
+    if (this.category == null) return;
+    CategoryService categoryService = new CategoryService();
+    categoryService.deleteCategory(this.category.getCategoryId());
     closeForm();
   }
   

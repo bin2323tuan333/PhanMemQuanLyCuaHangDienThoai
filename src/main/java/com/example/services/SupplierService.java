@@ -15,4 +15,16 @@ public class SupplierService {
     SupplierRepository supplierRepository = new SupplierRepository();
     return supplierRepository.getSupplierByPhone(phone);
   }
+  public void addSupplier(Supplier supplier) {
+    SupplierRepository supplierRepository = new SupplierRepository();
+    supplierRepository.insertSupplier(supplier);
+  }
+  public  void updateSupplier(Supplier supplier) {
+    SupplierRepository supplierRepository = new SupplierRepository();
+    supplierRepository.updateSupplier(supplier);
+  }
+    public void deleteSupplier(int id) {
+      SupplierRepository supplierRepository = new SupplierRepository();
+      supplierRepository.deleteSupplier(id);
+    }
 }

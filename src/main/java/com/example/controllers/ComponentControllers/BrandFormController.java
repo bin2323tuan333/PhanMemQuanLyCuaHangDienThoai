@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.models.Brand;
+import com.example.services.BrandService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -55,14 +56,23 @@ public class BrandFormController {
   }
   
   public void handleBtnAdd() {
+    BrandService brandService = new BrandService();
+    Brand newBrand = new Brand();
+    newBrand.setBrandName(txt_name.getText());
+    brandService.insertBrand(newBrand);
     closeForm();
   }
   
   public void handleBtnUpdate() {
+    BrandService brandService = new BrandService();
+    this.brand.setBrandName(txt_name.getText());
+    brandService.updateBrand(this.brand);
     closeForm();
   }
   
   public void handleBtnDelete() {
+    BrandService brandService = new BrandService();
+    brandService.deleteBrand(this.brand.getBrandId());
     closeForm();
   }
   

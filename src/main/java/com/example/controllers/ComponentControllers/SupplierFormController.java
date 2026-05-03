@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.models.Supplier;
+import com.example.services.SupplierService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -59,16 +60,32 @@ public class SupplierFormController {
   
   
   public void handleBtnAdd() {
+    SupplierService supplierService = new SupplierService();
+    Supplier newSupplier = new Supplier();
+    newSupplier.setName(txt_name.getText());
+    newSupplier.setAddress(txt_address.getText());
+    newSupplier.setEmail(txt_email.getText());
+    newSupplier.setPhone(txt_phone.getText());
+    supplierService.addSupplier(newSupplier);
     closeForm();
   }
   
   public void handleBtnUpdate() {
+    SupplierService supplierService = new SupplierService();
+    supplier.setName(txt_name.getText());
+    supplier.setAddress(txt_address.getText());
+    supplier.setEmail(txt_email.getText());
+    supplier.setPhone(txt_phone.getText());
+    supplierService.updateSupplier(supplier);
     closeForm();
   }
   
   public void handleBtnDelete() {
+    SupplierService supplierService = new SupplierService();
+    supplierService.deleteSupplier(supplier.getSupplierId());
     closeForm();
   }
+
   
   public void handleBtnCancel() {
     closeForm();
