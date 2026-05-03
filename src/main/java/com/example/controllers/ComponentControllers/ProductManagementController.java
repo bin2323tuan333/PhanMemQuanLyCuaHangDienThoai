@@ -36,12 +36,21 @@ public class ProductManagementController {
   @FXML
   private FlowPane product_container;
   
+  private ProductService productService;
+  
   @FXML
   public void initialize() {
+    productService = new ProductService();  // ✅ Cache service
+    
     CategoryService categoryService = new CategoryService();
     BrandService brandService = new BrandService();
+    
     List<Category> categories = categoryService.getAllCategorys();
     List<Brand> brands = brandService.getAllBrands();
+    
+    categories.add(0, new Category(0, "Tất cả"));
+    brands.add(0, new Brand(0, "Tất cả"));
+    
     this.cbb_category.setItems(FXCollections.observableArrayList(categories));
     this.cbb_brand.setItems(FXCollections.observableArrayList(brands));
     this.cbb_price.setItems(FXCollections.observableArrayList(
@@ -52,26 +61,14 @@ public class ProductManagementController {
     cbb_category.valueProperty().addListener((obs, oldVal, newVal) -> handleCbb());
     cbb_brand.valueProperty().addListener((obs, oldVal, newVal) -> handleCbb());
     cbb_price.valueProperty().addListener((obs, oldVal, newVal) -> handleCbb());
-    txt_search.textProperty().addListener((obs, oldVal, newVal) -> handleCbb());
-    
     
     setup();
   }
   
   private void setup() {
-    ProductService productService = new ProductService();
     List<ProductInfo> list = productService.getAllProductInfos();
-    try {
-      for (var item : list) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
-        Node node = loader.load();
-        ProductCardController controller = loader.getController();
-        controller.setProduct(item);
-        this.product_container.getChildren().add(node);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    product_container.getChildren().clear();
+    render(list);
   }
   
   public void handleBtnAdd() {
@@ -82,9 +79,10 @@ public class ProductManagementController {
       productFormController.setProductInfo(null);
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
-      stage.setTitle("Thêm mới");
+      stage.setTitle("Thêm mới sản phẩm");
       stage.showAndWait();
-      product_container.getChildren().clear();
+      
+      resetFilters();
       setup();
     } catch (java.io.IOException e) {
       e.printStackTrace();
@@ -96,59 +94,61 @@ public class ProductManagementController {
   }
   
   public void handleCbb() {
-    String searchText = txt_search.getText().trim().toLowerCase();
+    String keyword = txt_search.getText().trim();
+    
     Category selectedCategory = cbb_category.getValue();
+    int categoryId = (selectedCategory != null && selectedCategory.getCategoryId() > 0)
+                             ? selectedCategory.getCategoryId()
+                             : -1;
+    
     Brand selectedBrand = cbb_brand.getValue();
+    int brandId = (selectedBrand != null && selectedBrand.getBrandId() > 0)
+                          ? selectedBrand.getBrandId()
+                          : -1;
+    
     String selectedPrice = cbb_price.getValue();
+    double minPrice = -1;
+    double maxPrice = -1;
     
+    if (selectedPrice != null && !selectedPrice.equals("Tất cả")) {
+      switch (selectedPrice) {
+        case "Dưới 1.000.000":
+          minPrice = 0;
+          maxPrice = 1000000;
+          break;
+        case "1.000.000 - 5.000.000":
+          minPrice = 1000000;
+          maxPrice = 5000000;
+          break;
+        case "Trên 5.000.000":
+          minPrice = 5000000;
+          maxPrice = Double.MAX_VALUE;
+          break;
+      }
+    }
+    List<ProductInfo> filteredList = productService.searchProduct(keyword.isEmpty() ? null : keyword, categoryId, brandId, minPrice, maxPrice);
     product_container.getChildren().clear();
-    
+    render(filteredList);
+  }
+  
+  private void resetFilters() {
+    txt_search.clear();
+    cbb_category.getSelectionModel().selectFirst();
+    cbb_brand.getSelectionModel().selectFirst();
+    cbb_price.setValue("Tất cả");
+  }
+  
+  public void render(List<ProductInfo> list) {
     try {
-      ProductService productService = new ProductService();
-      List<ProductInfo> list = productService.getAllProductInfos();
-      
       for (var item : list) {
-        boolean matchesSearch = searchText.isEmpty() ||
-                                        item.getProductName().toLowerCase().contains(searchText) ||
-                                        String.valueOf(item.getProductId()).contains(searchText);
-        
-        boolean matchesCategory = selectedCategory == null ||
-                                          selectedCategory.toString().equals("Tất cả") ||
-                                          (item.getCategory() != null && item.getCategory().getCategoryName() != null && item.getCategory().getCategoryName().equals(selectedCategory.getCategoryName()));
-        
-        boolean matchesBrand = selectedBrand == null ||
-                                       (item.getBrand() != null && item.getBrand().getBrandName() != null && item.getBrand().getBrandName().equals(selectedBrand.getBrandName()));
-        
-        boolean matchesPrice = true;
-        
-        if (selectedPrice != null && !selectedPrice.equals("Tất cả")) {
-          matchesPrice = filterByPrice(item.getPrice(), selectedPrice);
-        }
-        
-        if (matchesSearch && matchesCategory && matchesBrand && matchesPrice) {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
-          Node node = loader.load();
-          ProductCardController controller = loader.getController();
-          controller.setProduct(item);
-          this.product_container.getChildren().add(node);
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
+        Node node = loader.load();
+        ProductCardController controller = loader.getController();
+        controller.setProduct(item);
+        this.product_container.getChildren().add(node);
       }
     } catch (Exception e) {
       e.printStackTrace();
-    }
-    
-  }
-  
-  private boolean filterByPrice(double price, String priceRange) {
-    switch (priceRange) {
-      case "Dưới 1.000.000":
-        return price < 1000000;
-      case "1.000.000 - 5.000.000":
-        return price >= 1000000 && price <= 5000000;
-      case "Trên 5.000.000":
-        return price > 5000000;
-      default:
-        return true;
     }
   }
 }
