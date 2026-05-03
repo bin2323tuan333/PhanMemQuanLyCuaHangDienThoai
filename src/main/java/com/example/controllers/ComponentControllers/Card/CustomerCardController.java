@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.CustomerInfo;
+import com.example.controllers.ComponentControllers.CreateBillController;
 import com.example.controllers.ComponentControllers.CustomerFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,7 @@ public class CustomerCardController {
   private Label lb_address;
   
   private CustomerInfo customerInfo;
+  private CreateBillController parent;
   
   public void setCustomerInfo(CustomerInfo customerInfo) {
     this.customerInfo = customerInfo;
@@ -45,8 +47,16 @@ public class CustomerCardController {
     this.lb_gender.setText(this.customerInfo.getGender() ? "Nữ" : "Nam");
     this.lb_dob.setText(this.customerInfo.getDob().toString());
   }
+  public void setParentController(CreateBillController parent) {
+    this.parent = parent;
+  }
   
   public void handleClick() {
+    if (parent != null) {
+      parent.selectCustomer(this.customerInfo);
+      return;
+    }
+
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
       Parent root = loader.load();
@@ -61,4 +71,6 @@ public class CustomerCardController {
       e.printStackTrace();
     }
   }
+
+
 }

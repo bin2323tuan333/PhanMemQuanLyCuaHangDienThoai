@@ -37,4 +37,9 @@ public class CustomerService {
     CustomerRepository customerRepository = new CustomerRepository();
     customerRepository.searchCustomersByName(name);
   }
+
+  public List<Customer> getAllCustomers() {
+    CustomerRepository customerRepository = new CustomerRepository();
+    return customerRepository.getAllCustomers();
+  }
 }
