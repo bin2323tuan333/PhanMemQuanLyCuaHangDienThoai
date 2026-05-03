@@ -44,6 +44,7 @@ public class ImportBillDetailRepository {
       stmt.setDouble(2, detail.getUnitPrice());
       stmt.setInt(3, detail.getImportId());
       stmt.setInt(4, detail.getProductId());
+      stmt.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }

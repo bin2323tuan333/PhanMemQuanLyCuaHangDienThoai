@@ -189,7 +189,7 @@ public class ProductRepository {
   }
   
   public void insertProduct(ProductInfo p) {
-    String sql = "String sql = INSERT INTO Product (product_name, quantity, description, price, stock, category_id, brand_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    String sql = "INSERT INTO Product (product_name, quantity, description, price, stock, category_id, brand_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql,
             p.getProductName(),
             p.getQuantity(),
