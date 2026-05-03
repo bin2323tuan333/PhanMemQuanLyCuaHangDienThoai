@@ -10,7 +10,6 @@ import java.sql.SQLException;
 public class ProductInfo {
   private int productId;
   private String productName;
-  private int quantity;
   private String description;
   private double price;
   private int stock;
@@ -27,10 +26,9 @@ public class ProductInfo {
   
   }
   
-  public ProductInfo(int productId, String productName, int quantity, String description, double price, int stock, int categoryId, int brandId, Brand brand, Supplier supplier, Category category) {
+  public ProductInfo(int productId, String productName, String description, double price, int stock, int categoryId, int brandId, Brand brand, Supplier supplier, Category category) {
     this.productId = productId;
     this.productName = productName;
-    this.quantity = quantity;
     this.description = description;
     this.price = price;
     this.stock = stock;
@@ -44,7 +42,6 @@ public class ProductInfo {
   public void setFromRS(ResultSet rs) throws SQLException {
     this.productId = rs.getInt("product_id");
     this.productName = rs.getString("product_name");
-    this.quantity = rs.getInt("quantity");
     this.description = rs.getString("description");
     this.price = rs.getDouble("price");
     this.stock = rs.getInt("stock");
@@ -79,14 +76,6 @@ public class ProductInfo {
   
   public void setProductName(String productName) {
     this.productName = productName;
-  }
-  
-  public int getQuantity() {
-    return quantity;
-  }
-  
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
   }
   
   public String getDescription() {

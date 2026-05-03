@@ -26,6 +26,42 @@ public class ProductRepository {
     return list;
   }
   
+  public List<ProductInfo> searchProduct(String key, int categoryId, int brandId, double minPrice, double maxPrice) {
+    List<ProductInfo> list = new ArrayList<>();
+    String sql = "SELECT p.*, b.brand_name, c.category_name, s.name AS supplier_name " +
+                         "FROM Product p " +
+                         "INNER JOIN Brand b ON p.brand_id = b.brand_id " +
+                         "INNER JOIN Category c ON p.category_id = c.category_id " +
+                         "INNER JOIN Supplier s ON p.supplier_id = s.supplier_id " +
+                         "WHERE p.product_name LIKE ? " +
+                         "AND (? = -1 OR p.category_id = ?) " +
+                         "AND (? = -1 OR p.brand_id = ?) " +
+                         "AND (? = -1 OR p.price >= ?) " +
+                         "AND (? = -1 OR p.price <= ?);";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);) {
+      pstmt.setString(1, key != null ? "%" + key + "%" : "%");
+      pstmt.setInt(2, categoryId);
+      pstmt.setInt(3, categoryId);
+      pstmt.setInt(4, brandId);
+      pstmt.setInt(5, brandId);
+      pstmt.setDouble(6, minPrice);
+      pstmt.setDouble(7, minPrice);
+      pstmt.setDouble(8, maxPrice);
+      pstmt.setDouble(9, maxPrice);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs != null && rs.next()) {
+          ProductInfo p = new ProductInfo();
+          p.setFromRS(rs);
+          list.add(p);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return list;
+  }
+  
   public int getTotalRemainingStock() {
     int totalStock = 0;
     String sql = """
@@ -189,10 +225,9 @@ public class ProductRepository {
   }
   
   public void insertProduct(ProductInfo p) {
-    String sql = "INSERT INTO Product (product_name, quantity, description, price, stock, category_id, brand_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    String sql = "INSERT INTO Product (product_name, description, price, stock, category_id, brand_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql,
             p.getProductName(),
-            p.getQuantity(),
             p.getDescription(),
             p.getPrice(),
             p.getStock(),
@@ -202,11 +237,10 @@ public class ProductRepository {
   }
   
   public void updateProduct(ProductInfo p) {
-    String sql = "UPDATE Product SET product_name = ?, quantity = ?, description = ?, " +
+    String sql = "UPDATE Product SET product_name = ?, description = ?, " +
                          "price = ?, stock = ?, category_id = ?, brand_id = ?, supplier_id = ? WHERE product_id = ?";
     DBHelper.Instance().executeUpd(sql,
             p.getProductName(),
-            p.getQuantity(),
             p.getDescription(),
             p.getPrice(),
             p.getStock(),

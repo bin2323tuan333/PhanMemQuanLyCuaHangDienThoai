@@ -25,21 +25,30 @@ public class ProductService {
     return list;
   }
   
+  public List<ProductInfo> searchProduct(String key, int categoryId, int brandId, double minPrice, double maxPrice) {
+    ProductRepository productRepo = new ProductRepository();
+    return productRepo.searchProduct(key, categoryId, brandId, minPrice, maxPrice);
+  }
+  
   public ProductInfo getProductInfoById(int id) {
     ProductRepository productRepo = new ProductRepository();
     ProductInfo item = productRepo.getProductInfoById(id);
     return item;
   }
+  
   public void addProduct(ProductInfo productInfo) {
     ProductRepository productRepo = new ProductRepository();
     productRepo.insertProduct(productInfo);
   }
-  public  void updateProduct(ProductInfo productInfo) {
+  
+  public void updateProduct(ProductInfo productInfo) {
     ProductRepository productRepo = new ProductRepository();
     productRepo.updateProduct(productInfo);
   }
+  
   public void deleteProduct(int productId) {
     ProductRepository productRepo = new ProductRepository();
-    productRepo.deleteProduct(productId);}
+    productRepo.deleteProduct(productId);
+  }
   
 }
