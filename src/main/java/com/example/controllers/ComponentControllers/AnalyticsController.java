@@ -1,5 +1,6 @@
 package com.example.controllers.ComponentControllers;
 
+import com.example.services.BillService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -17,41 +18,17 @@ public class AnalyticsController {
   
   @FXML
   public void initialize() {
-    totalRevenue.setText("1,284,500,000 VNĐ");
-    totalOrders.setText("42,890");
-    avgOrderValue.setText("29,950,000 VNĐ");
-    customerGrowth.setText("+1,240");
+    BillService bill = new BillService();
+
+    double revenue = bill.getTotalRevenue();
+    double orders = bill.getTotalOrders();
+    double avgValue = orders > 0 ? revenue / orders : 0;
+
+    totalRevenue.setText(String.format("%,.0f", revenue) + " đ");
+    totalOrders.setText(String.valueOf((int) orders));
+    avgOrderValue.setText(String.format("%,.0f", avgValue) + " đ");
+    customerGrowth.setText("N/A");
     
-    // Set dữ liệu cho biểu đồ
-//    setupChart();
 
-
-//  private void setupChart() {
-//    XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
-//    revenueSeries.setName("Doanh thu (Triệu VNĐ)");
-//    revenueSeries.getData().addAll(
-//            new XYChart.Data<>("Tháng 1", 120000),
-//            new XYChart.Data<>("Tháng 2", 135000),
-//            new XYChart.Data<>("Tháng 3", 150000),
-//            new XYChart.Data<>("Tháng 4", 180000),
-//            new XYChart.Data<>("Tháng 5", 210000),
-//            new XYChart.Data<>("Tháng 6", 250000)
-//    );
-//
-//    XYChart.Series<String, Number> profitSeries = new XYChart.Series<>();
-//    profitSeries.setName("Lợi nhuận (Triệu VNĐ)");
-//    profitSeries.getData().addAll(
-//            new XYChart.Data<>("Tháng 1", 45000),
-//            new XYChart.Data<>("Tháng 2", 50000),
-//            new XYChart.Data<>("Tháng 3", 55000),
-//            new XYChart.Data<>("Tháng 4", 65000),
-//            new XYChart.Data<>("Tháng 5", 80000),
-//            new XYChart.Data<>("Tháng 6", 95000)
-//    );
-//
-//
-//    BarChart<String, Number> barChart = (BarChart<String, Number>) totalRevenue.getScene().lookup("#revenueChart");
-//
-//  }
   }
 }

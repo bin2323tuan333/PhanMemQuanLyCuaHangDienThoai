@@ -190,4 +190,39 @@ public class BillRepository {
     return bills;
     
   }
+  public double getTotalRevenue() {
+    double totalRevenue = 0.0;
+    String sql = "SELECT SUM(total_amount) FROM Bill";
+
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs != null && rs.next()) {
+          totalRevenue = rs.getDouble(1);
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getErrorCode());
+    }
+
+    return totalRevenue;
+  }
+
+  public double getTotalOrders() {
+    int totalOrders = 0;
+    String sql = "SELECT COUNT(*) FROM Bill";
+
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs != null && rs.next()) {
+          totalOrders = rs.getInt(1);
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getErrorCode());
+    }
+
+    return totalOrders;
+  }
 }

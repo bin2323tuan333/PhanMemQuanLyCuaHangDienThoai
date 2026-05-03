@@ -86,6 +86,15 @@ public class BillService {
   public void updateBill(Bill billInfo) throws SQLException {
     billRepository.updateBill(billInfo);
   }
+  public  void addBill(Bill billInfo) throws SQLException {
+    billRepository.insertBill(billInfo);
+  }
+  public double getTotalRevenue() {
+    return billRepository.getTotalRevenue();
+  }
+  public double getTotalOrders() {
+    return billRepository.getTotalOrders();
+  }
   
   
 }

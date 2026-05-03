@@ -4,7 +4,9 @@ import com.example.DTO.CartInfo;
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.CartCardController;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;
+import com.example.models.Bill;
 import com.example.models.Customer;
+import com.example.services.BillService;
 import com.example.services.CustomerService;
 import com.example.services.ProductService;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -207,6 +210,32 @@ public class CreateBillController {
     } catch (java.io.IOException e) {
       e.printStackTrace();
     }
+  }
+  public void handleBtnAddProduct() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductForm.fxml"));
+      Parent root = loader.load();
+      ProductFormController productFormController = loader.getController();
+      productFormController.setProductInfo(null);
+      Stage stage = new Stage();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Thêm mới");
+      stage.showAndWait();
+    } catch (java.io.IOException e) {
+      e.printStackTrace();
+    }
+  }
+  public void handleBtnCancel() {
+    Stage stage = (Stage) main_container.getScene().getWindow();
+    stage.close();
+  }
+  public void handleBtnAddBill() throws SQLException {
+    BillService Billservice = new BillService();
+    Bill bill= new Bill();
+    bill.setCustomerId(this.customer.getCustomerId());
+    bill.setEmployeeId(listCart.removeIf( cartInfo -> cartInfo.getProductInfo().getProductId() == 0) ? 0 : 1);
+    bill.setTotalAmount( listCart.stream().mapToDouble(cartInfo -> cartInfo.getProductInfo().getPrice() * cartInfo.getQuantity()).sum());
+    Billservice.addBill(bill);
   }
 }
 
