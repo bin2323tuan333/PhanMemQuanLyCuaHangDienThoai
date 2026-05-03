@@ -11,9 +11,11 @@
 
 <VBox prefHeight="152.0" prefWidth="250.0" spacing="15.0"
       style=" -fx-background-color: white; -fx-padding: 15; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e5e7eb; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);       "
-      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.controllers.ComponentControllers.Card.BillCardController">
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.controllers.ComponentControllers.Card.ImportBillCardController"
+      onMouseClicked="#handleClick">
     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+
 
         <children>
             <Label text="ID:">
@@ -33,7 +35,7 @@
         </padding>
     </HBox>
 
-    <Label fx:id="lb_customer" text="name_supplier">
+    <Label fx:id="lb_supplier" text="name_supplier">
         <font>
             <Font size="14.0"/>
         </font>
@@ -51,15 +53,6 @@
     </Label>
 
     <Label fx:id="lb_total" style="-fx-text-fill: #16a34a; -fx-font-weight: bold;" text="lb_total">
-        <font>
-            <Font size="14.0"/>
-        </font>
-        <VBox.margin>
-            <Insets left="10.0"/>
-        </VBox.margin>
-    </Label>
-
-    <Label fx:id="lb_status" text="status">
         <font>
             <Font size="14.0"/>
         </font>

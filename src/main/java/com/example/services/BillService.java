@@ -2,14 +2,12 @@ package com.example.services;
 
 import com.example.DTO.BillDetailInfo;
 import com.example.DTO.BillInfo;
+import com.example.DTO.ImportBillInfo;
 import com.example.DTO.RecentBill;
 import com.example.models.Bill;
 import com.example.models.Customer;
 import com.example.models.Employee;
-import com.example.repositories.BillDetailRepository;
-import com.example.repositories.BillRepository;
-import com.example.repositories.CustomerRepository;
-import com.example.repositories.EmployeeRepository;
+import com.example.repositories.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +16,7 @@ import java.util.List;
 
 public class BillService {
   private BillRepository billRepository;
+  private ImportBillRepository importBillRepository;
   private CustomerRepository customerRepository;
   private EmployeeRepository employeeRepository;
   
@@ -25,12 +24,16 @@ public class BillService {
     billRepository = new BillRepository();
     customerRepository = new CustomerRepository();
     employeeRepository = new EmployeeRepository();
+    importBillRepository = new ImportBillRepository();
   }
   
   public void deleteBill(int id) throws SQLException {
     billRepository.deleteBill(id);
   }
   
+  public List<ImportBillInfo> getAllImportBillInfo() {
+    return importBillRepository.getAllImportBillInfos();
+  }
   
   public List<BillInfo> getAllBillInfos() {
     return billRepository.getAllBillInfos();
@@ -83,6 +86,7 @@ public class BillService {
     BillDetailRepository billDetailRepository = new BillDetailRepository();
     return billDetailRepository.getBillDetailInfosByBillId(id);
   }
+  
   public void updateBill(Bill billInfo) throws SQLException {
     billRepository.updateBill(billInfo);
   }

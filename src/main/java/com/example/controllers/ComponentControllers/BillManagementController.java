@@ -64,6 +64,7 @@ public class BillManagementController {
       List<BillInfo> list = billService.getAllBillInfos();
       renderBills(list);
     } catch (Exception e) {
+      e.printStackTrace();
     }
   }
   
