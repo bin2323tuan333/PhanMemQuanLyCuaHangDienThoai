@@ -1,7 +1,6 @@
 package com.example.repositories;
 
 import com.example.DTO.ImportBillInfo;
-import com.example.models.Employee;
 import com.example.models.ImportBill;
 
 import java.sql.Connection;
@@ -72,23 +71,23 @@ public class ImportBillRepository {
     return null;
   }
   
-  public void insertImportBill(ImportBill i) {
+  public void insertImportBill( ImportBillInfo i) {
     String sql = "INSERT INTO importbill (employee_id, import_date, supplier_id, total_amount) " +
                          "VALUES (?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql,
-            i.getEmployeeId(),
+            i.getEmployee(),
             i.getImportDate(),
-            i.getSupplierId(),
+            i.getSupplier(),
             i.getTotalAmount());
   }
   
-  public void updateImportBill(ImportBill i) {
+  public void updateImportBill( ImportBillInfo i) {
     String sql = "UPDATE importbill  SET  employee_id = ?,  import_date = ?,  supplier_id = ?,  total_amount = ? " +
                          "WHERE import_id = ?;";
     DBHelper.Instance().executeUpd(sql,
-            i.getEmployeeId(),
+            i.getEmployee(),
             i.getImportDate(),
-            i.getSupplierId(),
+            i.getSupplier(),
             i.getTotalAmount(),
             i.getImportId());
   }

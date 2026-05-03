@@ -102,6 +102,16 @@ public class BillService {
   public double getTotalOrders() {
     return billRepository.getTotalOrders();
   }
+  public void addImportBill(ImportBillInfo importBillInfo) throws SQLException {
+    importBillRepository.insertImportBill(importBillInfo);
+  }
+  public  void updateImportBill(ImportBillInfo importBillInfo) throws SQLException {
+    importBillRepository.updateImportBill(importBillInfo);
+  }
+  public void deleteImportBill(int id) {
+    importBillRepository.deleteImportBill(id);
+  }
+
   
   
 }
