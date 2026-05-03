@@ -17,9 +17,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="main_container" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="817.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.CreateBillController">
+<HBox fx:id="main_container" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="817.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.CreateImportBillController">
     <children>
-
         <VBox fx:id="product_container" maxHeight="1.7976931348623157E308" prefHeight="263.0" prefWidth="558.0" HBox.hgrow="ALWAYS">
             <children>
                 <Label maxWidth="1.7976931348623157E308" text="Chọn sản phẩm" textFill="#333333">
@@ -81,7 +80,7 @@
                         </Label>
                         <HBox prefHeight="23.0" prefWidth="218.0" spacing="20.0">
                             <children>
-                                <TextField fx:id="txt_search_customer" prefHeight="38.0" prefWidth="17.0" promptText="Nhập số điện thoại" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;" HBox.hgrow="ALWAYS">
+                                <TextField fx:id="txt_search_supplier" prefHeight="38.0" prefWidth="17.0" promptText="Nhập số điện thoại" style="-fx-background-color: white; -fx-border-color: #ced4da; -fx-border-radius: 6px; -fx-background-radius: 6px;" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font size="14.0" />
                                     </font>

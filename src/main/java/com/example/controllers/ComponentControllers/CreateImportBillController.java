@@ -4,9 +4,9 @@ import com.example.DTO.CartInfo;
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.CartCardController;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;
-import com.example.models.Customer;
-import com.example.services.CustomerService;
+import com.example.models.Supplier;
 import com.example.services.ProductService;
+import com.example.services.SupplierService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -43,19 +43,17 @@ public class CreateImportBillController {
   @FXML
   private Label lb_phone;
   @FXML
-  private Label lb_dob;
-  @FXML
-  private Label lb_gender;
+  private Label lb_mail;
   @FXML
   private Label lb_address;
   @FXML
-  private TextField txt_search_customer;
+  private TextField txt_search_supplier;
   @FXML
   private TextField txt_search_product;
   
   private List<CartInfo> listCart;
   List<ProductInfo> listProduct;
-  private Customer customer;
+  private Supplier supplier;
   
   @FXML
   public void initialize() {
@@ -151,14 +149,13 @@ public class CreateImportBillController {
   }
   
   public void handleBtnSearchCustomer() {
-    CustomerService customerService = new CustomerService();
-    this.customer = customerService.getCustomerByPhoneNumber(txt_search_customer.getText());
-    if (this.customer != null) {
-      this.lb_name.setText(this.customer.getFullName());
-      this.lb_phone.setText(this.customer.getPhoneNumber());
-      this.lb_gender.setText((this.customer.getGender() ? "Nam" : "Nữ"));
-      this.lb_dob.setText(this.customer.getBirthday().toString());
-      this.lb_address.setText(this.customer.getAddress());
+    SupplierService supplierService = new SupplierService();
+    this.supplier = supplierService.getSupplierByPhone(txt_search_supplier.getText());
+    if (this.supplier != null) {
+      this.lb_name.setText(this.supplier.getName());
+      this.lb_phone.setText(this.supplier.getPhone());
+      this.lb_mail.setText(this.supplier.getEmail());
+      this.lb_address.setText(this.supplier.getAddress());
     }
   }
   
@@ -198,15 +195,16 @@ public class CreateImportBillController {
   
   public void handleBtnAddCustomer() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/SupplierForm.fxml"));
       Parent root = loader.load();
-      CustomerFormController customerFormController = loader.getController();
-      customerFormController.setCustomerInfo(null);
+      SupplierFormController controller = loader.getController();
+      controller.setSupplier(null);
       Stage stage = new Stage();
+      stage.setTitle("Thêm Nhà Cung Cấp Mới");
       stage.setScene(new Scene(root));
-      stage.setTitle("Thêm mới");
       stage.showAndWait();
-    } catch (java.io.IOException e) {
+      setup();
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }

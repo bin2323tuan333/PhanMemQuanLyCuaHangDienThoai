@@ -66,7 +66,15 @@ public class DashBoardController {
   }
   
   public void handleBtnAddImportBill() {
-  
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CreateImportBill.fxml"));
+      Parent root = loader.load();
+      Stage stage = new Stage();
+      stage.setTitle("Thêm hóa đơn mới");
+      stage.setScene(new Scene(root));
+      stage.showAndWait();
+    } catch (Exception e) {
+    }
   }
   
   public void handleBtnAddProduct() {
@@ -84,4 +92,15 @@ public class DashBoardController {
     }
   }
   
+  public void renderTopBrand() {
+  
+  }
+  
+  public void renderTopProduct() {
+  
+  }
+  
+  public void renderBill() {
+  
+  }
 }

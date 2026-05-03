@@ -49,6 +49,27 @@ public class SupplierRepository {
     return null;
   }
   
+  public Supplier getSupplierByPhone(String phone) {
+    Supplier supplier = null;
+    String sql = "SELECT * FROM Supplier WHERE phone = ?";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setString(1, phone);
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          supplier = new Supplier();
+          supplier.setFromRS(rs);
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    
+    return supplier;
+  }
+  
   public List<Supplier> getSupplierByName(String name) {
     List<Supplier> list = new ArrayList<>();
     String sql = "SELECT * FROM Supplier WHERE name = ?";

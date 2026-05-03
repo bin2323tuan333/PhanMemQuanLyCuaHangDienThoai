@@ -188,9 +188,8 @@ public class ProductRepository {
     return list;
   }
   
-  public void insertProduct( ProductInfo p) {
-    String sql = "INSERT INTO Product (product_name, quantity, description, price, stock, category_id, brand_id) " +
-                         "VALUES (?, ?, ?, ?, ?, ?, ?)";
+  public void insertProduct(ProductInfo p) {
+    String sql = "String sql = INSERT INTO Product (product_name, quantity, description, price, stock, category_id, brand_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql,
             p.getProductName(),
             p.getQuantity(),
@@ -198,10 +197,11 @@ public class ProductRepository {
             p.getPrice(),
             p.getStock(),
             p.getCategoryId(),
-            p.getBrandId());
+            p.getBrandId(),
+            p.getSupplier().getSupplierId());
   }
   
-  public void updateProduct( ProductInfo p) {
+  public void updateProduct(ProductInfo p) {
     String sql = "UPDATE Product SET product_name = ?, quantity = ?, description = ?, " +
                          "price = ?, stock = ?, category_id = ?, brand_id = ? WHERE product_id = ?";
     DBHelper.Instance().executeUpd(sql,

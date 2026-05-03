@@ -10,4 +10,9 @@ public class SupplierService {
     SupplierRepository supplierRepository = new SupplierRepository();
     return supplierRepository.getAllSuppliers();
   }
+  
+  public Supplier getSupplierByPhone(String phone) {
+    SupplierRepository supplierRepository = new SupplierRepository();
+    return supplierRepository.getSupplierByPhone(phone);
+  }
 }
