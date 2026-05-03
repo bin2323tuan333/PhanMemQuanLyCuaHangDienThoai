@@ -2,6 +2,7 @@ package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.CreateBillController;
+import com.example.controllers.ComponentControllers.CreateImportBillController;
 import com.example.controllers.ComponentControllers.CustomerFormController;
 import com.example.controllers.ComponentControllers.ProductFormController;
 import javafx.fxml.FXML;
@@ -27,10 +28,15 @@ public class ProductCardController {
   private int productId;
   private boolean isSale;
   private CreateBillController createBillController;
+  private CreateImportBillController createImportBillController;
   private ProductInfo productInfo;
   
   public void setCreateBillController(CreateBillController createBillController) {
     this.createBillController = createBillController;
+  }
+  
+  public void setCreateImportBillController(CreateImportBillController createImportBillController) {
+    this.createImportBillController = createImportBillController;
   }
   
   public void setSale(boolean sale) {
@@ -55,8 +61,13 @@ public class ProductCardController {
     if (this.isSale) {
       if (this.createBillController != null) {
         this.createBillController.addProductEngine(this.productId);
+        this.createBillController.caculate();
       }
-      this.createBillController.caculate();
+      if (this.createImportBillController != null) {
+        this.createImportBillController.addProductEngine(this.productId);
+        this.createImportBillController.caculate();
+      }
+      
     } else {
       try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductForm.fxml"));

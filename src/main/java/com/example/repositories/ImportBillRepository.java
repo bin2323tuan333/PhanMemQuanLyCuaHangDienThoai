@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import com.example.DTO.ImportBillInfo;
 import com.example.models.Employee;
 import com.example.models.ImportBill;
 
@@ -11,6 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImportBillRepository {
+  public List<ImportBillInfo> getAllImportBillInfos() {
+    List<ImportBillInfo> list = new ArrayList<>();
+    String query = "SELECT *\n" +
+                           "FROM importbill ib \n" +
+                           "JOIN employee e ON ib.employee_id = e.employee_id \n" +
+                           "JOIN supplier s ON ib.supplier_id = s.supplier_id";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement ps = conn.prepareStatement(query);
+         ResultSet rs = ps.executeQuery()) {
+      
+      while (rs.next()) {
+        ImportBillInfo info = new ImportBillInfo();
+        info.setFromRS(rs);
+        list.add(info);
+      }
+      
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    
+    return list;
+  }
+  
   public List<ImportBill> getAllImportBills() {
     List<ImportBill> list = new ArrayList<>();
     String sql = "SELECT * FROM importbill";

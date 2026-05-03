@@ -3,6 +3,7 @@ package com.example.controllers.ComponentControllers.Card;
 import com.example.DTO.CartInfo;
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.CreateBillController;
+import com.example.controllers.ComponentControllers.CreateImportBillController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,10 +34,15 @@ public class CartCardController {
   private int productId;
   private CartInfo item;
   private double price;
-  private CreateBillController parentController;
+  private CreateBillController createBillController;
+  private CreateImportBillController createImportBillController;
   
   public void setParentController(CreateBillController parentController) {
-    this.parentController = parentController;
+    this.createBillController = parentController;
+  }
+  
+  public void setParentController(CreateImportBillController parentController) {
+    this.createImportBillController = parentController;
   }
   
   public void setItem(CartInfo item) {
@@ -61,11 +67,19 @@ public class CartCardController {
       this.lb_quantity.setText(--quantity + "");
       DecimalFormat df = new DecimalFormat("#,###");
       this.lb_price.setText(df.format(this.price * quantity) + " VNĐ");
-      this.parentController.decreaseQuantity(this.productId);
-      this.parentController.caculate();
+      if (createBillController != null) {
+        this.createBillController.decreaseQuantity(this.productId);
+        this.createBillController.caculate();
+      } else {
+        this.createImportBillController.decreaseQuantity(this.productId);
+        this.createImportBillController.caculate();
+      }
+      
     } else {
-      if (this.parentController != null) {
-        this.parentController.deleteCart(this.productId, this.cartitem_container);
+      if (this.createBillController != null) {
+        this.createBillController.deleteCart(this.productId, this.cartitem_container);
+      } else {
+        this.createImportBillController.deleteCart(this.productId, this.cartitem_container);
       }
     }
   }
@@ -73,18 +87,30 @@ public class CartCardController {
   public void handleIncrease() {
     int quantity = Integer.parseInt(this.lb_quantity.getText());
     int stock = this.item.getProductInfo().getStock();
-    if (quantity >= stock) {
+    if (quantity >= stock && this.createImportBillController == null) {
       return;
     }
     this.lb_quantity.setText(++quantity + "");
     DecimalFormat df = new DecimalFormat("#,###");
     this.lb_price.setText(df.format(this.price * quantity) + " VNĐ");
-    this.parentController.increaseQuantity(this.productId);
-    this.parentController.caculate();
+    if (createBillController != null) {
+      this.createBillController.increaseQuantity(this.productId);
+      this.createBillController.caculate();
+    } else {
+      this.createImportBillController.increaseQuantity(this.productId);
+      this.createImportBillController.caculate();
+    }
+    
   }
   
   public void handleDelete() {
-    this.parentController.deleteCart(this.productId, this.cartitem_container);
-    this.parentController.caculate();
+    if (createBillController != null) {
+      this.createBillController.deleteCart(this.productId, this.cartitem_container);
+      this.createBillController.caculate();
+    } else {
+      this.createImportBillController.deleteCart(this.productId, this.cartitem_container);
+      this.createImportBillController.caculate();
+    }
+    
   }
 }

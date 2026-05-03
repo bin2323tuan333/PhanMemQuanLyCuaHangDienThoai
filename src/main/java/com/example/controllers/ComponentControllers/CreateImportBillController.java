@@ -24,7 +24,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateBillController {
+public class CreateImportBillController {
+  
   @FXML
   private FlowPane productlist;
   @FXML
@@ -78,7 +79,7 @@ public class CreateBillController {
       ProductCardController controller = productComp.getController();
       controller.setSale(true);
       controller.setProduct(item);
-      controller.setCreateBillController(this);
+      controller.setCreateImportBillController(this);
       this.productlist.getChildren().add(node);
     }
   }
@@ -174,8 +175,8 @@ public class CreateBillController {
           Node node = productComp.load();
           ProductCardController controller = productComp.getController();
           controller.setProduct(item);
-          controller.setCreateBillController(this);
-          controller.setCreateImportBillController(null);
+          controller.setCreateImportBillController(this);
+          controller.setCreateBillController(null);
           this.productlist.getChildren().add(node);
         } catch (Exception e) {
           e.printStackTrace();
@@ -210,5 +211,7 @@ public class CreateBillController {
     }
   }
 }
-
+  
+  
+  
 
