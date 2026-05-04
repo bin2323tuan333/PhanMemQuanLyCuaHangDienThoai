@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ImportBillRepository {
   public List<ImportBillInfo> getAllImportBillInfos() {
@@ -72,7 +73,7 @@ public class ImportBillRepository {
   }
   
   public void insertImportBill( ImportBillInfo i) {
-    String sql = "INSERT INTO importbill (employee_id, import_date, supplier_id, total_amount) " +
+    String sql = "INSERT INTO ImportBill (employee_id, import_date, supplier_id, total_amount) " +
                          "VALUES (?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql,
             i.getEmployee(),
@@ -82,7 +83,7 @@ public class ImportBillRepository {
   }
   
   public void updateImportBill( ImportBillInfo i) {
-    String sql = "UPDATE importbill  SET  employee_id = ?,  import_date = ?,  supplier_id = ?,  total_amount = ? " +
+    String sql = "UPDATE ImportBill  SET  employee_id = ?,  import_date = ?,  supplier_id = ?,  total_amount = ? " +
                          "WHERE import_id = ?;";
     DBHelper.Instance().executeUpd(sql,
             i.getEmployee(),
@@ -93,7 +94,44 @@ public class ImportBillRepository {
   }
   
   public void deleteImportBill(int id) {
-    String sql = "DELETE FROM importbill WHERE import_id = ?";
+    String sql = "DELETE FROM ImportBill WHERE import_id = ?";
     DBHelper.Instance().executeUpd(sql, id);
+  }
+  public List<ImportBillInfo> searchImportBills(String key) {
+    List<ImportBillInfo> list = new ArrayList<>();
+
+    String query = """
+        SELECT *
+        FROM ImportBill ib
+        LEFT JOIN employee e ON ib.employee_id = e.employee_id
+        LEFT JOIN supplier s ON ib.supplier_id = s.supplier_id
+        WHERE 
+            LOWER(IFNULL(e.employee_name, '')) LIKE ? 
+            OR LOWER(IFNULL(s.name, '')) LIKE ?
+            OR CAST(ib.import_id AS CHAR) LIKE ?
+    """;
+
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement ps = conn.prepareStatement(query)) {
+
+      String likeKey = "%" + key.toLowerCase().trim() + "%";
+
+      ps.setString(1, likeKey);
+      ps.setString(2, likeKey);
+      ps.setString(3, likeKey);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          ImportBillInfo info = new ImportBillInfo();
+          info.setFromRS(rs);
+          list.add(info);
+        }
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return list;
   }
 }

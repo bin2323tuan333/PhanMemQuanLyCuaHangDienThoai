@@ -56,5 +56,8 @@ public class ImportBillCardController {
       e.printStackTrace();
     }
   }
+  public ImportBillInfo getImportBillInfo() {
+    return this.importBillInfo;
+  }
   
 }
