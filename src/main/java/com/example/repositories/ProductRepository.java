@@ -250,6 +250,10 @@ public class ProductRepository {
     String sql = "DELETE FROM Product WHERE product_id = ?";
     DBHelper.Instance().executeUpd(sql, id);
   }
+  public void decreaseStock(int productId, int quantity) {
+    String sql = "UPDATE Product SET stock = stock - ? WHERE product_id = ?";
+    DBHelper.Instance().executeUpd(sql, quantity, productId);
+  }
   
   
 }

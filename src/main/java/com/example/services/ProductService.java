@@ -50,5 +50,9 @@ public class ProductService {
     ProductRepository productRepo = new ProductRepository();
     productRepo.deleteProduct(productId);
   }
+  public void decreaseStock(int productId, int quantity) {
+    ProductRepository productRepo = new ProductRepository();
+    productRepo.decreaseStock(productId, quantity);
+  }
   
 }

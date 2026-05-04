@@ -295,20 +295,22 @@ String keyword = txt_search_customer.getText().trim().toLowerCase();
 
     for (CartInfo item : listCart) {
       billDetailService.insertBillDetail(
-                billId,
-                item.getProductInfo().getProductId(),
-                item.getQuantity(),
-                item.getProductInfo().getPrice()
-        );
+              billId,
+              item.getProductInfo().getProductId(),
+              item.getQuantity(),
+              item.getProductInfo().getPrice()
+      );
     }
 
-    System.out.println("Thanh toán thành công!");
+    ProductService productService = new ProductService();
+    for (CartInfo item : listCart) {
+      productService.decreaseStock(item.getProductInfo().getProductId(), item.getQuantity());
 
 
-    Stage stage = (Stage) main_container.getScene().getWindow();
-    stage.close();
+      Stage stage = (Stage) main_container.getScene().getWindow();
+      stage.close();
+    }
   }
-
 
   public void selectCustomer(CustomerInfo customer) {
     this.customer = customer;
