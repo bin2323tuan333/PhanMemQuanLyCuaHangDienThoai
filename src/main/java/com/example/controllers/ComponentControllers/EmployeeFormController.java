@@ -1,6 +1,9 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.EmployeeInfo;
+import com.example.models.Account;
+import com.example.models.Employee;
+import com.example.services.AccountService;
 import com.example.services.EmployeeService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -44,8 +47,7 @@ public class EmployeeFormController {
   
   
   private EmployeeInfo employeeInfo;
-
-
+  
   
   public void setEmployeeInfo(EmployeeInfo employeeInfo) {
     this.employeeInfo = employeeInfo;
@@ -101,7 +103,6 @@ public class EmployeeFormController {
     }
   }
   
-  
   private void clearForm() {
     if (txt_id != null) txt_id.clear();
     if (txt_name != null) txt_name.clear();
@@ -116,49 +117,55 @@ public class EmployeeFormController {
   
   public void handleBtnAdd() {
     EmployeeService employeeService = new EmployeeService();
-    EmployeeInfo newEmployee = getEmployeeDataFromForm();
+    Employee newEmployee = getEmployeeDataFromForm();
     if (newEmployee != null) {
       employeeService.addEmployee(newEmployee);
+      int employeeId = employeeService.getEmployeeIdByPhone(newEmployee.getPhoneNumber());
+      Account acc = new Account();
+      acc.setEmployeeId(employeeId);
+      acc.setPassword("123456");
+      acc.setUsername(newEmployee.getPhoneNumber().trim());
+      acc.setRoleId(1);
+      AccountService accountService = new AccountService();
+      accountService.insertAccount(acc);
       closeForm();
     } else {
       Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input. Please check the data and try again.", ButtonType.OK);
-      alert.showAndWait();}
-    
+      alert.showAndWait();
+    }
   }
   
   public void handleBtnUpdate() {
     EmployeeService employeeService = new EmployeeService();
     if (employeeInfo != null) {
-      EmployeeInfo updatedEmployee = getEmployeeDataFromForm();
+      Employee updatedEmployee = getEmployeeDataFromForm();
       if (updatedEmployee != null) {
         updatedEmployee.setEmployeeId(employeeInfo.getEmployeeId());
         employeeService.updateEmployee(updatedEmployee);
-
+        
         closeForm();
       } else {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input. Please check the data and try again.", ButtonType.OK);
         alert.showAndWait();
       }
     }
-    
   }
   
   public void handleBtnDelete() {
     EmployeeService employeeService = new EmployeeService();
     if (employeeInfo != null) {
       employeeService.deleteEmployee(employeeInfo.getEmployeeId());
-
-
-        closeForm();}
+      closeForm();
+    }
   }
   
   public void handleBtnCancel() {
     closeForm();
   }
   
-  private EmployeeInfo getEmployeeDataFromForm() {
+  private Employee getEmployeeDataFromForm() {
     try {
-      EmployeeInfo emp = new EmployeeInfo();
+      Employee emp = new Employee();
       emp.setFullName(txt_name.getText().trim());
       emp.setAddress(txt_address.getText().trim());
       emp.setPhoneNumber(txt_phone.getText().trim());

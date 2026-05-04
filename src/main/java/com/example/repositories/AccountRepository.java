@@ -69,6 +69,29 @@ public class AccountRepository {
     return list;
   }
   
+  public Account getAccountByEmployeeId(int employeeId) {
+    String sql = "SELECT * FROM Account WHERE employee_id = ?";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, employeeId);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          Account account = new Account();
+          account.setAccountId(rs.getInt("account_id"));
+          account.setUsername(rs.getString("username"));
+          account.setPassword(rs.getString("password"));
+          account.setRoleId(rs.getInt("role_id"));
+          account.setEmployeeId(rs.getInt("employee_id"));
+          return account;
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    
+    return null;
+  }
+  
   public void insertAccount(Account acc) {
     if (acc == null) return;
     String sql = "INSERT INTO Account (username, password, role_id, employee_id) VALUES (?, ?, ?, ?)";

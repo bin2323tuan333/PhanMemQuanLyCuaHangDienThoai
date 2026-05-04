@@ -33,10 +33,40 @@ public class EmployeeManagementController {
   }
   
   private void setup() {
+    EmployeeService employeeService = new EmployeeService();
+    List<EmployeeInfo> list = employeeService.getAllEmployeeInfos();
+    render(list);
+  }
+  
+  public void handleBtnAdd() {
     try {
-      EmployeeService employeeService = new EmployeeService();
-      List<EmployeeInfo> list = employeeService.getAllEmployeeInfos();
-      
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/EmployeeForm.fxml"));
+      Parent root = loader.load();
+      EmployeeFormController controller = loader.getController();
+      controller.setEmployeeInfo(null);
+      Stage stage = new Stage();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Thêm nhân viên mới");
+      stage.showAndWait();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    
+    EmployeeService employeeService = new EmployeeService();
+    List<EmployeeInfo> list = employeeService.getAllEmployeeInfos();
+    render(list);
+  }
+  
+  public void handleBtnSearch() {
+    String s = this.txt_search_employee.getText().trim().toLowerCase();
+    EmployeeService employeeService = new EmployeeService();
+    List<EmployeeInfo> list = employeeService.searchEmployees(s);
+    render(list);
+  }
+  
+  public void render(List<EmployeeInfo> list) {
+    this.employee_container.getChildren().clear();
+    try {
       for (EmployeeInfo item : list) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Employee.fxml"));
         Node employeeCard = loader.load();
@@ -47,49 +77,5 @@ public class EmployeeManagementController {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
-  }
-  
-  public void handleBtnAdd() {
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/EmployeeForm.fxml"));
-      Parent root = loader.load();
-      EmployeeFormController controller = loader.getController();
-      controller.setEmployeeInfo(null);
-      
-      Stage stage = new Stage();
-      stage.setScene(new Scene(root));
-      stage.setTitle("Thêm nhân viên mới");
-      stage.showAndWait();
-      setup();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  public void handleBtnSearch() {
-    String s = this.txt_search_employee.getText().trim().toLowerCase();
-    this.employee_container.getChildren().clear();
-    
-    EmployeeService employeeService = new EmployeeService();
-    List<EmployeeInfo> list = employeeService.getAllEmployeeInfos();
-    
-    for (var item : list) {
-      try {
-        if (String.valueOf(item.getEmployeeId()).trim().toLowerCase().contains(s) ||
-                    item.getPhoneNumber().trim().toLowerCase().contains(s) ||
-                    item.getFullName().trim().toLowerCase().contains(s)) {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Employee.fxml"));
-          Node employeeCard = loader.load();
-          EmployeeCardController controller = loader.getController();
-          controller.setEmployeeInfo(item);
-          this.employee_container.getChildren().add(employeeCard);
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-      
-    }
-    
   }
 }

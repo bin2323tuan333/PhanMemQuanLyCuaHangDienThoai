@@ -12,4 +12,19 @@ public class AccountService {
     Account acc = accountRepository.getAccountByID(id);
     return acc;
   }
+  
+  public Account getAccountByEmployeeId(int id) {
+    AccountRepository accountRepository = new AccountRepository();
+    return accountRepository.getAccountByEmployeeId(id);
+  }
+  
+  public void insertAccount(Account acc) {
+    AccountRepository accountRepository = new AccountRepository();
+    accountRepository.insertAccount(acc);
+  }
+  
+  public void deleteAccount(int id) {
+    AccountRepository accountRepository = new AccountRepository();
+    accountRepository.deleteAccount(id);
+  }
 }
