@@ -1,7 +1,6 @@
 package com.example.repositories;
 
 import com.example.DTO.BillDetailInfo;
-import com.example.models.Bill;
 import com.example.models.BillDetail;
 
 import java.sql.Connection;
@@ -121,7 +120,7 @@ public class BillDetailRepository {
     return null;
   }
   
-  public void insertBillDetail(BillDetail bd) {
+  public void insertBillDetail( BillDetail bd) {
     String sql = "INSERT INTO billdetail (bill_id, product_id, quantity, unit_price) " +
                          "VALUES (?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql,

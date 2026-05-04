@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ImportBillManagementController {
@@ -62,5 +63,19 @@ public class ImportBillManagementController {
   
   public void handleBtnSearch() {
     String key = txt_search.getText().trim().toLowerCase();
+    this.import_bill_container.getChildren().clear();
+    BillService billService = new BillService();
+    List<ImportBillInfo> list = billService.searchImportBills(key);
+    try {
+      for (var item : list) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/ImportBill.fxml"));
+        Node node = loader.load();
+        ImportBillCardController controller = loader.getController();
+        controller.setImportBillInfo(item);
+        this.import_bill_container.getChildren().add(node);
+
   }
-}
+} catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+  }}

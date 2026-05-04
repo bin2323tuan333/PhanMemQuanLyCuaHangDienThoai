@@ -4,10 +4,7 @@ import com.example.DTO.BillDetailInfo;
 import com.example.DTO.BillInfo;
 import com.example.DTO.ImportBillInfo;
 import com.example.DTO.RecentBill;
-import com.example.models.Bill;
-import com.example.models.Customer;
-import com.example.models.Employee;
-import com.example.models.ImportBill;
+import com.example.models.*;
 import com.example.repositories.*;
 
 import java.sql.SQLException;
@@ -111,6 +108,21 @@ public class BillService {
   }
   public void deleteImportBill(int id) {
     importBillRepository.deleteImportBill(id);
+  }
+  public void deleteBillDetail(int id) {
+    BillDetailRepository billDetailRepository = new BillDetailRepository();
+    billDetailRepository.deleteBillDetail(id);
+  }
+  public void addBillDetail(BillDetail billDetailInfo) throws SQLException {
+    BillDetailRepository billDetailRepository = new BillDetailRepository();
+    billDetailRepository.insertBillDetail(billDetailInfo);
+  }
+  public void updateBillDetail(BillDetail billDetailInfo) throws SQLException {
+    BillDetailRepository billDetailRepository = new BillDetailRepository();
+    billDetailRepository.updateBillDetail(billDetailInfo);
+  }
+  public List<ImportBillInfo> searchImportBills(String key) {
+    return importBillRepository.searchImportBills(key);
   }
 
   
