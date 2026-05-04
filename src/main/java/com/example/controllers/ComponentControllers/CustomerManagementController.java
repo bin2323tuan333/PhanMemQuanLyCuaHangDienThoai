@@ -29,19 +29,9 @@ public class CustomerManagementController {
   }
   
   public void setup() {
-    try {
-      CustomerService customerService = new CustomerService();
-      List<CustomerInfo> list = customerService.getAllCustomerInfos();
-      for (CustomerInfo item : list) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Customer.fxml"));
-        Node node = loader.load();
-        CustomerCardController controller = loader.getController();
-        controller.setCustomerInfo(item);
-        this.customer_container.getChildren().add(node);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    CustomerService customerService = new CustomerService();
+    List<CustomerInfo> list = customerService.getAllCustomerInfos();
+    render(list);
   }
   
   public void handleBtnAdd() {
@@ -54,33 +44,34 @@ public class CustomerManagementController {
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm mới");
       stage.showAndWait();
-      this.customer_container.getChildren().clear();
-      this.setup();
     } catch (java.io.IOException e) {
       e.printStackTrace();
     }
+    CustomerService customerService = new CustomerService();
+    List<CustomerInfo> list = customerService.getAllCustomerInfos();
+    render(list);
   }
   
   public void handleBtnSearch() {
     String s = txt_search.getText().trim().toLowerCase();
-    this.customer_container.getChildren().clear();
     CustomerService customerService = new CustomerService();
-    List<CustomerInfo> list = customerService.getAllCustomerInfos();
-    for (CustomerInfo item : list) {
-      if (item.getCustomerName().toLowerCase().contains(s) ||
-                  item.getPhone().toLowerCase().contains(s) ||
-                  String.valueOf(item.getCustomerId()).contains(s)) {
-        try {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Customer.fxml"));
-          Node node = loader.load();
-          CustomerCardController controller = loader.getController();
-          controller.setCustomerInfo(item);
-          customer_container.getChildren().add(node);
-        } catch (java.io.IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
+    List<CustomerInfo> list = customerService.searchCustomerInfos(s);
+    render(list);
   }
   
+  
+  public void render(List<CustomerInfo> list) {
+    this.customer_container.getChildren().clear();
+    try {
+      for (CustomerInfo item : list) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Customer.fxml"));
+        Node node = loader.load();
+        CustomerCardController controller = loader.getController();
+        controller.setCustomerInfo(item);
+        this.customer_container.getChildren().add(node);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

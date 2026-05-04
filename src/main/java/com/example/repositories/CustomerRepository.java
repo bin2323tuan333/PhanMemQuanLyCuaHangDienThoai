@@ -30,6 +30,33 @@ public class CustomerRepository {
     return customers;
   }
   
+  public List<CustomerInfo> searchCustomerInfo(String keyword) {
+    List<CustomerInfo> customers = new ArrayList<>();
+    String sql = "SELECT customer_id, full_name, gender, birthday, address, phone_number " +
+                         "FROM customer " +
+                         "WHERE full_name LIKE ? OR phone_number LIKE ? " +
+                         "ORDER BY customer_id DESC";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      
+      String searchPattern = "%" + keyword.trim() + "%";
+      pstmt.setString(1, searchPattern);
+      pstmt.setString(2, searchPattern);
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs != null && rs.next()) {
+          CustomerInfo cus = new CustomerInfo();
+          cus.setFromRS(rs);
+          customers.add(cus);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return customers;
+  }
+  
   public List<CustomerInfo> getAllCustomerInfos() {
     List<CustomerInfo> customers = new ArrayList<>();
     String sql = "SELECT  customer_id,  full_name,  gender,  birthday,  address,  phone_number " +
@@ -119,8 +146,8 @@ public class CustomerRepository {
     }
     return customers;
   }
-
-  public void insertCustomer( CustomerInfo cus) {
+  
+  public void insertCustomer(CustomerInfo cus) {
     String sql = "INSERT INTO Customer (full_name, birthday, address, phone_number) VALUES (?, ?, ?, ?)";
     DBHelper.Instance().executeUpd(sql,
             cus.getCustomerName(),
@@ -129,7 +156,7 @@ public class CustomerRepository {
             cus.getPhone());
   }
   
-  public void updateCustomer( CustomerInfo cus) {
+  public void updateCustomer(CustomerInfo cus) {
     String sql = "UPDATE Customer SET full_name = ?, birthday = ?, address = ?, phone_number = ? WHERE customer_id = ?";
     DBHelper.Instance().executeUpd(sql,
             cus.getCustomerName(),
