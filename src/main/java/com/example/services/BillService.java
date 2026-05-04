@@ -1,9 +1,6 @@
 package com.example.services;
 
-import com.example.DTO.BillDetailInfo;
-import com.example.DTO.BillInfo;
-import com.example.DTO.ImportBillInfo;
-import com.example.DTO.RecentBill;
+import com.example.DTO.*;
 import com.example.models.*;
 import com.example.repositories.*;
 
@@ -85,12 +82,21 @@ public class BillService {
     return billDetailRepository.getBillDetailInfosByBillId(id);
   }
   
+  public List<ImportBillDetailInfo> getImportBillDetailInfoByBillId(int id) {
+    BillDetailRepository billDetailRepository = new BillDetailRepository();
+    return billDetailRepository.getImportBillDetailInfosByBillId(id);
+  }
+  
   public void updateBill(Bill billInfo) {
     billRepository.updateBill(billInfo);
   }
   
   public int addBill(Bill billInfo) {
     return billRepository.addBill(billInfo);
+  }
+  
+  public int addImportBill(ImportBill billInfo) {
+    return importBillRepository.addImportBill(billInfo);
   }
   
   public double getTotalRevenue() {
@@ -101,9 +107,6 @@ public class BillService {
     return billRepository.getTotalOrders();
   }
   
-  public void addImportBill(ImportBillInfo importBillInfo) {
-    importBillRepository.insertImportBill(importBillInfo);
-  }
   
   public void updateImportBill(ImportBillInfo importBillInfo) {
     importBillRepository.updateImportBill(importBillInfo);
@@ -131,6 +134,5 @@ public class BillService {
   public List<ImportBillInfo> searchImportBills(String key) {
     return importBillRepository.searchImportBills(key);
   }
-  
   
 }

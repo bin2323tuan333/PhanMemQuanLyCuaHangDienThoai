@@ -1,12 +1,23 @@
 package com.example.controllers.ComponentControllers;
 
+import com.example.DTO.BillDetailInfo;
+import com.example.DTO.ImportBillDetailInfo;
 import com.example.DTO.ImportBillInfo;
+import com.example.controllers.ComponentControllers.Card.BillDetailController;
+import com.example.controllers.ComponentControllers.Card.ImportBillCardController;
+import com.example.controllers.ComponentControllers.Card.ImportBillDetailCardController;
 import com.example.services.BillService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ImportBillFormController {
   @FXML
@@ -18,7 +29,9 @@ public class ImportBillFormController {
   @FXML
   private TextField txt_name_employee;
   @FXML
-    private javafx.scene.control.Button btn_cancel;
+  private Button btn_cancel;
+  @FXML
+  private VBox bill_detail_container;
   
   
   private ImportBillInfo importBillInfo;
@@ -41,26 +54,29 @@ public class ImportBillFormController {
       txt_name_supplier.setText(this.importBillInfo.getSupplier().getName() + "");
       txt_total_price.setText(this.importBillInfo.getTotalAmount() + "");
     }
+    
+    loadImportBillDetails();
   }
   
   public void handleBtnUpdate() throws SQLException {
-
+    
     BillService importBillService = new BillService();
-
-  importBillService.updateImportBill(getImportBillformfromInput());
-close();
-
+    
+    importBillService.updateImportBill(getImportBillformfromInput());
+    close();
+    
   }
   
   public void handleBtnDelete() {
     BillService importBillService = new BillService();
     importBillService.deleteImportBill(importBillInfo.getImportId());
-  close();
+    close();
   }
   
   public void handleBtnCancel() {
     close();
   }
+  
   public ImportBillInfo getImportBillformfromInput() {
     ImportBillInfo i = new ImportBillInfo();
     i.setImportId(Integer.parseInt(txt_id.getText()));
@@ -69,13 +85,25 @@ close();
     i.setTotalAmount(Double.parseDouble(txt_total_price.getText()));
     return i;
   }
-  public void handleBtnAdd() throws SQLException {
-    BillService importBillService = new BillService();
-    importBillService.addImportBill(getImportBillformfromInput());
-  }
+  
   public void close() {
     Stage stage = (Stage) btn_cancel.getScene().getWindow();
     stage.close();
-
+  }
+  
+  public void loadImportBillDetails() {
+    BillService billService = new BillService();
+    List<ImportBillDetailInfo> list = billService.getImportBillDetailInfoByBillId(importBillInfo.getImportId());
+    try {
+      for (var item : list) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/ImportBillDetail.fxml"));
+        Node node = loader.load();
+        ImportBillDetailCardController controller = loader.getController();
+        controller.setImportBillDetailInfo(item);
+        this.bill_detail_container.getChildren().add(node);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

@@ -4,7 +4,10 @@ import com.example.DTO.CartInfo;
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.CartCardController;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;
+import com.example.models.ImportBill;
 import com.example.models.Supplier;
+import com.example.repositories.ImportBillDetailRepository;
+import com.example.services.BillService;
 import com.example.services.ProductService;
 import com.example.services.SupplierService;
 import javafx.fxml.FXML;
@@ -184,7 +187,47 @@ public class CreateImportBillController {
   }
   
   public void handleBtnCheckout() {
-    // check out
+    if (supplier == null || listCart.isEmpty()) {
+      return;
+    }
+    
+    BillService importBillService = new BillService();
+    ImportBill importBill = new ImportBill();
+    importBill.setSupplierId(supplier.getSupplierId());
+    importBill.setEmployeeId(1);
+    
+    double total = listCart.stream()
+                           .mapToDouble(item -> item.getProductInfo().getPrice() * item.getQuantity())
+                           .sum();
+    importBill.setTotalAmount(total);
+    
+    int importBillId = importBillService.addImportBill(importBill);
+    
+    if (importBillId <= 0) {
+      System.out.println("Tạo hóa đơn nhập không thành công, kiểm tra lại DB!");
+      return;
+    }
+    
+    ImportBillDetailRepository importBillDetailService = new ImportBillDetailRepository();
+    for (CartInfo item : listCart) {
+      importBillDetailService.insertImportBillDetail(
+              importBillId,
+              item.getProductInfo().getProductId(),
+              item.getQuantity(),
+              item.getProductInfo().getPrice()
+      );
+    }
+    
+    ProductService productService = new ProductService();
+    for (CartInfo item : listCart) {
+      productService.increaseStock(
+              item.getProductInfo().getProductId(),
+              item.getQuantity()
+      );
+    }
+    
+    this.listCart.clear();
+    this.cartlist.getChildren().clear();
   }
   
   public void handleBtnDeleteCart() {
