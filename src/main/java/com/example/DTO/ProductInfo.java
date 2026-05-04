@@ -18,7 +18,6 @@ public class ProductInfo {
   private int brandId;    // FK -> Brand
   
   private Brand brand;
-  private Supplier supplier;
   private Category category;
   
   
@@ -26,7 +25,7 @@ public class ProductInfo {
   
   }
   
-  public ProductInfo(int productId, String productName, String description, double price, int stock, int categoryId, int brandId, Brand brand, Supplier supplier, Category category) {
+  public ProductInfo(int productId, String productName, String description, double price, int stock, int categoryId, int brandId, Brand brand, Category category) {
     this.productId = productId;
     this.productName = productName;
     this.description = description;
@@ -35,7 +34,6 @@ public class ProductInfo {
     this.categoryId = categoryId;
     this.brandId = brandId;
     this.brand = brand;
-    this.supplier = supplier;
     this.category = category;
   }
   
@@ -55,11 +53,6 @@ public class ProductInfo {
     brand.setBrandId(rs.getInt("brand_id"));
     brand.setBrandName(rs.getString("brand_name"));
     this.setBrand(brand);
-    
-    Supplier supplier = new Supplier();
-    supplier.setSupplierId(rs.getInt("supplier_id"));
-    supplier.setName(rs.getString("supplier_name"));
-    this.setSupplier(supplier);
   }
   
   public int getProductId() {
@@ -124,14 +117,6 @@ public class ProductInfo {
   
   public void setBrand(Brand brand) {
     this.brand = brand;
-  }
-  
-  public Supplier getSupplier() {
-    return supplier;
-  }
-  
-  public void setSupplier(Supplier supplier) {
-    this.supplier = supplier;
   }
   
   public Category getCategory() {

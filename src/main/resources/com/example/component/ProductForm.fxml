@@ -32,7 +32,6 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label text="Mã sản phẩm" textFill="#4a5568">
@@ -70,11 +69,6 @@
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <Label text="Nhà cung cấp" textFill="#4a5568" GridPane.rowIndex="7">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
                 <TextField fx:id="txt_id" editable="false" style="-fx-background-color: #F8F9FA; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1">
                     <padding>
                         <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
@@ -102,7 +96,6 @@
                 </TextField>
                 <ComboBox fx:id="cbb_category" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ccc;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <ComboBox fx:id="cbb_brand" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ccc;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <ComboBox fx:id="cbb_supplier" layoutX="132.0" layoutY="277.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ccc;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             </children>
         </GridPane>
         <HBox alignment="CENTER" prefHeight="216.0" prefWidth="600.0" spacing="20.0">

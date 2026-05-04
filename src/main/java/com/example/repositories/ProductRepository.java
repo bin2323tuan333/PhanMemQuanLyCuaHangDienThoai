@@ -28,11 +28,10 @@ public class ProductRepository {
   
   public List<ProductInfo> searchProduct(String key, int categoryId, int brandId, double minPrice, double maxPrice) {
     List<ProductInfo> list = new ArrayList<>();
-    String sql = "SELECT p.*, b.brand_name, c.category_name, s.name AS supplier_name " +
+    String sql = "SELECT p.*, b.brand_name, c.category_name " +
                          "FROM Product p " +
                          "INNER JOIN Brand b ON p.brand_id = b.brand_id " +
                          "INNER JOIN Category c ON p.category_id = c.category_id " +
-                         "INNER JOIN Supplier s ON p.supplier_id = s.supplier_id " +
                          "WHERE p.product_name LIKE ? " +
                          "AND (? = -1 OR p.category_id = ?) " +
                          "AND (? = -1 OR p.brand_id = ?) " +
@@ -86,11 +85,10 @@ public class ProductRepository {
   
   public List<ProductInfo> getAllProductInfos() {
     List<ProductInfo> list = new ArrayList<>();
-    String sql = "SELECT p.*, b.brand_name, c.category_name, s.name AS supplier_name " +
+    String sql = "SELECT p.*, b.brand_name, c.category_name " +
                          "FROM Product p  " +
                          "INNER JOIN Brand b ON p.brand_id = b.brand_id  " +
-                         "INNER JOIN Category c ON p.category_id = c.category_id  " +
-                         "INNER JOIN Supplier s ON p.supplier_id = s.supplier_id";
+                         "INNER JOIN Category c ON p.category_id = c.category_id;  ";
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql);
          ResultSet rs = pstmt.executeQuery()) {
@@ -106,11 +104,10 @@ public class ProductRepository {
   }
   
   public ProductInfo getProductInfoById(int id) {
-    String sql = "SELECT p.*, b.brand_name, c.category_name, s.name AS supplier_name " +
+    String sql = "SELECT p.*, b.brand_name, c.category_name " +
                          "FROM Product p  " +
                          "INNER JOIN Brand b ON p.brand_id = b.brand_id  " +
                          "INNER JOIN Category c ON p.category_id = c.category_id  " +
-                         "INNER JOIN Supplier s ON p.supplier_id = s.supplier_id  " +
                          "WHERE p.product_id = ?;";
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -224,21 +221,21 @@ public class ProductRepository {
     return list;
   }
   
-  public void insertProduct(ProductInfo p) {
-    String sql = "INSERT INTO Product (product_name, description, price, stock, category_id, brand_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?);";
+  public void insertProduct(Product p) {
+    String sql = "INSERT INTO Product (product_name, description, price, stock, category_id, brand_id) VALUES (?, ?, ?, ?, ?, ?);";
+    System.out.println(p.toString());
     DBHelper.Instance().executeUpd(sql,
             p.getProductName(),
             p.getDescription(),
             p.getPrice(),
             p.getStock(),
             p.getCategoryId(),
-            p.getBrandId(),
-            p.getSupplier().getSupplierId());
+            p.getBrandId());
   }
   
-  public void updateProduct(ProductInfo p) {
+  public void updateProduct(Product p) {
     String sql = "UPDATE Product SET product_name = ?, description = ?, " +
-                         "price = ?, stock = ?, category_id = ?, brand_id = ?, supplier_id = ? WHERE product_id = ?";
+                         "price = ?, stock = ?, category_id = ?, brand_id = ? WHERE product_id = ?";
     DBHelper.Instance().executeUpd(sql,
             p.getProductName(),
             p.getDescription(),
@@ -246,7 +243,6 @@ public class ProductRepository {
             p.getStock(),
             p.getCategoryId(),
             p.getBrandId(),
-            p.getSupplier().getSupplierId(),
             p.getProductId());
   }
   

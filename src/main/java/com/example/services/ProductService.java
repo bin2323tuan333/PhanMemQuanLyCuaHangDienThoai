@@ -36,12 +36,12 @@ public class ProductService {
     return item;
   }
   
-  public void addProduct(ProductInfo productInfo) {
+  public void addProduct(Product productInfo) {
     ProductRepository productRepo = new ProductRepository();
     productRepo.insertProduct(productInfo);
   }
   
-  public void updateProduct(ProductInfo productInfo) {
+  public void updateProduct(Product productInfo) {
     ProductRepository productRepo = new ProductRepository();
     productRepo.updateProduct(productInfo);
   }

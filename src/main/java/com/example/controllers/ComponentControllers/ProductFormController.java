@@ -3,6 +3,7 @@ package com.example.controllers.ComponentControllers;
 import com.example.DTO.ProductInfo;
 import com.example.models.Brand;
 import com.example.models.Category;
+import com.example.models.Product;
 import com.example.models.Supplier;
 import com.example.services.BrandService;
 import com.example.services.CategoryService;
@@ -40,8 +41,6 @@ public class ProductFormController {
   private ComboBox<Category> cbb_category;
   @FXML
   private ComboBox<Brand> cbb_brand;
-  @FXML
-  private ComboBox<Supplier> cbb_supplier;
   
   private ProductInfo productInfo;
   
@@ -54,13 +53,10 @@ public class ProductFormController {
   public void initialize() {
     CategoryService categoryService = new CategoryService();
     BrandService brandService = new BrandService();
-    SupplierService supplierService = new SupplierService();
     List<Category> categories = categoryService.getAllCategorys();
     List<Brand> brands = brandService.getAllBrands();
-    List<Supplier> suppliers = supplierService.getAllSuppliers();
     cbb_category.setItems(FXCollections.observableArrayList(categories));
     cbb_brand.setItems(FXCollections.observableArrayList(brands));
-    cbb_supplier.setItems(FXCollections.observableArrayList(suppliers));
   }
   
   
@@ -92,9 +88,6 @@ public class ProductFormController {
       if (productInfo.getBrand() != null) {
         cbb_brand.setValue(productInfo.getBrand());
       }
-      if (productInfo.getSupplier() != null) {
-        cbb_supplier.setValue(productInfo.getSupplier());
-      }
     }
   }
   
@@ -107,15 +100,14 @@ public class ProductFormController {
     
     cbb_category.getSelectionModel().clearSelection();
     cbb_brand.getSelectionModel().clearSelection();
-    cbb_supplier.getSelectionModel().clearSelection();
   }
   
   @FXML
   public void handleBtnAdd() {
     ProductService productService = new ProductService();
-    ProductInfo newProduct = getProductDataFromForm();
+    Product newProduct = getProductDataFromForm();
     if (newProduct != null) {
-    productService.addProduct(newProduct);
+      productService.addProduct(newProduct);
       closeForm();
     }
   }
@@ -124,10 +116,10 @@ public class ProductFormController {
   public void handleBtnUpdate() {
     ProductService productService = new ProductService();
     if (productInfo != null) {
-      ProductInfo updatedProduct = getProductDataFromForm();
+      Product updatedProduct = getProductDataFromForm();
       if (updatedProduct != null) {
         updatedProduct.setProductId(productInfo.getProductId());
-       productService.updateProduct(updatedProduct);
+        productService.updateProduct(updatedProduct);
         closeForm();
       }
     }
@@ -137,7 +129,7 @@ public class ProductFormController {
   public void handleBtnDelete() {
     ProductService productService = new ProductService();
     if (productInfo != null) {
-     productService.deleteProduct(productInfo.getProductId());
+      productService.deleteProduct(productInfo.getProductId());
       closeForm();
     }
   }
@@ -147,26 +139,40 @@ public class ProductFormController {
     closeForm();
   }
   
-  private ProductInfo getProductDataFromForm() {
+  private Product getProductDataFromForm() {
     try {
       String name = txt_name.getText().trim();
-      double price = Double.parseDouble(txt_price.getText().trim());
-      int stock = Integer.parseInt(txt_stock.getText().trim());
+      String priceText = txt_price.getText().trim();
+      String stockText = txt_stock.getText().trim();
       String description = txt_description.getText().trim();
+      
       Category category = cbb_category.getValue();
       Brand brand = cbb_brand.getValue();
-      Supplier supplier = cbb_supplier.getValue();
-      ProductInfo p = new ProductInfo();
+      
+      if (category == null || brand == null) {
+        System.out.println("Lỗi: Phải chọn đầy đủ Category, Brand!");
+        return null;
+      }
+      
+      if (name.isEmpty() || priceText.isEmpty() || stockText.isEmpty()) {
+        System.out.println("Lỗi: Không được để trống thông tin text!");
+        return null;
+      }
+      
+      double price = Double.parseDouble(priceText);
+      int stock = Integer.parseInt(stockText);
+      
+      Product p = new Product();
       p.setProductName(name);
       p.setPrice(price);
       p.setStock(stock);
       p.setDescription(description);
-      p.setCategory(category);
-      p.setBrand(brand);
-      p.setSupplier(supplier);
+      p.setCategoryId(category.getCategoryId());
+      p.setBrandId(brand.getBrandId());
       
       return p;
     } catch (NumberFormatException e) {
+      System.out.println("Lỗi: Giá và Số lượng phải là số hợp lệ!");
       e.printStackTrace();
       return null;
     }
