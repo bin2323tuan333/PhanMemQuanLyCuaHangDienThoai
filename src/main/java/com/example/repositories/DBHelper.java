@@ -5,7 +5,7 @@ import java.sql.*;
 public class DBHelper {
   private static String DB_URL = "jdbc:mysql://localhost:3306/sales_management";
   private static String USER = "root";
-  private static String PASS = "0905997689";
+  private static String PASS = "123456";
   
   private static DBHelper _instance;
   
@@ -45,25 +45,22 @@ public class DBHelper {
     try (Connection conn = getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       
-      // Set parameters
       if (params != null && params.length > 0) {
         for (int i = 0; i < params.length; i++) {
           pstmt.setObject(i + 1, params[i]);
         }
       }
       
-      // Bắt xem nó có thực sự thêm được dòng nào không
       int rowsAffected = pstmt.executeUpdate();
       System.out.println("🔥 Số dòng đã Insert vào DB: " + rowsAffected);
       
-      // FIX TẠM THỜI: Ép commit nếu lỡ tắt auto-commit
       if (!conn.getAutoCommit()) {
         conn.commit();
         System.out.println("✅ Đã ép Commit thành công!");
       }
       
     } catch (SQLException e) {
-      System.err.println("🚨 BÁO ĐỘNG ĐỎ LỖI SQL:"); // Cho nó nổi bật để dễ nhìn
+      System.err.println("🚨 BÁO ĐỘNG ĐỎ LỖI SQL:");
       e.printStackTrace();
     }
   }

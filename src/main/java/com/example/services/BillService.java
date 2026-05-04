@@ -88,12 +88,12 @@ public class BillService {
     return billDetailRepository.getBillDetailInfosByBillId(id);
   }
   
-  public void updateBill(Bill billInfo) throws SQLException {
+  public void updateBill(Bill billInfo) {
     billRepository.updateBill(billInfo);
   }
   
-  public void addBill(Bill billInfo) throws SQLException {
-    billRepository.insertBill(billInfo);
+  public int addBill(Bill billInfo) {
+    return billRepository.addBill(billInfo);
   }
   
   public double getTotalRevenue() {
@@ -103,16 +103,18 @@ public class BillService {
   public double getTotalOrders() {
     return billRepository.getTotalOrders();
   }
-  public void addImportBill(ImportBillInfo importBillInfo) throws SQLException {
+  
+  public void addImportBill(ImportBillInfo importBillInfo) {
     importBillRepository.insertImportBill(importBillInfo);
   }
-  public  void updateImportBill(ImportBillInfo importBillInfo) throws SQLException {
+  
+  public void updateImportBill(ImportBillInfo importBillInfo) {
     importBillRepository.updateImportBill(importBillInfo);
   }
+  
   public void deleteImportBill(int id) {
     importBillRepository.deleteImportBill(id);
   }
-
   
   
 }

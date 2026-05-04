@@ -136,8 +136,34 @@ public class BillRepository {
     } catch (SQLException e) {
       System.out.println(e.getErrorCode());
     }
-    
     return null;
+  }
+  
+  public int addBill(Bill bill) {
+    String sql = "INSERT INTO bill (customer_id, employee_id, invoice_date, total_amount) VALUES (?, ?, NOW(), ?)";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+      
+      pstmt.setInt(1, bill.getCustomerId());
+      pstmt.setInt(2, bill.getEmployeeId());
+      pstmt.setDouble(3, bill.getTotalAmount());
+      
+      int affectedRows = pstmt.executeUpdate();
+      
+      if (affectedRows > 0) {
+        try (ResultSet rs = pstmt.getGeneratedKeys()) {
+          if (rs.next()) {
+            int generatedId = rs.getInt(1);
+            bill.setBillId(generatedId);
+            return generatedId;
+          }
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return -1;
   }
   
   public void insertBill(Bill b) {
@@ -190,10 +216,11 @@ public class BillRepository {
     return bills;
     
   }
+  
   public double getTotalRevenue() {
     double totalRevenue = 0.0;
     String sql = "SELECT SUM(total_amount) FROM Bill";
-
+    
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       try (ResultSet rs = pstmt.executeQuery()) {
@@ -204,14 +231,14 @@ public class BillRepository {
     } catch (SQLException e) {
       System.out.println(e.getErrorCode());
     }
-
+    
     return totalRevenue;
   }
-
+  
   public double getTotalOrders() {
     int totalOrders = 0;
     String sql = "SELECT COUNT(*) FROM Bill";
-
+    
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       try (ResultSet rs = pstmt.executeQuery()) {
@@ -222,7 +249,7 @@ public class BillRepository {
     } catch (SQLException e) {
       System.out.println(e.getErrorCode());
     }
-
+    
     return totalOrders;
   }
 }

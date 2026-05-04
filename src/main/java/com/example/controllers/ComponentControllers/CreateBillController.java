@@ -36,16 +36,17 @@ public class CreateBillController {
   @FXML
   private FlowPane productlist;
   @FXML
-    private FlowPane customerlist;
+  private FlowPane customerlist;
   @FXML
   private VBox cartlist;
-  @FXML private VBox customerBox;
-
+  @FXML
+  private VBox customerBox;
+  
   @FXML
   private HBox main_container;
   @FXML
   private VBox product_container;
-
+  
   @FXML
   private Label lb_total_price;
   @FXML
@@ -62,12 +63,12 @@ public class CreateBillController {
   private TextField txt_search_customer;
   @FXML
   private TextField txt_search_product;
-
+  
   private List<CartInfo> listCart;
-  List<ProductInfo> listProduct;
-  List<CustomerInfo> listCustomer;
+  private List<ProductInfo> listProduct;
+  private List<CustomerInfo> listCustomer;
   private CustomerInfo customer;
-
+  
   @FXML
   public void initialize() {
     listCart = new ArrayList<>();
@@ -80,10 +81,10 @@ public class CreateBillController {
       e.printStackTrace();
     }
   }
-
+  
   private void setup() throws IOException {
     ProductService productService = new ProductService();
-
+    
     listProduct = productService.getAllProductInfos();
     for (ProductInfo item : listProduct) {
       FXMLLoader productComp = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
@@ -95,29 +96,31 @@ public class CreateBillController {
       this.productlist.getChildren().add(node);
     }
   }
-private void loadCustomers() {
-  CustomerService customerService = new CustomerService();
-  List<CustomerInfo> customers = customerService.getAllCustomerInfos();
-
-  customerlist.getChildren().clear();
-
-  for (CustomerInfo item : customers) {
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Customer.fxml"));
-      Node node = loader.load();
-
-      CustomerCardController controller = loader.getController();
-      controller.setCustomerInfo(item);
-      controller.setParentController(this);
-      controller.setParentController(this);
-
-      customerlist.getChildren().add(node);
-
-    } catch (Exception e) {
-      e.printStackTrace();
+  
+  private void loadCustomers() {
+    CustomerService customerService = new CustomerService();
+    List<CustomerInfo> customers = customerService.getAllCustomerInfos();
+    
+    customerlist.getChildren().clear();
+    
+    for (CustomerInfo item : customers) {
+      try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Customer.fxml"));
+        Node node = loader.load();
+        
+        CustomerCardController controller = loader.getController();
+        controller.setCustomerInfo(item);
+        controller.setParentController(this);
+        controller.setParentController(this);
+        
+        customerlist.getChildren().add(node);
+        
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
-}
+  
   public void addProductEngine(int id) {
     try {
       CartInfo existingItem = null;
@@ -147,7 +150,7 @@ private void loadCustomers() {
       e.printStackTrace();
     }
   }
-
+  
   public void deleteCart(int productId, HBox container) {
     this.cartlist.getChildren().remove(container);
     for (CartInfo cartItem : listCart) {
@@ -158,7 +161,7 @@ private void loadCustomers() {
     }
     this.caculate();
   }
-
+  
   public void caculate() {
     double price = 0;
     for (CartInfo item : listCart) {
@@ -167,7 +170,7 @@ private void loadCustomers() {
     DecimalFormat df = new DecimalFormat("#,###");
     this.lb_total_price.setText(df.format(price) + " VNĐ");
   }
-
+  
   public void decreaseQuantity(int productId) {
     for (CartInfo cartItem : listCart) {
       if (cartItem.getProductInfo().getProductId() == productId) {
@@ -175,7 +178,7 @@ private void loadCustomers() {
       }
     }
   }
-
+  
   public void increaseQuantity(int productId) {
     for (CartInfo cartItem : listCart) {
       if (cartItem.getProductInfo().getProductId() == productId) {
@@ -183,30 +186,29 @@ private void loadCustomers() {
       }
     }
   }
-
+  
   public void handleBtnSearchCustomer() {
-
-
-String keyword = txt_search_customer.getText().trim().toLowerCase();
-
+    String keyword = txt_search_customer.getText().trim().toLowerCase();
+    
     this.customerlist.getChildren().clear();
-
-
+    
+    
   }
-
+  
   public void handleBtnSearchProduct() {
     String keyword = txt_search_product.getText().trim().toLowerCase();
     this.productlist.getChildren().clear();
-
+    
     for (ProductInfo item : listProduct) {
       if (keyword.isEmpty() ||
-              item.getProductName().toLowerCase().contains(keyword) ||
-              String.valueOf(item.getProductId()).contains(keyword)) {
+                  item.getProductName().toLowerCase().contains(keyword) ||
+                  String.valueOf(item.getProductId()).contains(keyword)) {
         try {
           FXMLLoader productComp = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
           Node node = productComp.load();
           ProductCardController controller = productComp.getController();
           controller.setProduct(item);
+          controller.setSale(true);
           controller.setCreateBillController(this);
           controller.setCreateImportBillController(null);
           this.productlist.getChildren().add(node);
@@ -215,19 +217,16 @@ String keyword = txt_search_customer.getText().trim().toLowerCase();
         }
       }
     }
-
+    
   }
-
-  public void handleBtnCheckout() {
-    // check out
-  }
-
+  
+  
   public void handleBtnDeleteCart() {
     this.cartlist.getChildren().clear();
     this.listCart = new ArrayList<>();
     caculate();
   }
-
+  
   public void handleBtnAddCustomer() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
@@ -242,7 +241,7 @@ String keyword = txt_search_customer.getText().trim().toLowerCase();
       e.printStackTrace();
     }
   }
-
+  
   public void handleBtnAddProduct() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductForm.fxml"));
@@ -257,42 +256,34 @@ String keyword = txt_search_customer.getText().trim().toLowerCase();
       e.printStackTrace();
     }
   }
-
+  
   public void handleBtnCancel() {
     Stage stage = (Stage) main_container.getScene().getWindow();
     stage.close();
   }
-
-  public void handleBtnAddBill() throws SQLException {
-
-    if (customer == null) {
-
+  
+  public void handleBtnAddBill() {
+    if (customer == null || listCart.isEmpty()) {
       return;
     }
-
-    if (listCart.isEmpty()) {
-
-      return;
-    }
-
+    
     BillService billService = new BillService();
     Bill bill = new Bill();
-
     bill.setCustomerId(customer.getCustomerId());
     bill.setEmployeeId(1);
-
+    
     double total = listCart.stream()
-            .mapToDouble(item -> item.getProductInfo().getPrice() * item.getQuantity())
-            .sum();
-
+                           .mapToDouble(item -> item.getProductInfo().getPrice() * item.getQuantity())
+                           .sum();
     bill.setTotalAmount(total);
-
-
-    billService.addBill(bill);
-    int billId = bill.getBillId();
-
+    int billId = billService.addBill(bill);
+    
+    if (billId <= 0) {
+      System.out.println("Tạo bill không thành công, kiểm tra lại DB!");
+      return;
+    }
+    
     BillDetailRepository billDetailService = new BillDetailRepository();
-
     for (CartInfo item : listCart) {
       billDetailService.insertBillDetail(
               billId,
@@ -301,36 +292,32 @@ String keyword = txt_search_customer.getText().trim().toLowerCase();
               item.getProductInfo().getPrice()
       );
     }
-
+    
     ProductService productService = new ProductService();
     for (CartInfo item : listCart) {
-      productService.decreaseStock(item.getProductInfo().getProductId(), item.getQuantity());
-
-
-      Stage stage = (Stage) main_container.getScene().getWindow();
-      stage.close();
+      productService.decreaseStock(
+              item.getProductInfo().getProductId(),
+              item.getQuantity()
+      );
     }
+    
+    this.listCart.clear();
+    this.cartlist.getChildren().clear();
+    
+    
   }
-
+  
   public void selectCustomer(CustomerInfo customer) {
+    this.listCart.clear();
+    this.cartlist.getChildren().clear();
     this.customer = customer;
-
-
     lb_name.setText(customer.getCustomerName());
     lb_phone.setText(customer.getPhone());
     lb_dob.setText(customer.getDob().toString());
     lb_gender.setText(customer.getGender() ? "Nữ" : "Nam");
     lb_address.setText(customer.getAddress());
-
-
-    cartlist.getChildren().clear();
-
-    Label customerItem = new Label("👤 " + customer.getCustomerName() + " - " + customer.getPhone());
-    customerItem.setStyle("-fx-background-color: #d0ebff; -fx-padding: 10; -fx-background-radius: 8;");
-
-    cartlist.getChildren().add(customerItem);
   }
-
-  }
+  
+}
 
 

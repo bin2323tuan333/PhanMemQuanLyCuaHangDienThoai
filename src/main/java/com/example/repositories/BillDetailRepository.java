@@ -36,17 +36,10 @@ public class BillDetailRepository {
   }
   
   public List<BillDetailInfo> getBillDetailInfosByBillId(int billId) {
-    String sql = "SELECT " +
-                         "bd.bill_detail_id, bd.bill_id, bd.quantity, bd.unit_price, " +
-                         "p.product_id, p.product_name, p.price, p.stock, " +
-                         "p.quantity AS product_quantity, p.description, " +
-                         "p.category_id, p.brand_id, p.supplier_id, " +
-                         "b.brand_name, c.category_name, s.name AS supplier_name " +
-                         "FROM BillDetail bd " +
-                         "LEFT JOIN Product p ON bd.product_id = p.product_id " +
-                         "LEFT JOIN Brand b ON p.brand_id = b.brand_id " +
-                         "LEFT JOIN Category c ON p.category_id = c.category_id " +
-                         "LEFT JOIN Supplier s ON p.supplier_id = s.supplier_id " +
+    String sql = "SELECT * FROM billdetail bd \n" +
+                         "LEFT JOIN product p ON bd.product_id = p.product_id \n" +
+                         "LEFT JOIN brand b ON p.brand_id = b.brand_id \n" +
+                         "LEFT JOIN category c ON p.category_id = c.category_id \n" +
                          "WHERE bd.bill_id = ?";
     
     List<BillDetailInfo> list = new ArrayList<>();
@@ -147,7 +140,7 @@ public class BillDetailRepository {
                          "WHERE bill_detail_id = ?;";
     DBHelper.Instance().executeUpd(sql, id);
   }
-
+  
   public void insertBillDetail(int billId, int productId, int quantity, double price) {
     String sql = "INSERT INTO billdetail (bill_id, product_id, quantity, unit_price) " +
                          "VALUES (?, ?, ?, ?);";
