@@ -5,6 +5,7 @@ import com.example.models.Supplier;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,31 @@ public class SupplierRepository {
       e.printStackTrace();
     }
     return null;
+  }
+  
+  public List<Supplier> searchSuppliers(String keyword) {
+    List<Supplier> list = new ArrayList<>();
+    String sql = "SELECT * FROM supplier WHERE name LIKE ? OR phone LIKE ?";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      
+      String searchPattern = "%" + keyword.trim() + "%";
+      pstmt.setString(1, searchPattern);
+      pstmt.setString(2, searchPattern);
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs.next()) {
+          Supplier s = new Supplier();
+          s.setFromRS(rs);
+          list.add(s);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    
+    return list;
   }
   
   public Supplier getSupplierByPhone(String phone) {
@@ -100,6 +126,7 @@ public class SupplierRepository {
             supplier.getPhone(),
             supplier.getEmail());
   }
+  
   
   public void updateSupplier(Supplier supplier) {
     String sql = "UPDATE Supplier SET name = ?, address = ?, phone = ?, email = ? WHERE supplier_id = ?";

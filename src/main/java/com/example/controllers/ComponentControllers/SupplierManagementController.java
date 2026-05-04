@@ -38,19 +38,9 @@ public class SupplierManagementController {
   @FXML
   public void handleBtnSearch() {
     String s = txt_search.getText().trim().toLowerCase();
-    List<Supplier> list = new ArrayList<>();
-    
     SupplierService supplierService = new SupplierService();
-    List<Supplier> suppliers = supplierService.getAllSuppliers();
-    
-    for (var item : suppliers) {
-      if (item.getName().trim().toLowerCase().contains(s) ||
-                  item.getPhone().trim().toLowerCase().contains(s)) {
-        list.add(item);
-      }
-    }
-    
-    renderSupplier(list);
+    List<Supplier> suppliers = supplierService.searchSuppliers(s);
+    renderSupplier(suppliers);
   }
   
   public void handleBtnAdd() {

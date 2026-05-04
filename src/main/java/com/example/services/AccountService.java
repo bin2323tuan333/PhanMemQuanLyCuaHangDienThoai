@@ -27,4 +27,11 @@ public class AccountService {
     AccountRepository accountRepository = new AccountRepository();
     accountRepository.deleteAccount(id);
   }
+  
+  public void changePassword(String username, String newPass) {
+    AccountRepository accountRepository = new AccountRepository();
+    Account acc = accountRepository.getAccountByUsername(username);
+    acc.setPassword(newPass);
+    accountRepository.updateAccount(acc);
+  }
 }

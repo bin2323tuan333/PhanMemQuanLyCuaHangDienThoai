@@ -61,22 +61,15 @@ public class SupplierFormController {
   
   public void handleBtnAdd() {
     SupplierService supplierService = new SupplierService();
-    Supplier newSupplier = new Supplier();
-    newSupplier.setName(txt_name.getText());
-    newSupplier.setAddress(txt_address.getText());
-    newSupplier.setEmail(txt_email.getText());
-    newSupplier.setPhone(txt_phone.getText());
+    Supplier newSupplier = getSupplierDataFromForm();
     supplierService.addSupplier(newSupplier);
     closeForm();
   }
   
   public void handleBtnUpdate() {
     SupplierService supplierService = new SupplierService();
-    supplier.setName(txt_name.getText());
-    supplier.setAddress(txt_address.getText());
-    supplier.setEmail(txt_email.getText());
-    supplier.setPhone(txt_phone.getText());
-    supplierService.updateSupplier(supplier);
+    Supplier s = getSupplierDataFromForm();
+    supplierService.updateSupplier(s);
     closeForm();
   }
   
@@ -85,10 +78,27 @@ public class SupplierFormController {
     supplierService.deleteSupplier(supplier.getSupplierId());
     closeForm();
   }
-
+  
   
   public void handleBtnCancel() {
     closeForm();
+  }
+  
+  private Supplier getSupplierDataFromForm() {
+    try {
+      Supplier sup = new Supplier();
+      if (this.supplier != null) {
+        sup.setSupplierId(this.supplier.getSupplierId());
+      }
+      sup.setName(txt_name.getText().trim());
+      sup.setPhone(txt_phone.getText().trim());
+      sup.setEmail(txt_email.getText().trim());
+      sup.setAddress(txt_address.getText().trim());
+      return sup;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
   }
   
   private void closeForm() {
