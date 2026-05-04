@@ -3,11 +3,22 @@ package com.example.controllers.ComponentControllers;
 import com.example.DTO.EmployeeInfo;
 import com.example.DTO.SystemSetting;
 import com.example.controllers.MainController;
+import com.example.models.Account;
+import com.example.models.Employee;
+import com.example.services.AccountService;
+import com.example.services.EmployeeService;
 import com.example.services.SystemService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.Date;
 
 public class SettingController {
   @FXML
@@ -91,4 +102,57 @@ public class SettingController {
     this.system_container.setVisible(false);
     this.system_container.setManaged(false);
   }
+  
+  public void handldeBtnUpdateSystem() {
+    SystemService systemService = new SystemService();
+    if (this.systemSetting == null) {
+      this.systemSetting = new SystemSetting();
+    }
+    systemSetting.setShopName(txt_shop_name.getText().trim());
+    systemSetting.setShopAddress(txt_shop_address.getText().trim());
+    systemSetting.setShopPhone(txt_shop_phone.getText().trim());
+    systemSetting.setTaxCode(txt_shop_tax.getText().trim());
+    systemService.updateSystemInfo(systemSetting);
+  }
+  
+  public void handleBtnUpdatePerson() {
+    Employee emp = new Employee();
+    emp.setEmployeeId(employeeInfo.getEmployeeId());
+    
+    emp.setFullName(txt_employee_name.getText().trim());
+    emp.setPhoneNumber(txt_employee_phone.getText().trim());
+    emp.setAddress(txt_employee_address.getText().trim());
+    emp.setGender(rd_male.isSelected());
+    
+    emp.setSalary(employeeInfo.getSalary());
+    emp.setStatus(employeeInfo.getStatus());
+    
+    if (dp_employee_dob.getValue() != null) {
+      emp.setBirthday(Date.valueOf(dp_employee_dob.getValue()));
+    } else if (employeeInfo.getBirthday() != null) {
+      emp.setBirthday(employeeInfo.getBirthday());
+    }
+    
+    EmployeeService employeeService = new EmployeeService();
+    employeeService.updateEmployee(emp);
+  }
+  
+  public void handleBtnChangePass() {
+    AccountService accountService = new AccountService();
+    Account acc = accountService.getAccountByEmployeeId(this.employeeInfo.getEmployeeId());
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ChangePass.fxml"));
+      Parent root = loader.load();
+      ChangePassController controller = loader.getController();
+      controller.setAccount(acc);
+      Stage stage = new Stage();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Đổi mật khẩu");
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  
 }

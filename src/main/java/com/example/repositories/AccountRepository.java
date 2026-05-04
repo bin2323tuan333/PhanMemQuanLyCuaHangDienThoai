@@ -104,7 +104,7 @@ public class AccountRepository {
   
   public void updateAccount(Account acc) {
     if (acc == null) return;
-    String sql = "UPDATE Account SET username = ?, password = ?, role_id = ? WHERE id = ?";
+    String sql = "UPDATE Account SET username = ?, password = ?, role_id = ? WHERE account_id = ?";
     DBHelper.Instance().executeUpd(sql,
             acc.getUsername(),
             acc.getPassword(),
