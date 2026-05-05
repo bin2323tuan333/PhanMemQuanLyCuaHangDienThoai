@@ -2,6 +2,7 @@ package com.example.repositories;
 
 import com.example.DTO.ProductInfo;
 import com.example.models.Product;
+import com.example.utils.DBHelper;
 
 import java.sql.*;
 

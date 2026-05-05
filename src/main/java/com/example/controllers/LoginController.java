@@ -4,6 +4,7 @@ import com.example.DTO.EmployeeInfo;
 import com.example.models.Account;
 import com.example.services.AuthService;
 import com.example.services.EmployeeService;
+import com.example.utils.AppSection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,7 +32,7 @@ public class LoginController {
   
   @FXML
   public void button_login_click() {
-    String user = textField_username.getText();
+    String user = textField_username.getText().trim();
     String pass = textField_password.getText();
     
     if (user.isEmpty() || pass.isEmpty()) {
@@ -42,39 +43,31 @@ public class LoginController {
     
     AuthService authService = new AuthService();
     Account acc = authService.login(user, pass);
+    
     if (acc != null) {
-      label_message.setText("Đăng nhập thành công!");
-      label_message.setStyle("-fx-text-fill: green;");
-      try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/MainContainer.fxml"));
-        Parent root = loader.load();
-        MainController mainController = loader.getController();
-        EmployeeService employeeService = new EmployeeService();
-        EmployeeInfo employeeInfo = employeeService.getEmployeeInfoByID(acc.getEmployeeId());
-        mainController.setEmployeeInfo(employeeInfo);
-        mainController.setAccountId(acc.getAccountId());
-        mainController.setup();
-        
-        Stage stage = (Stage) label_message.getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.centerOnScreen();
-        stage.show();
-        
-      } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("Lỗi load file FXML!");
-      }
+      AppSection.Instance().setAccount(acc);
+      loadMainScreen();
     } else {
       label_message.setText("Sai tài khoản hoặc mật khẩu!");
       label_message.setStyle("-fx-text-fill: red;");
     }
   }
   
-  public Button getButton_login() {
-    return button_login;
-  }
-  
-  public void setButton_login(Button button_login) {
-    this.button_login = button_login;
+  private void loadMainScreen() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/MainContainer.fxml"));
+      Parent root = loader.load();
+      MainController mainController = loader.getController();
+      mainController.setup();
+      Stage stage = (Stage) label_message.getScene().getWindow();
+      stage.setScene(new Scene(root));
+      stage.centerOnScreen();
+      stage.show();
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+      label_message.setText("Lỗi load file giao diện!");
+      label_message.setStyle("-fx-text-fill: red;");
+    }
   }
 }

@@ -5,11 +5,13 @@ import com.example.controllers.ComponentControllers.SideBar.AdminSideBarControll
 import com.example.controllers.ComponentControllers.SideBar.EmployeeSidebarController;
 import com.example.models.Account;
 import com.example.services.AccountService;
+import com.example.utils.AppSection;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
@@ -33,75 +35,58 @@ public class MainController {
   private boolean isExpanded = false;
   private final double expandedWidth = 200;
   private final double collapsedWidth = 0;
-  private int accountId;
-  private EmployeeInfo employeeInfo;
-  
-  public void setEmployeeInfo(EmployeeInfo employeeInfo) {
-    this.employeeInfo = employeeInfo;
-  }
-  
-  public EmployeeInfo getEmployeeInfo() {
-    return this.employeeInfo;
-  }
-  
-  private static MainController _instance;
   
   @FXML
   public ScrollPane getMainScrollPane() {
     return mainScrollPane;
   }
   
-  public static MainController Instance() {
-    return _instance;
-  }
   
   @FXML
   public void initialize() {
-    _instance = this;
+    setup();
   }
   
   public void setup() {
-    AccountService accountService = new AccountService();
-    Account acc = accountService.getAccountByID(this.getAccountId());
-    System.out.println(this.accountId + " " + acc.toString());
-    if (acc == null) {
-      System.out.println("Không tìm thấy account với id: " + this.accountId);
-      return;
-    }
-    
-    System.out.println("Account role: " + acc.getRoleId());
-    
-    if (acc.getRoleId() == 2) {
+    topBarController.setMainController(this);
+    topBarController.setup();
+    renderSidebar();
+  }
+  
+  public void renderSidebar() {
+    if (AppSection.Instance().isAdmin()) {
       try {
         FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/component/SideBar/AdminSideBar.fxml"));
-        sideBar.setContent(loaderSideBar.load());
+        Node sidebarNode = loaderSideBar.load();
+        adminSideBarController = loaderSideBar.getController();
+        adminSideBarController.setTopBarController(topBarController);
+        adminSideBarController.setMainController(this);
+        sideBar.setContent(sidebarNode);
         FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/component/DashBoard.fxml"));
         mainScrollPane.setContent(loaderMain.load());
-        adminSideBarController = loaderSideBar.getController();
         sideBar.setVisible(false);
         sideBar.setManaged(false);
-        adminSideBarController.setTopBarController(topBarController);
       } catch (IOException e) {
         e.printStackTrace();
       }
     } else {
       try {
         FXMLLoader loaderSideBar = new FXMLLoader(getClass().getResource("/com/example/component/SideBar/EmployeeSideBar.fxml"));
-        sideBar.setContent(loaderSideBar.load());
+        Node sidebarNode = loaderSideBar.load();
+        employeeSidebarController = loaderSideBar.getController();
+        employeeSidebarController.setTopBarController(topBarController);
+        employeeSidebarController.setMainController(this);
+        sideBar.setContent(sidebarNode);
         FXMLLoader loaderMain = new FXMLLoader(getClass().getResource("/com/example/component/CreateBill.fxml"));
         mainScrollPane.setContent(loaderMain.load());
-        employeeSidebarController = loaderSideBar.getController();
         sideBar.setVisible(false);
         sideBar.setManaged(false);
-        employeeSidebarController.setTopBarController(topBarController);
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
-    
-    topBarController.setMainController(this);
-    topBarController.setup();
   }
+  
   
   @FXML
   public void toggleSidebar() {
@@ -123,11 +108,4 @@ public class MainController {
     isExpanded = !isExpanded;
   }
   
-  public void setAccountId(int accountId) {
-    this.accountId = accountId;
-  }
-  
-  public int getAccountId() {
-    return this.accountId;
-  }
 }

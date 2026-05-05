@@ -12,7 +12,7 @@
       minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleClick" prefHeight="80.0" prefWidth="511.0"
       spacing="15.0"
       style="-fx-background-color: #fff; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-radius: 10; -fx-border-width: 1;"
-      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.controllers.ComponentControllers.Card.SupplierCardController"
 >
     <children>

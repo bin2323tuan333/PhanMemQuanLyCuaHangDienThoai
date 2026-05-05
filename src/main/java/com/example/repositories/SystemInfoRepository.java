@@ -1,6 +1,7 @@
 package com.example.repositories;
 
 import com.example.DTO.SystemSetting;
+import com.example.utils.DBHelper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

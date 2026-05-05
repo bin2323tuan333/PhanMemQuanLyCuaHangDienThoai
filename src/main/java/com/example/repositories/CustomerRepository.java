@@ -2,6 +2,7 @@ package com.example.repositories;
 
 import com.example.DTO.CustomerInfo;
 import com.example.models.Customer;
+import com.example.utils.DBHelper;
 
 import java.sql.*;
 import java.util.ArrayList;

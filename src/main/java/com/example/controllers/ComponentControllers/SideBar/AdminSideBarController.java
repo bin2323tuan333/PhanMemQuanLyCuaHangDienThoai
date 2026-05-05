@@ -3,6 +3,7 @@ package com.example.controllers.ComponentControllers.SideBar;
 import com.example.controllers.ComponentControllers.SettingController;
 import com.example.controllers.MainController;
 import com.example.controllers.TopBarController;
+import com.example.utils.AppSection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,6 +43,11 @@ public class AdminSideBarController {
   
   private Button currentActiveButton;
   
+  private MainController mainController;
+  
+  public void setMainController(MainController mainController) {
+    this.mainController = mainController;
+  }
   
   @FXML
   public void initialize() {
@@ -68,7 +74,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/DashBoard.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -82,7 +88,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/SupplierManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -96,7 +102,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ImportBillManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -110,7 +116,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CategoryManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -124,7 +130,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -138,7 +144,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Analytics.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -152,7 +158,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -166,7 +172,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/BillManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -180,7 +186,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/EmployeeManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -192,11 +198,9 @@ public class AdminSideBarController {
     setActiveButton(btn_logout);
     Stage currentStage = (Stage) btn_logout.getScene().getWindow();
     currentStage.close();
-    
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Login.fxml"));
       Parent root = loader.load();
-      
       Stage loginStage = new Stage();
       loginStage.setScene(new Scene(root));
       loginStage.setTitle("Đăng nhập");
@@ -204,6 +208,7 @@ public class AdminSideBarController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    AppSection.Instance().clearSession();
   }
   
   public void handleBtnSetting() {
@@ -211,9 +216,7 @@ public class AdminSideBarController {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Setting.fxml"));
       Node page = loader.load();
-      SettingController controller = loader.getController();
-      controller.setEmployeeInfo(MainController.Instance().getEmployeeInfo());
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {
@@ -230,7 +233,7 @@ public class AdminSideBarController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
       Node page = loader.load();
       var controller = loader.getController();
-      MainController.Instance().getMainScrollPane().setContent(page);
+      mainController.getMainScrollPane().setContent(page);
       if (topBarController != null)
         topBarController.setTitle(currentActiveButton.getText());
     } catch (IOException e) {

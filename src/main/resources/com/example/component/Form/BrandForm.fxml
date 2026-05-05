@@ -14,7 +14,7 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0"
       prefWidth="629.0" spacing="10.0"
       style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-radius: 8;"
-      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.controllers.ComponentControllers.Form.BrandFormController">
     <children>
         <Label text="Thông tin chi tiết nhãn hàng" textFill="#2c3e50">

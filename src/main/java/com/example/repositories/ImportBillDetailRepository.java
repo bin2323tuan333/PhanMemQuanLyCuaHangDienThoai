@@ -1,7 +1,7 @@
 package com.example.repositories;
 
-import com.example.models.ImportBill;
 import com.example.models.ImportBillDetail;
+import com.example.utils.DBHelper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -9,6 +9,7 @@ import com.example.models.Employee;
 import com.example.services.AccountService;
 import com.example.services.EmployeeService;
 import com.example.services.SystemService;
+import com.example.utils.AppSection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,16 +48,11 @@ public class SettingController {
   private TextField txt_shop_tax;
   
   private MainController mainController;
-  private EmployeeInfo employeeInfo;
   private SystemSetting systemSetting;
   
   
   private ToggleGroup genderGroup;
   
-  public void setEmployeeInfo(EmployeeInfo employeeInfo) {
-    this.employeeInfo = employeeInfo;
-    setup();
-  }
   
   public void setMainController(MainController main) {
     this.mainController = main;
@@ -68,11 +64,30 @@ public class SettingController {
     rd_male.setToggleGroup(genderGroup);
     rd_female.setToggleGroup(genderGroup);
     rd_male.setSelected(true);
+    setup();
   }
   
   public void setup() {
+    if (AppSection.Instance().isAdmin()) renderSystem();
+    renderEmployee();
+  }
+  
+  public void renderSystem() {
+    SystemService systemService = new SystemService();
+    this.systemSetting = systemService.getSystemInfo();
+    if (this.systemSetting != null) {
+      txt_shop_name.setText(systemSetting.getShopName());
+      txt_shop_address.setText(systemSetting.getShopAddress());
+      txt_shop_phone.setText(systemSetting.getShopPhone());
+      txt_shop_tax.setText(systemSetting.getTaxCode());
+    }
+  }
+  
+  public void renderEmployee() {
+    EmployeeService employeeService = new EmployeeService();
+    EmployeeInfo employeeInfo = employeeService.getEmployeeInfoByID(AppSection.Instance().getAccount().getEmployeeId());
     if (employeeInfo != null) {
-      txt_employee_id.setText(String.valueOf(employeeInfo.getEmployeeId()));
+      txt_employee_id.setText("NV" + employeeInfo.getEmployeeId());
       txt_employee_name.setText(employeeInfo.getFullName());
       txt_employee_phone.setText(employeeInfo.getPhoneNumber());
       txt_employee_address.setText(employeeInfo.getAddress());
@@ -87,15 +102,6 @@ public class SettingController {
         dp_employee_dob.setValue(employeeInfo.getBirthday().toLocalDate());
       }
     }
-    
-    SystemService systemService = new SystemService();
-    this.systemSetting = systemService.getSystemInfo();
-    if (this.systemSetting != null) {
-      txt_shop_name.setText(systemSetting.getShopName());
-      txt_shop_address.setText(systemSetting.getShopAddress());
-      txt_shop_phone.setText(systemSetting.getShopPhone());
-      txt_shop_tax.setText(systemSetting.getTaxCode());
-    }
   }
   
   public void hideSystemContainer() {
@@ -103,7 +109,7 @@ public class SettingController {
     this.system_container.setManaged(false);
   }
   
-  public void handldeBtnUpdateSystem() {
+  public void handleBtnUpdateSystem() {
     SystemService systemService = new SystemService();
     if (this.systemSetting == null) {
       this.systemSetting = new SystemSetting();
@@ -113,38 +119,35 @@ public class SettingController {
     systemSetting.setShopPhone(txt_shop_phone.getText().trim());
     systemSetting.setTaxCode(txt_shop_tax.getText().trim());
     systemService.updateSystemInfo(systemSetting);
+    renderSystem();
   }
   
   public void handleBtnUpdatePerson() {
+    EmployeeService employeeService = new EmployeeService();
+    Employee employeeInfo = employeeService.getEmployeeByID(AppSection.Instance().getAccount().getEmployeeId());
     Employee emp = new Employee();
     emp.setEmployeeId(employeeInfo.getEmployeeId());
-    
     emp.setFullName(txt_employee_name.getText().trim());
     emp.setPhoneNumber(txt_employee_phone.getText().trim());
     emp.setAddress(txt_employee_address.getText().trim());
     emp.setGender(rd_male.isSelected());
-    
     emp.setSalary(employeeInfo.getSalary());
     emp.setStatus(employeeInfo.getStatus());
-    
     if (dp_employee_dob.getValue() != null) {
       emp.setBirthday(Date.valueOf(dp_employee_dob.getValue()));
     } else if (employeeInfo.getBirthday() != null) {
       emp.setBirthday(employeeInfo.getBirthday());
     }
-    
-    EmployeeService employeeService = new EmployeeService();
     employeeService.updateEmployee(emp);
+    renderEmployee();
   }
   
   public void handleBtnChangePass() {
-    AccountService accountService = new AccountService();
-    Account acc = accountService.getAccountByEmployeeId(this.employeeInfo.getEmployeeId());
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ChangePass.fxml"));
       Parent root = loader.load();
       ChangePassController controller = loader.getController();
-      controller.setAccount(acc);
+      controller.setAccount(AppSection.Instance().getAccount());
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
       stage.setTitle("Đổi mật khẩu");

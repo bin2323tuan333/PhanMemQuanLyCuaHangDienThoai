@@ -4,6 +4,7 @@ import com.example.models.Employee;
 import com.example.services.AccountService;
 import com.example.services.EmployeeService;
 import com.example.services.AuthService;
+import com.example.utils.AppSection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -17,8 +18,6 @@ public class TopBarController {
   private Label lb_title;
   private MainController mainController;
   
-  AuthService loginService = new AuthService();
-  
   @FXML
   public void initialize() {
   
@@ -27,7 +26,7 @@ public class TopBarController {
   public void setup() {
     EmployeeService eService = new EmployeeService();
     AccountService accountService = new AccountService();
-    int accountId = mainController.getAccountId();
+    int accountId = AppSection.Instance().getAccount().getAccountId();
     Employee emp = eService.getEmployeeByID(accountService.getAccountByID(accountId).getEmployeeId());
     if (emp != null) {
       lb_name.setText(emp.getFullName());
