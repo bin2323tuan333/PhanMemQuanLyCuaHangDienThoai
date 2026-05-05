@@ -1,9 +1,7 @@
 package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.ImportBillInfo;
-import com.example.controllers.ComponentControllers.EmployeeFormController;
-import com.example.controllers.ComponentControllers.ImportBillFormController;
-import com.example.controllers.ComponentControllers.ImportBillManagementController;
+import com.example.controllers.ComponentControllers.Form.ImportBillFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,7 +42,7 @@ public class ImportBillCardController {
   
   public void handleClick() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ImportBillForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ImportBillForm.fxml"));
       Parent root = loader.load();
       ImportBillFormController controller = loader.getController();
       controller.setImportBillInfo(this.importBillInfo);
@@ -56,6 +54,7 @@ public class ImportBillCardController {
       e.printStackTrace();
     }
   }
+  
   public ImportBillInfo getImportBillInfo() {
     return this.importBillInfo;
   }

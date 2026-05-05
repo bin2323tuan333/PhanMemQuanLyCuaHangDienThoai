@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.controllers.ComponentControllers.Card.SupplierCardController;
+import com.example.controllers.ComponentControllers.Form.SupplierFormController;
 import com.example.models.Supplier;
 import com.example.services.SupplierService;
 import javafx.fxml.FXML;
@@ -9,12 +10,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierManagementController {
@@ -45,7 +44,7 @@ public class SupplierManagementController {
   
   public void handleBtnAdd() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/SupplierForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/SupplierForm.fxml"));
       Parent root = loader.load();
       SupplierFormController controller = loader.getController();
       controller.setSupplier(null);

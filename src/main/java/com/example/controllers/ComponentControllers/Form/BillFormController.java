@@ -1,4 +1,4 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Form;
 
 import com.example.DTO.BillDetailInfo;
 import com.example.DTO.BillInfo;
@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;

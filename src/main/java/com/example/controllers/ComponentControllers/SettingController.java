@@ -2,6 +2,7 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.EmployeeInfo;
 import com.example.DTO.SystemSetting;
+import com.example.controllers.ComponentControllers.Form.ChangePassController;
 import com.example.controllers.MainController;
 import com.example.models.Account;
 import com.example.models.Employee;
@@ -13,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -141,7 +141,7 @@ public class SettingController {
     AccountService accountService = new AccountService();
     Account acc = accountService.getAccountByEmployeeId(this.employeeInfo.getEmployeeId());
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ChangePass.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ChangePass.fxml"));
       Parent root = loader.load();
       ChangePassController controller = loader.getController();
       controller.setAccount(acc);

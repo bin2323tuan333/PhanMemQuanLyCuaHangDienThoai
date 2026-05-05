@@ -1,14 +1,12 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Form;
 
 import com.example.DTO.ProductInfo;
 import com.example.models.Brand;
 import com.example.models.Category;
 import com.example.models.Product;
-import com.example.models.Supplier;
 import com.example.services.BrandService;
 import com.example.services.CategoryService;
 import com.example.services.ProductService;
-import com.example.services.SupplierService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

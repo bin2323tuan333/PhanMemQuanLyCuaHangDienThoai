@@ -4,6 +4,7 @@ import com.example.DTO.CartInfo;
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.CartCardController;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;
+import com.example.controllers.ComponentControllers.Form.SupplierFormController;
 import com.example.models.ImportBill;
 import com.example.models.Supplier;
 import com.example.repositories.ImportBillDetailRepository;
@@ -238,7 +239,7 @@ public class CreateImportBillController {
   
   public void handleBtnAddCustomer() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/SupplierForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/SupplierForm.fxml"));
       Parent root = loader.load();
       SupplierFormController controller = loader.getController();
       controller.setSupplier(null);

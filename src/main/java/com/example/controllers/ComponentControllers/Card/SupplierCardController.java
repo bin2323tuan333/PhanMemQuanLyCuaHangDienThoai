@@ -1,10 +1,9 @@
 package com.example.controllers.ComponentControllers.Card;
 
-import com.example.controllers.ComponentControllers.SupplierFormController;
+import com.example.controllers.ComponentControllers.Form.SupplierFormController;
 import com.example.models.Supplier;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -44,7 +43,7 @@ public class SupplierCardController {
   
   public void handleClick() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/SupplierForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/SupplierForm.fxml"));
       Parent root = loader.load();
       SupplierFormController controller = loader.getController();
       controller.setSupplier(this.supplier);

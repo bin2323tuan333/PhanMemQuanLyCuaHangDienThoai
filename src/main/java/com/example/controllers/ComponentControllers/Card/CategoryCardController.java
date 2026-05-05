@@ -1,6 +1,6 @@
 package com.example.controllers.ComponentControllers.Card;
 
-import com.example.controllers.ComponentControllers.CategoryFormController;
+import com.example.controllers.ComponentControllers.Form.CategoryFormController;
 import com.example.models.Category;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +33,7 @@ public class CategoryCardController {
   
   public void handleClick() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CategoryForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/CategoryForm.fxml"));
       Parent root = loader.load();
       CategoryFormController controller = loader.getController();
       controller.setCategory(this.category);

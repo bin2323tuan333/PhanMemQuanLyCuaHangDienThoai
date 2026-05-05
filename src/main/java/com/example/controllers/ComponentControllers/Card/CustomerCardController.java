@@ -2,7 +2,7 @@ package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.CustomerInfo;
 import com.example.controllers.ComponentControllers.CreateBillController;
-import com.example.controllers.ComponentControllers.CustomerFormController;
+import com.example.controllers.ComponentControllers.Form.CustomerFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,6 +47,7 @@ public class CustomerCardController {
     this.lb_gender.setText(this.customerInfo.getGender() ? "Nữ" : "Nam");
     this.lb_dob.setText(this.customerInfo.getDob().toString());
   }
+  
   public void setParentController(CreateBillController parent) {
     this.parent = parent;
   }
@@ -56,9 +57,9 @@ public class CustomerCardController {
       parent.selectCustomer(this.customerInfo);
       return;
     }
-
+    
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/CustomerForm.fxml"));
       Parent root = loader.load();
       CustomerFormController customerFormController = loader.getController();
       customerFormController.setCustomerInfo(this.customerInfo);
@@ -71,6 +72,6 @@ public class CustomerCardController {
       e.printStackTrace();
     }
   }
-
-
+  
+  
 }

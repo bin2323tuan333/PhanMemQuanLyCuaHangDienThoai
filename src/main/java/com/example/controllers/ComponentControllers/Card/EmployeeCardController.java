@@ -1,7 +1,7 @@
 package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.EmployeeInfo;
-import com.example.controllers.ComponentControllers.EmployeeFormController;
+import com.example.controllers.ComponentControllers.Form.EmployeeFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,7 +31,7 @@ public class EmployeeCardController {
   private Label lb_status;
   
   private EmployeeInfo employeeInfo;
-
+  
   
   public void setEmployeeInfo(EmployeeInfo employeeInfo) {
     this.employeeInfo = employeeInfo;
@@ -54,7 +54,7 @@ public class EmployeeCardController {
   
   public void handleClick() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/EmployeeForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/EmployeeForm.fxml"));
       Parent root = loader.load();
       EmployeeFormController controller = loader.getController();
       controller.setEmployeeInfo(this.employeeInfo);
@@ -63,8 +63,8 @@ public class EmployeeCardController {
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm nhân viên mới");
       stage.showAndWait();
-
-
+      
+      
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -2,6 +2,8 @@ package com.example.controllers.ComponentControllers;
 
 
 import com.example.DTO.BillInfo;
+import com.example.controllers.ComponentControllers.Form.CustomerFormController;
+import com.example.controllers.ComponentControllers.Form.ProductFormController;
 import com.example.services.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,7 +54,7 @@ public class DashBoardController {
   
   public void handleBtnAddCustomer() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/CustomerForm.fxml"));
       Parent root = loader.load();
       CustomerFormController customerFormController = loader.getController();
       customerFormController.setCustomerInfo(null);
@@ -79,7 +81,7 @@ public class DashBoardController {
   
   public void handleBtnAddProduct() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ProductForm.fxml"));
       Parent root = loader.load();
       ProductFormController productFormController = loader.getController();
       productFormController.setProductInfo(null);

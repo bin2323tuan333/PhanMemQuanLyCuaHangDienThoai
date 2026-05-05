@@ -1,12 +1,9 @@
 package com.example.controllers.ComponentControllers.Card;
 
-import com.example.DTO.BillDetailInfo;
 import com.example.DTO.BillInfo;
-import com.example.DTO.RecentBill;
-import com.example.controllers.ComponentControllers.BillFormController;
+import com.example.controllers.ComponentControllers.Form.BillFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -37,7 +34,7 @@ public class BillCardController {
   @FXML
   public void handleClick() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/BillForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/BillForm.fxml"));
       Parent root = loader.load();
       BillFormController controller = loader.getController();
       if (controller != null && billInfo != null) {

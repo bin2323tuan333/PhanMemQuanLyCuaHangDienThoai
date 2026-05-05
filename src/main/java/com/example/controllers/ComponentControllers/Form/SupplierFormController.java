@@ -1,4 +1,4 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Form;
 
 import com.example.models.Supplier;
 import com.example.services.SupplierService;

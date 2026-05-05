@@ -2,6 +2,8 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.controllers.ComponentControllers.Card.BrandCardController;
 import com.example.controllers.ComponentControllers.Card.CategoryCardController;
+import com.example.controllers.ComponentControllers.Form.BrandFormController;
+import com.example.controllers.ComponentControllers.Form.CategoryFormController;
 import com.example.models.Brand;
 import com.example.models.Category;
 import com.example.services.BrandService;
@@ -58,7 +60,7 @@ public class CategoryManagementController {
   
   public void handleBtnAddBrand() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/BrandForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/BrandForm.fxml"));
       Parent root = loader.load();
       BrandFormController controller = loader.getController();
       controller.setBrand(null);
@@ -74,7 +76,7 @@ public class CategoryManagementController {
   
   public void handleBtnAddCategory() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CategoryForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/CategoryForm.fxml"));
       Parent root = loader.load();
       CategoryFormController controller = loader.getController();
       controller.setCategory(null);

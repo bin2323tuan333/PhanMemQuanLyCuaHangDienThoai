@@ -1,13 +1,13 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Form;
 
-import com.example.models.Brand;
-import com.example.services.BrandService;
+import com.example.models.Category;
+import com.example.services.CategoryService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class BrandFormController {
+public class CategoryFormController {
   @FXML
   private Button btn_add;
   @FXML
@@ -21,10 +21,10 @@ public class BrandFormController {
   @FXML
   private TextField txt_name;
   
-  private Brand brand;
+  private Category category;
   
-  public void setBrand(Brand brand) {
-    this.brand = brand;
+  public void setCategory(Category category) {
+    this.category = category;
     setup();
   }
   
@@ -33,12 +33,12 @@ public class BrandFormController {
   }
   
   public void setup() {
-    if (this.brand != null) {
-      this.txt_id.setText(String.valueOf(this.brand.getBrandId()));
-      this.txt_name.setText(this.brand.getBrandName());
+    if (this.category != null) {
+      this.txt_id.setText(String.valueOf(this.category.getCategoryId()));
+      this.txt_name.setText(this.category.getCategoryName());
     }
     
-    if (this.brand == null) {
+    if (this.category == null) {
       if (btn_delete != null) {
         btn_delete.setVisible(false);
         btn_delete.setManaged(false);
@@ -56,23 +56,25 @@ public class BrandFormController {
   }
   
   public void handleBtnAdd() {
-    BrandService brandService = new BrandService();
-    Brand newBrand = new Brand();
-    newBrand.setBrandName(txt_name.getText());
-    brandService.insertBrand(newBrand);
+    CategoryService categoryService = new CategoryService();
+    Category c = new Category();
+    c.setCategoryName(txt_name.getText());
+    categoryService.insertCategory(c);
     closeForm();
   }
   
   public void handleBtnUpdate() {
-    BrandService brandService = new BrandService();
-    this.brand.setBrandName(txt_name.getText());
-    brandService.updateBrand(this.brand);
+    if (this.category == null) return;
+    CategoryService categoryService = new CategoryService();
+    this.category.setCategoryName(txt_name.getText());
+    categoryService.updateCategory(this.category);
     closeForm();
   }
   
   public void handleBtnDelete() {
-    BrandService brandService = new BrandService();
-    brandService.deleteBrand(this.brand.getBrandId());
+    if (this.category == null) return;
+    CategoryService categoryService = new CategoryService();
+    categoryService.deleteCategory(this.category.getCategoryId());
     closeForm();
   }
   
@@ -86,4 +88,5 @@ public class BrandFormController {
       stage.close();
     }
   }
+  
 }

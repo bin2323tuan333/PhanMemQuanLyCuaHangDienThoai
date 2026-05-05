@@ -1,10 +1,7 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Form;
 
-import com.example.DTO.BillDetailInfo;
 import com.example.DTO.ImportBillDetailInfo;
 import com.example.DTO.ImportBillInfo;
-import com.example.controllers.ComponentControllers.Card.BillDetailController;
-import com.example.controllers.ComponentControllers.Card.ImportBillCardController;
 import com.example.controllers.ComponentControllers.Card.ImportBillDetailCardController;
 import com.example.services.BillService;
 import javafx.fxml.FXML;

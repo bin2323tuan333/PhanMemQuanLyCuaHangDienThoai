@@ -15,7 +15,7 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0"
       prefWidth="500.0" spacing="20.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.controllers.ComponentControllers.ChangePassController">
+      fx:controller="com.example.controllers.ComponentControllers.Form.ChangePassController">
     <children>
         <Label text="Đổi mật khẩu" textFill="#0f172a">
             <font>

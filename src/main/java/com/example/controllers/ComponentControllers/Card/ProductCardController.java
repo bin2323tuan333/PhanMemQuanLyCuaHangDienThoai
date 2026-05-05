@@ -3,8 +3,7 @@ package com.example.controllers.ComponentControllers.Card;
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.CreateBillController;
 import com.example.controllers.ComponentControllers.CreateImportBillController;
-import com.example.controllers.ComponentControllers.CustomerFormController;
-import com.example.controllers.ComponentControllers.ProductFormController;
+import com.example.controllers.ComponentControllers.Form.ProductFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -70,7 +69,7 @@ public class ProductCardController {
       
     } else {
       try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ProductForm.fxml"));
         Parent root = loader.load();
         ProductFormController productFormController = loader.getController();
         productFormController.setProductInfo(this.productInfo);

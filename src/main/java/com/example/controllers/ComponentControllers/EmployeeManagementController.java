@@ -2,6 +2,7 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.EmployeeInfo;
 import com.example.controllers.ComponentControllers.Card.EmployeeCardController;
+import com.example.controllers.ComponentControllers.Form.EmployeeFormController;
 import com.example.services.EmployeeService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 public class EmployeeManagementController {
   @FXML
@@ -40,7 +40,7 @@ public class EmployeeManagementController {
   
   public void handleBtnAdd() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/EmployeeForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/EmployeeForm.fxml"));
       Parent root = loader.load();
       EmployeeFormController controller = loader.getController();
       controller.setEmployeeInfo(null);

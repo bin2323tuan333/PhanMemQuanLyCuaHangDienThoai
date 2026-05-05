@@ -14,4 +14,5 @@ module com.example {
   opens com.example.repositories to javafx.base;
   opens com.example.controllers.ComponentControllers.Card to javafx.fxml;
   opens com.example.controllers.ComponentControllers.SideBar to javafx.fxml;
+  opens com.example.controllers.ComponentControllers.Form to javafx.fxml;
 }

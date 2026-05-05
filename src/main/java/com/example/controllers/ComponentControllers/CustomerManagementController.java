@@ -2,7 +2,7 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.CustomerInfo;
 import com.example.controllers.ComponentControllers.Card.CustomerCardController;
-import com.example.controllers.ComponentControllers.Card.ProductCardController;
+import com.example.controllers.ComponentControllers.Form.CustomerFormController;
 import com.example.services.CustomerService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +36,7 @@ public class CustomerManagementController {
   
   public void handleBtnAdd() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/CustomerForm.fxml"));
       Parent root = loader.load();
       CustomerFormController customerFormController = loader.getController();
       customerFormController.setCustomerInfo(null);

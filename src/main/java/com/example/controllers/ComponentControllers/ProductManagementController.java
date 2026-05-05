@@ -2,13 +2,13 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;
+import com.example.controllers.ComponentControllers.Form.ProductFormController;
 import com.example.models.Brand;
 import com.example.models.Category;
 import com.example.services.BrandService;
 import com.example.services.CategoryService;
 import com.example.services.ProductService;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -73,7 +73,7 @@ public class ProductManagementController {
   
   public void handleBtnAdd() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ProductForm.fxml"));
       Parent root = loader.load();
       ProductFormController productFormController = loader.getController();
       productFormController.setProductInfo(null);

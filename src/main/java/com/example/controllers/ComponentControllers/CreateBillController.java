@@ -2,14 +2,13 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.CartInfo;
 import com.example.DTO.CustomerInfo;
-import com.example.DTO.ImportBillInfo;
 import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.CartCardController;
 import com.example.controllers.ComponentControllers.Card.CustomerCardController;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;
+import com.example.controllers.ComponentControllers.Form.CustomerFormController;
+import com.example.controllers.ComponentControllers.Form.ProductFormController;
 import com.example.models.Bill;
-import com.example.models.Customer;
-import com.example.models.ImportBill;
 import com.example.repositories.BillDetailRepository;
 import com.example.services.BillService;
 import com.example.services.CustomerService;
@@ -27,7 +26,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -229,7 +227,7 @@ public class CreateBillController {
   
   public void handleBtnAddCustomer() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CustomerForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/CustomerForm.fxml"));
       Parent root = loader.load();
       CustomerFormController customerFormController = loader.getController();
       customerFormController.setCustomerInfo(null);
@@ -244,7 +242,7 @@ public class CreateBillController {
   
   public void handleBtnAddProduct() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ProductForm.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ProductForm.fxml"));
       Parent root = loader.load();
       ProductFormController productFormController = loader.getController();
       productFormController.setProductInfo(null);

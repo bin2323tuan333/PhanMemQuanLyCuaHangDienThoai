@@ -1,4 +1,4 @@
-package com.example.controllers.ComponentControllers;
+package com.example.controllers.ComponentControllers.Form;
 
 import com.example.models.Account;
 import com.example.services.AccountService;
