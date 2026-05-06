@@ -48,6 +48,7 @@ public class SupplierManagementController {
       Parent root = loader.load();
       SupplierFormController controller = loader.getController();
       controller.setSupplier(null);
+      controller.setReload(this::reload);
       Stage stage = new Stage();
       stage.setTitle("Thêm Nhà Cung Cấp Mới");
       stage.setScene(new Scene(root));
@@ -66,11 +67,17 @@ public class SupplierManagementController {
         Node node = loader.load();
         SupplierCardController controller = loader.getController();
         controller.setSupplier(item);
+        controller.setReload(this::reload);
         this.supplier_container.getChildren().add(node);
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  
+  public void reload() {
+    this.txt_search.setText("");
+    setup();
   }
 }
 

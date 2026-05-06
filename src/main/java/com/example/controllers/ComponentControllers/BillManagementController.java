@@ -72,55 +72,21 @@ public class BillManagementController {
   private void setupDatePickers() {
     fromDate.setValue(null);
     toDate.setValue(null);
-//    fromDate.setOnAction(event -> filterBills());
-//    toDate.setOnAction(event -> filterBills());
   }
   
   
   @FXML
   public void handleBtnSearch() {
     String keyword = txt_search.getText().trim().toLowerCase();
-    List<BillInfo> searchResults = new ArrayList<>();
-    List<BillInfo> billInfos = billService.getAllBillInfos();
-    for (BillInfo bill : billInfos) {
-      boolean match = keyword.isEmpty() ||
-                              String.valueOf(bill.getBillId()).contains(keyword) ||
-                              (bill.getCustomer() != null && bill.getCustomer().getFullName() != null &&
-                                       bill.getCustomer().getFullName().toLowerCase().contains(keyword)) ||
-                              (bill.getEmployee() != null && bill.getEmployee().getFullName() != null &&
-                                       bill.getEmployee().getFullName().toLowerCase().contains(keyword));
-      
-      if (match) {
-        searchResults.add(bill);
-      }
-    }
-    renderBills(searchResults);
-  }
-  
-  private void filterBillsByDate() {
     LocalDate from = fromDate.getValue();
     LocalDate to = toDate.getValue();
-    List<BillInfo> filteredList = new ArrayList<>();
-    List<BillInfo> billInfos = billService.getAllBillInfos();
-    for (BillInfo bill : billInfos) {
-      if (bill.getInvoiceDate() != null) {
-        LocalDate billDate = bill.getInvoiceDate().toLocalDate();
-        boolean matchesDate = true;
-        
-        if (from != null && billDate.isBefore(from)) {
-          matchesDate = false;
-        }
-        if (to != null && billDate.isAfter(to)) {
-          matchesDate = false;
-        }
-        
-        if (matchesDate) {
-          filteredList.add(bill);
-        }
-      }
-    }
-    renderBills(filteredList);
+    
+    BillService billService = new BillService();
+    List<BillInfo> list = billService.filterBills(keyword, from, to);
+    
+    renderBills(list);
   }
+  
   
   private void renderBills(List<BillInfo> bills) {
     bill_container.getChildren().clear();
@@ -134,7 +100,6 @@ public class BillManagementController {
         } else {
           System.out.println("Controller NULL!");
         }
-        
         card.getStyleClass().add("card");
         bill_container.getChildren().add(card);
       } catch (Exception e) {

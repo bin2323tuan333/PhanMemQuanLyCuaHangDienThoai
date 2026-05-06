@@ -11,82 +11,79 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="555.0" prefWidth="1012.0" spacing="20.0" style="-fx-background-color: #f1f5f9;"
-      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.controllers.ComponentControllers.BillManagementController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="854.0" prefWidth="1012.0" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.BillManagementController">
 
     <children>
         <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #fff; -fx-background-radius: 12;">
             <padding>
-                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
             </padding>
             <children>
-                <TextField fx:id="txt_search" promptText="Tìm kiếm sản phẩm"
-                           style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;"
-                           HBox.hgrow="ALWAYS">
+                <TextField fx:id="txt_search" promptText="Tìm kiếm sản phẩm" style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;" HBox.hgrow="ALWAYS">
                     <padding>
-                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
                     </padding>
+               <font>
+                  <Font size="16.0" />
+               </font>
                 </TextField>
-                <Button fx:id="btn_search_bill" mnemonicParsing="false" onAction="#handleBtnSearch"
-                        style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-background-color: #2563eb; -fx-text-fill: white;"
-                        text="Tìm kiếm">
+                <Button fx:id="btn_search_bill" mnemonicParsing="false" onAction="#handleBtnSearch" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-background-color: #2563eb; -fx-text-fill: white;" text="Tìm kiếm">
                     <font>
-                        <Font name="System Bold" size="16.0"/>
+                        <Font name="System Bold" size="18.0" />
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                     <padding>
-                        <Insets bottom="6.0" left="8.0" right="8.0" top="6.0"/>
+                        <Insets bottom="6.0" left="8.0" right="8.0" top="6.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btn_add_bill" mnemonicParsing="false" onAction="#handleBtnAdd"
-                        style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #e2e8f0; -fx-text-fill: #475569;"
-                        text="Thêm hóa đơn">
+                <Button fx:id="btn_add_bill" mnemonicParsing="false" onAction="#handleBtnAdd" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #e2e8f0; -fx-text-fill: #475569;" text="Thêm hóa đơn">
                     <font>
 
-                        <Font name="System Bold" size="16.0"/>
+                        <Font name="System Bold" size="18.0" />
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                     <padding>
-                        <Insets bottom="6.0" left="8.0" right="8.0" top="6.0"/>
+                        <Insets bottom="6.0" left="8.0" right="8.0" top="6.0" />
                     </padding>
                 </Button>
             </children>
         </HBox>
 
-        <HBox alignment="CENTER_LEFT" spacing="15.0">
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #fff; -fx-background-radius: 8;">
             <children>
 
-                <Label style="-fx-text-fill: #475569;" text="Từ ngày:"/>
-                <DatePicker fx:id="fromDate" prefWidth="150" style="-fx-background-color: white;"/>
+                <Label style="-fx-text-fill: #475569;" text="Từ ngày:">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+                <DatePicker fx:id="fromDate" prefWidth="150" style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #ccc; -fx-border-radius: 6;" />
 
-                <Label style="-fx-text-fill: #475569;" text="Đến ngày:"/>
-                <DatePicker fx:id="toDate" prefWidth="150" style="-fx-background-color: white;"/>
+                <Label style="-fx-text-fill: #475569;" text="Đến ngày:">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+                <DatePicker fx:id="toDate" prefWidth="150" style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #ccc; -fx-border-radius: 6;" />
             </children>
+         <padding>
+            <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
+         </padding>
         </HBox>
 
-        <VBox prefHeight="480.0" prefWidth="972.0" spacing="10.0"
-              style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
-            <children>
-
-                <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;"
-                            VBox.vgrow="ALWAYS">
-                    <VBox fx:id="bill_container" spacing="10">
-                        <padding>
-                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                        </padding>
-                    </VBox>
-                </ScrollPane>
-            </children>
-        </VBox>
+          <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+              <VBox fx:id="bill_container" spacing="10" style="-fx-background-color: #fff;">
+                  <padding>
+                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  </padding>
+              </VBox>
+          </ScrollPane>
     </children>
 
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
 </VBox>

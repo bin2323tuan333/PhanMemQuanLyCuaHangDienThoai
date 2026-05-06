@@ -10,6 +10,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BillRepository {
+  public List<BillInfo> filterBills(String keyword, Date fromDate, Date toDate) {
+    List<BillInfo> bills = new ArrayList<>();
+    
+    String sql = "SELECT * " +
+                         "FROM bill b " +
+                         "JOIN customer c ON b.customer_id = c.customer_id " +
+                         "JOIN employee e ON b.employee_id = e.employee_id " +
+                         "WHERE (c.full_name LIKE ? OR c.phone_number LIKE ?) " +
+                         "AND (? IS NULL OR b.invoice_date >= ?) " +
+                         "AND (? IS NULL OR b.invoice_date <= ?)";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      
+      String kw = "%" + (keyword == null ? "" : keyword.trim()) + "%";
+      pstmt.setString(1, kw);
+      pstmt.setString(2, kw);
+      
+      if (fromDate == null) {
+        pstmt.setNull(3, java.sql.Types.DATE);
+        pstmt.setNull(4, java.sql.Types.DATE);
+      } else {
+        pstmt.setDate(3, fromDate);
+        pstmt.setDate(4, fromDate);
+      }
+      
+      if (toDate == null) {
+        pstmt.setNull(5, java.sql.Types.DATE);
+        pstmt.setNull(6, java.sql.Types.DATE);
+      } else {
+        pstmt.setDate(5, toDate);
+        pstmt.setDate(6, toDate);
+      }
+      
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs.next()) {
+          BillInfo billInfo = new BillInfo();
+          billInfo.setFromRS(rs);
+          bills.add(billInfo);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    
+    return bills;
+  }
+  
   public double getRevenueMonth() {
     Double revenue = 0.0;
     String sql = "SELECT SUM(total_amount)\n" +

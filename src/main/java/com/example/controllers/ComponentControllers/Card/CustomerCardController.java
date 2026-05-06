@@ -27,6 +27,11 @@ public class CustomerCardController {
   
   private CustomerInfo customerInfo;
   private CreateBillController parent;
+  private Runnable reload;
+  
+  public void setReload(Runnable reload) {
+    this.reload = reload;
+  }
   
   public void setCustomerInfo(CustomerInfo customerInfo) {
     this.customerInfo = customerInfo;
@@ -63,6 +68,7 @@ public class CustomerCardController {
       Parent root = loader.load();
       CustomerFormController customerFormController = loader.getController();
       customerFormController.setCustomerInfo(this.customerInfo);
+      customerFormController.setReload(reload);
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm mới");

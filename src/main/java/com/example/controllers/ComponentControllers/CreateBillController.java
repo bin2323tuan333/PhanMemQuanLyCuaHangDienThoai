@@ -34,7 +34,7 @@ public class CreateBillController {
   @FXML
   private FlowPane productlist;
   @FXML
-  private FlowPane customerlist;
+  private VBox customerlist;
   @FXML
   private VBox cartlist;
   @FXML

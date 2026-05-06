@@ -23,6 +23,11 @@ public class SupplierCardController {
   private Label lb_address;
   
   private Supplier supplier;
+  private Runnable reload;
+  
+  public void setReload(Runnable reload) {
+    this.reload = reload;
+  }
   
   public void setSupplier(Supplier supplier) {
     this.supplier = supplier;
@@ -47,6 +52,7 @@ public class SupplierCardController {
       Parent root = loader.load();
       SupplierFormController controller = loader.getController();
       controller.setSupplier(this.supplier);
+      controller.setReload(reload);
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm mới");

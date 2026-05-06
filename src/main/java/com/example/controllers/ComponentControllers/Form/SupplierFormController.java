@@ -29,6 +29,11 @@ public class SupplierFormController {
   private TextField txt_address;
   
   private Supplier supplier;
+  private Runnable reload;
+  
+  public void setReload(Runnable reload) {
+    this.reload = reload;
+  }
   
   public void setSupplier(Supplier supplier) {
     this.supplier = supplier;
@@ -104,5 +109,6 @@ public class SupplierFormController {
   private void closeForm() {
     Stage stage = (Stage) txt_id.getScene().getWindow();
     stage.close();
+    reload.run();
   }
 }

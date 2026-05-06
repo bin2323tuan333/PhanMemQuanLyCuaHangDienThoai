@@ -35,6 +35,12 @@ public class CustomerFormController {
   
   private CustomerInfo customerInfo;
   
+  private Runnable reload;
+  
+  public void setReload(Runnable reload) {
+    this.reload = reload;
+  }
+  
   public void setCustomerInfo(CustomerInfo customerInfo) {
     this.customerInfo = customerInfo;
     setup();
@@ -160,5 +166,6 @@ public class CustomerFormController {
       Stage stage = (Stage) btn_cancel.getScene().getWindow();
       stage.close();
     }
+    reload.run();
   }
 }

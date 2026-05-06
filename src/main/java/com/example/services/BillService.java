@@ -4,7 +4,9 @@ import com.example.DTO.*;
 import com.example.models.*;
 import com.example.repositories.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,38 +45,10 @@ public class BillService {
     return billRepository.getBillInfoByID(id);
   }
   
-  public List<RecentBill> getAllBills() {
-    List<Bill> list = billRepository.getAllBills();
-    List<RecentBill> recentBills = new ArrayList<>();
-    
-    for (Bill item : list) {
-      Customer customer = null;
-      Employee employee = null;
-      
-      if (item.getCustomerId() > 0) {
-        customer = customerRepository.getCustomerById(item.getCustomerId());
-      }
-      if (item.getEmployeeId() > 0) {
-        employee = employeeRepository.getEmployeeByID(item.getEmployeeId());
-      }
-      
-      String customerName = (customer != null) ? customer.getFullName() : "Không có";
-      String employeeName = (employee != null) ? employee.getFullName() : "Không có";
-      
-      RecentBill recentBill = new RecentBill(
-              item.getBillId(),
-              customerName,
-              item.getInvoiceDate(),
-              item.getTotalAmount(),
-              employeeName,
-              "COMPLETED"
-      
-      );
-      
-      recentBills.add(recentBill);
-    }
-    
-    return recentBills;
+  public List<BillInfo> filterBills(String keyword, LocalDate fromDate, LocalDate toDate) {
+    Date from = (fromDate != null) ? Date.valueOf(fromDate) : null;
+    Date to = (toDate != null) ? Date.valueOf(toDate) : null;
+    return billRepository.filterBills(keyword, from, to);
   }
   
   public List<BillDetailInfo> getBillDetailInfoByBillId(int id) {

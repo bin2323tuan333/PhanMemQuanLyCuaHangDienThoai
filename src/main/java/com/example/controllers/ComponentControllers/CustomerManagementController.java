@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class CustomerManagementController {
   @FXML
-  private FlowPane customer_container;
+  private VBox customer_container;
   @FXML
   private TextField txt_search;
   
@@ -40,6 +41,7 @@ public class CustomerManagementController {
       Parent root = loader.load();
       CustomerFormController customerFormController = loader.getController();
       customerFormController.setCustomerInfo(null);
+      customerFormController.setReload(this::reload);
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm mới");
@@ -67,11 +69,19 @@ public class CustomerManagementController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Customer.fxml"));
         Node node = loader.load();
         CustomerCardController controller = loader.getController();
+        controller.setReload(this::reload);
         controller.setCustomerInfo(item);
         this.customer_container.getChildren().add(node);
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  
+  public void reload() {
+    this.txt_search.setText("");
+    CustomerService customerService = new CustomerService();
+    List<CustomerInfo> list = customerService.getAllCustomerInfos();
+    render(list);
   }
 }
