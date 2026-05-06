@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -13,214 +14,184 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0"
-      prefWidth="600.0" spacing="10.0"
-      style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-radius: 8;"
-      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.controllers.ComponentControllers.Form.EmployeeFormController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.Form.EmployeeFormController">
     <children>
 
         <Label text="Thông tin chi tiết nhân viên" textFill="#2c3e50">
             <font>
-                <Font name="System Bold" size="16.0"/>
+                <Font name="System Bold" size="18.0" />
             </font>
         </Label>
         <GridPane prefHeight="524.0" prefWidth="600.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="109.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="471.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="109.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="471.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label text="Mã nhân viên" textFill="#4a5568">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <Label text="Tên nhân viên" textFill="#4a5568" GridPane.rowIndex="1">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <Label text="Giới tính" textFill="#4a5568" GridPane.rowIndex="2">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <Label text="Ngày sinh" textFill="#4a5568" GridPane.rowIndex="3">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <Label text="Địa chỉ" textFill="#4a5568" GridPane.rowIndex="4">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <Label text="Số điện thoại" textFill="#4a5568" GridPane.rowIndex="5">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <Label text="Lương" textFill="#4a5568" GridPane.rowIndex="6">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <Label text="Trạng thái" textFill="#4a5568" GridPane.rowIndex="7">
+                <Label text="Trạng thái" textFill="#4a5568" GridPane.rowIndex="8">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txt_id" editable="false"
-                           style="-fx-background-color: #F8F9FA; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                           GridPane.columnIndex="1">
+                <TextField fx:id="txt_id" editable="false" style="-fx-background-color: #F8F9FA; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1">
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <TextField fx:id="txt_name"
-                           style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                           GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <TextField fx:id="txt_name" promptText="Tên nhân viên" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <DatePicker fx:id="dp_dob" prefHeight="25.0"
-                            style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                            GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <DatePicker fx:id="dp_dob" prefHeight="25.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </DatePicker>
-                <TextField fx:id="txt_address"
-                           style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                           GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <TextField fx:id="txt_address" promptText="Địa chỉ" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <TextField fx:id="txt_phone"
-                           style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                           GridPane.columnIndex="1" GridPane.rowIndex="5">
+                <TextField fx:id="txt_phone" promptText="Số điện thoại" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <TextField fx:id="txt_salary"
-                           style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                           GridPane.columnIndex="1" GridPane.rowIndex="6">
+                <TextField fx:id="txt_salary" promptText="Lương" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </TextField>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0"
-                      GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <children>
-                        <RadioButton fx:id="rd_male" mnemonicParsing="false"
-                                     style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                                     text="Nam">
+                        <RadioButton fx:id="rd_male" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" text="Nam">
                             <padding>
-                                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                             </padding>
                         </RadioButton>
-                        <RadioButton fx:id="rd_female" mnemonicParsing="false"
-                                     style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                                     text="Nữ">
+                        <RadioButton fx:id="rd_female" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" text="Nữ">
                             <padding>
-                                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                             </padding>
                         </RadioButton>
                     </children>
                     <padding>
-                        <Insets left="20.0" right="20.0"/>
+                        <Insets left="20.0" right="20.0" />
                     </padding>
                 </HBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0"
-                      GridPane.columnIndex="1" GridPane.rowIndex="7">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                     <children>
-                        <RadioButton fx:id="rd_active" mnemonicParsing="false"
-                                     style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                                     text="Còn hoạt động">
+                        <RadioButton fx:id="rd_active" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" text="Hoạt động">
                             <padding>
-                                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                             </padding>
                         </RadioButton>
-                        <RadioButton fx:id="rd_inactive" mnemonicParsing="false"
-                                     style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;"
-                                     text="Đã khóa">
+                        <RadioButton fx:id="rd_inactive" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #CBD5E0; -fx-background-radius: 4; -fx-border-radius: 4;" text="Khóa">
                             <padding>
-                                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                             </padding>
                         </RadioButton>
                     </children>
                     <padding>
-                        <Insets left="20.0" right="20.0"/>
+                        <Insets left="20.0" right="20.0" />
                     </padding>
                 </HBox>
+            <Label text="Vai trò" GridPane.rowIndex="7" />
+            <ComboBox fx:id="cbb_role" prefWidth="150.0" promptText="Vai trò" style="-fx-background-color: #fff; -fx-border-color: #CBD5E0; -fx-background-radius: 6; -fx-border-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <padding>
+                  <Insets bottom="3.0" left="8.0" right="8.0" top="3.0" />
+               </padding>
+            </ComboBox>
             </children>
         </GridPane>
         <HBox alignment="CENTER" prefHeight="216.0" prefWidth="600.0" spacing="20.0">
             <children>
-                <Button fx:id="btn_add" mnemonicParsing="false" onAction="#handleBtnAdd"
-                        style="-fx-background-radius: 6; -fx-background-color: #48BB78; -fx-border-radius: 6;"
-                        text="Thêm" textFill="WHITE">
+                <Button fx:id="btn_add" mnemonicParsing="false" onAction="#handleBtnAdd" style="-fx-background-radius: 6; -fx-background-color: #48BB78; -fx-border-radius: 6;" text="Thêm" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btn_update" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                        onAction="#handleBtnUpdate"
-                        style="-fx-background-radius: 6; -fx-background-color: #4299E1; -fx-border-radius: 6;"
-                        text="Cập nhật" textFill="WHITE">
+                <Button fx:id="btn_update" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleBtnUpdate" style="-fx-background-radius: 6; -fx-background-color: #4299E1; -fx-border-radius: 6;" text="Cập nhật" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btn_cancel" layoutX="62.0" layoutY="10.0" mnemonicParsing="false"
-                        onAction="#handleBtnCancel"
-                        style="-fx-background-radius: 6; -fx-background-color: #ECC94B; -fx-border-radius: 6;"
-                        text="Hủy" textFill="#1a202c">
+                <Button fx:id="btn_cancel" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleBtnCancel" style="-fx-background-radius: 6; -fx-background-color: #ECC94B; -fx-border-radius: 6;" text="Hủy" textFill="#1a202c">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btn_delete" layoutX="114.0" layoutY="10.0" mnemonicParsing="false"
-                        onAction="#handleBtnDelete"
-                        style="-fx-background-radius: 6; -fx-background-color: #F56565; -fx-border-radius: 6;"
-                        text="Xóa" textFill="WHITE">
+                <Button fx:id="btn_delete" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleBtnDelete" style="-fx-background-radius: 6; -fx-background-color: #F56565; -fx-border-radius: 6;" text="Xóa" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                     <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0"/>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
                     </padding>
                 </Button>
             </children>
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </HBox>
     </children>
     <padding>
-        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0"/>
+        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
     </padding>
 </VBox>

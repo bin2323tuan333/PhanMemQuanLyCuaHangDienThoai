@@ -31,7 +31,11 @@ public class EmployeeCardController {
   private Label lb_status;
   
   private EmployeeInfo employeeInfo;
+  private Runnable reload;
   
+  public void setReload(Runnable runnable) {
+    this.reload = runnable;
+  }
   
   public void setEmployeeInfo(EmployeeInfo employeeInfo) {
     this.employeeInfo = employeeInfo;
@@ -45,9 +49,9 @@ public class EmployeeCardController {
   private void setup() {
     this.lb_name.setText(employeeInfo.getFullName());
     this.lb_dob.setText(employeeInfo.getBirthday().toString());
-    this.lb_id.setText("ID: " + employeeInfo.getEmployeeId());
+    this.lb_id.setText((employeeInfo.getRole().getRoleName()) + employeeInfo.getEmployeeId());
     this.lb_address.setText(employeeInfo.getAddress());
-    this.lb_role.setText(employeeInfo.getRoleName());
+    this.lb_role.setText(employeeInfo.getRole().getRoleName());
     this.lb_phone.setText(employeeInfo.getPhoneNumber());
     this.lb_status.setText((employeeInfo.getStatus() ? "Hoạt động" : "Khóa"));
   }
@@ -58,7 +62,7 @@ public class EmployeeCardController {
       Parent root = loader.load();
       EmployeeFormController controller = loader.getController();
       controller.setEmployeeInfo(this.employeeInfo);
-      
+      controller.setReload(reload);
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm nhân viên mới");

@@ -37,5 +37,8 @@ public class Role {
     return this.roleName;
   }
   
-  
+  @Override
+  public String toString() {
+    return this.roleName;
+  }
 }

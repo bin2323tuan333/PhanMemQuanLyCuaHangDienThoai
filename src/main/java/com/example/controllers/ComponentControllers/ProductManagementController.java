@@ -40,14 +40,11 @@ public class ProductManagementController {
   
   @FXML
   public void initialize() {
-    productService = new ProductService();  // ✅ Cache service
-    
+    productService = new ProductService();
     CategoryService categoryService = new CategoryService();
     BrandService brandService = new BrandService();
-    
     List<Category> categories = categoryService.getAllCategorys();
     List<Brand> brands = brandService.getAllBrands();
-    
     categories.add(0, new Category(0, "Tất cả"));
     brands.add(0, new Brand(0, "Tất cả"));
     

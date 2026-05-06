@@ -9,6 +9,37 @@ import com.example.repositories.EmployeeRepository;
 import java.util.List;
 
 public class EmployeeService {
+  public boolean isValidData(Employee employee) {
+    if (employee == null) {
+      throw new IllegalArgumentException("Dữ liệu nhân viên không được để trống.");
+    }
+    if (employee.getFullName() == null || employee.getFullName().trim().isEmpty()) {
+      throw new IllegalArgumentException("Họ và tên không được để trống.");
+    }
+    if (employee.getPhoneNumber() == null || employee.getPhoneNumber().trim().isEmpty()) {
+      throw new IllegalArgumentException("Số điện thoại không được để trống.");
+    }
+    if (!employee.getPhoneNumber().matches("\\d+")) {
+      throw new IllegalArgumentException("Số điện thoại chỉ được chứa ký tự số.");
+    }
+    if (employee.getSalary() < 0) {
+      throw new IllegalArgumentException("Mức lương không thể là số âm.");
+    }
+    if (employee.getBirthday() == null) {
+      throw new IllegalArgumentException("Vui lòng chọn ngày sinh.");
+    }
+    return true;
+  }
+  
+  public boolean isDuplicatePhone(Employee employee) {
+    return false;
+  }
+  
+  public boolean canDelete(Employee employee) {
+//    - rang buoc hoa don
+    return false;
+  }
+  
   public Employee getEmployeeByID(int id) {
     EmployeeRepository eRepo = new EmployeeRepository();
     return eRepo.getEmployeeByID(id);

@@ -31,7 +31,7 @@ public class EmployeeRepository {
   
   public List<EmployeeInfo> getAllEmployeeInfo() {
     List<EmployeeInfo> list = new ArrayList<>();
-    String sql = "SELECT e.employee_id, e.employee_name, e.gender, e.birthday, e.address, e.phone_number, e.salary, e.status, r.role_name " +
+    String sql = "SELECT * " +
                          "FROM Employee e " +
                          "LEFT JOIN Account a ON e.employee_id = a.employee_id " +
                          "LEFT JOIN Role r ON a.role_id = r.role_id;";
@@ -53,7 +53,7 @@ public class EmployeeRepository {
   
   public List<EmployeeInfo> searchEmployeeInfo(String keyword) {
     List<EmployeeInfo> list = new ArrayList<>();
-    String sql = "SELECT e.employee_id, e.employee_name, e.gender, e.birthday, e.address, e.phone_number, e.salary, e.status, r.role_name " +
+    String sql = "SELECT * " +
                          "FROM Employee e " +
                          "LEFT JOIN Account a ON e.employee_id = a.employee_id " +
                          "LEFT JOIN Role r ON a.role_id = r.role_id " +
@@ -86,7 +86,7 @@ public class EmployeeRepository {
   
   
   public EmployeeInfo getEmployeeInfoByID(int id) {
-    String sql = "SELECT e.employee_id, e.employee_name, e.gender, e.birthday, e.address, e.phone_number, e.salary, e.status, r.role_name " +
+    String sql = "SELECT * " +
                          "FROM Employee e " +
                          "LEFT JOIN Account a ON e.employee_id = a.employee_id " +
                          "LEFT JOIN Role r ON a.role_id = r.role_id WHERE e.employee_id = ?";

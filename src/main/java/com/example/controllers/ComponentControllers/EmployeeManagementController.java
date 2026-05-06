@@ -44,6 +44,8 @@ public class EmployeeManagementController {
       Parent root = loader.load();
       EmployeeFormController controller = loader.getController();
       controller.setEmployeeInfo(null);
+      controller.setEmployeeManagementController(this);
+      controller.setReload(this::reload);
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm nhân viên mới");
@@ -72,10 +74,16 @@ public class EmployeeManagementController {
         Node employeeCard = loader.load();
         EmployeeCardController controller = loader.getController();
         controller.setEmployeeInfo(item);
+        controller.setReload(this::reload);
         this.employee_container.getChildren().add(employeeCard);
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  
+  public void reload() {
+    this.txt_search_employee.setText("");
+    setup();
   }
 }

@@ -1,8 +1,9 @@
 package com.example.DTO;
 
+import com.example.models.Role;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.sql.Date;
 
 public class EmployeeInfo {
@@ -14,12 +15,12 @@ public class EmployeeInfo {
   private String phoneNumber;
   private double salary;
   private boolean status;
-  private String roleName;
+  private Role role;
   
   public EmployeeInfo() {
   }
   
-  public EmployeeInfo(int employeeId, String fullName, boolean gender, Date birthday, String address, String phoneNumber, double salary, boolean status, String roleName) {
+  public EmployeeInfo(int employeeId, String fullName, boolean gender, Date birthday, String address, String phoneNumber, double salary, boolean status, Role role) {
     this.employeeId = employeeId;
     this.fullName = fullName;
     this.gender = gender;
@@ -28,7 +29,7 @@ public class EmployeeInfo {
     this.phoneNumber = phoneNumber;
     this.salary = salary;
     this.status = status;
-    this.roleName = roleName;
+    this.role = role;
   }
   
   public void setFromRS(ResultSet rs) throws SQLException {
@@ -40,7 +41,8 @@ public class EmployeeInfo {
     this.phoneNumber = rs.getString("phone_number");
     this.salary = rs.getDouble("salary");
     this.status = rs.getBoolean("status");
-    this.roleName = rs.getString("role_name");
+    this.role = new Role();
+    this.role.setFromRS(rs);
   }
   
   public int getEmployeeId() {
@@ -107,12 +109,12 @@ public class EmployeeInfo {
     this.status = status;
   }
   
-  public String getRoleName() {
-    return roleName;
+  public Role getRole() {
+    return role;
   }
   
-  public void setRoleName(String roleName) {
-    this.roleName = roleName;
+  public void setRole(Role role) {
+    this.role = role;
   }
   
   

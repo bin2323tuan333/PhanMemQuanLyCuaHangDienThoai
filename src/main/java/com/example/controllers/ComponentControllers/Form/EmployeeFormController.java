@@ -1,15 +1,21 @@
 package com.example.controllers.ComponentControllers.Form;
 
 import com.example.DTO.EmployeeInfo;
+import com.example.controllers.ComponentControllers.EmployeeManagementController;
 import com.example.models.Account;
 import com.example.models.Employee;
+import com.example.models.Role;
 import com.example.services.AccountService;
 import com.example.services.EmployeeService;
+import com.example.services.RoleService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
+import java.util.List;
 
 
 public class EmployeeFormController {
@@ -40,12 +46,24 @@ public class EmployeeFormController {
   @FXML
   private RadioButton rd_inactive;
   @FXML
+  private ComboBox<Role> cbb_role;
+  @FXML
   private DatePicker dp_dob;
   private ToggleGroup genderGroup;
   private ToggleGroup activeGroup;
   
   
+  private EmployeeManagementController employeeManagementController;
   private EmployeeInfo employeeInfo;
+  private Runnable reload;
+  
+  public void setReload(Runnable runnable) {
+    this.reload = runnable;
+  }
+  
+  public void setEmployeeManagementController(EmployeeManagementController employeeManagementController) {
+    this.employeeManagementController = employeeManagementController;
+  }
   
   
   public void setEmployeeInfo(EmployeeInfo employeeInfo) {
@@ -63,6 +81,10 @@ public class EmployeeFormController {
     rd_inactive.setToggleGroup(activeGroup);
     rd_male.setSelected(true);
     rd_active.setSelected(true);
+    RoleService roleService = new RoleService();
+    List<Role> roles = roleService.getAllRoles();
+    this.cbb_role.setItems(FXCollections.observableArrayList(roles));
+    this.cbb_role.getSelectionModel().selectFirst();
   }
   
   public void setup() {
@@ -84,7 +106,10 @@ public class EmployeeFormController {
       txt_name.setText(employeeInfo.getFullName());
       txt_address.setText(employeeInfo.getAddress());
       txt_phone.setText(employeeInfo.getPhoneNumber());
-      txt_salary.setText(String.valueOf(employeeInfo.getSalary()));
+      
+      DecimalFormat df = new DecimalFormat("#,###");
+      txt_salary.setText(df.format(employeeInfo.getSalary()));
+      
       
       if (employeeInfo.getGender()) {
         rd_male.setSelected(true);
@@ -98,6 +123,13 @@ public class EmployeeFormController {
       }
       if (employeeInfo.getBirthday() != null) {
         dp_dob.setValue((employeeInfo.getBirthday()).toLocalDate());
+      }
+      
+      for (Role role : cbb_role.getItems()) {
+        if (role.getRoleId() == employeeInfo.getRole().getRoleId()) {
+          cbb_role.getSelectionModel().select(role);
+          break;
+        }
       }
     }
   }
@@ -115,38 +147,70 @@ public class EmployeeFormController {
   }
   
   public void handleBtnAdd() {
-    EmployeeService employeeService = new EmployeeService();
-    Employee newEmployee = getEmployeeDataFromForm();
-    if (newEmployee != null) {
+    try {
+      EmployeeService employeeService = new EmployeeService();
+      Employee newEmployee = getEmployeeDataFromForm();
+      if (newEmployee == null) {
+        throw new IllegalArgumentException("Dữ liệu đầu vào không hợp lệ. Vui lòng kiểm tra lại các trường.");
+      }
+      employeeService.isValidData(newEmployee);
       employeeService.addEmployee(newEmployee);
+      
       int employeeId = employeeService.getEmployeeIdByPhone(newEmployee.getPhoneNumber());
+      Role selectedRole = cbb_role.getValue();
       Account acc = new Account();
       acc.setEmployeeId(employeeId);
       acc.setPassword("123456");
-      acc.setUsername(newEmployee.getPhoneNumber().trim());
-      acc.setRoleId(1);
+      acc.setUsername(selectedRole.getRoleName() + "_" + employeeId);
+      if (selectedRole != null) {
+        acc.setRoleId(selectedRole.getRoleId());
+      } else {
+        acc.setRoleId(1);
+      }
+      
       AccountService accountService = new AccountService();
       accountService.insertAccount(acc);
       closeForm();
-    } else {
-      Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input. Please check the data and try again.", ButtonType.OK);
+    } catch (IllegalArgumentException e) {
+      Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+      alert.setTitle("Lỗi nhập liệu");
+      alert.setHeaderText(null);
       alert.showAndWait();
+    } catch (Exception e) {
+      Alert alert = new Alert(Alert.AlertType.ERROR, "Lỗi hệ thống: " + e.getMessage(), ButtonType.OK);
+      alert.setTitle("Lỗi hệ thống");
+      alert.setHeaderText(null);
+      alert.showAndWait();
+      e.printStackTrace();
     }
   }
   
   public void handleBtnUpdate() {
-    EmployeeService employeeService = new EmployeeService();
-    if (employeeInfo != null) {
-      Employee updatedEmployee = getEmployeeDataFromForm();
-      if (updatedEmployee != null) {
-        updatedEmployee.setEmployeeId(employeeInfo.getEmployeeId());
-        employeeService.updateEmployee(updatedEmployee);
-        
-        closeForm();
-      } else {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input. Please check the data and try again.", ButtonType.OK);
-        alert.showAndWait();
+    try {
+      EmployeeService employeeService = new EmployeeService();
+      if (employeeInfo == null) {
+        throw new IllegalArgumentException("Không tìm thấy thông tin nhân viên để cập nhật.");
       }
+      Employee updatedEmployee = getEmployeeDataFromForm();
+      if (updatedEmployee == null) {
+        throw new IllegalArgumentException("Dữ liệu đầu vào không hợp lệ. Vui lòng kiểm tra lại các trường.");
+      }
+      updatedEmployee.setEmployeeId(employeeInfo.getEmployeeId());
+      employeeService.isValidData(updatedEmployee);
+      employeeService.updateEmployee(updatedEmployee);
+      closeForm();
+    } catch (IllegalArgumentException e) {
+      Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+      alert.setTitle("Lỗi nhập liệu");
+      alert.setHeaderText(null);
+      alert.showAndWait();
+      
+    } catch (Exception e) {
+      Alert alert = new Alert(Alert.AlertType.ERROR, "Lỗi hệ thống: Hãy nhập đúng dữ liệu!");
+      alert.setTitle("Lỗi hệ thống");
+      alert.setHeaderText(null);
+      alert.showAndWait();
+      e.printStackTrace();
     }
   }
   
@@ -168,7 +232,10 @@ public class EmployeeFormController {
       emp.setFullName(txt_name.getText().trim());
       emp.setAddress(txt_address.getText().trim());
       emp.setPhoneNumber(txt_phone.getText().trim());
-      emp.setSalary(Double.parseDouble(txt_salary.getText().trim()));
+      String salaryText = txt_salary.getText().trim()
+                                  .replace(".", "")
+                                  .replace(",", "");
+      emp.setSalary(Double.parseDouble(salaryText));
       emp.setGender(rd_male.isSelected());
       emp.setStatus(rd_active.isSelected());
       emp.setBirthday(Date.valueOf(dp_dob.getValue()));
@@ -182,6 +249,7 @@ public class EmployeeFormController {
   private void closeForm() {
     Stage stage = (Stage) btn_cancel.getScene().getWindow();
     stage.close();
+    reload.run();
   }
   
 }
