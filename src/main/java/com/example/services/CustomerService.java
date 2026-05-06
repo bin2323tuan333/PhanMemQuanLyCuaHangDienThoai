@@ -53,4 +53,8 @@ public class CustomerService {
     CustomerRepository customerRepository = new CustomerRepository();
     return customerRepository.getAllCustomers();
   }
+  public boolean hasBill  (int customerId) {
+    CustomerRepository customerRepository = new CustomerRepository();
+    return customerRepository.hasBill(customerId);
+  }
 }

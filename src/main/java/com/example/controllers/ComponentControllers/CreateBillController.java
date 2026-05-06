@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -262,6 +263,12 @@ public class CreateBillController {
   
   public void handleBtnAddBill() {
     if (customer == null || listCart.isEmpty()) {
+
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Thiếu thông tin");
+      alert.setHeaderText(null);
+      alert.setContentText("Vui lòng chọn khách hàng và thêm sản phẩm vào giỏ hàng trước khi tạo hóa đơn.");
+      alert.showAndWait();
       return;
     }
     
@@ -277,7 +284,11 @@ public class CreateBillController {
     int billId = billService.addBill(bill);
     
     if (billId <= 0) {
-      System.out.println("Tạo bill không thành công, kiểm tra lại DB!");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Lỗi tạo hóa đơn");
+        alert.setHeaderText(null);
+        alert.setContentText("Đã xảy ra lỗi khi tạo hóa đơn. Vui lòng thử lại.");
+        alert.showAndWait();
       return;
     }
     

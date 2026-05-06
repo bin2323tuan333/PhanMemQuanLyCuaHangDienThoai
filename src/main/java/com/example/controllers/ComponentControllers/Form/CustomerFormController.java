@@ -126,6 +126,17 @@ public class CustomerFormController {
   
   @FXML
   public void handleBtnDelete() {
+    if  (customerInfo != null) {
+      CustomerService customerService = new CustomerService();
+      if (customerService.hasBill(customerInfo.getCustomerId())) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Không thể xóa");
+        alert.setHeaderText(null);
+        alert.setContentText("Khách hàng này có hóa đơn liên quan, không thể xóa.");
+        alert.showAndWait();
+        return;
+      }
+    }
     if (customerInfo != null) {
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
       alert.setTitle("Xác nhận");

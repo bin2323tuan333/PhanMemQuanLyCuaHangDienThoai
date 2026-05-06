@@ -226,4 +226,21 @@ public class CustomerRepository {
     }
     return null;
   }
+  public boolean hasBill (int cusId) {
+    String sql = "SELECT COUNT(*) as count " +
+                         "FROM Bill " +
+                         "WHERE customer_id = ?";
+
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, cusId);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) return rs.getInt(1) > 0;
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
 }

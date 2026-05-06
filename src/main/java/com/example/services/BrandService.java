@@ -28,4 +28,8 @@ public class BrandService {
     BrandRepository brandRepository = new BrandRepository();
     brandRepository.deleteBrand(brandId);}
 
-}
+
+public boolean hasProduct(int brandId) {
+    BrandRepository brandRepository = new BrandRepository();
+    return brandRepository.hasProduct(brandId);
+  }}

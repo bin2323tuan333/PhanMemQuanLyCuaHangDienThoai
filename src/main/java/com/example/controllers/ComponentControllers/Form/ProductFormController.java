@@ -9,6 +9,7 @@ import com.example.services.CategoryService;
 import com.example.services.ProductService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -109,6 +110,13 @@ public class ProductFormController {
     if (newProduct != null) {
       productService.addProduct(newProduct);
       closeForm();
+    }else {
+
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Lỗi dữ liệu");
+      alert.setHeaderText(null);
+      alert.setContentText("Vui lòng kiểm tra lại thông tin đã nhập. Đảm bảo rằng tất cả các trường đều được điền đầy đủ và đúng định dạng.");
+      alert.showAndWait();
     }
   }
 

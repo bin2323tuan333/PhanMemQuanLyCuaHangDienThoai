@@ -261,6 +261,7 @@ public class ProductRepository {
     String sql = "UPDATE Product SET stock = stock + ? WHERE product_id = ?";
     DBHelper.Instance().executeUpd(sql, quantity, productId);
   }
+
   
   
 }
