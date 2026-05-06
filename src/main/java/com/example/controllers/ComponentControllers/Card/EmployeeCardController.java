@@ -29,23 +29,23 @@ public class EmployeeCardController {
   private Label lb_dob;
   @FXML
   private Label lb_status;
-  
+
   private EmployeeInfo employeeInfo;
   private Runnable reload;
-  
+
   public void setReload(Runnable runnable) {
     this.reload = runnable;
   }
-  
+
   public void setEmployeeInfo(EmployeeInfo employeeInfo) {
     this.employeeInfo = employeeInfo;
     setup();
   }
-  
+
   @FXML
   public void initialize() {
   }
-  
+
   private void setup() {
     this.lb_name.setText(employeeInfo.getFullName());
     this.lb_dob.setText(employeeInfo.getBirthday().toString());
@@ -55,7 +55,7 @@ public class EmployeeCardController {
     this.lb_phone.setText(employeeInfo.getPhoneNumber());
     this.lb_status.setText((employeeInfo.getStatus() ? "Hoạt động" : "Khóa"));
   }
-  
+
   public void handleClick() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/EmployeeForm.fxml"));
@@ -67,11 +67,11 @@ public class EmployeeCardController {
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm nhân viên mới");
       stage.showAndWait();
-      
-      
+
+
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
-  
+
 }

@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class ImportBillCardController {
   @FXML
@@ -20,26 +21,26 @@ public class ImportBillCardController {
   private Label lb_employee;
   @FXML
   private Label lb_total;
-  
+
   private ImportBillInfo importBillInfo;
-  
+
   public void setImportBillInfo(ImportBillInfo importBillInfo) {
     this.importBillInfo = importBillInfo;
     setup();
   }
-  
+
   @FXML
   public void initalize() {
-  
+
   }
-  
+
   public void setup() {
     this.lb_id.setText(this.importBillInfo.getImportId() + "");
     this.lb_employee.setText(this.importBillInfo.getEmployee().getFullName() + "");
     this.lb_supplier.setText(this.importBillInfo.getSupplier().getName() + "");
-    this.lb_total.setText(this.importBillInfo.getTotalAmount() + "");
+    this.lb_total.setText("" + String.format("%,.0f VNĐ", this.importBillInfo.getTotalAmount() ));
   }
-  
+
   public void handleClick() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ImportBillForm.fxml"));
@@ -54,9 +55,9 @@ public class ImportBillCardController {
       e.printStackTrace();
     }
   }
-  
+
   public ImportBillInfo getImportBillInfo() {
     return this.importBillInfo;
   }
-  
+
 }

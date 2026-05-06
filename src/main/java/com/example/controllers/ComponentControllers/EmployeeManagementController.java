@@ -26,18 +26,18 @@ public class EmployeeManagementController {
   private Button btn_add_employee;
   @FXML
   private VBox employee_container;
-  
+
   @FXML
   public void initialize() {
     this.setup();
   }
-  
+
   private void setup() {
     EmployeeService employeeService = new EmployeeService();
     List<EmployeeInfo> list = employeeService.getAllEmployeeInfos();
     render(list);
   }
-  
+
   public void handleBtnAdd() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/EmployeeForm.fxml"));
@@ -53,19 +53,19 @@ public class EmployeeManagementController {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
+
     EmployeeService employeeService = new EmployeeService();
     List<EmployeeInfo> list = employeeService.getAllEmployeeInfos();
     render(list);
   }
-  
+
   public void handleBtnSearch() {
     String s = this.txt_search_employee.getText().trim().toLowerCase();
     EmployeeService employeeService = new EmployeeService();
     List<EmployeeInfo> list = employeeService.searchEmployees(s);
     render(list);
   }
-  
+
   public void render(List<EmployeeInfo> list) {
     this.employee_container.getChildren().clear();
     try {
@@ -81,7 +81,7 @@ public class EmployeeManagementController {
       e.printStackTrace();
     }
   }
-  
+
   public void reload() {
     this.txt_search_employee.setText("");
     setup();

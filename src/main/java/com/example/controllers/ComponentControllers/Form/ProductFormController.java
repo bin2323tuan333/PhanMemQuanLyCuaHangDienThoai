@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ProductFormController {
@@ -39,14 +40,14 @@ public class ProductFormController {
   private ComboBox<Category> cbb_category;
   @FXML
   private ComboBox<Brand> cbb_brand;
-  
+
   private ProductInfo productInfo;
-  
+
   public void setProductInfo(ProductInfo productInfo) {
     this.productInfo = productInfo;
     setup();
   }
-  
+
   @FXML
   public void initialize() {
     CategoryService categoryService = new CategoryService();
@@ -56,8 +57,8 @@ public class ProductFormController {
     cbb_category.setItems(FXCollections.observableArrayList(categories));
     cbb_brand.setItems(FXCollections.observableArrayList(brands));
   }
-  
-  
+
+
   public void setup() {
     if (productInfo == null) {
       btn_delete.setVisible(false);
@@ -71,15 +72,16 @@ public class ProductFormController {
       show();
     }
   }
-  
+
   public void show() {
     if (productInfo != null) {
       txt_id.setText(String.valueOf(productInfo.getProductId()));
       txt_name.setText(productInfo.getProductName());
-      txt_price.setText(String.valueOf(productInfo.getPrice()));
+      DecimalFormat df = new DecimalFormat("#,###");
+      txt_price.setText(String.valueOf(df.format(productInfo.getPrice())));
       txt_stock.setText(String.valueOf(productInfo.getStock()));
       txt_description.setText(productInfo.getDescription());
-      
+
       if (productInfo.getCategory() != null) {
         cbb_category.setValue(productInfo.getCategory());
       }
@@ -88,18 +90,18 @@ public class ProductFormController {
       }
     }
   }
-  
+
   private void clearForm() {
     if (txt_id != null) txt_id.clear();
     if (txt_name != null) txt_name.clear();
     if (txt_price != null) txt_price.clear();
     if (txt_stock != null) txt_stock.clear();
     if (txt_description != null) txt_description.clear();
-    
+
     cbb_category.getSelectionModel().clearSelection();
     cbb_brand.getSelectionModel().clearSelection();
   }
-  
+
   @FXML
   public void handleBtnAdd() {
     ProductService productService = new ProductService();
@@ -109,7 +111,7 @@ public class ProductFormController {
       closeForm();
     }
   }
-  
+
   @FXML
   public void handleBtnUpdate() {
     ProductService productService = new ProductService();
@@ -122,7 +124,7 @@ public class ProductFormController {
       }
     }
   }
-  
+
   @FXML
   public void handleBtnDelete() {
     ProductService productService = new ProductService();
@@ -131,35 +133,35 @@ public class ProductFormController {
       closeForm();
     }
   }
-  
+
   @FXML
   public void handleBtnCancel() {
     closeForm();
   }
-  
+
   private Product getProductDataFromForm() {
     try {
       String name = txt_name.getText().trim();
-      String priceText = txt_price.getText().trim();
+      String priceText = txt_price.getText().replace(".","").trim();
       String stockText = txt_stock.getText().trim();
       String description = txt_description.getText().trim();
-      
+
       Category category = cbb_category.getValue();
       Brand brand = cbb_brand.getValue();
-      
+
       if (category == null || brand == null) {
         System.out.println("Lỗi: Phải chọn đầy đủ Category, Brand!");
         return null;
       }
-      
+
       if (name.isEmpty() || priceText.isEmpty() || stockText.isEmpty()) {
         System.out.println("Lỗi: Không được để trống thông tin text!");
         return null;
       }
-      
+
       double price = Double.parseDouble(priceText);
       int stock = Integer.parseInt(stockText);
-      
+
       Product p = new Product();
       p.setProductName(name);
       p.setPrice(price);
@@ -167,7 +169,7 @@ public class ProductFormController {
       p.setDescription(description);
       p.setCategoryId(category.getCategoryId());
       p.setBrandId(brand.getBrandId());
-      
+
       return p;
     } catch (NumberFormatException e) {
       System.out.println("Lỗi: Giá và Số lượng phải là số hợp lệ!");
@@ -175,7 +177,7 @@ public class ProductFormController {
       return null;
     }
   }
-  
+
   private void closeForm() {
     Stage stage = (Stage) txt_id.getScene().getWindow();
     stage.close();

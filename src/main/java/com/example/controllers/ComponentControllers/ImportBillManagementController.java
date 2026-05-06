@@ -26,12 +26,12 @@ public class ImportBillManagementController {
   private ComboBox<String> cbb_price;
   @FXML
   private FlowPane import_bill_container;
-  
+
   @FXML
   public void initialize() {
     setup();
   }
-  
+
   public void setup() {
     BillService billService = new BillService();
     List<ImportBillInfo> list = billService.getAllImportBillInfo();
@@ -47,7 +47,7 @@ public class ImportBillManagementController {
       e.printStackTrace();
     }
   }
-  
+
   public void handleBtnAdd() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CreateImportBill.fxml"));
@@ -60,7 +60,7 @@ public class ImportBillManagementController {
       e.printStackTrace();
     }
   }
-  
+
   public void handleBtnSearch() {
     String key = txt_search.getText().trim().toLowerCase();
     this.import_bill_container.getChildren().clear();
@@ -74,8 +74,8 @@ public class ImportBillManagementController {
         controller.setImportBillInfo(item);
         this.import_bill_container.getChildren().add(node);
 
-  }
-} catch (IOException e) {
-        throw new RuntimeException(e);
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }}
