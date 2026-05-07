@@ -1,6 +1,7 @@
 package com.example.controllers.ComponentControllers.Form;
 
 import com.example.DTO.CustomerInfo;
+import com.example.models.Customer;
 import com.example.services.CustomerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -80,13 +81,9 @@ public class CustomerFormController {
       txt_name.setText(customerInfo.getCustomerName());
       txt_address.setText(customerInfo.getAddress());
       txt_phone.setText(customerInfo.getPhone());
-      
-      if (customerInfo.getGender()) {
-        rd_male.setSelected(true);
-      } else {
-        rd_female.setSelected(true);
-      }
-      
+      boolean isMale = customerInfo.getGender();
+      rd_male.setSelected(isMale);
+      rd_female.setSelected(!isMale);
       dp_dob.setValue(customerInfo.getDob().toLocalDate());
     }
   }
@@ -104,7 +101,7 @@ public class CustomerFormController {
   @FXML
   public void handleBtnAdd() {
     CustomerService customerService = new CustomerService();
-    CustomerInfo newCustomer = getCustomerDataFromForm();
+    Customer newCustomer = getCustomerDataFromForm();
     if (newCustomer != null) {
       customerService.addCustomer(newCustomer);
       closeForm();
@@ -115,7 +112,7 @@ public class CustomerFormController {
   public void handleBtnUpdate() {
     CustomerService customerService = new CustomerService();
     if (customerInfo != null) {
-      CustomerInfo updatedCustomer = getCustomerDataFromForm();
+      Customer updatedCustomer = getCustomerDataFromForm();
       if (updatedCustomer != null) {
         updatedCustomer.setCustomerId(customerInfo.getCustomerId());
         customerService.updateCustomer(updatedCustomer);
@@ -126,7 +123,7 @@ public class CustomerFormController {
   
   @FXML
   public void handleBtnDelete() {
-    if  (customerInfo != null) {
+    if (customerInfo != null) {
       CustomerService customerService = new CustomerService();
       if (customerService.hasBill(customerInfo.getCustomerId())) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -156,15 +153,16 @@ public class CustomerFormController {
     closeForm();
   }
   
-  private CustomerInfo getCustomerDataFromForm() {
+  private Customer getCustomerDataFromForm() {
     try {
-      CustomerInfo customer = new CustomerInfo();
-      customer.setCustomerName(txt_name.getText().trim());
+      Customer customer = new Customer();
+      customer.setFullName(txt_name.getText().trim());
       customer.setAddress(txt_address.getText().trim());
-      customer.setPhone(txt_phone.getText().trim());
+      customer.setPhoneNumber(txt_phone.getText().trim());
       customer.setGender(rd_male.isSelected());
-      customer.setDob(Date.valueOf(dp_dob.getValue()));
-      
+      if (dp_dob.getValue() != null) {
+        customer.setBirthday(java.sql.Date.valueOf(dp_dob.getValue()));
+      }
       return customer;
     } catch (Exception e) {
       e.printStackTrace();

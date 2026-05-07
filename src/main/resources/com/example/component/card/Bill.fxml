@@ -1,35 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<VBox spacing="8"
-      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e5e7eb; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);       "
-      xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.controllers.ComponentControllers.Card.BillCardController"
-      onMouseClicked="#handleClick">
-
-
-    <Label fx:id="lb_id" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
-
-    <Label fx:id="lb_customer"/>
-    <Label fx:id="lb_employee"/>
-
-    <Label fx:id="lb_total" style="-fx-text-fill: #16a34a; -fx-font-weight: bold;"/>
+<VBox onMouseClicked="#handleClick" prefHeight="254.0" prefWidth="493.0" spacing="8" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e5e7eb; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);       " xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.Card.BillCardController">
+   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <children>
+         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../../image/receipt-text.png" />
+            </image>
+         </ImageView>
+      
+      
+          <Label fx:id="lb_id" text="ID">
+            <font>
+               <Font name="System Bold" size="20.0" />
+            </font>
+         </Label>
+      </children>
+      <padding>
+         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+      </padding>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0">
+      <children>
+         <VBox prefHeight="75.0" prefWidth="187.0" spacing="10.0" HBox.hgrow="ALWAYS">
+            <children>
+               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../../../image/id-card-lanyard.png" />
+                        </image>
+                     </ImageView>
+                      <Label fx:id="lb_employee_name" text="EmployeeName">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                  </children>
+                  <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  </padding>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../../../image/phone.png" />
+                        </image>
+                     </ImageView>
+                     <Label fx:id="lb_employee_phone" text="Phone">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                  </children>
+                  <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  </padding>
+               </HBox>
+            </children>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" />
+            </padding>
+         </VBox>
+         <VBox prefHeight="107.0" prefWidth="227.0" spacing="10.0" HBox.hgrow="ALWAYS">
+            <children>
+               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../../../image/user.png" />
+                        </image>
+                     </ImageView>
+                  
+                      <Label fx:id="lb_customer_name" text="CustomerName">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                  </children>
+                  <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  </padding>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../../../image/phone.png" />
+                        </image>
+                     </ImageView>
+                     <Label fx:id="lb_customer_phone" text="Phone">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                  </children>
+                  <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  </padding>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../../../image/map-pin.png" />
+                        </image>
+                     </ImageView>
+                     <Label fx:id="lb_customer_address" text="Address">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                  </children>
+                  <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  </padding>
+               </HBox>
+            </children>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" />
+            </padding>
+         </VBox>
+      </children>
+   </HBox>
+   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+      <children>
+         <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="128.0" spacing="10.0">
+            <children>
+               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../../image/circle-dollar-sign.png" />
+                  </image>
+               </ImageView>
+               <Label alignment="CENTER" text="Tổng giá">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+         <Region prefHeight="32.0" prefWidth="101.0" HBox.hgrow="ALWAYS" />
+      
+          <Label fx:id="lb_total" alignment="CENTER" prefHeight="25.0" prefWidth="157.0" style="-fx-text-fill: #16a34a;" text="TotalPrice">
+            <font>
+               <Font name="System Bold" size="16.0" />
+            </font>
+         </Label>
+      </children>
+   </HBox>
 
 
     <effect>
         <Shadow>
             <color>
-                <Color red="0.5263158082962036" green="0.27534112334251404" blue="0.27534112334251404"/>
+                <Color red="0.5263158082962036" green="0.27534112334251404" blue="0.27534112334251404" />
             </color>
         </Shadow>
     </effect>
     <cursor>
-        <Cursor fx:constant="HAND"/>
+        <Cursor fx:constant="HAND" />
     </cursor>
 
 </VBox>

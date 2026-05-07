@@ -24,12 +24,12 @@ public class CustomerService {
     return customerRepository.getAllCustomerInfos();
   }
   
-  public void updateCustomer(CustomerInfo cus) {
+  public void updateCustomer(Customer cus) {
     CustomerRepository customerRepository = new CustomerRepository();
     customerRepository.updateCustomer(cus);
   }
   
-  public void addCustomer(CustomerInfo cus) {
+  public void addCustomer(Customer cus) {
     CustomerRepository customerRepository = new CustomerRepository();
     customerRepository.insertCustomer(cus);
   }
@@ -53,7 +53,8 @@ public class CustomerService {
     CustomerRepository customerRepository = new CustomerRepository();
     return customerRepository.getAllCustomers();
   }
-  public boolean hasBill  (int customerId) {
+  
+  public boolean hasBill(int customerId) {
     CustomerRepository customerRepository = new CustomerRepository();
     return customerRepository.hasBill(customerId);
   }

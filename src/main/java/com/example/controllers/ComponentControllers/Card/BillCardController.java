@@ -15,9 +15,15 @@ public class BillCardController {
   @FXML
   private Label lb_id;
   @FXML
-  private Label lb_customer;
+  private Label lb_customer_name;
   @FXML
-  private Label lb_employee;
+  private Label lb_employee_name;
+  @FXML
+  private Label lb_customer_phone;
+  @FXML
+  private Label lb_employee_phone;
+  @FXML
+  private Label lb_customer_address;
   @FXML
   private Label lb_total;
   
@@ -25,9 +31,14 @@ public class BillCardController {
   
   public void setData(BillInfo billInfo) {
     this.billInfo = billInfo;
-    lb_id.setText("#" + billInfo.getBillId());
-    lb_customer.setText("" + billInfo.getCustomer().getFullName());
-    lb_employee.setText("" + billInfo.getEmployee().getFullName());
+    lb_id.setText("HD_" + billInfo.getBillId());
+    lb_customer_name.setText("" + billInfo.getCustomer().getFullName());
+    lb_employee_name.setText("" + billInfo.getEmployee().getFullName());
+    
+    lb_customer_phone.setText("" + billInfo.getCustomer().getPhoneNumber());
+    lb_employee_phone.setText("" + billInfo.getEmployee().getPhoneNumber());
+    lb_customer_address.setText("" + billInfo.getCustomer().getAddress());
+    
     lb_total.setText("" + String.format("%,.0f VNĐ", billInfo.getTotalAmount()));
   }
   

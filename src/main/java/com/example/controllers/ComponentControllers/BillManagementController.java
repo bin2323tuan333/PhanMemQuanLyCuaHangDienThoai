@@ -29,7 +29,7 @@ public class BillManagementController {
   @FXML
   private DatePicker toDate;
   @FXML
-  private VBox bill_container;
+  private FlowPane bill_container;
   
   @FXML
   private TextField txt_search;

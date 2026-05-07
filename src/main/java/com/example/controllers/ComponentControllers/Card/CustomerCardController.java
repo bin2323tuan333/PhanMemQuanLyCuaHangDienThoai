@@ -49,7 +49,7 @@ public class CustomerCardController {
     this.lb_phone.setText((phone != null && !phone.isEmpty()) ? phone : "N/A");
     String address = this.customerInfo.getAddress();
     this.lb_address.setText((address != null && !address.isEmpty()) ? address : "Chưa cập nhật");
-    this.lb_gender.setText(this.customerInfo.getGender() ? "Nữ" : "Nam");
+    this.lb_gender.setText(this.customerInfo.getGender() ? "Nam" : "Nữ");
     this.lb_dob.setText(this.customerInfo.getDob().toString());
   }
   

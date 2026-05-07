@@ -148,22 +148,24 @@ public class CustomerRepository {
     return customers;
   }
   
-  public void insertCustomer(CustomerInfo cus) {
-    String sql = "INSERT INTO Customer (full_name, birthday, address, phone_number) VALUES (?, ?, ?, ?)";
+  public void insertCustomer(Customer cus) {
+    String sql = "INSERT INTO Customer (full_name, gender, birthday, address, phone_number) VALUES (?, ?, ?, ?, ?)";
     DBHelper.Instance().executeUpd(sql,
-            cus.getCustomerName(),
-            cus.getDob(),
+            cus.getFullName(),
+            cus.getGender(),
+            cus.getBirthday(),
             cus.getAddress(),
-            cus.getPhone());
+            cus.getPhoneNumber());
   }
   
-  public void updateCustomer(CustomerInfo cus) {
-    String sql = "UPDATE Customer SET full_name = ?, birthday = ?, address = ?, phone_number = ? WHERE customer_id = ?";
+  public void updateCustomer(Customer cus) {
+    String sql = "UPDATE Customer SET full_name = ?, gender = ?, birthday = ?, address = ?, phone_number = ? WHERE customer_id = ?";
     DBHelper.Instance().executeUpd(sql,
-            cus.getCustomerName(),
-            cus.getDob(),
+            cus.getFullName(),
+            cus.getGender(),
+            cus.getBirthday(),
             cus.getAddress(),
-            cus.getPhone(),
+            cus.getPhoneNumber(),
             cus.getCustomerId());
   }
   
@@ -226,18 +228,19 @@ public class CustomerRepository {
     }
     return null;
   }
-  public boolean hasBill (int cusId) {
+  
+  public boolean hasBill(int cusId) {
     String sql = "SELECT COUNT(*) as count " +
                          "FROM Bill " +
                          "WHERE customer_id = ?";
-
+    
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
       pstmt.setInt(1, cusId);
       try (ResultSet rs = pstmt.executeQuery()) {
         if (rs.next()) return rs.getInt(1) > 0;
       }
-
+      
     } catch (SQLException e) {
       e.printStackTrace();
     }

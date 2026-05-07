@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600" prefWidth="900" spacing="15" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.SupplierManagementController">
+<VBox prefHeight="867.0" prefWidth="900" spacing="15" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllers.ComponentControllers.SupplierManagementController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
