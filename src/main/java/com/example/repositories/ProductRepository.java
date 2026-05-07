@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import com.example.DTO.BrandReport;
 import com.example.DTO.ProductInfo;
 import com.example.models.Product;
 import com.example.utils.DBHelper;
@@ -10,6 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepository {
+  public List<BrandReport> getProductCountByBrand() {
+    List<BrandReport> list = new ArrayList<>();
+    String sql = "SELECT b.brand_name, SUM(p.stock) AS total " +
+                         "FROM brand b LEFT JOIN product p ON b.brand_id = p.brand_id " +
+                         "GROUP BY b.brand_id, b.brand_name " +
+                         "ORDER BY total DESC";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+      
+      while (rs.next()) {
+        list.add(new BrandReport(
+                rs.getString("brand_name"),
+                rs.getInt("total")
+        ));
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException("Lỗi truy vấn báo cáo Brand", e);
+    }
+    return list;
+  }
+  
   public List<Product> getAllProducts() {
     List<Product> list = new ArrayList<>();
     String sql = "SELECT * FROM Product";
@@ -261,7 +285,6 @@ public class ProductRepository {
     String sql = "UPDATE Product SET stock = stock + ? WHERE product_id = ?";
     DBHelper.Instance().executeUpd(sql, quantity, productId);
   }
-
   
   
 }

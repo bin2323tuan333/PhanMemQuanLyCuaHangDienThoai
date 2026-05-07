@@ -1,10 +1,33 @@
 package com.example.services;
 
+import com.example.DTO.BrandReport;
 import com.example.repositories.BillRepository;
 import com.example.repositories.CustomerRepository;
 import com.example.repositories.ProductRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class RevenueService {
+  public List<BrandReport> getBrandReport() {
+    ProductRepository productRepository = new ProductRepository();
+    List<BrandReport> allReports = productRepository.getProductCountByBrand();
+    if (allReports.size() <= 4) {
+      return allReports;
+    }
+    
+    List<BrandReport> dashboardReports = new ArrayList<>(allReports.subList(0, 3));
+    int otherTotal = 0;
+    for (int i = 3; i < allReports.size(); i++) {
+      otherTotal += allReports.get(i).getTotal();
+    }
+    
+    dashboardReports.add(new BrandReport("Còn lại", otherTotal));
+    
+    return dashboardReports;
+  }
+  
   public double getMonthRevenue() {
     BillRepository billRepository = new BillRepository();
     return billRepository.getRevenueMonth();

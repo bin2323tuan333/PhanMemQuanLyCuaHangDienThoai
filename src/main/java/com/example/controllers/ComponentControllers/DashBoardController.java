@@ -2,6 +2,7 @@ package com.example.controllers.ComponentControllers;
 
 
 import com.example.DTO.BillInfo;
+import com.example.DTO.BrandReport;
 import com.example.controllers.ComponentControllers.Form.CustomerFormController;
 import com.example.controllers.ComponentControllers.Form.ProductFormController;
 import com.example.services.*;
@@ -23,6 +24,22 @@ public class DashBoardController {
   private Label lb_customer;
   @FXML
   private Label lb_order;
+  @FXML
+  private Label lb_top1_name;
+  @FXML
+  private Label lb_top1_value;
+  @FXML
+  private Label lb_top2_name;
+  @FXML
+  private Label lb_top2_value;
+  @FXML
+  private Label lb_top3_name;
+  @FXML
+  private Label lb_top3_value;
+  @FXML
+  private Label lb_top4_name;
+  @FXML
+  private Label lb_top4_value;
   
   
   @FXML
@@ -36,6 +53,7 @@ public class DashBoardController {
     lb_product.setText(revenueService.getRemainingProduct() + "");
     lb_customer.setText(revenueService.getTotalCustomers() + "");
     lb_order.setText(revenueService.getThisMonthOrders() + "");
+    renderTopBrand();
   }
   
   public void handleBtnAddBill() {
@@ -95,7 +113,27 @@ public class DashBoardController {
   }
   
   public void renderTopBrand() {
-  
+    RevenueService revenueService = new RevenueService();
+    List<BrandReport> reports = revenueService.getBrandReport();
+    
+    if (reports.isEmpty()) return;
+    
+    if (reports.size() >= 1) {
+      lb_top1_name.setText(reports.get(0).getBrandName());
+      lb_top1_value.setText(reports.get(0).getTotal() + " sản phẩm");
+    }
+    if (reports.size() >= 2) {
+      lb_top2_name.setText(reports.get(1).getBrandName());
+      lb_top2_value.setText(reports.get(1).getTotal() + " sản phẩm");
+    }
+    if (reports.size() >= 3) {
+      lb_top3_name.setText(reports.get(2).getBrandName());
+      lb_top3_value.setText(reports.get(2).getTotal() + " sản phẩm");
+    }
+    if (reports.size() >= 4) {
+      lb_top4_name.setText(reports.get(3).getBrandName());
+      lb_top4_value.setText(reports.get(3).getTotal() + " sản phẩm");
+    }
   }
   
   public void renderTopProduct() {

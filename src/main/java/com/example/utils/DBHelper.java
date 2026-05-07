@@ -30,37 +30,17 @@ public class DBHelper {
   
   
   public void executeUpd(String sql, Object... params) {
-//    try (Connection conn = getConnection();
-//         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//      if (params != null && params.length > 0) {
-//        for (int i = 0; i < params.length; i++) {
-//          pstmt.setObject(i + 1, params[i]);
-//        }
-//      }
-//      pstmt.executeUpdate();
-//    } catch (SQLException e) {
-//      e.printStackTrace();
-    
-    
     try (Connection conn = getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
-      
       if (params != null && params.length > 0) {
         for (int i = 0; i < params.length; i++) {
           pstmt.setObject(i + 1, params[i]);
         }
       }
-      
       int rowsAffected = pstmt.executeUpdate();
-      System.out.println("🔥 Số dòng đã Insert vào DB: " + rowsAffected);
-      
-      if (!conn.getAutoCommit()) {
-        conn.commit();
-        System.out.println("✅ Đã ép Commit thành công!");
-      }
-      
+      System.out.println("Rows affected: " + rowsAffected);
     } catch (SQLException e) {
-      System.err.println("🚨 BÁO ĐỘNG ĐỎ LỖI SQL:");
+      System.err.println("SQL Error: " + e.getMessage());
       e.printStackTrace();
     }
   }
