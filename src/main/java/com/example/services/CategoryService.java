@@ -22,4 +22,8 @@ public class CategoryService {
     CategoryRepository categoryRepository = new CategoryRepository();
     categoryRepository.deteleCategory(id);
   }
+  public boolean hasProduct(int categoryId) {
+    CategoryRepository categoryRepository = new CategoryRepository();
+    return categoryRepository.hasProduct(categoryId);
+  }
 }

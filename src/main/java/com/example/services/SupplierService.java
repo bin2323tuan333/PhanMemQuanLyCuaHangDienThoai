@@ -40,4 +40,8 @@ public class SupplierService {
     SupplierRepository supplierRepository = new SupplierRepository();
     supplierRepository.deleteSupplier(id);
   }
+  public boolean hasImportBill(int supplierId) {
+    SupplierRepository supplierRepository = new SupplierRepository();
+    return supplierRepository.hasImportBill(supplierId);
+  }
 }

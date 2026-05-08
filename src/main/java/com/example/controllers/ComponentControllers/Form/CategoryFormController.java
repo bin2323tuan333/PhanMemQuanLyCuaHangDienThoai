@@ -3,6 +3,7 @@ package com.example.controllers.ComponentControllers.Form;
 import com.example.models.Category;
 import com.example.services.CategoryService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -72,6 +73,15 @@ public class CategoryFormController {
   }
   
   public void handleBtnDelete() {
+    CategoryService check = new CategoryService();
+    if(check.hasProduct(this.category.getCategoryId())) {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Không thể xóa");
+      alert.setHeaderText(null);
+      alert.setContentText("Không thể xóa danh mục này vì nó đang được sử dụng trong sản phẩm.");
+      alert.showAndWait();
+      return;
+    }
     if (this.category == null) return;
     CategoryService categoryService = new CategoryService();
     categoryService.deleteCategory(this.category.getCategoryId());

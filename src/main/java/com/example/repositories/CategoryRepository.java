@@ -67,5 +67,21 @@ public class CategoryRepository {
                          "WHERE category_id = ?;";
     DBHelper.Instance().executeUpd(sql, id);
   }
+  public boolean hasProduct(int categoryId) {
+    String sql = "SELECT COUNT(*) FROM product WHERE category_id = ?";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, categoryId);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs != null && rs.next()) {
+          int count = rs.getInt(1);
+          return count > 0;
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getErrorCode());
+    }
+    return false;
+  }
   
 }

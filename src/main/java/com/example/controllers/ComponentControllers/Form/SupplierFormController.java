@@ -3,6 +3,7 @@ package com.example.controllers.ComponentControllers.Form;
 import com.example.models.Supplier;
 import com.example.services.SupplierService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -79,6 +80,19 @@ public class SupplierFormController {
   }
   
   public void handleBtnDelete() {
+    if(supplier == null) {
+      return;
+    }
+    SupplierService checkService = new SupplierService();
+    if (checkService.hasImportBill(supplier.getSupplierId())) {
+
+       Alert alert = new Alert(Alert.AlertType.WARNING);
+       alert.setTitle("Không thể xóa nhà cung cấp");
+       alert.setHeaderText(null);
+       alert.setContentText("Nhà cung cấp này có sản phẩm liên quan và không thể xóa.");
+       alert.showAndWait();
+       return;
+    }
     SupplierService supplierService = new SupplierService();
     supplierService.deleteSupplier(supplier.getSupplierId());
     closeForm();

@@ -72,7 +72,7 @@ public class BrandFormController {
   }
   
   public void handleBtnDelete() {
-      BrandService brandService = null;
+        BrandService brandService = new BrandService();
       if (brandService.hasProduct(this.brand.getBrandId())) {
           Alert alert = new Alert(Alert.AlertType.WARNING);
           alert.setTitle("Cannot Delete Brand");
@@ -81,7 +81,7 @@ public class BrandFormController {
           alert.showAndWait();
           return;
       }
-      brandService = new BrandService();
+
       brandService.deleteBrand(this.brand.getBrandId());
       closeForm();
   }

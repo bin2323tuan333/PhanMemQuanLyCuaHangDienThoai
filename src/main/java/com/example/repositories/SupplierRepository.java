@@ -143,6 +143,22 @@ public class SupplierRepository {
     String sql = "DELETE FROM Supplier WHERE supplier_id = ?";
     DBHelper.Instance().executeUpd(sql, supplierId);
   }
+  public boolean hasImportBill(int supplierId) {
+    String sql = "SELECT COUNT(*) FROM ImportBill WHERE supplier_id = ?";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, supplierId);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          int count = rs.getInt(1);
+          return count > 0;
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
   
   
 }
