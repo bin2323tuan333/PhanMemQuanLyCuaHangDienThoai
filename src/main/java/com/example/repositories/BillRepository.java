@@ -10,6 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BillRepository {
+  public List<BillInfo> getTenBillInfosRecent() {
+    List<BillInfo> list = new ArrayList<>();
+    String sql = "SELECT b.bill_id, b.invoice_date, b.total_amount, e.*, c.*\n" +
+                         "FROM  bill b\n" +
+                         "JOIN  employee e ON b.employee_id = e.employee_id\n" +
+                         "JOIN  customer c ON b.customer_id = c.customer_id\n" +
+                         "ORDER BY  b.invoice_date DESC, b.bill_id DESC\n" +
+                         "LIMIT 10;";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+      
+      while (rs != null && rs.next()) {
+        BillInfo billInfo = new BillInfo();
+        billInfo.setFromRS(rs);
+        list.add(billInfo);
+      }
+      
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return list;
+  }
+  
   public List<BillInfo> filterBills(String keyword, Date fromDate, Date toDate) {
     List<BillInfo> bills = new ArrayList<>();
     

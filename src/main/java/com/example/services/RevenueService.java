@@ -1,5 +1,6 @@
 package com.example.services;
 
+import com.example.DTO.BillInfo;
 import com.example.DTO.BrandReport;
 import com.example.repositories.BillRepository;
 import com.example.repositories.CustomerRepository;
@@ -26,6 +27,11 @@ public class RevenueService {
     dashboardReports.add(new BrandReport("Còn lại", otherTotal));
     
     return dashboardReports;
+  }
+  
+  public List<BillInfo> getTenBillInfoRecent() {
+    BillRepository billRepository = new BillRepository();
+    return billRepository.getTenBillInfosRecent();
   }
   
   public double getMonthRevenue() {

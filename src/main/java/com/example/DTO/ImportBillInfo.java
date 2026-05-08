@@ -32,13 +32,11 @@ public class ImportBillInfo {
     this.totalAmount = rs.getDouble("total_amount");
     
     Employee emp = new Employee();
-    emp.setEmployeeId(rs.getInt("employee_id"));
-    emp.setFullName(rs.getString("employee_name"));
+    emp.setFromRS(rs);
     this.employee = emp;
     
     Supplier sup = new Supplier();
-    sup.setSupplierId(rs.getInt("supplier_id"));
-    sup.setName(rs.getString("name"));
+    sup.setFromRS(rs);
     this.supplier = sup;
   }
   

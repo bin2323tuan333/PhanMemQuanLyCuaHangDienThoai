@@ -10,37 +10,45 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 public class ImportBillCardController {
   @FXML
   private Label lb_id;
   @FXML
-  private Label lb_supplier;
+  private Label lb_supplier_name;
   @FXML
-  private Label lb_employee;
+  private Label lb_employee_name;
+  @FXML
+  private Label lb_supplier_phone;
+  @FXML
+  private Label lb_employee_phone;
+  @FXML
+  private Label lb_supplier_email;
   @FXML
   private Label lb_total;
-
+  
   private ImportBillInfo importBillInfo;
-
+  
   public void setImportBillInfo(ImportBillInfo importBillInfo) {
     this.importBillInfo = importBillInfo;
     setup();
   }
-
+  
   @FXML
   public void initalize() {
-
+  
   }
-
+  
   public void setup() {
-    this.lb_id.setText(this.importBillInfo.getImportId() + "");
-    this.lb_employee.setText(this.importBillInfo.getEmployee().getFullName() + "");
-    this.lb_supplier.setText(this.importBillInfo.getSupplier().getName() + "");
-    this.lb_total.setText("" + String.format("%,.0f VNĐ", this.importBillInfo.getTotalAmount() ));
+    this.lb_id.setText("NH_" + this.importBillInfo.getImportId() + "");
+    this.lb_employee_name.setText(this.importBillInfo.getEmployee().getFullName() + "");
+    this.lb_supplier_name.setText(this.importBillInfo.getSupplier().getName() + "");
+    this.lb_employee_phone.setText(this.importBillInfo.getEmployee().getPhoneNumber() + "");
+    this.lb_supplier_phone.setText(this.importBillInfo.getSupplier().getPhone() + "");
+    this.lb_supplier_email.setText(this.importBillInfo.getSupplier().getEmail() + "");
+    this.lb_total.setText("" + String.format("%,.0f VNĐ", this.importBillInfo.getTotalAmount()));
   }
-
+  
   public void handleClick() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ImportBillForm.fxml"));
@@ -55,9 +63,9 @@ public class ImportBillCardController {
       e.printStackTrace();
     }
   }
-
+  
   public ImportBillInfo getImportBillInfo() {
     return this.importBillInfo;
   }
-
+  
 }

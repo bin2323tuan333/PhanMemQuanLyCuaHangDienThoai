@@ -3,6 +3,7 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.BillInfo;
 import com.example.DTO.BrandReport;
+import com.example.controllers.ComponentControllers.Card.BillCardController;
 import com.example.controllers.ComponentControllers.Form.CustomerFormController;
 import com.example.controllers.ComponentControllers.Form.ProductFormController;
 import com.example.services.*;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -40,6 +42,8 @@ public class DashBoardController {
   private Label lb_top4_name;
   @FXML
   private Label lb_top4_value;
+  @FXML
+  private VBox list_bill_container;
   
   
   @FXML
@@ -54,6 +58,7 @@ public class DashBoardController {
     lb_customer.setText(revenueService.getTotalCustomers() + "");
     lb_order.setText(revenueService.getThisMonthOrders() + "");
     renderTopBrand();
+    renderBill();
   }
   
   public void handleBtnAddBill() {
@@ -141,6 +146,27 @@ public class DashBoardController {
   }
   
   public void renderBill() {
-  
+    RevenueService revenueService = new RevenueService();
+    List<BillInfo> recentBills = revenueService.getTenBillInfoRecent();
+    
+    if (recentBills.isEmpty()) {
+      return;
+    }
+    for (BillInfo bill : recentBills) {
+      try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/Bill.fxml"));
+        VBox card = loader.load();
+        BillCardController controller = loader.getController();
+        if (controller != null) {
+          controller.setData(bill);
+        } else {
+          System.out.println("Controller NULL!");
+        }
+        card.getStyleClass().add("card");
+        list_bill_container.getChildren().add(card);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
