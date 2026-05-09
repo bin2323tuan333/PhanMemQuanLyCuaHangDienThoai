@@ -72,18 +72,18 @@ public class BrandFormController {
   }
   
   public void handleBtnDelete() {
-        BrandService brandService = new BrandService();
-      if (brandService.hasProduct(this.brand.getBrandId())) {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setTitle("Cannot Delete Brand");
-          alert.setHeaderText(null);
-          alert.setContentText("Brand không thể xóa vì có sản phẩm liên quan.");
-          alert.showAndWait();
-          return;
-      }
-
-      brandService.deleteBrand(this.brand.getBrandId());
-      closeForm();
+    BrandService brandService = new BrandService();
+    if (brandService.hasProduct(this.brand.getBrandId())) {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Cannot Delete Brand");
+      alert.setHeaderText(null);
+      alert.setContentText("Brand không thể xóa vì có sản phẩm liên quan.");
+      alert.showAndWait();
+      return;
+    }
+    
+    brandService.deleteBrand(this.brand.getBrandId());
+    closeForm();
   }
   
   public void handleBtnCancel() {

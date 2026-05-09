@@ -13,6 +13,7 @@ import com.example.repositories.BillDetailRepository;
 import com.example.services.BillService;
 import com.example.services.CustomerService;
 import com.example.services.ProductService;
+import com.example.utils.AppSection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -263,7 +264,7 @@ public class CreateBillController {
   
   public void handleBtnAddBill() {
     if (customer == null || listCart.isEmpty()) {
-
+      
       Alert alert = new Alert(Alert.AlertType.WARNING);
       alert.setTitle("Thiếu thông tin");
       alert.setHeaderText(null);
@@ -275,7 +276,7 @@ public class CreateBillController {
     BillService billService = new BillService();
     Bill bill = new Bill();
     bill.setCustomerId(customer.getCustomerId());
-    bill.setEmployeeId(1);
+    bill.setEmployeeId(AppSection.Instance().getAccount().getEmployeeId());
     
     double total = listCart.stream()
                            .mapToDouble(item -> item.getProductInfo().getPrice() * item.getQuantity())
@@ -284,11 +285,11 @@ public class CreateBillController {
     int billId = billService.addBill(bill);
     
     if (billId <= 0) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Lỗi tạo hóa đơn");
-        alert.setHeaderText(null);
-        alert.setContentText("Đã xảy ra lỗi khi tạo hóa đơn. Vui lòng thử lại.");
-        alert.showAndWait();
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Lỗi tạo hóa đơn");
+      alert.setHeaderText(null);
+      alert.setContentText("Đã xảy ra lỗi khi tạo hóa đơn. Vui lòng thử lại.");
+      alert.showAndWait();
       return;
     }
     

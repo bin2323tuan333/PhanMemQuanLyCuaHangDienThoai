@@ -175,6 +175,7 @@ public class CustomerFormController {
       Stage stage = (Stage) btn_cancel.getScene().getWindow();
       stage.close();
     }
-    reload.run();
+    if (reload != null)
+      reload.run();
   }
 }

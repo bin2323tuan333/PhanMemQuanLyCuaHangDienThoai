@@ -1,12 +1,18 @@
 package com.example.services;
 
 import com.example.DTO.ProductInfo;
+import com.example.DTO.ProductReport;
 import com.example.models.Product;
 import com.example.repositories.ProductRepository;
 
 import java.util.List;
 
 public class ProductService {
+  public List<ProductReport> getTopProduct() {
+    ProductRepository productRepository = new ProductRepository();
+    return productRepository.getTopProduct();
+  }
+  
   public Product getProductById(int productId) {
     ProductRepository productRepo = new ProductRepository();
     Product product = productRepo.getProductById(productId);

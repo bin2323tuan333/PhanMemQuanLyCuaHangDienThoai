@@ -3,15 +3,20 @@ package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.BillInfo;
 import com.example.DTO.BrandReport;
+import com.example.DTO.ProductInfo;
+import com.example.DTO.ProductReport;
 import com.example.controllers.ComponentControllers.Card.BillCardController;
+import com.example.controllers.ComponentControllers.Card.ProductReportController;
 import com.example.controllers.ComponentControllers.Form.CustomerFormController;
 import com.example.controllers.ComponentControllers.Form.ProductFormController;
 import com.example.services.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -43,7 +48,9 @@ public class DashBoardController {
   @FXML
   private Label lb_top4_value;
   @FXML
-  private VBox list_bill_container;
+  private FlowPane list_bill_container;
+  @FXML
+  private VBox list_product_container;
   
   
   @FXML
@@ -59,6 +66,7 @@ public class DashBoardController {
     lb_order.setText(revenueService.getThisMonthOrders() + "");
     renderTopBrand();
     renderBill();
+    renderTopProduct();
   }
   
   public void handleBtnAddBill() {
@@ -142,7 +150,20 @@ public class DashBoardController {
   }
   
   public void renderTopProduct() {
-  
+    ProductService productService = new ProductService();
+    List<ProductReport> list = productService.getTopProduct();
+    
+    for (var item : list) {
+      try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/card/ProductReport.fxml"));
+        Node node = loader.load();
+        ProductReportController controller = loader.getController();
+        controller.setProductReport(item);
+        this.list_product_container.getChildren().add(node);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
   
   public void renderBill() {

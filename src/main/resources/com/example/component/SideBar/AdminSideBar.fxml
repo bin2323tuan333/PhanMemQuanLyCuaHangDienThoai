@@ -86,7 +86,7 @@
             <graphic>
                 <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../image/users.png" />
+                        <Image url="@../../../../image/building-2%20(1).png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -98,7 +98,7 @@
             <graphic>
                 <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../image/users.png" />
+                        <Image url="@../../../../image/package-plus.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -110,7 +110,7 @@
             <graphic>
                 <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../image/users.png" />
+                        <Image url="@../../../../image/server.png" />
                     </image>
                 </ImageView>
             </graphic>

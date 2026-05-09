@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -32,7 +33,7 @@
                                 <Font name="System Bold" size="32.0" />
                             </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="160.0" maxWidth="1.7976931348623157E308" text="Doanh thu hôm nay">
+                        <Label layoutX="10.0" layoutY="160.0" maxWidth="1.7976931348623157E308" text="Doanh thu tháng này">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -127,7 +128,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddBill" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm hóa đơn" textFill="#334155" GridPane.hgrow="ALWAYS">
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddBill" style="-fx-background-color: #1976D2; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm hóa đơn" textFill="WHITE" GridPane.hgrow="ALWAYS">
                                     <GridPane.margin>
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
 
@@ -139,7 +140,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddImportBill" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Nhập hàng" textFill="#334155" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddImportBill" style="-fx-background-color: #4CAF50; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Nhập hàng" textFill="WHITE" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                                     <GridPane.margin>
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </GridPane.margin>
@@ -150,7 +151,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddCustomer" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm khách hàng" textFill="#334155" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddCustomer" style="-fx-background-color: #FFA000; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm khách hàng" textFill="#334155" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </GridPane.margin>
@@ -161,7 +162,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddProduct" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm sản phẩm" textFill="#334155" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnAddProduct" style="-fx-background-color: #37474F; -fx-border-color: #e2e8f0; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, #aaa, 5, 0, 0, 2);" text="Thêm sản phẩm" textFill="WHITE" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </GridPane.margin>
@@ -272,7 +273,11 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <VBox fx:id="list_product_container" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS">
+                     <content>
+                              <VBox fx:id="list_product_container" prefHeight="200.0" prefWidth="665.0" spacing="10.0" style="-fx-background-color: #fff;" />
+                     </content>
+                  </ScrollPane>
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -293,11 +298,11 @@
                 </HBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <content>
-                      <VBox fx:id="list_bill_container" prefHeight="200.0" prefWidth="1077.0" spacing="10.0" style="-fx-background-color: #fff;">
+                  <FlowPane fx:id="list_bill_container" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="5.0">
                      <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
-                  </VBox>
+                  </FlowPane>
                </content>
             </ScrollPane>
             </children>

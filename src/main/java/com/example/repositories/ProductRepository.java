@@ -2,6 +2,7 @@ package com.example.repositories;
 
 import com.example.DTO.BrandReport;
 import com.example.DTO.ProductInfo;
+import com.example.DTO.ProductReport;
 import com.example.models.Product;
 import com.example.utils.DBHelper;
 
@@ -11,6 +12,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepository {
+  public List<ProductReport> getTopProduct() {
+    List<ProductReport> list = new ArrayList<>();
+    String sql = "SELECT p.product_id, p.product_name, SUM(bd.quantity) AS total_sold\n" +
+                         "FROM product p\n" +
+                         "JOIN billdetail bd ON p.product_id = bd.product_id\n" +
+                         "JOIN bill b ON bd.bill_id = b.bill_id\n" +
+                         "WHERE b.invoice_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\n" +
+                         "GROUP BY p.product_id, p.product_name\n" +
+                         "ORDER BY total_sold DESC\n" +
+                         "LIMIT 5;";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+      
+      while (rs.next()) {
+        ProductReport report = new ProductReport(
+                rs.getString("product_name"),
+                rs.getInt("total_sold")
+        );
+        list.add(report);
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException("Lỗi truy vấn Top sản phẩm", e);
+    }
+    return list;
+  }
+  
   public List<BrandReport> getProductCountByBrand() {
     List<BrandReport> list = new ArrayList<>();
     String sql = "SELECT b.brand_name, SUM(p.stock) AS total " +
