@@ -35,9 +35,9 @@ public class ProductManagementController {
   private ComboBox<String> cbb_price;
   @FXML
   private FlowPane product_container;
-
+  
   private ProductService productService;
-
+  
   @FXML
   public void initialize() {
     productService = new ProductService();
@@ -47,27 +47,31 @@ public class ProductManagementController {
     List<Brand> brands = brandService.getAllBrands();
     categories.add(0, new Category(0, "Tất cả"));
     brands.add(0, new Brand(0, "Tất cả"));
-
+    
     this.cbb_category.setItems(FXCollections.observableArrayList(categories));
     this.cbb_brand.setItems(FXCollections.observableArrayList(brands));
     this.cbb_price.setItems(FXCollections.observableArrayList(
-            "Tất cả", "Dưới 1.000.000", "1.000.000 - 5.000.000", "Trên 5.000.000"
+            "Tất cả",
+            "Dưới 2.000.000",
+            "2.000.000 - 10.000.000",
+            "10.000.000 - 30.000.000",
+            "Trên 30.000.000"
     ));
     this.cbb_price.setValue("Tất cả");
-
+    
     cbb_category.valueProperty().addListener((obs, oldVal, newVal) -> handleCbb());
     cbb_brand.valueProperty().addListener((obs, oldVal, newVal) -> handleCbb());
     cbb_price.valueProperty().addListener((obs, oldVal, newVal) -> handleCbb());
-
+    
     setup();
   }
-
+  
   private void setup() {
     List<ProductInfo> list = productService.getAllProductInfos();
     product_container.getChildren().clear();
     render(list);
   }
-
+  
   public void handleBtnAdd() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ProductForm.fxml"));
@@ -78,47 +82,51 @@ public class ProductManagementController {
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm mới sản phẩm");
       stage.showAndWait();
-
+      
       resetFilters();
       setup();
     } catch (java.io.IOException e) {
       e.printStackTrace();
     }
   }
-
+  
   public void handleBtnSearch() {
     handleCbb();
   }
-
+  
   public void handleCbb() {
     String keyword = txt_search.getText().trim();
-
+    
     Category selectedCategory = cbb_category.getValue();
     int categoryId = (selectedCategory != null && selectedCategory.getCategoryId() > 0)
-            ? selectedCategory.getCategoryId()
-            : -1;
-
+                             ? selectedCategory.getCategoryId()
+                             : -1;
+    
     Brand selectedBrand = cbb_brand.getValue();
     int brandId = (selectedBrand != null && selectedBrand.getBrandId() > 0)
-            ? selectedBrand.getBrandId()
-            : -1;
-
+                          ? selectedBrand.getBrandId()
+                          : -1;
+    
     String selectedPrice = cbb_price.getValue();
     double minPrice = -1;
     double maxPrice = -1;
-
+    
     if (selectedPrice != null && !selectedPrice.equals("Tất cả")) {
       switch (selectedPrice) {
-        case "Dưới 1.000.000":
+        case "Dưới 2.000.000":
           minPrice = 0;
-          maxPrice = 1000000;
+          maxPrice = 2000000;
           break;
-        case "1.000.000 - 5.000.000":
-          minPrice = 1000000;
-          maxPrice = 5000000;
+        case "2.000.000 - 10.000.000":
+          minPrice = 2000000;
+          maxPrice = 10000000;
           break;
-        case "Trên 5.000.000":
-          minPrice = 5000000;
+        case "10.000.000 - 30.000.000":
+          minPrice = 10000000;
+          maxPrice = 30000000;
+          break;
+        case "Trên 30.000.000":
+          minPrice = 30000000;
           maxPrice = Double.MAX_VALUE;
           break;
       }
@@ -127,14 +135,14 @@ public class ProductManagementController {
     product_container.getChildren().clear();
     render(filteredList);
   }
-
+  
   private void resetFilters() {
     txt_search.clear();
     cbb_category.getSelectionModel().selectFirst();
     cbb_brand.getSelectionModel().selectFirst();
     cbb_price.setValue("Tất cả");
   }
-
+  
   public void render(List<ProductInfo> list) {
     try {
       for (var item : list) {

@@ -3,6 +3,9 @@ module com.example {
   requires javafx.fxml;
   requires java.sql;
   requires java.desktop;
+  requires kernel;
+  requires layout;
+  requires io;
   
   opens com.example.models to javafx.base;
   opens com.example.DTO to javafx.base;
