@@ -4,12 +4,46 @@ import com.example.DTO.BillInfo;
 import com.example.DTO.RecentBill;
 import com.example.models.Bill;
 import com.example.utils.DBHelper;
+import javafx.scene.chart.XYChart;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BillRepository {
+  
+  public List<XYChart.Data<String, Number>> getMonthlyRevenue() {
+    List<XYChart.Data<String, Number>> data = new ArrayList<>();
+    
+    double[] monthlyTotals = new double[12];
+    
+    String sql = "SELECT MONTH(invoice_date) as month, SUM(total_amount) as total " +
+                         "FROM bill " +
+                         "WHERE YEAR(invoice_date) = YEAR(CURDATE()) " +
+                         "GROUP BY MONTH(invoice_date)";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+      
+      while (rs.next()) {
+        int month = rs.getInt("month");
+        double total = rs.getDouble("total");
+        monthlyTotals[month - 1] = total;
+      }
+      
+    } catch (SQLException e) {
+      System.err.println("Lỗi truy vấn doanh thu tháng: " + e.getMessage());
+    }
+    
+    for (int i = 0; i < 12; i++) {
+      data.add(new XYChart.Data<>("Tháng " + (i + 1), monthlyTotals[i]));
+    }
+    
+    return data;
+  }
+  
+  
   public List<BillInfo> getTenBillInfosRecent() {
     List<BillInfo> list = new ArrayList<>();
     String sql = "SELECT b.bill_id, b.invoice_date, b.total_amount, e.*, c.*\n" +

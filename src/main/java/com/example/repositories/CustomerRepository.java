@@ -1,6 +1,7 @@
 package com.example.repositories;
 
 import com.example.DTO.CustomerInfo;
+import com.example.DTO.CustomerStats;
 import com.example.models.Customer;
 import com.example.utils.DBHelper;
 
@@ -9,6 +10,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRepository {
+  public List<CustomerStats> getTopSpendingCustomers(int limit) {
+    List<CustomerStats> list = new ArrayList<>();
+    String sql = "SELECT c.full_name, c.phone_number, COUNT(b.bill_id) AS order_count, SUM(b.total_amount) AS total_spent " +
+                         "FROM bill b JOIN customer c ON b.customer_id = c.customer_id " +
+                         "GROUP BY c.customer_id, c.full_name, c.phone_number " +
+                         "ORDER BY total_spent DESC LIMIT ?";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, limit);
+      ResultSet rs = pstmt.executeQuery();
+      while (rs.next()) {
+        list.add(new CustomerStats(
+                rs.getString("full_name"),
+                rs.getString("phone_number"),
+                rs.getInt("order_count"),
+                rs.getDouble("total_spent")
+        ));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return list;
+  }
+  
   public List<Customer> getAllCustomers() {
     List<Customer> customers = new ArrayList<>();
     String sql = "SELECT * " +

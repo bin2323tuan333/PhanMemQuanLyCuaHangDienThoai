@@ -3,6 +3,8 @@ package com.example.services;
 import com.example.DTO.*;
 import com.example.models.*;
 import com.example.repositories.*;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -17,12 +19,19 @@ public class BillService {
   private CustomerRepository customerRepository;
   private EmployeeRepository employeeRepository;
   
+  
   public BillService() {
     billRepository = new BillRepository();
     customerRepository = new CustomerRepository();
     employeeRepository = new EmployeeRepository();
     importBillRepository = new ImportBillRepository();
   }
+  
+  
+  public List<XYChart.Data<String, Number>> getMonthlyRevenue() {
+    return billRepository.getMonthlyRevenue();
+  }
+  
   
   public void deleteBill(int id) {
     billRepository.deleteBill(id);

@@ -5,6 +5,7 @@ import com.example.DTO.ProductInfo;
 import com.example.DTO.ProductReport;
 import com.example.models.Product;
 import com.example.utils.DBHelper;
+import javafx.scene.chart.PieChart;
 
 import java.sql.*;
 
@@ -12,6 +13,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepository {
+  
+  public List<PieChart.Data> getProductCategoryRatio() {
+    List<PieChart.Data> data = new ArrayList<>();
+    String sql = "SELECT c.category_name, SUM(p.stock) as total_stock " +
+                         "FROM product p " +
+                         "JOIN category c ON p.category_id = c.category_id " +
+                         "GROUP BY c.category_id, c.category_name";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+      while (rs.next()) {
+        String name = rs.getString("category_name");
+        int stock = rs.getInt("total_stock");
+        if (stock > 0) {
+          data.add(new PieChart.Data(name, stock));
+        }
+      }
+    } catch (SQLException e) {
+      System.err.println("Lỗi truy vấn tỉ lệ tồn kho: " + e.getMessage());
+    }
+    if (data.isEmpty()) {
+      data.add(new PieChart.Data("Kho trống", 1));
+    }
+    return data;
+  }
+  
+  
   public List<ProductReport> getTopProduct() {
     List<ProductReport> list = new ArrayList<>();
     String sql = "SELECT p.product_id, p.product_name, SUM(bd.quantity) AS total_sold\n" +

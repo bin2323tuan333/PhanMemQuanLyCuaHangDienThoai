@@ -1,6 +1,7 @@
 package com.example.services;
 
 import com.example.DTO.CustomerInfo;
+import com.example.DTO.CustomerStats;
 import com.example.models.Customer;
 import com.example.repositories.CustomerRepository;
 
@@ -10,6 +11,16 @@ public class CustomerService {
   public Customer getCustomerByPhoneNumber(String phone) {
     CustomerRepository customerRepository = new CustomerRepository();
     return customerRepository.getCustomerByPhoneNumber(phone);
+  }
+  
+  public int getTotalCustomer() {
+    CustomerRepository customerRepository = new CustomerRepository();
+    return customerRepository.getTotalCustomers();
+  }
+  
+  public List<CustomerStats> getTopSpendingCustomers(int limit) {
+    CustomerRepository customerRepository = new CustomerRepository();
+    return customerRepository.getTopSpendingCustomers(limit);
   }
   
   public List<CustomerInfo> searchCustomerInfos(String key) {

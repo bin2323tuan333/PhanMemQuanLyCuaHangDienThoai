@@ -1,6 +1,7 @@
 package com.example.services;
 
 import com.example.DTO.EmployeeInfo;
+import com.example.DTO.EmployeeStats;
 import com.example.models.Account;
 import com.example.models.Employee;
 import com.example.repositories.AccountRepository;
@@ -29,6 +30,11 @@ public class EmployeeService {
       throw new IllegalArgumentException("Vui lòng chọn ngày sinh.");
     }
     return true;
+  }
+  
+  public List<EmployeeStats> getTopEmployees() {
+    EmployeeRepository employeeRepository = new EmployeeRepository();
+    return employeeRepository.getTopEmployees();
   }
   
   public boolean isDuplicatePhone(Employee employee) {

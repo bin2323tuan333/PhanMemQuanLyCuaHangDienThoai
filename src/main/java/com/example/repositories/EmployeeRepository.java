@@ -1,6 +1,7 @@
 package com.example.repositories;
 
 import com.example.DTO.EmployeeInfo;
+import com.example.DTO.EmployeeStats;
 import com.example.models.Employee;
 import com.example.utils.DBHelper;
 
@@ -9,6 +10,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRepository {
+  public List<EmployeeStats> getTopEmployees() {
+    List<EmployeeStats> list = new ArrayList<>();
+    
+    String sql = "SELECT e.employee_name, SUM(bd.quantity) AS total_products " +
+                         "FROM bill b " +
+                         "JOIN employee e ON b.employee_id = e.employee_id " +
+                         "JOIN billdetail bd ON b.bill_id = bd.bill_id " +
+                         "GROUP BY e.employee_id, e.employee_name " +
+                         "ORDER BY total_products DESC LIMIT 5";
+    
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+      
+      while (rs.next()) {
+        String name = rs.getString("employee_name");
+        int count = rs.getInt("total_products");
+        
+        list.add(new EmployeeStats(name, count));
+      }
+    } catch (SQLException e) {
+      System.err.println("Lỗi truy vấn nhân viên xuất sắc: " + e.getMessage());
+    }
+    
+    if (list.isEmpty()) {
+      list.add(new EmployeeStats("Chưa có dữ liệu", 0));
+    }
+    
+    return list;
+  }
+  
   public List<Employee> getAllEmployees() {
     List<Employee> list = new ArrayList<>();
     String sql = "SELECT * FROM Employee ";

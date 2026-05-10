@@ -4,10 +4,16 @@ import com.example.DTO.ProductInfo;
 import com.example.DTO.ProductReport;
 import com.example.models.Product;
 import com.example.repositories.ProductRepository;
+import javafx.scene.chart.PieChart;
 
 import java.util.List;
 
 public class ProductService {
+  public List<PieChart.Data> getProductCategoryRatio() {
+    ProductRepository productRepository = new ProductRepository();
+    return productRepository.getProductCategoryRatio();
+  }
+  
   public List<ProductReport> getTopProduct() {
     ProductRepository productRepository = new ProductRepository();
     return productRepository.getTopProduct();
