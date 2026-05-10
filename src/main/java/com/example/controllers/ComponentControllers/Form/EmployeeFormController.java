@@ -216,6 +216,22 @@ public class EmployeeFormController {
   
   public void handleBtnDelete() {
     EmployeeService employeeService = new EmployeeService();
+    if(employeeService.hasBill(employeeInfo.getEmployeeId())) {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Không thể xóa");
+      alert.setHeaderText(null);
+      alert.setContentText("Nhân viên này có hóa đơn liên quan, không thể xóa.");
+      alert.showAndWait();
+      return;
+    }
+    if(employeeService.isCurrentLoggedInEmployee(employeeInfo.getEmployeeId())) {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Không thể xóa");
+      alert.setHeaderText(null);
+      alert.setContentText("Bạn không thể xóa chính mình khi đang đăng nhập.");
+      alert.showAndWait();
+      return;
+    }
     if (employeeInfo != null) {
       employeeService.deleteEmployee(employeeInfo.getEmployeeId());
       closeForm();

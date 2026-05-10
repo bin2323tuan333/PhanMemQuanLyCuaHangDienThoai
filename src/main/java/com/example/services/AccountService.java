@@ -3,9 +3,6 @@ package com.example.services;
 import com.example.models.Account;
 import com.example.repositories.AccountRepository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class AccountService {
   public Account getAccountByID(int id) {
     AccountRepository accountRepository = new AccountRepository();
@@ -33,5 +30,9 @@ public class AccountService {
     Account acc = accountRepository.getAccountByUsername(username);
     acc.setPassword(newPass);
     accountRepository.updateAccount(acc);
+  }
+  public int getCurrentAccountId() {
+    AccountRepository accountRepository = new AccountRepository();
+    return accountRepository.getCurrentAccountId();
   }
 }

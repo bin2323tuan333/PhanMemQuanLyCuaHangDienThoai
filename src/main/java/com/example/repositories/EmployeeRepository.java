@@ -159,7 +159,7 @@ public class EmployeeRepository {
     
     return null;
   }
-  
+
   public int getEmployeeIdByPhone(String phone) {
     String sql = "SELECT employee_id FROM Employee WHERE phone_number = ?";
     
@@ -214,4 +214,23 @@ public class EmployeeRepository {
     String sql = "DELETE FROM Employee WHERE employee_id = ?";
     DBHelper.Instance().executeUpd(sql, id);
   }
+
+  public boolean hasBill  (int employeeId) {
+    String sql = "SELECT COUNT(*) FROM Bill WHERE employee_id = ?";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setInt(1, employeeId);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          int count = rs.getInt(1);
+          return count > 0;
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
 }
+

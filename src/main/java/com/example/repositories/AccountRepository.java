@@ -117,4 +117,17 @@ public class AccountRepository {
     String sql = "DELETE FROM Account WHERE account_id = ?";
     DBHelper.Instance().executeUpd(sql, accId);
   }
+  public int getCurrentAccountId() {
+    String sql = "SELECT account_id FROM Account ORDER BY account_id DESC LIMIT 1";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+      if (rs.next()) {
+        return rs.getInt("account_id");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
 }

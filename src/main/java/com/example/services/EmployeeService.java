@@ -93,4 +93,13 @@ public class EmployeeService {
     accountRepository.deleteAccount(acc.getAccountId());
     employeeRepository.deleteEmployee(employeeId);
   }
+  public boolean hasBill  (int employeeId) {
+    EmployeeRepository employeeRepository = new EmployeeRepository();
+    return employeeRepository.hasBill(employeeId);
+  }
+  public boolean isCurrentLoggedInEmployee(int employeeId) {
+    AccountService accountService = new AccountService();
+    int currentAccount = accountService.getCurrentAccountId();
+    return accountService.getAccountByID(currentAccount).getEmployeeId() == employeeId;
+  }
 }
