@@ -1,11 +1,12 @@
 package com.example.controllers.ComponentControllers.Form;
 
-import com.example.DTO.BillDetailInfo;
-import com.example.DTO.BillInfo;
+import com.example.DTO.*;
 import com.example.controllers.ComponentControllers.Card.BillDetailController;
 import com.example.models.Bill;
+import com.example.models.Customer;
 import com.example.repositories.BillRepository;
 import com.example.services.BillService;
+import com.example.utils.PdfInvoiceGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,8 +15,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +59,40 @@ public class BillFormController {
     }
   }
   
+  public void handleBtnPrint() {
+    BillService billService = new BillService();
+    List<BillDetailInfo> details = billService.getBillDetailInfoByBillId(billInfo.getBillId());
+    
+    List<CartInfo> cartList = new ArrayList<>();
+    for (BillDetailInfo detail : details) {
+      ProductInfo productInfo = new ProductInfo();
+      productInfo.setProductName(detail.getProduct().getProductName());
+      productInfo.setPrice(detail.getUnitPrice());
+      
+      CartInfo cartInfo = new CartInfo();
+      cartInfo.setProductInfo(productInfo);
+      cartInfo.setQuantity(detail.getQuantity());
+      
+      cartList.add(cartInfo);
+    }
+    
+    Customer c = billInfo.getCustomer();
+    CustomerInfo customer = new CustomerInfo();
+    customer.setCustomerName(c.getFullName());
+    customer.setPhone(c.getPhoneNumber());
+    
+    String total = String.format("%,.0f đ", billInfo.getTotalAmount());
+    
+    Window window = txt_id.getScene().getWindow();
+    PdfInvoiceGenerator generator = new PdfInvoiceGenerator();
+    boolean success = generator.saveInvoiceWithChooser(window, customer, cartList, total);
+    
+    Alert alert = new Alert(success ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+    alert.setTitle(success ? "Thành công" : "Lỗi");
+    alert.setHeaderText(null);
+    alert.setContentText(success ? "Xuất hóa đơn PDF thành công!" : "Xuất hóa đơn thất bại!");
+    alert.showAndWait();
+  }
   
   public void handleBtnUpdate() {
     Bill updatedBill = getBillFromForm();

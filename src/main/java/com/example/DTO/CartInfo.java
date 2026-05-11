@@ -5,7 +5,10 @@ import com.example.controllers.ComponentControllers.Card.CartCardController;
 public class CartInfo {
   private ProductInfo productInfo;
   private int quantity;
-  private CartCardController controller; // <--- ĐÂY CHÍNH LÀ NÓ NÀY!
+  private CartCardController controller;
+  
+  public CartInfo() {
+  }
   
   public CartInfo(ProductInfo productInfo, int quantity, CartCardController controller) {
     this.productInfo = productInfo;

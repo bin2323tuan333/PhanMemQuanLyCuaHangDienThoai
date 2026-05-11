@@ -170,10 +170,21 @@ public class CreateBillController {
           break;
         }
       }
+      
+      ProductService productService = new ProductService();
+      ProductInfo productInStock = productService.getProductInfoById(id);
+      
+      
       if (existingItem != null) {
+        if (existingItem.getQuantity() + 1 > productInStock.getStock()) {
+          return;
+        }
         existingItem.getController().handleIncrease();
       } else {
-        ProductService productService = new ProductService();
+        if (productInStock.getStock() <= 0) {
+          return;
+        }
+        
         ProductInfo newItem = productService.getProductInfoById(id);
         FXMLLoader productComp = new FXMLLoader(getClass().getResource("/com/example/component/card/Cart.fxml"));
         Node node = productComp.load();
@@ -369,8 +380,7 @@ public class CreateBillController {
     );
     
     
-    this.listCart.clear();
-    this.cartlist.getChildren().clear();
+    reload();
   }
   
   public void selectCustomer(CustomerInfo customer) {
@@ -384,6 +394,24 @@ public class CreateBillController {
     lb_address.setText(customer.getAddress());
   }
   
+  public void reload() {
+    this.listCart.clear();
+    this.cartlist.getChildren().clear();
+    this.caculate();
+    this.customer = null;
+    lb_name.setText("...");
+    lb_phone.setText("...");
+    lb_dob.setText("...");
+    lb_gender.setText("...");
+    lb_address.setText("...");
+    txt_search_customer.clear();
+    txt_search_product.clear();
+    cbb_brand.getSelectionModel().selectFirst();
+    cbb_category.getSelectionModel().selectFirst();
+    cbb_price.getSelectionModel().select(0);
+    loadCustomers();
+    loadProducts();
+  }
 }
 
 
