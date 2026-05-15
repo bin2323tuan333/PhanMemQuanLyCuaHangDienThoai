@@ -6,11 +6,13 @@ import com.example.models.Bill;
 import com.example.models.Customer;
 import com.example.repositories.BillRepository;
 import com.example.services.BillService;
+import com.example.utils.AppSection;
 import com.example.utils.PdfInvoiceGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -24,6 +26,14 @@ import java.util.Optional;
 
 
 public class BillFormController {
+  @FXML
+  private Button btn_add;
+  @FXML
+  private Button btn_update;
+  @FXML
+  private Button btn_cancel;
+  @FXML
+  private Button btn_delete;
   @FXML
   private TextField txt_id;
   @FXML
@@ -49,13 +59,19 @@ public class BillFormController {
   }
   
   public void setup() {
+    this.btn_update.setVisible(false);
+    this.btn_update.setManaged(false);
     if (billInfo != null) {
-      txt_id.setText(String.valueOf(billInfo.getBillId()));
+      txt_id.setText("HD_" + String.valueOf(billInfo.getBillId()));
       txt_name_customer.setText(billInfo.getCustomer().getFullName());
       txt_total_price.setText(String.format("%,.0f", billInfo.getTotalAmount()));
       txt_name_employee.setText(billInfo.getEmployee().getFullName());
       
       loadBillDetails();
+    }
+    if (AppSection.Instance().isEmployee()) {
+      this.btn_delete.setVisible(false);
+      this.btn_delete.setManaged(false);
     }
   }
   
