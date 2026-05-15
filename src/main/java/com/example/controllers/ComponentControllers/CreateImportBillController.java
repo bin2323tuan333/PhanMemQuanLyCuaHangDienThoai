@@ -5,17 +5,19 @@ import com.example.DTO.ProductInfo;
 import com.example.controllers.ComponentControllers.Card.CartCardController;
 import com.example.controllers.ComponentControllers.Card.ProductCardController;
 import com.example.controllers.ComponentControllers.Form.SupplierFormController;
+import com.example.models.Brand;
+import com.example.models.Category;
 import com.example.models.ImportBill;
 import com.example.models.Supplier;
 import com.example.repositories.ImportBillDetailRepository;
-import com.example.services.BillService;
-import com.example.services.ProductService;
-import com.example.services.SupplierService;
+import com.example.services.*;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -55,8 +57,14 @@ public class CreateImportBillController {
   @FXML
   private TextField txt_search_product;
   
+  @FXML
+  private ComboBox<Brand> cbb_brand;
+  @FXML
+  private ComboBox<Category> cbb_category;
+  @FXML
+  private ComboBox<String> cbb_price;
+  
   private List<CartInfo> listCart;
-  List<ProductInfo> listProduct;
   private Supplier supplier;
   
   @FXML
@@ -64,26 +72,35 @@ public class CreateImportBillController {
     listCart = new ArrayList<>();
     productlist.prefWrapLengthProperty().bind(product_container.widthProperty());
     product_container.prefWidthProperty().bind(main_container.widthProperty().multiply(0.4));
-    try {
-      setup();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    setup();
   }
   
-  private void setup() throws IOException {
-    ProductService productService = new ProductService();
+  private void setup() {
+    CategoryService categoryService = new CategoryService();
+    BrandService brandService = new BrandService();
+    List<Category> categories = categoryService.getAllCategorys();
+    List<Brand> brands = brandService.getAllBrands();
+    categories.add(0, new Category(0, "Tất cả"));
+    brands.add(0, new Brand(0, "Tất cả"));
     
-    listProduct = productService.getAllProductInfos();
-    for (ProductInfo item : listProduct) {
-      FXMLLoader productComp = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
-      Node node = productComp.load();
-      ProductCardController controller = productComp.getController();
-      controller.setSale(true);
-      controller.setProduct(item);
-      controller.setCreateImportBillController(this);
-      this.productlist.getChildren().add(node);
-    }
+    this.cbb_category.setItems(FXCollections.observableArrayList(categories));
+    this.cbb_brand.setItems(FXCollections.observableArrayList(brands));
+    this.cbb_price.setItems(FXCollections.observableArrayList(
+            "Tất cả",
+            "Dưới 2.000.000",
+            "2.000.000 - 10.000.000",
+            "10.000.000 - 30.000.000",
+            "Trên 30.000.000"
+    ));
+    this.cbb_price.setValue("Tất cả");
+    
+    cbb_category.valueProperty().addListener((obs, oldVal, newVal) -> handleBtnSearchProduct());
+    cbb_brand.valueProperty().addListener((obs, oldVal, newVal) -> handleBtnSearchProduct());
+    cbb_price.valueProperty().addListener((obs, oldVal, newVal) -> handleBtnSearchProduct());
+    
+    ProductService productService = new ProductService();
+    List<ProductInfo> listProduct = productService.getAllProductInfos();
+    renderProduct(listProduct);
   }
   
   public void addProductEngine(int id) {
@@ -165,25 +182,38 @@ public class CreateImportBillController {
   
   public void handleBtnSearchProduct() {
     String keyword = txt_search_product.getText().trim().toLowerCase();
-    this.productlist.getChildren().clear();
+    Category selectedCategory = cbb_category.getValue();
+    int categoryId = (selectedCategory != null && selectedCategory.getCategoryId() > 0) ? selectedCategory.getCategoryId() : -1;
+    Brand selectedBrand = cbb_brand.getValue();
+    int brandId = (selectedBrand != null && selectedBrand.getBrandId() > 0) ? selectedBrand.getBrandId() : -1;
     
-    for (ProductInfo item : listProduct) {
-      if (keyword.isEmpty() ||
-                  item.getProductName().toLowerCase().contains(keyword) ||
-                  String.valueOf(item.getProductId()).contains(keyword)) {
-        try {
-          FXMLLoader productComp = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
-          Node node = productComp.load();
-          ProductCardController controller = productComp.getController();
-          controller.setProduct(item);
-          controller.setCreateImportBillController(this);
-          controller.setCreateBillController(null);
-          this.productlist.getChildren().add(node);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+    String selectedPrice = cbb_price.getValue();
+    double minPrice = -1;
+    double maxPrice = -1;
+    
+    if (selectedPrice != null && !selectedPrice.equals("Tất cả")) {
+      switch (selectedPrice) {
+        case "Dưới 2.000.000":
+          minPrice = 0;
+          maxPrice = 2000000;
+          break;
+        case "2.000.000 - 10.000.000":
+          minPrice = 2000000;
+          maxPrice = 10000000;
+          break;
+        case "10.000.000 - 30.000.000":
+          minPrice = 10000000;
+          maxPrice = 30000000;
+          break;
+        case "Trên 30.000.000":
+          minPrice = 30000000;
+          maxPrice = Double.MAX_VALUE;
+          break;
       }
     }
+    ProductService productService = new ProductService();
+    List<ProductInfo> filteredList = productService.searchProduct(keyword.isEmpty() ? null : keyword, categoryId, brandId, minPrice, maxPrice);
+    renderProduct(filteredList);
     
   }
   
@@ -252,6 +282,25 @@ public class CreateImportBillController {
       e.printStackTrace();
     }
   }
+  
+  public void renderProduct(List<ProductInfo> list) {
+    this.productlist.getChildren().clear();
+    try {
+      for (ProductInfo item : list) {
+        FXMLLoader productComp = new FXMLLoader(getClass().getResource("/com/example/component/card/Product.fxml"));
+        Node node = productComp.load();
+        ProductCardController controller = productComp.getController();
+        controller.setSale(true);
+        controller.setProduct(item);
+        controller.setCreateImportBillController(this);
+        this.productlist.getChildren().add(node);
+      }
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
+    
+  }
+  
 }
   
   

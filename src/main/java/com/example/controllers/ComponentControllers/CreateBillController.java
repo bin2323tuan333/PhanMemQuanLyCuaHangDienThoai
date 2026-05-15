@@ -390,7 +390,7 @@ public class CreateBillController {
     lb_name.setText(customer.getCustomerName());
     lb_phone.setText(customer.getPhone());
     lb_dob.setText(customer.getDob().toString());
-    lb_gender.setText(customer.getGender() ? "Nữ" : "Nam");
+    lb_gender.setText(customer.getGender() ? "Nam" : "Nữ");
     lb_address.setText(customer.getAddress());
   }
   
