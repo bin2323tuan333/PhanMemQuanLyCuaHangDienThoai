@@ -174,6 +174,13 @@ public class CreateBillController {
       ProductService productService = new ProductService();
       ProductInfo productInStock = productService.getProductInfoById(id);
       
+      if (!productInStock.getStatus()) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText("Sản phẩm này đã ngừng kinh doanh, không thể thêm vào hóa đơn!");
+        alert.showAndWait();
+        return;
+      }
+      
       
       if (existingItem != null) {
         if (existingItem.getQuantity() + 1 > productInStock.getStock()) {
@@ -334,6 +341,7 @@ public class CreateBillController {
     }
     BillService billService = new BillService();
     Bill bill = new Bill();
+    bill.setStatus(true);
     bill.setCustomerId(customer.getCustomerId());
     bill.setEmployeeId(AppSection.Instance().getAccount().getEmployeeId());
     

@@ -1,7 +1,6 @@
 package com.example.repositories;
 
 import com.example.DTO.BillInfo;
-import com.example.DTO.RecentBill;
 import com.example.models.Bill;
 import com.example.utils.DBHelper;
 import javafx.scene.chart.XYChart;
@@ -162,25 +161,6 @@ public class BillRepository {
     return count;
   }
   
-  public List<Bill> getAllBills() {
-    List<Bill> bills = new ArrayList<>();
-    String sql = "SELECT * FROM Bill ORDER BY invoice_date DESC";
-    
-    try (Connection conn = DBHelper.Instance().getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-      try (ResultSet rs = pstmt.executeQuery()) {
-        while (rs != null && rs.next()) {
-          Bill bill = new Bill();
-          bill.setFromRS(rs);
-          bills.add(bill);
-        }
-      }
-    } catch (SQLException e) {
-      System.out.println(e.getErrorCode());
-    }
-    return bills;
-  }
-  
   public List<BillInfo> getAllBillInfos() {
     List<BillInfo> list = new ArrayList<>();
     String sql = "SELECT * " +
@@ -225,39 +205,19 @@ public class BillRepository {
     return null;
   }
   
-  public Bill getBillById(int id) {
-    String sql = "SELECT * FROM Bill WHERE bill_id = ?";
-    
-    try (Connection conn = DBHelper.Instance().getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-      pstmt.setInt(1, id);
-      try (ResultSet rs = pstmt.executeQuery()) {
-        if (rs.next()) {
-          Bill bill = new Bill();
-          bill.setFromRS(rs);
-          return bill;
-        }
-        
-      }
-      
-    } catch (SQLException e) {
-      System.out.println(e.getErrorCode());
-    }
-    return null;
-  }
   
   public int addBill(Bill bill) {
-    String sql = "INSERT INTO bill (customer_id, employee_id, invoice_date, total_amount) VALUES (?, ?, NOW(), ?)";
+    String sql = "INSERT INTO bill (customer_id, employee_id, invoice_date, total_amount, status) " +
+                         "VALUES (?, ?, NOW(), ?, ?)";
     
     try (Connection conn = DBHelper.Instance().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-      
       pstmt.setInt(1, bill.getCustomerId());
       pstmt.setInt(2, bill.getEmployeeId());
       pstmt.setDouble(3, bill.getTotalAmount());
+      pstmt.setBoolean(4, bill.getStatus());
       
       int affectedRows = pstmt.executeUpdate();
-      
       if (affectedRows > 0) {
         try (ResultSet rs = pstmt.getGeneratedKeys()) {
           if (rs.next()) {
@@ -275,20 +235,28 @@ public class BillRepository {
   
   public void insertBill(Bill b) {
     if (b == null) return;
-    String sql = "INSERT INTO Bill (invoice_date, total_amount, employee_id, customer_id) " +
-                         "VALUES (?, ?, ?, ?);";
+    String sql = "INSERT INTO Bill (invoice_date, total_amount, employee_id, customer_id, status) " +
+                         "VALUES (?, ?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql,
             b.getInvoiceDate(),
             b.getTotalAmount(),
             b.getEmployeeId(),
-            b.getCustomerId());
+            b.getCustomerId(),
+            b.getStatus());
   }
   
   public void updateBill(Bill b) {
     if (b == null) return;
-    String sql = "UPDATE Bill  SET  invoice_date = ?,  total_amount = ?,  employee_id = ?,  customer_id = ? " +
+    String sql = "UPDATE Bill SET invoice_date = ?, total_amount = ?, employee_id = ?, customer_id = ?, status = ? " +
                          "WHERE bill_id = ?;";
-    DBHelper.Instance().executeUpd(sql, b.getInvoiceDate(), b.getTotalAmount(), b.getEmployeeId(), b.getCustomerId(), b.getBillId());
+    DBHelper.Instance().executeUpd(
+            sql,
+            b.getInvoiceDate(),
+            b.getTotalAmount(),
+            b.getEmployeeId(),
+            b.getCustomerId(),
+            b.getStatus(),
+            b.getBillId());
   }
   
   public void deleteBill(int id) {
@@ -296,33 +264,6 @@ public class BillRepository {
     DBHelper.Instance().executeUpd(sql, id);
   }
   
-  public List<RecentBill> searchBills(String keyword) {
-    List<RecentBill> bills = new ArrayList<>();
-    String sql = "SELECT  b.bill_id,  b.invoice_date,  b.total_amount,  c.full_name AS customer_name,  e.employee_name AS employee_name " +
-                         "FROM Bill b " +
-                         "LEFT JOIN Customer c ON b.customer_id = c.customer_id " +
-                         "LEFT JOIN Employee e ON b.employee_id = e.employee_id " +
-                         "WHERE  b.bill_id LIKE ? OR c.full_name LIKE ? OR e.employee_name LIKE ? OR b.total_amount LIKE ? " +
-                         "ORDER BY b.invoice_date DESC;";
-    try (Connection conn = DBHelper.Instance().getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-      String searchPattern = "%" + keyword + "%";
-      pstmt.setString(1, searchPattern);
-      pstmt.setString(2, searchPattern);
-      pstmt.setString(3, searchPattern);
-      pstmt.setString(4, searchPattern);
-      ResultSet rs = pstmt.executeQuery();
-      while (rs != null && rs.next()) {
-        RecentBill bill = new RecentBill();
-        bill.setFromRS(rs);
-        bills.add(bill);
-      }
-    } catch (SQLException e) {
-      System.out.println(e.getErrorCode());
-    }
-    return bills;
-    
-  }
   
   public double getTotalRevenue() {
     double totalRevenue = 0.0;

@@ -21,14 +21,6 @@ public class Account {
     this.employeeId = employeeId;
   }
   
-  public void setFromRS(ResultSet rs) throws SQLException {
-    this.accountId = rs.getInt("account_id");
-    this.username = rs.getString("username");
-    this.password = rs.getString("password");
-    this.roleId = rs.getInt("role_id");
-    this.employeeId = rs.getInt("employee_id");
-  }
-  
   public int getAccountId() {
     return accountId;
   }

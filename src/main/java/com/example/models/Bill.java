@@ -11,16 +11,18 @@ public class Bill {
   private double totalAmount;
   private int employeeId;
   private int customerId;
+  private boolean status;
   
   public Bill() {
   }
   
-  public Bill(int billId, Date invoiceDate, double totalAmount, int employeeId, int customerId) {
+  public Bill(int billId, Date invoiceDate, double totalAmount, int employeeId, int customerId, boolean status) {
     this.billId = billId;
     this.invoiceDate = invoiceDate;
     this.totalAmount = totalAmount;
     this.employeeId = employeeId;
     this.customerId = customerId;
+    this.status = status;
   }
   
   public void setFromRS(ResultSet rs) throws SQLException {
@@ -29,6 +31,16 @@ public class Bill {
     this.setTotalAmount(rs.getDouble("total_amount"));
     this.setEmployeeId(rs.getInt("employee_id"));
     this.setCustomerId(rs.getInt("customer_id"));
+    this.setStatus(rs.getBoolean("status"));
+  }
+  
+  
+  public boolean getStatus() {
+    return status;
+  }
+  
+  public void setStatus(boolean status) {
+    this.status = status;
   }
   
   public int getBillId() {

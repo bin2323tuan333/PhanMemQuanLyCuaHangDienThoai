@@ -15,6 +15,8 @@ import java.util.List;
 
 public class BillService {
   private BillRepository billRepository;
+  private BillDetailRepository billDetailRepository;
+  private ProductService productService;
   private ImportBillRepository importBillRepository;
   private CustomerRepository customerRepository;
   private EmployeeRepository employeeRepository;
@@ -22,9 +24,25 @@ public class BillService {
   
   public BillService() {
     billRepository = new BillRepository();
+    billDetailRepository = new BillDetailRepository();
     customerRepository = new CustomerRepository();
     employeeRepository = new EmployeeRepository();
     importBillRepository = new ImportBillRepository();
+    productService = new ProductService();
+  }
+  
+  
+  public void returnBill(int id) {
+    try {
+      List<BillDetail> details = billDetailRepository.getBillDetailsByBillID(id);
+      for (var item : details) {
+        int productId = item.getProductId();
+        int refundQuantity = item.getQuantity();
+        productService.increaseStock(productId, refundQuantity);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   

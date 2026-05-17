@@ -9,6 +9,8 @@ import javafx.scene.chart.PieChart;
 import java.util.List;
 
 public class ProductService {
+  
+  
   public List<PieChart.Data> getProductCategoryRatio() {
     ProductRepository productRepository = new ProductRepository();
     return productRepository.getProductCategoryRatio();

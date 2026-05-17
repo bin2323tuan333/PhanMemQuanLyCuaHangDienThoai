@@ -9,6 +9,7 @@ public class Product {
   private String description;
   private double price;
   private int stock;
+  private boolean status;
   
   private int categoryId; // FK -> Category
   private int brandId;    // FK -> Brand
@@ -21,20 +22,31 @@ public class Product {
     this.stock = rs.getInt("stock");
     this.categoryId = rs.getInt("category_id");
     this.brandId = rs.getInt("brand_id");
+    this.status = rs.getBoolean("status");
   }
   
   public Product() {
   }
   
-  public Product(int productId, String productName, String description,
-                 double price, int stock, int categoryId, int brandId) {
+  
+  public Product(int productId, String productName, String description, double price, int stock, boolean status, int categoryId, int brandId) {
     this.productId = productId;
     this.productName = productName;
     this.description = description;
     this.price = price;
     this.stock = stock;
+    this.status = status;
     this.categoryId = categoryId;
     this.brandId = brandId;
+  }
+  
+  
+  public boolean getStatus() {
+    return status;
+  }
+  
+  public void setStatus(boolean status) {
+    this.status = status;
   }
   
   public int getProductId() {

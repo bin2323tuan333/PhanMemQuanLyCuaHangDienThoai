@@ -19,9 +19,13 @@ public class AccountRepository {
       pstmt.setString(1, username);
       try (ResultSet rs = pstmt.executeQuery()) {
         if (rs.next()) {
-          Account acc = new Account();
-          acc.setFromRS(rs);
-          return acc;
+          return new Account(
+                  rs.getInt("account_id"),
+                  rs.getString("username"),
+                  rs.getString("password"),
+                  rs.getInt("role_id"),
+                  rs.getInt("employee_id")
+          );
         }
       }
     } catch (SQLException e) {
@@ -39,9 +43,13 @@ public class AccountRepository {
       
       try (ResultSet rs = pstmt.executeQuery()) {
         if (rs.next()) {
-          Account acc = new Account();
-          acc.setFromRS(rs);
-          return acc;
+          return new Account(
+                  rs.getInt("account_id"),
+                  rs.getString("username"),
+                  rs.getString("password"),
+                  rs.getInt("role_id"),
+                  rs.getInt("employee_id")
+          );
         }
       }
     } catch (SQLException e) {
@@ -60,8 +68,15 @@ public class AccountRepository {
       try (var rs = pstmt.executeQuery()) {
         while (rs != null && rs.next()) {
           Account acc = new Account();
-          acc.setFromRS(rs);
-          list.add(acc);
+          list.add(
+                  new Account(
+                          rs.getInt("account_id"),
+                          rs.getString("username"),
+                          rs.getString("password"),
+                          rs.getInt("role_id"),
+                          rs.getInt("employee_id")
+                  )
+          );
         }
       }
     } catch (SQLException e) {
@@ -77,13 +92,13 @@ public class AccountRepository {
       pstmt.setInt(1, employeeId);
       try (ResultSet rs = pstmt.executeQuery()) {
         if (rs.next()) {
-          Account account = new Account();
-          account.setAccountId(rs.getInt("account_id"));
-          account.setUsername(rs.getString("username"));
-          account.setPassword(rs.getString("password"));
-          account.setRoleId(rs.getInt("role_id"));
-          account.setEmployeeId(rs.getInt("employee_id"));
-          return account;
+          return new Account(
+                  rs.getInt("account_id"),
+                  rs.getString("username"),
+                  rs.getString("password"),
+                  rs.getInt("role_id"),
+                  rs.getInt("employee_id")
+          );
         }
       }
     } catch (SQLException e) {
@@ -117,6 +132,7 @@ public class AccountRepository {
     String sql = "DELETE FROM Account WHERE account_id = ?";
     DBHelper.Instance().executeUpd(sql, accId);
   }
+  
   public int getCurrentAccountId() {
     String sql = "SELECT account_id FROM Account ORDER BY account_id DESC LIMIT 1";
     try (Connection conn = DBHelper.Instance().getConnection();

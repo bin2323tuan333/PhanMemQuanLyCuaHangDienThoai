@@ -140,8 +140,7 @@ public class BillDetailRepository {
   }
   
   public void insertBillDetail(BillDetail bd) {
-    String sql = "INSERT INTO billdetail (bill_id, product_id, quantity, unit_price) " +
-                         "VALUES (?, ?, ?, ?);";
+    String sql = "INSERT INTO billdetail (bill_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql,
             bd.getBillId(),
             bd.getProductId(),
@@ -150,8 +149,7 @@ public class BillDetailRepository {
   }
   
   public void updateBillDetail(BillDetail bd) {
-    String sql = "UPDATE billdetail  SET  bill_id = ?,  product_id = ?,  quantity = ?,  unit_price = ? " +
-                         "WHERE bill_detail_id = ?;";
+    String sql = "UPDATE billdetail  SET  bill_id = ?,  product_id = ?,  quantity = ?,  unit_price = ? WHERE bill_detail_id = ?;";
     DBHelper.Instance().executeUpd(sql,
             bd.getBillId(),
             bd.getProductId(),
@@ -161,14 +159,12 @@ public class BillDetailRepository {
   }
   
   public void deleteBillDetail(int id) {
-    String sql = "DELETE FROM billdetail " +
-                         "WHERE bill_detail_id = ?;";
+    String sql = "DELETE FROM billdetail WHERE bill_detail_id = ?;";
     DBHelper.Instance().executeUpd(sql, id);
   }
   
   public void insertBillDetail(int billId, int productId, int quantity, double price) {
-    String sql = "INSERT INTO billdetail (bill_id, product_id, quantity, unit_price) " +
-                         "VALUES (?, ?, ?, ?);";
+    String sql = "INSERT INTO billdetail (bill_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?);";
     DBHelper.Instance().executeUpd(sql, billId, productId, quantity, price);
   }
 }

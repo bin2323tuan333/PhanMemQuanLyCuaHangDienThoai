@@ -33,9 +33,7 @@ public class CustomerFormController {
   @FXML
   private DatePicker dp_dob;
   private ToggleGroup genderGroup;
-  
   private CustomerInfo customerInfo;
-  
   private Runnable reload;
   
   public void setReload(Runnable reload) {

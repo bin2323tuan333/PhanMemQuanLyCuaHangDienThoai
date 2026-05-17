@@ -150,10 +150,19 @@ public class ProductManagementController {
         Node node = loader.load();
         ProductCardController controller = loader.getController();
         controller.setProduct(item);
+        controller.setReload(this::reload);
         this.product_container.getChildren().add(node);
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+  
+  public void reload() {
+    this.txt_search.setText("");
+    cbb_category.getSelectionModel().selectFirst();
+    cbb_brand.getSelectionModel().selectFirst();
+    cbb_price.setValue("Tất cả");
+    setup();
   }
 }

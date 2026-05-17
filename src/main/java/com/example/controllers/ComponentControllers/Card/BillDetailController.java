@@ -1,13 +1,7 @@
 package com.example.controllers.ComponentControllers.Card;
 
 import com.example.DTO.BillDetailInfo;
-import com.example.DTO.RecentBill;
-import com.example.models.BillDetail;
-import com.example.models.Category;
-import com.example.services.BillService;
-import com.example.services.CategoryService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 

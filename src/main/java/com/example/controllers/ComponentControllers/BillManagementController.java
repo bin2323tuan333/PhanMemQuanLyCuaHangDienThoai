@@ -1,13 +1,9 @@
 package com.example.controllers.ComponentControllers;
 
 import com.example.DTO.BillInfo;
-import com.example.DTO.RecentBill;
-import com.example.controllers.ComponentControllers.Card.BillDetailController;
 import com.example.repositories.BillRepository;
 import com.example.services.BillService;
 import com.example.controllers.ComponentControllers.Card.BillCardController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,10 +13,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BillManagementController {

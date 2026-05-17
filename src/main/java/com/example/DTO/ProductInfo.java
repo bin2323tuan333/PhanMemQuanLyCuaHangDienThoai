@@ -13,9 +13,8 @@ public class ProductInfo {
   private String description;
   private double price;
   private int stock;
+  private boolean status;
   
-  private int categoryId; // FK -> Category
-  private int brandId;    // FK -> Brand
   
   private Brand brand;
   private Category category;
@@ -25,14 +24,13 @@ public class ProductInfo {
   
   }
   
-  public ProductInfo(int productId, String productName, String description, double price, int stock, int categoryId, int brandId, Brand brand, Category category) {
+  public ProductInfo(int productId, String productName, String description, double price, int stock, boolean status, Brand brand, Category category) {
     this.productId = productId;
     this.productName = productName;
     this.description = description;
     this.price = price;
     this.stock = stock;
-    this.categoryId = categoryId;
-    this.brandId = brandId;
+    this.status = status;
     this.brand = brand;
     this.category = category;
   }
@@ -43,6 +41,7 @@ public class ProductInfo {
     this.description = rs.getString("description");
     this.price = rs.getDouble("price");
     this.stock = rs.getInt("stock");
+    this.status = rs.getBoolean("status");
     
     Category category = new Category();
     category.setCategoryId(rs.getInt("category_id"));
@@ -95,20 +94,12 @@ public class ProductInfo {
     this.stock = stock;
   }
   
-  public int getCategoryId() {
-    return categoryId;
+  public boolean getStatus() {
+    return status;
   }
   
-  public void setCategoryId(int categoryId) {
-    this.categoryId = categoryId;
-  }
-  
-  public int getBrandId() {
-    return brandId;
-  }
-  
-  public void setBrandId(int brandId) {
-    this.brandId = brandId;
+  public void setStatus(boolean status) {
+    this.status = status;
   }
   
   public Brand getBrand() {

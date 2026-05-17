@@ -145,9 +145,9 @@
          </Label>
          <Region prefHeight="32.0" prefWidth="240.0" HBox.hgrow="ALWAYS" />
       
-          <Label fx:id="lb_total" prefHeight="25.0" prefWidth="265.0" style="-fx-text-fill: #16a34a; -fx-font-weight: bold;" text="lb_total">
+          <Label fx:id="lb_total" prefHeight="25.0" prefWidth="265.0" text="lb_total" textFill="#20dd20">
               <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
               </font>
           </Label>
       </children>

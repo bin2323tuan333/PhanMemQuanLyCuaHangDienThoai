@@ -29,6 +29,11 @@ public class ProductCardController {
   private CreateBillController createBillController;
   private CreateImportBillController createImportBillController;
   private ProductInfo productInfo;
+  private Runnable reload;
+  
+  public void setReload(Runnable runnable) {
+    this.reload = runnable;
+  }
   
   public void setCreateBillController(CreateBillController createBillController) {
     this.createBillController = createBillController;
@@ -54,6 +59,9 @@ public class ProductCardController {
     this.lb_price.setText(df.format(p.getPrice()) + " VNĐ");
     this.lb_stock.setText("" + p.getStock());
     this.lb_brand.setText(p.getBrand().getBrandName());
+    if (this.productInfo.getStatus() == false) {
+      this.lb_price.setText("Sản phẩm ngừng kinh doanh");
+    }
   }
   
   public void handleClick() {
@@ -66,13 +74,13 @@ public class ProductCardController {
         this.createImportBillController.addProductEngine(this.productId);
         this.createImportBillController.caculate();
       }
-      
     } else {
       try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/Form/ProductForm.fxml"));
         Parent root = loader.load();
         ProductFormController productFormController = loader.getController();
         productFormController.setProductInfo(this.productInfo);
+        productFormController.setReload(reload);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Thêm mới");

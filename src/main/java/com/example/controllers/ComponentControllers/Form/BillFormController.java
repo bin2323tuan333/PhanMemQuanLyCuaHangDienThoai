@@ -11,10 +11,7 @@ import com.example.utils.PdfInvoiceGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -44,6 +41,8 @@ public class BillFormController {
   private TextField txt_name_employee;
   @FXML
   private VBox bill_detail_container;
+  @FXML
+  private Label lb_status;
   
   private BillInfo billInfo;
   private BillRepository bill = new BillRepository();
@@ -61,12 +60,24 @@ public class BillFormController {
   public void setup() {
     this.btn_update.setVisible(false);
     this.btn_update.setManaged(false);
+    lb_status.setText("");
     if (billInfo != null) {
       txt_id.setText("HD_" + String.valueOf(billInfo.getBillId()));
       txt_name_customer.setText(billInfo.getCustomer().getFullName());
       txt_total_price.setText(String.format("%,.0f", billInfo.getTotalAmount()));
       txt_name_employee.setText(billInfo.getEmployee().getFullName());
-      
+      if (billInfo.getStatus()) {
+        lb_status.setText("ĐÃ THANH TOÁN");
+        lb_status.setStyle("-fx-text-fill: #155724; -fx-padding: 6 12; -fx-background-radius: 4; -fx-font-weight: bold; -fx-font-size: 13px;");
+        btn_delete.setText("Hoàn hàng");
+        btn_delete.setVisible(true);
+        btn_delete.setManaged(true);
+      } else {
+        lb_status.setText("ĐÃ HOÀN HÀNG");
+        lb_status.setStyle("-fx-text-fill: #721c24; -fx-padding: 6 12; -fx-background-radius: 4; -fx-font-weight: bold; -fx-font-size: 13px;");
+        btn_delete.setVisible(false);
+        btn_delete.setManaged(false);
+      }
       loadBillDetails();
     }
     if (AppSection.Instance().isEmployee()) {
@@ -126,14 +137,25 @@ public class BillFormController {
   }
   
   public void handleBtnDelete() {
+    BillService billService = new BillService();
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Xác nhận xóa");
+    alert.setTitle("Xác nhận hoàn hàng");
     alert.setHeaderText(null);
-    alert.setContentText("Bạn có chắc chắn muốn xóa hóa đơn này?");
+    alert.setContentText("Bạn có chắc chắn muốn hoàn trả toàn bộ hàng hóa cho hóa đơn này không?");
     
     Optional<ButtonType> result = alert.showAndWait();
     if (result.isPresent() && result.get() == ButtonType.OK) {
-      bill.deleteBill(billInfo.getBillId());
+      Bill refundBill = new Bill();
+      refundBill.setBillId(billInfo.getBillId());
+      refundBill.setCustomerId(billInfo.getCustomer().getCustomerId());
+      refundBill.setEmployeeId(billInfo.getEmployee().getEmployeeId());
+      refundBill.setInvoiceDate(billInfo.getInvoiceDate());
+      refundBill.setTotalAmount(billInfo.getTotalAmount());
+      refundBill.setStatus(false);
+      billService.updateBill(refundBill);
+      
+      billService.returnBill(refundBill.getBillId());
+      
       closeForm();
     }
   }
@@ -165,6 +187,7 @@ public class BillFormController {
   
   private Bill getBillFromForm() {
     Bill bill = new Bill();
+    bill.setStatus(this.billInfo.getStatus());
     bill.setBillId(Integer.parseInt(txt_id.getText()));
     bill.setCustomerId(billInfo.getCustomer().getCustomerId());
     bill.setEmployeeId(billInfo.getEmployee().getEmployeeId());
