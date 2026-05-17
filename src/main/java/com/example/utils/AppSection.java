@@ -1,12 +1,15 @@
 package com.example.utils;
 
 import com.example.models.Account;
+import com.example.services.RoleService;
 
 public class AppSection {
   private static AppSection _instance;
   private Account account;
+  private RoleService roleService;
   
   private AppSection() {
+    roleService = new RoleService();
   }
   
   public static AppSection Instance() {
@@ -17,11 +20,11 @@ public class AppSection {
   }
   
   public boolean isAdmin() {
-    return account.getRoleId() == 2;
+    return roleService.getRoleByID(account.getRoleId()).getRoleName().equals("ADMIN");
   }
   
   public boolean isEmployee() {
-    return account.getRoleId() == 1;
+    return roleService.getRoleByID(account.getRoleId()).getRoleName().equals("EMPLOYEE");
   }
   
   public Account getAccount() {
