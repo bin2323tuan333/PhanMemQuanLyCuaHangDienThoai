@@ -9,6 +9,7 @@ import com.example.controllers.ComponentControllers.Card.ProductCardController;
 import com.example.controllers.ComponentControllers.Form.CustomerFormController;
 import com.example.controllers.ComponentControllers.Form.ProductFormController;
 import com.example.models.Bill;
+import com.example.models.BillDetail;
 import com.example.models.Brand;
 import com.example.models.Category;
 import com.example.repositories.BillDetailRepository;
@@ -360,13 +361,15 @@ public class CreateBillController {
       return;
     }
     
-    BillDetailRepository billDetailService = new BillDetailRepository();
     for (CartInfo item : listCart) {
-      billDetailService.insertBillDetail(
-              billId,
-              item.getProductInfo().getProductId(),
-              item.getQuantity(),
-              item.getProductInfo().getPrice()
+      billService.addBillDetail(
+              new BillDetail(
+                      0,
+                      billId,
+                      item.getProductInfo().getProductId(),
+                      item.getQuantity(),
+                      item.getProductInfo().getPrice()
+              )
       );
     }
     

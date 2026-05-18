@@ -18,15 +18,11 @@ public class BillService {
   private BillDetailRepository billDetailRepository;
   private ProductService productService;
   private ImportBillRepository importBillRepository;
-  private CustomerRepository customerRepository;
-  private EmployeeRepository employeeRepository;
   
   
   public BillService() {
     billRepository = new BillRepository();
     billDetailRepository = new BillDetailRepository();
-    customerRepository = new CustomerRepository();
-    employeeRepository = new EmployeeRepository();
     importBillRepository = new ImportBillRepository();
     productService = new ProductService();
   }
@@ -122,12 +118,12 @@ public class BillService {
     billDetailRepository.deleteBillDetail(id);
   }
   
-  public void addBillDetail(BillDetail billDetailInfo) throws SQLException {
+  public void addBillDetail(BillDetail billDetailInfo) {
     BillDetailRepository billDetailRepository = new BillDetailRepository();
     billDetailRepository.insertBillDetail(billDetailInfo);
   }
   
-  public void updateBillDetail(BillDetail billDetailInfo) throws SQLException {
+  public void updateBillDetail(BillDetail billDetailInfo) {
     BillDetailRepository billDetailRepository = new BillDetailRepository();
     billDetailRepository.updateBillDetail(billDetailInfo);
   }
