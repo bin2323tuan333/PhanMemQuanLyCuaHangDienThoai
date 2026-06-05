@@ -90,6 +90,7 @@ public class BillManagementController {
         BillCardController controller = loader.getController();
         if (controller != null) {
           controller.setData(bill);
+          controller.setReload(this::reload);
         } else {
           System.out.println("Controller NULL!");
         }
@@ -100,4 +101,11 @@ public class BillManagementController {
       }
     }
   }
+  
+  public void reload() {
+    setupDatePickers();
+    List<BillInfo> billInfos = billService.getAllBillInfos();
+    renderBills(billInfos);
+  }
+  
 }

@@ -27,6 +27,12 @@ public class BillCardController {
   @FXML
   private Label lb_total;
   
+  private Runnable reload;
+  
+  public void setReload(Runnable reload) {
+    this.reload = reload;
+  }
+  
   private BillInfo billInfo;
   
   public void setData(BillInfo billInfo) {
@@ -50,6 +56,7 @@ public class BillCardController {
       BillFormController controller = loader.getController();
       if (controller != null && billInfo != null) {
         controller.setBillInfo(billInfo);
+        controller.setReload(reload);
       }
       Stage stage = new Stage();
       stage.setTitle("Chi tiết / Cập nhật hóa đơn");

@@ -26,11 +26,21 @@ public class AccountService {
   }
   
   public void changePassword(String username, String newPass) {
+    if (username == null || username.isEmpty() || newPass == null) {
+      throw new IllegalArgumentException("Username hoặc password không được để trống");
+    }
+    
     AccountRepository accountRepository = new AccountRepository();
     Account acc = accountRepository.getAccountByUsername(username);
+    
+    if (acc == null) {
+      throw new RuntimeException("Tài khoản '" + username + "' không tồn tại");
+    }
+    
     acc.setPassword(newPass);
     accountRepository.updateAccount(acc);
   }
+  
   public int getCurrentAccountId() {
     AccountRepository accountRepository = new AccountRepository();
     return accountRepository.getCurrentAccountId();

@@ -44,6 +44,12 @@ public class BillFormController {
   @FXML
   private Label lb_status;
   
+  private Runnable reload;
+  
+  public void setReload(Runnable reload) {
+    this.reload = reload;
+  }
+  
   private BillInfo billInfo;
   private BillRepository bill = new BillRepository();
   
@@ -80,10 +86,7 @@ public class BillFormController {
       }
       loadBillDetails();
     }
-    if (AppSection.Instance().isEmployee()) {
-      this.btn_delete.setVisible(false);
-      this.btn_delete.setManaged(false);
-    }
+    
   }
   
   public void handleBtnPrint() {
@@ -167,6 +170,9 @@ public class BillFormController {
   private void closeForm() {
     Stage stage = (Stage) txt_id.getScene().getWindow();
     stage.close();
+    if (reload != null) {
+      reload.run();
+    }
   }
   
   public void loadBillDetails() {

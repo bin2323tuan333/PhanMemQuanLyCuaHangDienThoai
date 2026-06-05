@@ -175,6 +175,13 @@ public class CreateBillController {
       ProductService productService = new ProductService();
       ProductInfo productInStock = productService.getProductInfoById(id);
       
+      if (productInStock == null) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("Sản phẩm không tồn tại trong hệ thống!");
+        alert.showAndWait();
+        return;
+      }
+      
       if (!productInStock.getStatus()) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText("Sản phẩm này đã ngừng kinh doanh, không thể thêm vào hóa đơn!");
@@ -302,6 +309,7 @@ public class CreateBillController {
       Parent root = loader.load();
       CustomerFormController customerFormController = loader.getController();
       customerFormController.setCustomerInfo(null);
+      customerFormController.setReload(this::reload);
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
       stage.setTitle("Thêm mới");
@@ -410,11 +418,11 @@ public class CreateBillController {
     this.cartlist.getChildren().clear();
     this.caculate();
     this.customer = null;
-    lb_name.setText("...");
-    lb_phone.setText("...");
-    lb_dob.setText("...");
-    lb_gender.setText("...");
-    lb_address.setText("...");
+    lb_name.setText("");
+    lb_phone.setText("");
+    lb_dob.setText("");
+    lb_gender.setText("");
+    lb_address.setText("");
     txt_search_customer.clear();
     txt_search_product.clear();
     cbb_brand.getSelectionModel().selectFirst();
