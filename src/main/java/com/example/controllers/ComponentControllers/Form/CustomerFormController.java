@@ -75,7 +75,7 @@ public class CustomerFormController {
   
   public void show() {
     if (customerInfo != null) {
-      txt_id.setText(String.valueOf(customerInfo.getCustomerId()));
+      txt_id.setText("KH_" + customerInfo.getCustomerId());
       txt_name.setText(customerInfo.getCustomerName());
       txt_address.setText(customerInfo.getAddress());
       txt_phone.setText(customerInfo.getPhone());

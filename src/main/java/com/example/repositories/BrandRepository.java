@@ -29,6 +29,24 @@ public class BrandRepository {
     return list;
   }
   
+  public Brand findByName(String name) {
+    String sql = "SELECT * FROM Brand WHERE brand_name = ?";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setString(1, name);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs.next()) {
+          Brand brand = new Brand();
+          brand.setFromRS(rs);
+          return brand;
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getErrorCode());
+    }
+    return null;
+  }
+  
   public Brand getBrandById(int id) {
     String sql = "SELECT * FROM Brand WHERE brand_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
@@ -65,6 +83,7 @@ public class BrandRepository {
                          "WHERE brand_id = ?;";
     DBHelper.Instance().executeUpd(sql, id);
   }
+  
   public boolean hasProduct(int brandId) {
     String sql = "SELECT COUNT(*) FROM product WHERE brand_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();

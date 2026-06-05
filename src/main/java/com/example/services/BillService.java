@@ -59,14 +59,6 @@ public class BillService {
     return billRepository.getAllBillInfos();
   }
   
-  public List<BillDetailInfo> getAllBillDetailInfos() {
-    BillDetailRepository billDetailRepository = new BillDetailRepository();
-    return billDetailRepository.getAllBillDetailInfos();
-  }
-  
-  public BillInfo getBillInfoByID(int id) {
-    return billRepository.getBillInfoByID(id);
-  }
   
   public List<BillInfo> filterBills(String keyword, LocalDate fromDate, LocalDate toDate) {
     Date from = (fromDate != null) ? Date.valueOf(fromDate) : null;

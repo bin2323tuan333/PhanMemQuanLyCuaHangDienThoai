@@ -23,8 +23,6 @@ public class AdminSideBarController {
   @FXML
   private Button btn_supplier;
   @FXML
-  private Button btn_category;
-  @FXML
   private Button btn_import;
   @FXML
   private Button btn_customer;
@@ -100,20 +98,6 @@ public class AdminSideBarController {
     setActiveButton(btn_import);
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/ImportBillManagement.fxml"));
-      Node page = loader.load();
-      var controller = loader.getController();
-      mainController.getMainScrollPane().setContent(page);
-      if (topBarController != null)
-        topBarController.setTitle(currentActiveButton.getText());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  public void handleBtnCategory() {
-    setActiveButton(btn_category);
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/component/CategoryManagement.fxml"));
       Node page = loader.load();
       var controller = loader.getController();
       mainController.getMainScrollPane().setContent(page);

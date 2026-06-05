@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -22,7 +23,10 @@
             <children>
                 <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
                     <children>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../image/wallet.png" />
+                     </image></ImageView>
                         <Label fx:id="totalRevenue" text="0 VNĐ" textFill="#1a237e">
                             <font>
                                 <Font name="System Bold" size="24.0" />
@@ -37,7 +41,10 @@
                 </VBox>
                 <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
                     <children>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../image/box%20(1).png" />
+                     </image></ImageView>
                         <Label fx:id="totalOrders" text="0" textFill="#1a237e">
                             <font>
                                 <Font name="System Bold" size="24.0" />
@@ -52,7 +59,10 @@
                 </VBox>
                 <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
                     <children>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../image/shopping-bag.png" />
+                     </image></ImageView>
                         <Label fx:id="avgOrderValue" text="0 VNĐ" textFill="#1a237e">
                             <font>
                                 <Font name="System Bold" size="24.0" />
@@ -67,7 +77,10 @@
                 </VBox>
                 <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
                     <children>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../image/users%20(1).png" />
+                     </image></ImageView>
                         <Label fx:id="customerGrowth" text="0" textFill="#1a237e">
                             <font>
                                 <Font name="System Bold" size="24.0" />

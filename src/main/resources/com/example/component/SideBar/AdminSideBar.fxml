@@ -106,18 +106,6 @@
                 <Font size="22.0" />
             </font>
         </Button>
-        <Button fx:id="btn_category" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="332.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnCategory" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../../css/sidebar.css" text="Danh mục">
-            <graphic>
-                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../image/server.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-            <font>
-                <Font size="22.0" />
-            </font>
-        </Button>
 
         <Button fx:id="btn_setting" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="436.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBtnSetting" style="-fx-background-color: transparent;" styleClass="sidebar-item" stylesheets="@../../../../css/sidebar.css" text="Cài đặt">
             <graphic>

@@ -62,6 +62,8 @@ public class ProductFormController {
     List<Brand> brands = brandService.getAllBrands();
     cbb_category.setItems(FXCollections.observableArrayList(categories));
     cbb_brand.setItems(FXCollections.observableArrayList(brands));
+    cbb_brand.setEditable(true);
+    cbb_category.setEditable(true);
   }
   
   
@@ -156,7 +158,6 @@ public class ProductFormController {
       updatedProduct.setStatus(!productInfo.getStatus());
       productService.updateProduct(updatedProduct);
       closeForm();
-      
     }
   }
   
@@ -167,24 +168,41 @@ public class ProductFormController {
   }
   
   private Product getProductDataFromForm() {
+    BrandService brandService = new BrandService();
+    CategoryService categoryService = new CategoryService();
     try {
       String name = txt_name.getText().trim();
       String priceText = txt_price.getText().replace(".", "").trim();
       String stockText = txt_stock.getText().trim();
       String description = txt_description.getText().trim();
       
-      Category category = cbb_category.getValue();
-      Brand brand = cbb_brand.getValue();
+      Category category = null;
+      Object catValue = cbb_category.getValue();
+      if (catValue instanceof Category) {
+        category = (Category) catValue;
+      }
+      String categoryInput = cbb_category.getEditor().getText().trim();
       
-      if (category == null || brand == null) {
-        System.out.println("Lỗi: Phải chọn đầy đủ Category, Brand!");
+      Brand brand = null;
+      Object brandValue = cbb_brand.getValue();
+      if (brandValue instanceof Brand) {
+        brand = (Brand) brandValue;
+      }
+      String brandInput = cbb_brand.getEditor().getText().trim();
+      
+      if ((category == null && categoryInput.isEmpty()) || (brand == null && brandInput.isEmpty())) {
+        System.out.println("Lỗi: Phải chọn hoặc nhập Category, Brand!");
         return null;
       }
       
-      if (name.isEmpty() || priceText.isEmpty() || stockText.isEmpty()) {
+      if (stockText.isEmpty()) {
+        stockText = "0";
+      }
+      if (name.isEmpty() || priceText.isEmpty()) {
         System.out.println("Lỗi: Không được để trống thông tin text!");
         return null;
       }
+      
       
       double price = Double.parseDouble(priceText);
       int stock = Integer.parseInt(stockText);
@@ -194,8 +212,23 @@ public class ProductFormController {
       p.setPrice(price);
       p.setStock(stock);
       p.setDescription(description);
-      p.setCategoryId(category.getCategoryId());
-      p.setBrandId(brand.getBrandId());
+      
+      int finalCategoryId = 0;
+      if (category != null) {
+        finalCategoryId = category.getCategoryId();
+      } else {
+        finalCategoryId = categoryService.getOrInsertCategory(categoryInput);
+      }
+      p.setCategoryId(finalCategoryId);
+      
+      int finalBrandId = 0;
+      if (brand != null) {
+        finalBrandId = brand.getBrandId();
+      } else {
+        finalBrandId = brandService.getOrInsertNewBrand(brandInput);
+      }
+      p.setBrandId(finalBrandId);
+      
       if (this.productInfo == null) p.setStatus(true);
       else {
         p.setStatus(this.productInfo.getStatus());
@@ -212,6 +245,7 @@ public class ProductFormController {
   private void closeForm() {
     Stage stage = (Stage) txt_id.getScene().getWindow();
     stage.close();
-    reload.run();
+    if (reload != null)
+      reload.run();
   }
 }

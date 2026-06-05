@@ -29,6 +29,25 @@ public class CategoryRepository {
     return list;
   }
   
+  public Category findByName(String categoryName) {
+    String sql = "SELECT * FROM Category WHERE category_name = ?";
+    try (Connection conn = DBHelper.Instance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+      pstmt.setString(1, categoryName);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs != null && rs.next()) {
+          Category category = new Category();
+          category.setFromRS(rs);
+          return category;
+        }
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getErrorCode());
+    }
+    return null;
+  }
+  
+  
   public Category getCategoryByID(int id) {
     String sql = "SELECT * FROM Category WHERE category_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
@@ -67,6 +86,7 @@ public class CategoryRepository {
                          "WHERE category_id = ?;";
     DBHelper.Instance().executeUpd(sql, id);
   }
+  
   public boolean hasProduct(int categoryId) {
     String sql = "SELECT COUNT(*) FROM product WHERE category_id = ?";
     try (Connection conn = DBHelper.Instance().getConnection();
