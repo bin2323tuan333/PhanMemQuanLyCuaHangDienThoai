@@ -18,6 +18,8 @@ import java.util.List;
 
 public class ImportBillFormController {
   @FXML
+  private Button btn_delete;
+  @FXML
   private TextField txt_id;
   @FXML
   private TextField txt_name_supplier;
@@ -51,7 +53,8 @@ public class ImportBillFormController {
       txt_name_supplier.setText(this.importBillInfo.getSupplier().getName() + "");
       txt_total_price.setText("" + String.format("%,.0f", this.importBillInfo.getTotalAmount()));
     }
-    
+    btn_delete.setVisible(false);
+    btn_delete.setManaged(false);
     loadImportBillDetails();
   }
   

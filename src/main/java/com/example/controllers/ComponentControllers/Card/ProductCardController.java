@@ -60,7 +60,7 @@ public class ProductCardController {
     this.lb_stock.setText("" + p.getStock());
     this.lb_brand.setText(p.getBrand().getBrandName());
     if (this.productInfo.getStatus() == false) {
-      this.lb_price.setText("Sản phẩm ngừng kinh doanh");
+      this.lb_price.setText("Ngừng kinh doanh");
     }
   }
   
