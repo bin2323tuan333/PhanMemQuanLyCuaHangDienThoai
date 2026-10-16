@@ -29,8 +29,8 @@ Hệ thống giải quyết bài toán quản lý kho phức tạp đặc thù c
 
 ## 4. Thành viên tham gia
 1. **Phạm Quốc Tuấn** - Nhóm trưởng
-   * Phụ trách: quản lý tiến độ, phụ trách phần backend.
+   * Phụ trách: quản lý tiến độ, phụ trách phần backend, frontend trang bán hàng và xem thông tin cá nhân.
 2. **Ngô Văn Việt** - Thành viên
-   * Phụ trách: thiết kế cơ sở dữ liệu, database.
+   * Phụ trách: thiết kế cơ sở dữ liệu, database, frontend.
 3. **Chasina Khamalay** - Thành viên
    * Phụ trách: phân tích và thiết kế các module, sơ đồ tuần tự, hoạt động.
