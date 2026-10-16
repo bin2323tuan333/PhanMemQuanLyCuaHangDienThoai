@@ -22,7 +22,9 @@ Hệ thống giải quyết bài toán quản lý kho phức tạp đặc thù c
 
 ## 3. Công nghệ sử dụng
 **Frontend**: Java FXML
+
 **Backend**: Java
+
 **Database**: MySQL
 
 
