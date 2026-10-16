@@ -18,7 +18,6 @@ Hệ thống giải quyết bài toán quản lý kho phức tạp đặc thù c
   * Thống kê các sản phẩm bán chạy và tình trạng tồn kho.
 **Quản lý sản phẩm**
   * Lưu trữ thông tin khách hàng và lịch sử mua hàng.
-  * 
 
 ## 3. Công nghệ sử dụng
 **Frontend**: Java FXML
